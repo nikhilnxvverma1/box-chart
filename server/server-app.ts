@@ -19,8 +19,8 @@ export class ServerApp {
         // Templating engine will NOT be used. All routing is done in angular 2
         // this._app.set('views',path.join(__dirname,'../','views'));
 		// this._app.set('view engine','jade');
-
-        this._app.listen(3000); //TODO normalize ports by environment variables
+        
+        this._app.listen(3000); //TODO normalize ports by environment variables        
     }
 
     private _homePage(req: express.Request, res: express.Response) {
