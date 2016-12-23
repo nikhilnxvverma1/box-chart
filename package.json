@@ -1,12 +1,10 @@
 {
   "name": "box-chart",
   "version": "0.1.0",
-  "description": "A semantic based software diagramming tool that is both minimal and intuitive",
+  "description": "A semantics aware software diagramming tool that is both minimal and intuitive",
   "scripts": {
     "start": "gulp",
-    "webpack-only":"webpack --config config/webpack.dev.js",
-    "webpack-dev": "webpack-dev-server --inline --hot --progress --port 3000 --config config/webpack.dev.js",
-    "without-gulp": "tsc && concurrently \"tsc -w\" \"lite-server\" ",
+    "webpack-dev": "webpack --watch --config config/webpack.dev.js",
     "e2e": "tsc && concurrently \"http-server -s\" \"protractor protractor.config.js\" --kill-others --success first",
     "lint": "tslint ./app/**/*.ts -t verbose",
     "lite": "lite-server",
@@ -17,7 +15,7 @@
     "tsc:w": "tsc -w"
   },
   "keywords": [],
-  "author": "nikhilnxvverma1",
+  "author": "Nikhil Verma",
   "dependencies": {
     "@angular/common": "~2.4.0",
     "@angular/compiler": "~2.4.0",
@@ -67,12 +65,12 @@
     "protractor": "~4.0.14",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.4",
+    "sass-loader": "^4.1.1",
     "style-loader": "^0.13.1",
     "tslint": "^3.15.1",
     "typescript": "~2.0.10",
     "typings": "^2.1.0",
     "webpack": "^1.14.0",
-    "webpack-dev-server": "^1.16.2",
     "webpack-merge": "^2.0.0"
   },
   "repository": {}

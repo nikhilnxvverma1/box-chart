@@ -10,8 +10,8 @@ var sourcemaps=require('gulp-sourcemaps');
 var paths = {
   'src':['package.json'],
   'style': {
-    all: './client/static-resources/sass/**/*.scss',
-    output: './client/static-resources/css'
+    all: './client/public/sass/**/*.scss',
+    output: './client/public/css'
   },
   'typescript':{
 	  client:{
@@ -29,21 +29,24 @@ var paths = {
   }
 };
 
+//watches sass files and compiles on change
 gulp.task('watch:sass', function () {
   gulp.watch(paths.style.all, ['sass']);
 });
 
+//compiles all sass files defined under client/public/sass
 gulp.task('sass', function(){
   gulp.src(paths.style.all)
       .pipe(sass().on('error', sass.logError))
       .pipe(gulp.dest(paths.style.output));
 });
 
-gulp.task('watch:typescript',function(){
-		gulp.watch(paths.typescript.client.src,['client-typescript']);
-  	gulp.watch(paths.typescript.server.src,['server-typescript']);
+//watches client typescript files and compiles on change (DEPRECATED, instead, its done using webpack)
+gulp.task('watch:client-typescript',function(){
+	gulp.watch(paths.typescript.client.src,['client-typescript']);  	
 });
 
+//compiles typescript files and stores them in a 'transpiled' folder (DEPRECATED, instead, its done using webpack)
 gulp.task('client-typescript',function(){
 	
 	var tsOptionsClient={
@@ -64,42 +67,34 @@ gulp.task('client-typescript',function(){
         .pipe(gulp.dest(paths.typescript.client.outputJavascriptDir));
 });
 
+//watches server typescript files and compiles on change
+gulp.task('watch:server-typescript',function(){		
+  	gulp.watch(paths.typescript.server.src,['server-typescript']);
+});
+
+//compiles typescript files and stores them in a 'transpiled' folder
 gulp.task('server-typescript',function(){
 
 	var tsProject = ts.createProject(path.resolve('./server/tsconfig.json'));
-	// var tsResult = gulp.src([
-  //       'server/**/*.ts',
-  //       '!server/typings/browser/**/*.ts',
-  //       '!server/typings/browser.d.ts'
-  //   ])
-  //       .pipe(sourcemaps.init())
-  //       .pipe(ts(tsProject))
-  //   return tsResult.js
-  //       .pipe(sourcemaps.write())
-  //       .pipe(gulp.dest(path.resolve('./server')));
-
-	// var tsOptionsServer={
-	// 	noImplicitAny: false,
-	// 	target:'es6',
-	// 	module:'commonjs',
-	// 	moduleResolution:'node',
-	// 	experimentalDecorators:true,
-	// 	emitDecoratorMetadata:true,	
-	// 	rootDir:paths.typescript.server.rootTypescriptDir,
-	// 	outDir:paths.typescript.server.outputJavascriptDir
-	// };
-
     return gulp.src(paths.typescript.server.src)
         .pipe(sourcemaps.init())
-        .pipe(ts(tsProject))
+        .pipe(tsProject())
         .pipe(sourcemaps.write(paths.typescript.server.relativeSourcemaps))
         .pipe(gulp.dest(paths.typescript.server.outputJavascriptDir));
 });
 
-gulp.task('run:server',shell.task('node server/transpiled/index.js'));
+//builds the client codebase for production
+gulp.task('prod:client',shell.task('webpack --config config/webpack.prod.js'));
+
+//builds and watches client for development environment using webpack
+gulp.task('run:client',shell.task('webpack --watch --config config/webpack.dev.js'));
+
+//server: transpiles typescript, watches ts files and launches the server
+gulp.task('start:server',shell.task('node server/transpiled/index.js'));
+gulp.task('run:server',['server-typescript','watch:server-typescript','start:server']);
 
 gulp.task('info',function(){	
 	console.log("If this is the very first run, expect a delay in the page load (because .ts files haven't transpiled yet)");
 });
 
-gulp.task('default',['client-typescript','server-typescript','sass','watch:sass','watch:typescript','run:server','info']);
+gulp.task('default',['run:client','run:server']);
