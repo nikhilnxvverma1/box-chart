@@ -29,12 +29,12 @@ var paths = {
   }
 };
 
-//watches sass files and compiles on change
+//watches sass files and compiles on change (DEPRECATED, done using webpack)
 gulp.task('watch:sass', function () {
   gulp.watch(paths.style.all, ['sass']);
 });
 
-//compiles all sass files defined under client/public/sass
+//compiles all sass files defined under client/public/sass (DEPRECATED, done using webpack)
 gulp.task('sass', function(){
   gulp.src(paths.style.all)
       .pipe(sass().on('error', sass.logError))
