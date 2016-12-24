@@ -5,9 +5,5 @@ import { Component } from '@angular/core';
   templateUrl: './views/app.component.html',
 })
 export class AppComponent  { 
-  name = 'Angular 2.4'; 
-
-  private _doSomethinWithSnap(){
-      
-  }
+  name = 'Angular 2.4';   
 }

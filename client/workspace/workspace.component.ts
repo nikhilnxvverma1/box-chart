@@ -1,13 +1,14 @@
 import { Component } from '@angular/core';
-import { ArtboardComponent } from './artboard.component';
-import { SidebarComponent } from './sidebar.component';
-import { AreaComponent } from './area.component';
-
+import { TransformService,Point } from '../service/transform.service';
 
 @Component({
-  selector: 'workspace',
-  templateUrl: './views/workspace.component.html',
+    selector: 'workspace',
+    templateUrl: './views/workspace.component.html',
 })
 export class WorkspaceComponent  {
-	
+
+    constructor(private transformService:TransformService){
+      console.log("Workspace instantiated");
+      console.log("p="+this.transformService.toModelSpace(new Point(43,54)));
+    }
 }

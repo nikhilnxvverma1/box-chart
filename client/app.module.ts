@@ -6,6 +6,10 @@ import { LoginComponent }  from './login.component';
 import { SignupComponent }  from './signup.component';
 import { DocumentListComponent }  from './document-list.component';
 import { WorkspaceComponent } from './workspace/workspace.component';
+import { ArtboardComponent } from './workspace/artboard.component';
+import { SidebarComponent } from './workspace/sidebar.component';
+import { AreaComponent } from './workspace/area.component';
+import { TransformService } from './service/transform.service';
 
 const MyRoutes=RouterModule.forRoot([
     {path:'',component:LoginComponent},
@@ -24,9 +28,13 @@ const MyRoutes=RouterModule.forRoot([
          LoginComponent,
          SignupComponent,
          DocumentListComponent,
-         WorkspaceComponent
+         WorkspaceComponent,
+         SidebarComponent,
+         ArtboardComponent,
+         AreaComponent
          ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+    providers:[TransformService],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }
