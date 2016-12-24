@@ -1,4 +1,5 @@
-<div id="sidebar">
+<div id="sidebar" [@sidebarOpen]="open?'open':'close'">
 	<h2>sidebar</h2>
+	<i class="ms-Icon ms-Icon--Cancel" aria-hidden="true" (click)="open=false"></i>
 	
 </div>

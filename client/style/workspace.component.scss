@@ -1,0 +1,14 @@
+#menu-controls{
+	position: absolute;
+	padding: 0px;
+	top:10px;
+	li{
+		color:blue;
+		cursor:pointer;
+		display: inline;
+		list-style: none;
+	}
+	li:hover{
+		color:darkblue;
+	}
+}

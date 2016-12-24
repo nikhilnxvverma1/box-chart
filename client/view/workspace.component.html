@@ -1,2 +1,6 @@
-<h1>TODO workspace</h1>
 <sidebar></sidebar>
+<ul id="menu-controls" [@shiftMenuControls]="sidebar.open?'shifted':'unshifted'">
+	<li (click)=toggleSidebar()>Menu</li>
+	<li>Area</li>
+	<li>Overview</li>
+</ul>
