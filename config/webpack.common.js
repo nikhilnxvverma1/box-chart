@@ -30,18 +30,24 @@ module.exports = {
       },
       {
         test: /\.css$/,
-        exclude: helpers.root('client', 'view'),
+        exclude: helpers.root('client', 'style'),
         loader: ExtractTextPlugin.extract('style', 'css?sourceMap')
       },
       {
         test: /\.css$/,
-        include: helpers.root('client', 'views'),
+        include: helpers.root('client', 'style'),
         loader: 'raw'
+      },      
+      {
+        test: /\.scss$/,
+        exclude: helpers.root('client', 'style'),
+        loaders: ["style-loader", "css-loader", "sass-loader"]
       },
       {
         test: /\.scss$/,
-        loaders: ["style-loader", "css-loader", "sass-loader"]
-      }
+        include: helpers.root('client', 'style'),
+        loaders: ['raw-loader', 'sass-loader'] 
+      },
     ]
   },
 

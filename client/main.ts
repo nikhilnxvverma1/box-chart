@@ -1,6 +1,6 @@
 import { platformBrowserDynamic } from '@angular/platform-browser-dynamic';
 
 import { AppModule } from './app.module';
-import './public/sass/my-styles.scss';
+import './global.scss';
 
 platformBrowserDynamic().bootstrapModule(AppModule);

@@ -1,14 +1,14 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { AppComponent }  from './app.component';
-import { LoginComponent }  from './login.component';
-import { SignupComponent }  from './signup.component';
-import { DocumentListComponent }  from './document-list.component';
-import { WorkspaceComponent } from './workspace/workspace.component';
-import { ArtboardComponent } from './workspace/artboard.component';
-import { SidebarComponent } from './workspace/sidebar.component';
-import { AreaComponent } from './workspace/area.component';
+import { AppComponent }  from './component/app.component';
+import { LoginComponent }  from './component/login.component';
+import { SignupComponent }  from './component/signup.component';
+import { DocumentListComponent }  from './component/document-list.component';
+import { WorkspaceComponent } from './component/workspace.component';
+import { ArtboardComponent } from './component/artboard.component';
+import { SidebarComponent } from './component/sidebar.component';
+import { AreaComponent } from './component/area.component';
 import { TransformService } from './service/transform.service';
 
 const MyRoutes=RouterModule.forRoot([
