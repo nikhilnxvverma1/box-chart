@@ -10,6 +10,7 @@ import { ArtboardComponent } from './component/artboard.component';
 import { SidebarComponent } from './component/sidebar.component';
 import { AreaComponent } from './component/area.component';
 import { TransformService } from './service/transform.service';
+import { FocusDirective } from './directive/focus.directive';
 
 const MyRoutes=RouterModule.forRoot([
     {path:'',component:LoginComponent},
@@ -24,6 +25,7 @@ const MyRoutes=RouterModule.forRoot([
         MyRoutes
      ],
     declarations: [
+         FocusDirective,
          AppComponent,
          LoginComponent,
          SignupComponent,

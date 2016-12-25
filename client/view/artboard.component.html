@@ -2,7 +2,11 @@
  [style.width]="massiveArea.width+'px'" 
  [style.height]="massiveArea.height+'px'" 
  [style.left]="massiveArea.x+'px'" 
- [style.top]="massiveArea.y+'px'">
+ [style.top]="massiveArea.y+'px'"
+ (mousedown)="mousedownEvent.emit($event)"
+ (mousemove)="mousemoveEvent.emit($event)"
+ (mouseup)="mouseupEvent.emit($event)"
+ >
 	<h1 id="starter-tip"
 	[style.left]="massiveArea.width/2"
 	[style.top]="massiveArea.height/2"

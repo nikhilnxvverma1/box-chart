@@ -1,5 +1,15 @@
-<div id="container" (keydown)="keydown($event)">
-	<artboard></artboard>
+<div id="container" 
+	[focus]="true"
+	(window:keydown)="keydown($event)"
+	(window:keyup)="keyup($event)"
+	(window:resize)="resize($event)"
+	[style.cursor]="windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'"
+	>
+	<artboard 
+		(mousedownEvent)="mousedown($event)"
+		(mousemoveEvent)="mousemove($event)"
+		(mouseupEvent)="mouseup($event)"
+	></artboard>
 	<sidebar></sidebar>
 	<ul id="menu-controls" [@shiftMenuControls]="sidebar.open?'shifted':'unshifted'">
 		<li (click)=toggleSidebar()>Menu</li>

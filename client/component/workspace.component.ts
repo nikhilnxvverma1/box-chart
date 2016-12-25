@@ -1,8 +1,10 @@
-import { Component,ViewChild } from '@angular/core';
+import { Component,ViewChild,OnInit } from '@angular/core';
 import { animate,style,trigger,transition,state } from '@angular/core';
 import { TransformService,Point,Rect } from '../service/transform.service';
 import { SidebarComponent } from './sidebar.component';
 import { ArtboardComponent } from './artboard.component';
+
+const SpaceKey=32;
 
 @Component({
     selector: 'workspace',
@@ -21,10 +23,16 @@ import { ArtboardComponent } from './artboard.component';
         ])
     ]
 })
-export class WorkspaceComponent{
+export class WorkspaceComponent implements OnInit{
 
     //moving window is a virtual rect that moves across the massive area of the artboard
     private movingWindow:Rect;
+    private windowMovementAllowed=false;//allowed only when space is held
+    private dragEntered=false;
+    private startX=0;
+    private startY=0;
+    private lastX=0;
+    private lastY=0;
 
     @ViewChild(SidebarComponent)
     private sidebar:SidebarComponent;
@@ -32,17 +40,82 @@ export class WorkspaceComponent{
     @ViewChild(ArtboardComponent)
     private artboard:ArtboardComponent;    
 
-    constructor(private transformService:TransformService){
+    constructor(private transformService:TransformService){}
 
-      //get the width and height of the device window and get the 
-      this.movingWindow=new Rect(0,0,window.innerWidth,window.outerHeight);
+    ngOnInit(){
+        //'window' here refers to the window object
+
+        //get the width and height of the 'device' window and get the 
+        this.movingWindow=new Rect(
+          this.artboard.massiveArea.width/2-window.innerWidth/2,
+          this.artboard.massiveArea.height/2-window.innerHeight/2,
+          window.innerWidth,
+          window.outerHeight);
+        this.positionArtboardBasis(this.movingWindow);
     }
 
     toggleSidebar(){
         this.sidebar.open=!this.sidebar.open;
     }
 
-    keydown(event:Event){
-        console.log("key held down");
+    positionArtboardBasis(frame:Rect){
+        this.artboard.massiveArea.x=-frame.x;
+        this.artboard.massiveArea.y=-frame.y;
+        this.movingWindow.x=frame.x;
+        this.movingWindow.y=frame.y;
+    }
+
+    keydown(event:KeyboardEvent){
+        if(event.keyCode==SpaceKey){
+            this.windowMovementAllowed=true;
+        }
+    }
+
+    keyup(event:KeyboardEvent){
+        if(event.keyCode==SpaceKey){
+            this.windowMovementAllowed=false;
+        }
+    }
+
+    mousedown(event:MouseEvent){
+        this.dragEntered=true;
+        this.startX=event.clientX;
+        this.startY=event.clientY;
+        this.lastX=event.clientX;
+        this.lastY=event.clientY;
+    }
+
+    mousemove(event:MouseEvent){
+        var dx=event.clientX-this.lastX;
+        var dy=event.clientY-this.lastY;
+        if(this.dragEntered && this.windowMovementAllowed){
+            
+            //we inverse the differences because the gesture 'grabs' and pulls the artboard in the other direction
+            dx*=-1;
+            dy*=-1;
+
+            if(this.movingWindow.x+dx >= this.artboard.massiveArea.x && 
+                this.movingWindow.x+dx <= this.artboard.massiveArea.x+this.artboard.massiveArea.width){
+                this.movingWindow.x+=dx;
+            }
+
+            if(this.movingWindow.y+dy >= this.artboard.massiveArea.y && 
+                this.movingWindow.y+dy <= this.artboard.massiveArea.y+this.artboard.massiveArea.height){
+                this.movingWindow.y+=dy;
+            }
+            this.positionArtboardBasis(this.movingWindow);
+        }
+        this.lastX=event.clientX;
+        this.lastY=event.clientY;
+    }
+
+    mouseup(event:MouseEvent){
+        this.dragEntered=false;
+    }
+
+    resize(event:Event){
+        console.log("Window resize changing moving window size");
+        this.movingWindow.width=window.innerWidth;//TODO what if the scale is different?
+        this.movingWindow.height=window.innerHeight;
     }
 }
