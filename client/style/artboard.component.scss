@@ -1,0 +1,14 @@
+#massive-area{
+	position: absolute;	
+	// -webkit-transform: translate(-50%, -50%); 
+	background-color: black;
+	background-image: -moz-repeating-linear-gradient(-45deg, transparent, transparent 25px, rgba(255,255,255,1) 25px, rgba(255,255,255,1) 50px);
+	background-image: -webkit-repeating-linear-gradient(-45deg, transparent, transparent 25px, rgba(255,255,255,1) 25px, rgba(255,255,255,1) 50px);
+	background-image: -o-repeating-linear-gradient(-45deg, transparent, transparent 25px, rgba(255,255,255,1) 25px, rgba(255,255,255,1) 50px);
+	background-image: -ms-repeating-linear-gradient(-45deg, transparent, transparent 25px, rgba(255,255,255,1) 25px, rgba(255,255,255,1) 50px);
+	background-image: repeating-linear-gradient(-45deg, transparent, transparent 25px, rgba(255,255,255,1) 25px, rgba(255,255,255,1) 50px);
+	#starter-tip{
+		position: absolute;
+		color:orange;
+	}
+}

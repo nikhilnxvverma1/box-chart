@@ -1,6 +1,9 @@
-<sidebar></sidebar>
-<ul id="menu-controls" [@shiftMenuControls]="sidebar.open?'shifted':'unshifted'">
-	<li (click)=toggleSidebar()>Menu</li>
-	<li>Area</li>
-	<li>Overview</li>
-</ul>
+<div id="container" (keydown)="keydown($event)">
+	<artboard></artboard>
+	<sidebar></sidebar>
+	<ul id="menu-controls" [@shiftMenuControls]="sidebar.open?'shifted':'unshifted'">
+		<li (click)=toggleSidebar()>Menu</li>
+		<li>Area</li>
+		<li>Overview</li>
+	</ul>
+</div>
