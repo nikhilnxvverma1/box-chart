@@ -1,5 +1,5 @@
 import { Component,Output,EventEmitter } from '@angular/core';
-import { Rect } from '../service/transform.service';
+import { Rect } from '../model/geometry';
 
 export const ArtboardWidth=3200;
 export const ArtboardHeight=(3/2)*ArtboardWidth;
