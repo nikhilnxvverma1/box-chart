@@ -1,6 +1,6 @@
 import { Component,ViewChild,OnInit } from '@angular/core';
 import { animate,style,trigger,transition,state } from '@angular/core';
-import { TransformService } from '../service/transform.service';
+import { TransformService } from '../utility/transform.service';
 import { Point,Rect } from '../model/geometry';
 import { SidebarComponent } from './sidebar.component';
 import { ArtboardComponent } from './artboard.component';

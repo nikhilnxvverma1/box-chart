@@ -9,7 +9,7 @@ import { WorkspaceComponent } from './component/workspace.component';
 import { ArtboardComponent } from './component/artboard.component';
 import { SidebarComponent } from './component/sidebar.component';
 import { AreaComponent } from './component/area.component';
-import { TransformService } from './service/transform.service';
+import { TransformService } from './utility/transform.service';
 import { FocusDirective } from './directive/focus.directive';
 
 const MyRoutes=RouterModule.forRoot([
