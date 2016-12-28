@@ -1,6 +1,7 @@
 import { Component,Input } from '@angular/core';
 import { animate,trigger,state,style,transition } from '@angular/core';
 import { Rect } from '../model/geometry';
+import { Direction } from '../utility/common';
 
 @Component({
   selector: 'box',
@@ -19,7 +20,7 @@ import { Rect } from '../model/geometry';
   ]
 })
 export class BoxComponent  {
-    // rect=new Rect(3200/2,2133/2,200,100);
+    
 	@Input('rect') rect:Rect;
     isSelected=false;
 

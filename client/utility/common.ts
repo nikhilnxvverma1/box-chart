@@ -11,9 +11,9 @@ export enum Direction{//going clockwise
 	TopLeft
 }
 
-export function linearInterpolation(start:Point,end:Point):Point{
+export function linearInterpolation(start:Point,end:Point,fraction:number):Point{
 	var interpolated=new Point(start.x,start.y);
-	interpolated.x+=this.fraction*(end.x-start.x);
-	interpolated.y+=this.fraction*(end.y-start.y);
+	interpolated.x+=fraction*(end.x-start.x);
+	interpolated.y+=fraction*(end.y-start.y);
 	return interpolated;
 }

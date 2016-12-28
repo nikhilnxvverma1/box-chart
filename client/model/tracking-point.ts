@@ -11,6 +11,12 @@ export class RectTrackingPoint implements TrackingPoint{
 	fraction:number;
 	side:Direction;//only top,left,bottom,right applicable here
 
+	constructor(rect:Rect){
+		this.rect=rect;
+		this.side=Direction.Top;
+		this.fraction=0;
+	}
+
 	pointOnGeometry():Point{		
 		var startPoint:Point;
 		var endPoint:Point;
@@ -37,7 +43,7 @@ export class RectTrackingPoint implements TrackingPoint{
 				break;
 		}
 
-		return linearInterpolation(startPoint,endPoint);
+		return linearInterpolation(startPoint,endPoint,this.fraction);
 	}
 }
 
@@ -57,6 +63,6 @@ export class LineSegmentTrackingPoint implements TrackingPoint{
 	fraction:number;
 
 	pointOnGeometry():Point{
-		return linearInterpolation(this.lineSegment.start,this.lineSegment.end);
+		return linearInterpolation(this.lineSegment.start,this.lineSegment.end,this.fraction);
 	}
 }

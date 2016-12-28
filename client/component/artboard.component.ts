@@ -26,12 +26,11 @@ export class ArtboardComponent  {
 
     doubleClickedArtboard(event:MouseEvent){
         var width=200;
-        var height=100;
+        var height=50;
         var rect=new Rect(3200/2,2133/2,width,height);
         rect.x=event.offsetX-width/2;
         rect.y=event.offsetY-height/2;
         this.rectList.push(rect);
-        console.log("Rect added"+rect);
     }
 
 }
