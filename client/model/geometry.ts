@@ -1,6 +1,4 @@
 
-import { linearlyInterpolated } from './tracking-point';
-
 export class Point{
 	x:number;
 	y:number;

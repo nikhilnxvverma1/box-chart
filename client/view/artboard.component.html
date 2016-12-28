@@ -11,4 +11,5 @@
 	[style.left]="massiveArea.width/2"
 	[style.top]="massiveArea.height/2"
 	>Double click anywhere to create a box</h1>
+	<div [myRect]="del" [opacity]="0.7" [@test]="testOp?'opaque':'translucent'" (click)="toggleOpacity()"></div>
 </div>

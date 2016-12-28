@@ -11,6 +11,7 @@ import { SidebarComponent } from './component/sidebar.component';
 import { AreaComponent } from './component/area.component';
 import { TransformService } from './utility/transform.service';
 import { FocusDirective } from './directive/focus.directive';
+import { MyRectDirective } from './directive/my-rect.directive';
 
 const MyRoutes=RouterModule.forRoot([
     {path:'',component:LoginComponent},
@@ -26,6 +27,7 @@ const MyRoutes=RouterModule.forRoot([
      ],
     declarations: [
          FocusDirective,
+         MyRectDirective,
          AppComponent,
          LoginComponent,
          SignupComponent,
