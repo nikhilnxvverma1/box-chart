@@ -9,6 +9,7 @@ import { WorkspaceComponent } from './component/workspace.component';
 import { ArtboardComponent } from './component/artboard.component';
 import { SidebarComponent } from './component/sidebar.component';
 import { AreaComponent } from './component/area.component';
+import { BoxComponent } from './component/box.component';
 import { TransformService } from './utility/transform.service';
 import { FocusDirective } from './directive/focus.directive';
 import { MyRectDirective } from './directive/my-rect.directive';
@@ -35,7 +36,8 @@ const MyRoutes=RouterModule.forRoot([
          WorkspaceComponent,
          SidebarComponent,
          ArtboardComponent,
-         AreaComponent
+         AreaComponent,
+         BoxComponent
          ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     providers:[TransformService],
