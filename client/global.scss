@@ -1,3 +1,16 @@
+$selection-color:#2BA3FC;
+
+.generic-block{
+	position:absolute;
+	background:white;
+	border: 2px solid black;
+}
+
+.handle-pick{
+	position:absolute;
+	border:none;
+	background:$selection-color;
+}
 
 h1 {
   color: black;

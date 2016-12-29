@@ -33,6 +33,7 @@ export class ArtboardComponent  {
         rect.x=event.offsetX-width/2;
         rect.y=event.offsetY-height/2;
         this.rectList.push(rect);
+		console.log("Added box");
     }
 
 	mousedown(event:MouseEvent){

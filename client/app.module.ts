@@ -1,5 +1,6 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA }      from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppComponent }  from './component/app.component';
 import { LoginComponent }  from './component/login.component';
@@ -25,6 +26,7 @@ const MyRoutes=RouterModule.forRoot([
 @NgModule({
     imports:      [ 
         BrowserModule,
+		FormsModule,
         MyRoutes
      ],
     declarations: [

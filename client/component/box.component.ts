@@ -1,7 +1,8 @@
-import { Component,Input,Output,EventEmitter } from '@angular/core';
+import { Component,Input,Output,EventEmitter,ViewChildren,QueryList } from '@angular/core';
 import { animate,trigger,state,style,transition } from '@angular/core';
 import { Rect } from '../model/geometry';
 import { Direction,PressDragReleaseProcessor } from '../utility/common';
+import { ResizeHandleComponent } from './resize-handle.component';
 
 @Component({
   selector: 'box',
@@ -23,6 +24,7 @@ export class BoxComponent implements PressDragReleaseProcessor {
     
 	@Input('rect') rect:Rect;
 	@Output() requestDragging=new EventEmitter<PressDragReleaseProcessor>();
+	@ViewChildren(ResizeHandleComponent) resizeHandlers:QueryList<ResizeHandleComponent>;
     
     isSelected=false;
 
@@ -44,5 +46,11 @@ export class BoxComponent implements PressDragReleaseProcessor {
 
 	registerDragIntention(dragProcessor:PressDragReleaseProcessor){
 		this.requestDragging.emit(dragProcessor);
+	}
+
+	updateAllResizeHandlers(resizeHandler:ResizeHandleComponent){
+		this.resizeHandlers.forEach((item)=>{
+			item.updateHandlePosition();
+		});
 	}
 }

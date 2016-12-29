@@ -1,4 +1,4 @@
-import { Component,Input,Output,OnInit,OnChanges,EventEmitter } from '@angular/core';
+import { Component,Input,Output,OnInit,EventEmitter } from '@angular/core';
 import { trigger,state,transition,style,animate } from '@angular/core';
 import { Point,Rect } from '../model/geometry';
 import { Direction,PressDragReleaseProcessor } from '../utility/common';
@@ -8,12 +8,13 @@ import { RectTrackingPoint } from '../model/tracking-point';
     selector: 'resize-handle',
     templateUrl: '../view/resize-handle.component.html'
 })
-export class ResizeHandleComponent implements OnInit,OnChanges,PressDragReleaseProcessor{
+export class ResizeHandleComponent implements OnInit,PressDragReleaseProcessor{
 	static HandleWidth=8;
 
 	@Input('rect') rect:Rect;
 	@Input('placement') placement:Direction;
 	@Output() requestDragging=new EventEmitter<PressDragReleaseProcessor>();
+	@Output() updateAllResizeHandlers=new EventEmitter<ResizeHandleComponent>();
 
 	private handle:Rect;
 	private pointOnSide:RectTrackingPoint;
@@ -27,13 +28,6 @@ export class ResizeHandleComponent implements OnInit,OnChanges,PressDragReleaseP
 	ngOnInit(){
 		this.initHandle();
 		this.updateHandlePosition();
-	}
-
-	ngOnChanges(){
-		console.log("called here");
-		if(this.pointOnSide!=null){ //since onChanges occurs before onInit, this check prevents null pointer problems on first run 
-			this.updateHandlePosition();
-		}
 	}
 
 	private initHandle(){
@@ -93,8 +87,7 @@ export class ResizeHandleComponent implements OnInit,OnChanges,PressDragReleaseP
 
 	}
 
-	private updateHandlePosition(){
-		console.log("handle updated");
+	updateHandlePosition(){
 		var point=this.pointOnSide.pointOnGeometry();
 		//shift in the x and y relative to handle's width
 		var xShift=-0.5;
@@ -115,15 +108,44 @@ export class ResizeHandleComponent implements OnInit,OnChanges,PressDragReleaseP
 		var dx=event.clientX-this.lastX;
 		var dy=event.clientY-this.lastY;
 		if(event.buttons==1){//only left mouse button pressed
-			console.log("Dragging handle "+new Point(dx,dy));
 			//change the transform of the rect basis this handle's placement
 			switch(this.placement){
 				case Direction.TopLeft:
 					this.rect.x+=dx;
 					this.rect.y+=dy;
-					this.updateHandlePosition();
+					this.rect.width-=dx;
+					this.rect.height-=dy;
+					break;
+				case Direction.Top:
+					this.rect.y+=dy;
+					this.rect.height-=dy;
+					break;
+				case Direction.TopRight:
+					this.rect.y+=dy;
+					this.rect.width+=dx;
+					this.rect.height-=dy;
+					break;
+				case Direction.Right:
+					this.rect.width+=dx;
+					break;
+				case Direction.BottomRight:
+					this.rect.width+=dx;
+					this.rect.height+=dy;
+					break;
+				case Direction.Bottom:
+					this.rect.height+=dy;
+					break;
+				case Direction.BottomLeft:
+					this.rect.x+=dx;
+					this.rect.width-=dx;
+					this.rect.height+=dy;
+					break;
+				case Direction.Left:
+					this.rect.x+=dx;
+					this.rect.width-=dx;
 					break;
 			}
+			this.updateAllResizeHandlers.emit(this);
 		}
 		this.lastX=event.clientX;
 		this.lastY=event.clientY;
@@ -131,5 +153,9 @@ export class ResizeHandleComponent implements OnInit,OnChanges,PressDragReleaseP
 
 	handleMouseRelease(event:MouseEvent):void{
 		//TODO make command
+	}
+
+	modelHasBeenChanged(){
+		console.log("Model has been changed")
 	}
 }

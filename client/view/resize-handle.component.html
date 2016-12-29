@@ -1,6 +1,8 @@
-<div [myRect]="handle" 
-	[borderStyle]="'none'" 
-	[background]="'#2BA3FC'" 
+<div class="handle-pick"
+	[style.left.px]="handle.x"
+	[style.top.px]="handle.y"
+	[style.width.px]="handle.width"
+	[style.height.px]="handle.height"
 	[style.cursor]="cursor"
 	(mousedown)="requestDragging.emit(this)"
 	></div>
