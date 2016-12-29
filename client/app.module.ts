@@ -15,6 +15,7 @@ import { ResizeHandleComponent } from './component/resize-handle.component';
 import { TransformService } from './utility/transform.service';
 import { FocusDirective } from './directive/focus.directive';
 import { MyRectDirective } from './directive/my-rect.directive';
+import { MyCircleDirective } from './directive/my-circle.directive';
 
 const MyRoutes=RouterModule.forRoot([
     {path:'',component:LoginComponent},
@@ -32,6 +33,7 @@ const MyRoutes=RouterModule.forRoot([
     declarations: [
          FocusDirective,
          MyRectDirective,
+         MyCircleDirective,
          AppComponent,
          LoginComponent,
          SignupComponent,
