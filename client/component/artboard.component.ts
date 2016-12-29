@@ -1,6 +1,7 @@
 import { Component,Output,EventEmitter } from '@angular/core';
 import { animate,trigger,state,transition,style } from '@angular/core';
 import { Rect } from '../model/geometry';
+import { PressDragReleaseProcessor } from '../utility/common';
 
 export const ArtboardWidth=3200;
 export const ArtboardHeight=(2/3)*ArtboardWidth;
@@ -19,6 +20,7 @@ export class ArtboardComponent  {
     @Output() mousemoveEvent=new EventEmitter<MouseEvent>();
     @Output() mouseupEvent=new EventEmitter<MouseEvent>();
 
+	private draggingInteraction:PressDragReleaseProcessor;
 
     constructor(){
       this.massiveArea=new Rect(0,0,ArtboardWidth,ArtboardHeight);
@@ -32,5 +34,34 @@ export class ArtboardComponent  {
         rect.y=event.offsetY-height/2;
         this.rectList.push(rect);
     }
+
+	mousedown(event:MouseEvent){
+		this.mousedownEvent.emit(event);
+		if(this.draggingInteraction!=null){
+			this.draggingInteraction.handleMousePress(event);
+		}
+	}
+
+	mousemove(event:MouseEvent){
+		this.mousemoveEvent.emit(event);	
+		if(this.draggingInteraction!=null){
+			this.draggingInteraction.handleMouseDrag(event);
+		}
+	}
+
+	mouseup(event:MouseEvent){
+		this.mouseupEvent.emit(event);	
+		if(this.draggingInteraction!=null){
+			this.draggingInteraction.handleMouseRelease(event);
+		}
+		this.draggingInteraction=null;
+	}
+
+	setDragInteractionIfEmpty(dragProcessor:PressDragReleaseProcessor){
+		if(this.draggingInteraction==null){
+			console.log("Setting new drag processor");
+			this.draggingInteraction=dragProcessor;
+		}
+	}
 
 }

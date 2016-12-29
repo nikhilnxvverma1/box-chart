@@ -1,7 +1,7 @@
-import { Component,Input } from '@angular/core';
+import { Component,Input,Output,EventEmitter } from '@angular/core';
 import { animate,trigger,state,style,transition } from '@angular/core';
 import { Rect } from '../model/geometry';
-import { Direction } from '../utility/common';
+import { Direction,PressDragReleaseProcessor } from '../utility/common';
 
 @Component({
   selector: 'box',
@@ -19,12 +19,30 @@ import { Direction } from '../utility/common';
     ])
   ]
 })
-export class BoxComponent  {
+export class BoxComponent implements PressDragReleaseProcessor {
     
 	@Input('rect') rect:Rect;
+	@Output() requestDragging=new EventEmitter<PressDragReleaseProcessor>();
+    
     isSelected=false;
 
     toggleSelection(){
         this.isSelected=!this.isSelected;
     }	
+
+	handleMousePress(event:MouseEvent):void{
+
+	}
+	
+	handleMouseDrag(event:MouseEvent):void{
+
+	}
+
+	handleMouseRelease(event:MouseEvent):void{
+
+	}
+
+	registerDragIntention(dragProcessor:PressDragReleaseProcessor){
+		this.requestDragging.emit(dragProcessor);
+	}
 }

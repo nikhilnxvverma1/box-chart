@@ -1,10 +1,15 @@
-<div [myRect]="rect" [@selection]="isSelected?'selected':'unselected'" (click)="toggleSelection()"></div>
+<div 
+[myRect]="rect" 
+[@selection]="isSelected?'selected':'unselected'" 
+(click)="toggleSelection()" 
+(mousepress)="registerDragIntention(this)"></div>
+
 <!-- Reize handlers can be placed outside (absolute positioned)-->
-<resize-handle [rect]="rect" [placement]="1" *ngIf="isSelected"></resize-handle>
-<resize-handle [rect]="rect" [placement]="2" *ngIf="isSelected"></resize-handle>
-<resize-handle [rect]="rect" [placement]="3" *ngIf="isSelected"></resize-handle>
-<resize-handle [rect]="rect" [placement]="4" *ngIf="isSelected"></resize-handle>
-<resize-handle [rect]="rect" [placement]="5" *ngIf="isSelected"></resize-handle>
-<resize-handle [rect]="rect" [placement]="6" *ngIf="isSelected"></resize-handle>
-<resize-handle [rect]="rect" [placement]="7" *ngIf="isSelected"></resize-handle>
-<resize-handle [rect]="rect" [placement]="8" *ngIf="isSelected"></resize-handle>
+<resize-handle [rect]="rect" [placement]="1" *ngIf="isSelected" (requestDragging)="registerDragIntention($event)"></resize-handle>
+<resize-handle [rect]="rect" [placement]="2" *ngIf="isSelected" (requestDragging)="registerDragIntention($event)"></resize-handle>
+<resize-handle [rect]="rect" [placement]="3" *ngIf="isSelected" (requestDragging)="registerDragIntention($event)"></resize-handle>
+<resize-handle [rect]="rect" [placement]="4" *ngIf="isSelected" (requestDragging)="registerDragIntention($event)"></resize-handle>
+<resize-handle [rect]="rect" [placement]="5" *ngIf="isSelected" (requestDragging)="registerDragIntention($event)"></resize-handle>
+<resize-handle [rect]="rect" [placement]="6" *ngIf="isSelected" (requestDragging)="registerDragIntention($event)"></resize-handle>
+<resize-handle [rect]="rect" [placement]="7" *ngIf="isSelected" (requestDragging)="registerDragIntention($event)"></resize-handle>
+<resize-handle [rect]="rect" [placement]="8" *ngIf="isSelected" (requestDragging)="registerDragIntention($event)"></resize-handle>

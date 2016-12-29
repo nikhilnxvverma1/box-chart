@@ -3,14 +3,14 @@
  [style.height]="massiveArea.height+'px'" 
  [style.left]="massiveArea.x+'px'" 
  [style.top]="massiveArea.y+'px'"
- (mousedown)="mousedownEvent.emit($event)"
- (mousemove)="mousemoveEvent.emit($event)"
- (mouseup)="mouseupEvent.emit($event)"
+ (mousedown)="mousedown($event)"
+ (mousemove)="mousemove($event)"
+ (mouseup)="mouseup($event)"
  (dblclick)="doubleClickedArtboard($event)"
  >
 	<h1 id="starter-tip"
 	[style.left]="massiveArea.width/2"
 	[style.top]="massiveArea.height/2"
 	>Double click anywhere to create a box</h1>
-	<box *ngFor="let rect of rectList" [rect]=rect></box>
+	<box *ngFor="let rect of rectList" [rect]="rect" (requestDragging)="setDragInteractionIfEmpty($event)"></box>
 </div>

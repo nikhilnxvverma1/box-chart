@@ -12,3 +12,4 @@ _temp
 client/transpiled
 server/transpiled
 .vscode
+dist
