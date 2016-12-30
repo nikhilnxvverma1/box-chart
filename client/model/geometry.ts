@@ -158,13 +158,11 @@ export class Rect implements Geometry{
 }
 
 export class Circle implements Geometry{
-	x:number;
-	y:number;
+	center:Point;
 	radius:number;
 
-	constructor(x:number,y:number,radius:number){
-		this.x=x;
-		this.y=y;
+	constructor(center:Point,radius:number){
+		this.center=center;
 		this.radius=radius;
 	}
 

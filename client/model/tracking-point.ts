@@ -13,17 +13,22 @@ export interface TrackingPoint{
 
 export class RectTrackingPoint implements TrackingPoint{
 	
-	rect:Rect;
-	fraction:number;
-	side:Direction;//only top,left,bottom,right applicable here
+	private rect:Rect;
+	private trackedPoint:Point;
+	private side:Direction;//only top,left,bottom,right applicable here
 
 	constructor(rect:Rect){
 		this.rect=rect;
 		this.side=Direction.Top;
-		this.fraction=0;
+		this.trackedPoint=this.rect.topLeft();
 	}
 
-	pointOnGeometry():Point{		
+	pointOnGeometry():Point{
+		return this.trackedPoint;
+	}
+
+	/** Returns the point defined by a side and a fraction between 0 and 1 */
+	pointOnSide(fraction:number):Point{		
 		var startPoint:Point;
 		var endPoint:Point;
 
@@ -49,7 +54,7 @@ export class RectTrackingPoint implements TrackingPoint{
 				break;
 		}
 
-		return linearInterpolation(startPoint,endPoint,this.fraction);
+		return linearInterpolation(startPoint,endPoint,fraction);
 	}
 
 	gravitateTowards(p:Point):Point{
@@ -105,35 +110,36 @@ export class RectTrackingPoint implements TrackingPoint{
 
 		var verticalSidePoint = verticalSideEquation.intersectionWith(centerToPoint);
 		var horizontalSidePoint = horizontalSideEquation.intersectionWith(centerToPoint);
-		var direction:Direction;
-		var nearestPoint:Point;
+		
 		if(verticalSidePoint!=null && verticalSidePoint.withinYSpan(topRight.y,bottomRight.y)){
-			direction=verticalSideDirection;
-			nearestPoint=verticalSidePoint;
+			this.side=verticalSideDirection;
+			this.trackedPoint=verticalSidePoint;
 		}else{
-			direction=horizontalSideDirection;
-			nearestPoint=horizontalSidePoint;
+			this.side=horizontalSideDirection;
+			this.trackedPoint=horizontalSidePoint;
 		}
 
-		return nearestPoint;
+		return this.trackedPoint;
 	}
 }
 
 export class CircleTrackingPoint implements TrackingPoint{
 	
-	circle:Circle;
-	fraction:number;
+	private circle:Circle;
+	private trackedPoint:Point;
 
 	constructor(circle:Circle){
 		this.circle=circle;
 	}
 
 	pointOnGeometry():Point{
-		return null;//TODO
+		return this.trackedPoint;
 	}
 
 	gravitateTowards(p:Point):Point{
-		return null;//TODO
+		var angleOfSegment=this.circle.center.angleOfSegment(p);
+		this.trackedPoint=this.circle.center.pointAtLength(angleOfSegment,this.circle.radius);
+		return this.trackedPoint;
 	}
 }
 

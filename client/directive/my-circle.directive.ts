@@ -18,8 +18,8 @@ export class MyCircleDirective {
         this.element.nativeElement.style.borderRadius="50%";
 
         this.element.nativeElement.style.position="absolute";
-        this.element.nativeElement.style.left=this.myCircle.x+"px";
-        this.element.nativeElement.style.top=this.myCircle.y+"px";
+        this.element.nativeElement.style.left=this.myCircle.center.x+"px";
+        this.element.nativeElement.style.top=this.myCircle.center.y+"px";
         this.element.nativeElement.style.width=this.myCircle.radius*2+"px";
         this.element.nativeElement.style.height=this.myCircle.radius*2+"px";
 		this.element.nativeElement.style.background=this.background;
