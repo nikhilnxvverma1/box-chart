@@ -1,4 +1,4 @@
-import { RadiansToDegrees,DegreesToRadians } from '../utility/common';
+import { RadiansToDegrees,DegreesToRadians,LineEquation } from '../utility/common';
 import { TrackingPoint,RectTrackingPoint,CircleTrackingPoint,LineSegmentTrackingPoint } from './tracking-point';
 
 /** Generic model for storing 2d coordinates */
@@ -20,7 +20,7 @@ export class Point{
 		return Math.sqrt((this.x-p.x) * (this.x-p.x) + (this.y-p.y) * (this.y-p.y)) ;
 	}
 
-	/** Finds the angle that gets made b/w the x axis and line segment comprised of this point and another point */
+	/** Finds the angle (b/w 0-360) that gets made b/w the x axis and line segment comprised of this point and another point */
 	angleOfSegment(to:Point):number{
 		var inDegrees=0;
 		if (to.x - this.x == 0) {
@@ -55,6 +55,40 @@ export class Point{
 			this.x+length*Math.cos(DegreesToRadians * angleInDegrees),
 			this.y+length*Math.sin(DegreesToRadians * angleInDegrees));
 
+	}
+
+	/**
+	* Checks if this point is within the bounding box defined by the endpoints of a diagonal.
+	* Interchanging order of points is safe and does not affect result.
+	*/
+	withinBounds(start:Point,end:Point):boolean{
+		var lx=start.x<end.x?start.x:end.x;
+		var ly=start.y<end.y?start.y:end.y;
+		var mx=start.x>=end.x?start.x:end.x;
+		var my=start.y>=end.y?start.y:end.y;
+
+		return this.x>=lx && this.x<=mx &&
+				this.y>=ly && this.y<=my;
+	}
+
+	/** 
+	 * Checks if the point is within infinite horizontal section defined by two vertical axis.
+	 * Interchanging order of points is safe and does not affect result.
+	 */
+	withinYSpan(y1:number,y2:number):boolean{
+		var ly=y1<y2?y1:y2;
+		var my=y1>=y2?y2:y1;
+		return this.y>=ly && this.y<=my;
+	}
+
+	/** 
+	 * Checks if the point is within infinite vertical section defined by two horizontal axis.
+	 * Interchanging order of points is safe and does not affect result.
+	 */
+	withinXSpan(x1:number,x2:number):boolean{
+		var lx=x1<x2?x1:x2;
+		var mx=x1>=x2?x2:x1;
+		return this.x>=lx && this.x<=mx;
 	}
 
 }
@@ -105,6 +139,22 @@ export class Rect implements Geometry{
 	getTrackingPoint(){
 		return new RectTrackingPoint(this);
 	}
+
+	topLeft():Point{
+		return new Point(this.x,this.y);
+	}
+
+	topRight():Point{
+		return new Point(this.x+this.width,this.y);
+	}
+
+	bottomRight():Point{
+		return new Point(this.x+this.width,this.y+this.height);
+	}
+
+	bottomLeft():Point{
+		return new Point(this.x,this.y+this.height);
+	}
 }
 
 export class Circle implements Geometry{
@@ -146,31 +196,12 @@ export class LineSegment implements Geometry{
 	}
 
 	contains(p:Point):boolean{
-		return this.withinBounds(p) && this.distanceFromLine(p)<=LineSegment.closeEnoughDistance;
-	}
-
-	/** Checks if a point is within the bounding box created by the endpoints of the line segement or not */
-	withinBounds(p:Point):boolean{
-		var lx=this.start.x<this.end.x?this.start.x:this.end.x;
-		var ly=this.start.y<this.end.y?this.start.y:this.end.y;
-		var mx=this.start.x>this.end.x?this.start.x:this.end.x;
-		var my=this.start.y>this.end.y?this.start.y:this.end.y;
-
-		return p.x>=lx && p.x<=mx &&
-				p.y>=ly && p.y<=my;
+		return p.withinBounds(this.start,this.end) && this.distanceFromLine(p)<=LineSegment.closeEnoughDistance;
 	}
 
 	/** Finds the perpendicular distance of a point from the line when this segment is extended in both directions */
 	distanceFromLine(p:Point):number{
-
-		// find the equation of this line(segment)
-		var m=(this.end.y-this.start.y)/(this.end.x-this.start.x);
-		var a=m;
-		var b=-1;
-		var c=this.end.y - m * this.end.x;
-
-		//find the perpendicular distance using equation
-		return Math.abs( a*p.x + b*p.y + c ) / Math.sqrt(a*a + b*b );
+		return new LineEquation(this.start,this.end).perpendicularDistanceFrom(p);
 	}
 
 	getTrackingPoint():TrackingPoint{
