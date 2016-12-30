@@ -7,6 +7,9 @@
 (click)="toggleSelection()" 
 (mousepress)="registerDragIntention(this)"></div>
 
+<!-- Linker associated with this box-->
+<linker [geometry]="rect"></linker>
+
 <!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->
 <!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->
 <resize-handle [rect]="rect" [placement]="1" 

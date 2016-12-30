@@ -13,6 +13,7 @@ import { AreaComponent } from './component/area.component';
 import { BoxComponent } from './component/box.component';
 import { LineSegmentComponent } from './component/line-segment.component';
 import { ResizeHandleComponent } from './component/resize-handle.component';
+import { LinkerComponent } from './component/linker.component';
 import { TransformService } from './utility/transform.service';
 import { FocusDirective } from './directive/focus.directive';
 import { MyRectDirective } from './directive/my-rect.directive';
@@ -45,7 +46,8 @@ const MyRoutes=RouterModule.forRoot([
          AreaComponent,
          BoxComponent,
          LineSegmentComponent,
-         ResizeHandleComponent
+         ResizeHandleComponent,
+         LinkerComponent
          ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
     providers:[TransformService],

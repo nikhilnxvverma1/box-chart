@@ -1,5 +1,7 @@
 import { RadiansToDegrees,DegreesToRadians } from '../utility/common';
+import { TrackingPoint,RectTrackingPoint,CircleTrackingPoint,LineSegmentTrackingPoint } from './tracking-point';
 
+/** Generic model for storing 2d coordinates */
 export class Point{
 	x:number;
 	y:number;
@@ -57,6 +59,7 @@ export class Point{
 
 }
 
+/** Stores 2D position and holds links to previous and next point in series */
 export class LinkedPoint extends Point{
 	next:LinkedPoint;
 	previous:LinkedPoint;
@@ -68,8 +71,12 @@ export class LinkedPoint extends Point{
 	}
 }
 
+/** Filled geometric shapes that usually make 'digramatic elements' implement this interface*/
 export interface Geometry{
+	/** Checks a point for containment within this geometry */
 	contains(p:Point):boolean;
+	/** Makes a tracking point specific to this geometry that can be used to get a point on the circumferance of this geometry */
+	getTrackingPoint():TrackingPoint;
 }
 
 export class Rect implements Geometry{
@@ -94,6 +101,10 @@ export class Rect implements Geometry{
 		return p.x>=this.x && p.x<=(this.x + this.width) &&
 				p.y>=this.y && p.y<=(this.y + this.height);
 	}
+
+	getTrackingPoint(){
+		return new RectTrackingPoint(this);
+	}
 }
 
 export class Circle implements Geometry{
@@ -114,9 +125,14 @@ export class Circle implements Geometry{
 	contains(p:Point):boolean{
 		return new Point(this.x,this.y).distance(p) <= this.radius;
 	}
+
+	getTrackingPoint():TrackingPoint{
+		return new CircleTrackingPoint(this);
+	}
 }
 
-export class LineSegment{
+export class LineSegment implements Geometry{
+	static closeEnoughDistance=10;
 	start:Point;
 	end:Point;
 
@@ -127,5 +143,37 @@ export class LineSegment{
 
 	toString():string{		
 		return "LS: "+this.start+","+this.end+")";
+	}
+
+	contains(p:Point):boolean{
+		return this.withinBounds(p) && this.distanceFromLine(p)<=LineSegment.closeEnoughDistance;
+	}
+
+	/** Checks if a point is within the bounding box created by the endpoints of the line segement or not */
+	withinBounds(p:Point):boolean{
+		var lx=this.start.x<this.end.x?this.start.x:this.end.x;
+		var ly=this.start.y<this.end.y?this.start.y:this.end.y;
+		var mx=this.start.x>this.end.x?this.start.x:this.end.x;
+		var my=this.start.y>this.end.y?this.start.y:this.end.y;
+
+		return p.x>=lx && p.x<=mx &&
+				p.y>=ly && p.y<=my;
+	}
+
+	/** Finds the perpendicular distance of a point from the line when this segment is extended in both directions */
+	distanceFromLine(p:Point):number{
+
+		// find the equation of this line(segment)
+		var m=(this.end.y-this.start.y)/(this.end.x-this.start.x);
+		var a=m;
+		var b=-1;
+		var c=this.end.y - m * this.end.x;
+
+		//find the perpendicular distance using equation
+		return Math.abs( a*p.x + b*p.y + c ) / Math.sqrt(a*a + b*b );
+	}
+
+	getTrackingPoint():TrackingPoint{
+		return new LineSegmentTrackingPoint();
 	}
 }

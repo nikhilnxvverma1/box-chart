@@ -52,6 +52,10 @@ export class CircleTrackingPoint implements TrackingPoint{
 	circle:Circle;
 	fraction:number;
 
+	constructor(circle:Circle){
+		this.circle=circle;
+	}
+
 	pointOnGeometry():Point{
 		return null;//TODO
 	}

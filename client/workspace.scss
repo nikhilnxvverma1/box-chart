@@ -1,4 +1,5 @@
 $selection-color:#2BA3FC;
+$linker-color:#344353;
 
 .generic-block{
 	position:absolute;
@@ -38,4 +39,11 @@ h1 {
 #starter-tip{
 	color:grey;
 	position: absolute;
+}
+
+.link-circle{
+	position:absolute;
+	border-radius:50%;
+	transform:translate(-50%,-50%);
+	background:$linker-color;
 }
