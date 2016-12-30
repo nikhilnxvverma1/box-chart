@@ -11,6 +11,7 @@ import { ArtboardComponent } from './component/artboard.component';
 import { SidebarComponent } from './component/sidebar.component';
 import { AreaComponent } from './component/area.component';
 import { BoxComponent } from './component/box.component';
+import { LineSegmentComponent } from './component/line-segment.component';
 import { ResizeHandleComponent } from './component/resize-handle.component';
 import { TransformService } from './utility/transform.service';
 import { FocusDirective } from './directive/focus.directive';
@@ -43,6 +44,7 @@ const MyRoutes=RouterModule.forRoot([
          ArtboardComponent,
          AreaComponent,
          BoxComponent,
+         LineSegmentComponent,
          ResizeHandleComponent
          ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],

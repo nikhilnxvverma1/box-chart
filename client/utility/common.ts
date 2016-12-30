@@ -1,5 +1,11 @@
 import { Point } from '../model/geometry';
 
+/** Gives radians when multiplied by an angle in degrees */
+export const DegreesToRadians=Math.PI/180;
+/** Gives degrees when multiplied by an angle in radians */
+export const RadiansToDegrees=180/Math.PI;
+
+/** Represents direction in all 8 corners */
 export enum Direction{//going clockwise
 	Top=1,
 	TopRight,
@@ -11,6 +17,7 @@ export enum Direction{//going clockwise
 	TopLeft
 }
 
+/** Computes a point between two points based on fraction between 0 to 1 */
 export function linearInterpolation(start:Point,end:Point,fraction:number):Point{
 	var interpolated=new Point(start.x,start.y);
 	interpolated.x+=fraction*(end.x-start.x);

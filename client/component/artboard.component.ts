@@ -1,6 +1,7 @@
 import { Component,Output,EventEmitter } from '@angular/core';
 import { animate,trigger,state,transition,style } from '@angular/core';
 import { Rect } from '../model/geometry';
+import { Point } from '../model/geometry';
 import { PressDragReleaseProcessor } from '../utility/common';
 
 export const ArtboardWidth=3200;
@@ -64,5 +65,8 @@ export class ArtboardComponent  {
 			this.draggingInteraction=dragProcessor;
 		}
 	}
+
+	st=new Point(1501,1300);
+	en=new Point(1700,700);
 
 }
