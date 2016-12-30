@@ -24,7 +24,11 @@ export class LinkedPoint extends Point{
 	}
 }
 
-export class Rect{
+export interface Geometry{
+	contains(p:Point):boolean;
+}
+
+export class Rect implements Geometry{
 	x:number;
 	y:number;
 	width:number;
@@ -41,9 +45,14 @@ export class Rect{
 	toString():string{
 		return "R("+this.x+","+this.y+","+this.width+","+this.height+")";
 	}
+
+	contains(p:Point):boolean{
+		return p.x>=this.x && p.x<=(this.x + this.width) &&
+				p.y>=this.y && p.y<=(this.y + this.height);
+	}
 }
 
-export class Circle{
+export class Circle implements Geometry{
 	x:number;
 	y:number;
 	radius:number;
@@ -56,6 +65,10 @@ export class Circle{
 
 	toString():string{
 		return "C("+this.x+","+this.y+","+this.radius+")";
+	}
+
+	contains(p:Point):boolean{
+		return Math.sqrt((this.x-p.x) * (this.x-p.x) + (this.y-p.y) * (this.y-p.y)) <= this.radius;
 	}
 }
 
