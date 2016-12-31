@@ -1,7 +1,7 @@
+import { ArtboardComponent } from '../component/artboard.component';
 
-
-export interface DiagramaticElement{
-	mouseMoved(event:MouseEvent):void;
+export interface DiagramaticComponent{
+	mouseMoved(event:MouseEvent,artboard:ArtboardComponent):void;
 }
 
 export interface Linker{

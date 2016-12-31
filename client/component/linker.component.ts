@@ -1,4 +1,4 @@
-import { Component,Input,OnInit } from '@angular/core';
+import { Component,Input,OnInit,OnDestroy } from '@angular/core';
 import { Geometry,Circle } from '../model/geometry';
 import { TrackingPoint } from '../model/tracking-point';
 
@@ -6,7 +6,7 @@ import { TrackingPoint } from '../model/tracking-point';
   selector: 'linker',
   templateUrl: '../view/linker.component.html',
 })
-export class LinkerComponent implements OnInit{
+export class LinkerComponent implements OnInit,OnDestroy{
 	@Input('geometry') geometry:Geometry;
 	trackingPoint:TrackingPoint;
 	link:Circle;
@@ -14,6 +14,10 @@ export class LinkerComponent implements OnInit{
 	ngOnInit(){
 		this.trackingPoint=this.geometry.getTrackingPoint();
 		var point=this.trackingPoint.pointOnGeometry();
-		this.link=new Circle(point.x,point.y,7);
+		this.link=new Circle(point,7);
+	}
+	
+	ngOnDestroy(){
+		//TODO make diagrammatic element an abstract class and then handle this
 	}
 }

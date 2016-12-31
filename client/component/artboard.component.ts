@@ -3,6 +3,7 @@ import { animate,trigger,state,transition,style } from '@angular/core';
 import { Rect } from '../model/geometry';
 import { Point } from '../model/geometry';
 import { PressDragReleaseProcessor } from '../utility/common';
+import { DiagramaticComponent } from '../editor/diagramatic-element';
 
 export const ArtboardWidth=3200;
 export const ArtboardHeight=(2/3)*ArtboardWidth;
@@ -16,6 +17,7 @@ export const ArtboardHeight=(2/3)*ArtboardWidth;
 export class ArtboardComponent  {
     massiveArea:Rect;
     rectList:Rect[]=[];
+	diagramticComponentList:DiagramaticComponent[]=[]
 
     @Output() mousedownEvent=new EventEmitter<MouseEvent>();
     @Output() mousemoveEvent=new EventEmitter<MouseEvent>();
@@ -63,6 +65,17 @@ export class ArtboardComponent  {
 		if(this.draggingInteraction==null){
 			console.log("Setting new drag processor");
 			this.draggingInteraction=dragProcessor;
+		}
+	}
+
+	register(listener:DiagramaticComponent){
+		this.diagramticComponentList.push(listener);
+	}
+	
+	unregister(listener:DiagramaticComponent){
+		var index = this.diagramticComponentList.indexOf(listener, 0);
+		if (index > -1) {
+			this.diagramticComponentList.splice(index, 1);
 		}
 	}
 
