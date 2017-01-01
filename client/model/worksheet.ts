@@ -1,108 +1,70 @@
-import { Geometry,Rect } from './geometry';
+import { Geometry,Rect,LinkedPoint,Point } from './geometry';
+import { SemanticGraph,ClassDefinition,InterfaceDefinition } from './semantic-model';
+import { TrackingPoint } from './tracking-point';
 
 //the following constants are used to identify objects of this data model in JSON
 export const WorksheetType="Worksheet";//TODO may not be required
 
 export class Worksheet{
-	typeList:TypeDefinition[]=[];
+	semanticGraph:SemanticGraph;
 	commentList:Comment[]=[];
 }
 
-export interface VisualBlock{
-	getGeometry():Geometry;
+/** 
+ * A node in the diagram graph that contains both the incoming and outgoing edges.
+ * A diagram node is also a visual block to display and additionally also holds geometry.
+ */
+export abstract class DiagramNode{
+	incomingEdges:DiagramEdge[]=[];
+	outgoingEdges:DiagramEdge[]=[];
+	abstract getGeometry():Geometry;
 }
 
-export enum PrimitiveType{//minding the name collisions
-	IntType=1,//this helps us when using this in templates and jsons where enums are not registered
-	FloatType,
-	CharType,
-	BoolType,
-	StringType
+/** 
+ * An edge in the diagram graph connecting two nodes. Geometrically, it houses the tracking point of the geometry of the two nodes.
+ * Additionally(and optionally) it also contains label and intermediate points that may be required for denoting linked line segments.
+ */
+export class DiagramEdge{
+	from:DiagramNode;
+	to:DiagramNode;
+	fromPoint:TrackingPoint;
+	toPoint:TrackingPoint;
+
+	/**Optional label on edge*/
+	label:string;
+
+	/** The start of a doubly linked list of points that make up the line segments */
+	intermediatePointStart:LinkedPoint;
+
+	/** The end of a doubly linked list of points that make up the line segments */
+	intermediatePointLast:LinkedPoint;
 }
 
-export class PrimitiveWrapper implements TypeDefinition{
-	type:PrimitiveType;
-
-	getName():string{
-		switch(this.type){
-			case PrimitiveType.IntType:
-				return "int";
-			case PrimitiveType.FloatType:
-				return "float";
-			case PrimitiveType.CharType:
-				return "char";
-			case PrimitiveType.BoolType:
-				return "bool";
-			case PrimitiveType.StringType:
-				return "string";
-			default:
-				return "unknown primitive";
-		}
-	}
-}
-
-export enum AccessSpecifier{//minding the name collisions
-	Private=1,//this helps us when using this in templates and jsons where enums are not registered
-	Protected,
-	Public,
-	Default
-}
-
-export class MethodDefinition{
-	accessSpecifier:AccessSpecifier;
-	identifier:string;
-	argumentList:VariableDefinition[]=[];
-	returnType:TypeDefinition;
-}
-
-export class VariableDefinition{
-	name:string;
-	type:TypeDefinition;
-	value:any;//TODO after introducing models for storing objects in type diagram this will be revised
-}
-
-export class FieldDefinition extends VariableDefinition{
-	accessSpecifier:AccessSpecifier;
-	isStatic:boolean;
-}
-
-export interface TypeDefinition{
-	getName():string;
-}
-
-export class ClassDefinition implements TypeDefinition,VisualBlock{
-	
-	name:string;
-	isAbstract:boolean;
-	fieldList:FieldDefinition[]=[];
-	methodList:MethodDefinition[]=[];
+/** A rect diagram node used for holding class definition, its associated geometry and collapse flags for field and method blocks*/
+export class ClassDiagramNode extends DiagramNode{
+	classDefinition:ClassDefinition;
 	rect:Rect;
-
-	getName():string{
-		return this.name;
-	}
+	fieldsCollapsed:boolean;
+	methodsCollapsed:boolean;
 
 	getGeometry():Geometry{
 		return this.rect;
 	}
 }
 
-export class InterfaceDefinition implements TypeDefinition,VisualBlock{
-
-	name:string;
-	methodList:MethodDefinition[]=[];
+/** A rect diagram node used for holding interface definition, its associated geometry and collapse flag for method block*/
+export class InterfaceDiagramNode extends DiagramNode{
+	interfaceDefinition:InterfaceDefinition;
 	rect:Rect;
-
-	getName():string{
-		return this.name;
-	}
+	methodsCollapsed:boolean;
 
 	getGeometry():Geometry{
 		return this.rect;
 	}
 }
 
-export class Comment implements VisualBlock{
+/** A single or multi line comment block thats put in a rect */
+export class Comment extends DiagramNode{
 
 	isMultiLine:boolean;
 	comment:string;
