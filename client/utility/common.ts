@@ -1,4 +1,5 @@
 import { Point } from '../model/geometry';
+import { PrimitiveType } from '../model/semantic-model';
 
 /** Gives radians when multiplied by an angle in degrees */
 export const DegreesToRadians=Math.PI/180;

@@ -26,8 +26,8 @@ export enum PrimitiveType{//minding the name collisions
 export class PrimitiveWrapper extends TypeNode{
 	type:PrimitiveType;
 
-	getName():string{
-		switch(this.type){
+	static getPrimtiveName(type:PrimitiveType):string{
+		switch(type){
 			case PrimitiveType.IntType:
 				return "int";
 			case PrimitiveType.FloatType:
@@ -41,6 +41,10 @@ export class PrimitiveWrapper extends TypeNode{
 			default:
 				return "unknown primitive";
 		}
+	}
+
+	getName():string{
+		return PrimitiveWrapper.getPrimtiveName(this.type);
 	}
 }
 
@@ -74,7 +78,6 @@ export class FieldMember{
 export class VariableDefinition{
 	name:string;
 	type:TypeNode;
-	value:any;//TODO after introducing models for storing objects in type diagram this will be revised
 }
 
 export class ClassDefinition extends TypeNode{
