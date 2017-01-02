@@ -14,7 +14,15 @@ import { BoxComponent } from './component/box.component';
 import { LineSegmentComponent } from './component/line-segment.component';
 import { ResizeHandleComponent } from './component/resize-handle.component';
 import { LinkerComponent } from './component/linker.component';
+import { InputBoxComponent } from './component/input-box.component';
+import { AutoCompletionComponent } from './component/auto-completion.component';
+import { ClassDiagramComponent } from './component/class-diagram.component';
+import { ClassObjectComponent } from './component/class-object-diagram.component';
+import { InterfaceDiagramComponent } from './component/interface-diagram.component';
+import { InterfaceObjectDiagramComponent } from './component/interface-object-diagram.component';
+import { LinkedSegmentsComponent } from './component/linked-segments.component';
 import { TransformService } from './utility/transform.service';
+import { InterpreterService } from './utility/interpreter.service';
 import { FocusDirective } from './directive/focus.directive';
 import { MyRectDirective } from './directive/my-rect.directive';
 import { MyCircleDirective } from './directive/my-circle.directive';
@@ -47,10 +55,17 @@ const MyRoutes=RouterModule.forRoot([
          BoxComponent,
          LineSegmentComponent,
          ResizeHandleComponent,
+         InputBoxComponent,
+         AutoCompletionComponent,
+		 ClassDiagramComponent,
+		 ClassObjectComponent,
+		 InterfaceDiagramComponent,
+		 InterfaceObjectDiagramComponent,
+		 LinkedSegmentsComponent,
          LinkerComponent
          ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    providers:[TransformService],
+    providers:[TransformService,InterpreterService],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

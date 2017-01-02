@@ -1,6 +1,7 @@
-import { Geometry,Rect,LinkedPoint,Point } from './geometry';
+import { Geometry,Rect,LinkedPoint,Point,Circle } from './geometry';
 import { SemanticGraph,ClassDefinition,InterfaceDefinition } from './semantic-model';
 import { TrackingPoint } from './tracking-point';
+import { ClassObjectData,InterfaceObjectData,Collection } from './object-model';
 
 //the following constants are used to identify objects of this data model in JSON
 export const WorksheetType="Worksheet";//TODO may not be required
@@ -73,4 +74,23 @@ export class Comment extends DiagramNode{
 	getGeometry():Geometry{
 		return this.rect;
 	}
+}
+
+export class ObjectDiagram extends DiagramNode{
+	/** If true, this diagram is a rectangle and not a circle */
+	rectNotCircle:boolean;
+	rect:Rect;
+	circle:Circle;
+
+	getGeometry():Geometry{
+		return this.rect;
+	}
+}
+
+export class ClassObjectDiagram extends ObjectDiagram{
+	classObject:ClassObjectData;
+}
+
+export class InterfaceObjectDiagram extends ObjectDiagram{
+	interfaceObject:InterfaceObjectData;
 }
