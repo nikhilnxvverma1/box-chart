@@ -24,9 +24,10 @@ import { LinkedSegmentsComponent } from './component/linked-segments.component';
 import { TransformService } from './utility/transform.service';
 import { InterpreterService } from './utility/interpreter.service';
 import { MockDataService } from './utility/mock-data.service';
-import { FocusDirective } from './directive/focus.directive';
-import { MyRectDirective } from './directive/my-rect.directive';
-import { MyCircleDirective } from './directive/my-circle.directive';
+import { FocusDirective } from './helper/focus.directive';
+import { MyRectDirective } from './helper/my-rect.directive';
+import { MyCircleDirective } from './helper/my-circle.directive';
+import { AccessSymbol } from './helper/access-symbol.pipe';
 
 const MyRoutes=RouterModule.forRoot([
     {path:'',component:LoginComponent},
@@ -45,6 +46,7 @@ const MyRoutes=RouterModule.forRoot([
          FocusDirective,
          MyRectDirective,
          MyCircleDirective,
+		 AccessSymbol,
          AppComponent,
          LoginComponent,
          SignupComponent,

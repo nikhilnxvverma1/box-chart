@@ -52,7 +52,7 @@ export class DiagramEdge{
 
 /** A rect diagram node used for holding class definition, its associated geometry and collapse flags for field and method blocks*/
 export class ClassDiagramNode extends DiagramNode{
-	static readonly WIDTH=200;
+	static readonly DEFAULT_WIDTH=300;
 	classDefinition:ClassDefinition;
 	rect:Rect;
 	fieldsCollapsed:boolean;
@@ -61,7 +61,7 @@ export class ClassDiagramNode extends DiagramNode{
 	constructor(classDefinition:ClassDefinition,x:number,y:number){
 		super();
 		this.classDefinition=classDefinition;
-		this.rect=new Rect(x,y,ClassDiagramNode.WIDTH,400);//actual height is based on content
+		this.rect=new Rect(x,y,ClassDiagramNode.DEFAULT_WIDTH,250);
 	}
 
 	getGeometry():Geometry{
