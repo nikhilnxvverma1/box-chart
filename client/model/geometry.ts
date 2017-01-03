@@ -167,11 +167,11 @@ export class Circle implements Geometry{
 	}
 
 	toString():string{
-		return "C("+this.x+","+this.y+","+this.radius+")";
+		return "C("+this.center.x+","+this.center.y+","+this.radius+")";
 	}
 
 	contains(p:Point):boolean{
-		return new Point(this.x,this.y).distance(p) <= this.radius;
+		return new Point(this.center.x,this.center.y).distance(p) <= this.radius;
 	}
 
 	getTrackingPoint():TrackingPoint{

@@ -4,6 +4,8 @@ import { Rect } from '../model/geometry';
 import { Point } from '../model/geometry';
 import { PressDragReleaseProcessor } from '../utility/common';
 import { DiagramaticComponent } from '../editor/diagramatic-element';
+import { Worksheet } from '../model/worksheet';
+import { MockDataService } from '../utility/mock-data.service';
 
 export const ArtboardWidth=3200;
 export const ArtboardHeight=(2/3)*ArtboardWidth;
@@ -18,6 +20,7 @@ export class ArtboardComponent  {
     massiveArea:Rect;
     rectList:Rect[]=[];
 	diagramticComponentList:DiagramaticComponent[]=[]
+	worksheet:Worksheet;
 
     @Output() mousedownEvent=new EventEmitter<MouseEvent>();
     @Output() mousemoveEvent=new EventEmitter<MouseEvent>();
@@ -25,8 +28,9 @@ export class ArtboardComponent  {
 
 	private draggingInteraction:PressDragReleaseProcessor;
 
-    constructor(){
+    constructor(private mockDataService:MockDataService){
       this.massiveArea=new Rect(0,0,ArtboardWidth,ArtboardHeight);
+	  this.worksheet=this.mockDataService.vehicleWorksheet();
     }
 
     doubleClickedArtboard(event:MouseEvent){

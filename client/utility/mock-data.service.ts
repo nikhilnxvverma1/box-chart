@@ -1,10 +1,11 @@
 import { Injectable } from '@angular/core';
 import * as semantic from '../model/semantic-model';
+import * as worksheet from '../model/worksheet';
+import { ArtboardWidth,ArtboardHeight } from '../component/artboard.component';
 
 @Injectable()
 export class MockDataService{
 	vehicleUml():semantic.SemanticModel{
-		var semanticModel=new semantic.SemanticModel();
 
 		//Vehicle abstract class
 		var vehicle=new semantic.ClassDefinition("Vehicle");
@@ -44,7 +45,7 @@ export class MockDataService{
 		var helicopter=new semantic.ClassDefinition("Helicopter",air);
 		air.addSubClasses(plane,helicopter);
 
-		//cargo concrete class
+		//cargo interface
 		var cargo=new semantic.InterfaceDefinition("Cargo");
 		cargo.methodList.push(new semantic.MethodPrototype("weightRequirement",semantic.FloatWrapper));
 		cargo.methodList.push(new semantic.MethodPrototype("areaRequirement",semantic.FloatWrapper));
@@ -70,6 +71,24 @@ export class MockDataService{
 		ship.interfacesImplemented.push(cargoCarrier);
 		cargoCarrier.addImplementingClasses(truck,plane,ship);
 
+		var semanticModel=new semantic.SemanticModel();
+		semanticModel.classDefinitionList.push(vehicle,land,water,air,truck,car,ship,boat,plane,helicopter,luggage);
+		semanticModel.interfaceDefinitionList.push(cargo,cargoCarrier);
 		return semanticModel;
+	}
+
+	vehicleWorksheet():worksheet.Worksheet{
+		var width=ArtboardWidth;
+		var height=ArtboardHeight;
+		
+		var softwareDesign=this.vehicleUml();
+
+		var vehicle=softwareDesign.getClassByName("Vehicle");
+		var vehicleClassDiagram=new worksheet.ClassDiagramNode(vehicle,width/2,height/2);
+
+		var document=new worksheet.Worksheet();
+		document.semanticModel=softwareDesign;
+		document.classDiagramList.push(vehicleClassDiagram);
+		return document;
 	}
 }

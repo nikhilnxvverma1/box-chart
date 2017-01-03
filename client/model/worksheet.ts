@@ -20,6 +20,8 @@ export class Worksheet{
  * A diagram node is also a visual block to display and additionally also holds geometry.
  */
 export abstract class DiagramNode{
+	/** Used exclusively as a flag to tell weather this block is selected in the editor or not */
+	selected:boolean=false;
 	incomingEdges:DiagramEdge[]=[];
 	outgoingEdges:DiagramEdge[]=[];
 	/** Gives the geometrical shape for this diagram block */
@@ -50,10 +52,17 @@ export class DiagramEdge{
 
 /** A rect diagram node used for holding class definition, its associated geometry and collapse flags for field and method blocks*/
 export class ClassDiagramNode extends DiagramNode{
+	static readonly WIDTH=200;
 	classDefinition:ClassDefinition;
 	rect:Rect;
 	fieldsCollapsed:boolean;
 	methodsCollapsed:boolean;
+
+	constructor(classDefinition:ClassDefinition,x:number,y:number){
+		super();
+		this.classDefinition=classDefinition;
+		this.rect=new Rect(x,y,ClassDiagramNode.WIDTH,400);//actual height is based on content
+	}
 
 	getGeometry():Geometry{
 		return this.rect;

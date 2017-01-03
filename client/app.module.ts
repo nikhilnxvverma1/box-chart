@@ -66,7 +66,7 @@ const MyRoutes=RouterModule.forRoot([
          LinkerComponent
          ],
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    providers:[TransformService,InterpreterService],
+    providers:[TransformService,InterpreterService,MockDataService],
     bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

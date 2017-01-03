@@ -14,4 +14,6 @@
 	>Double click anywhere to create a box</h1>
 	<box *ngFor="let rect of rectList" [rect]="rect" (requestDragging)="setDragInteractionIfEmpty($event)"></box>
 	<line-segment [start]="st" [end]="en"></line-segment>
+	<class-diagram *ngFor="let classDiagram of worksheet.classDiagramList" [classDiagram]="classDiagram">
+	</class-diagram>
 </div>

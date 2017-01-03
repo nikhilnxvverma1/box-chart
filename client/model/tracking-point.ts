@@ -15,12 +15,18 @@ export class RectTrackingPoint implements TrackingPoint{
 	
 	private rect:Rect;
 	private trackedPoint:Point;
-	private side:Direction;//only top,left,bottom,right applicable here
+	fraction:number;
+	side:Direction;//only top,left,bottom,right applicable here
 
-	constructor(rect:Rect){
+	/**
+	 * Creates a new tracking point for a given side of a rect with a 
+	 * fraction that is linearly interpolated to get the tracked point
+	 */
+	constructor(rect:Rect,direction=Direction.Top,fraction=0){
 		this.rect=rect;
-		this.side=Direction.Top;
-		this.trackedPoint=this.rect.topLeft();
+		this.side=direction;
+		this.fraction=fraction;
+		this.trackedPoint=this.pointOnSide(fraction);
 	}
 
 	pointOnGeometry():Point{
@@ -28,11 +34,11 @@ export class RectTrackingPoint implements TrackingPoint{
 	}
 
 	/** Returns the point defined by a side and a fraction between 0 and 1 */
-	pointOnSide(fraction:number):Point{		
+	pointOnSide(side=this.side,fraction:number=this.fraction):Point{
 		var startPoint:Point;
 		var endPoint:Point;
 
-		switch(this.side){
+		switch(side){
 			case Direction.Top:
 				startPoint=new Point(this.rect.x,this.rect.y);
 				endPoint=new Point(this.rect.x+this.rect.width,this.rect.y);

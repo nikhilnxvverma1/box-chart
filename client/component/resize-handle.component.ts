@@ -78,7 +78,7 @@ export class ResizeHandleComponent implements OnInit,PressDragReleaseProcessor{
 		}
 
 		//initialize handle's rect by using the tracking point
-		var point=this.pointOnSide.pointOnGeometry();
+		var point=this.pointOnSide.pointOnSide(this.pointOnSide.side,this.pointOnSide.fraction);
 		this.handle=new Rect(
 			point.x-ResizeHandleComponent.HandleWidth/2,
 			point.y-ResizeHandleComponent.HandleWidth/2,

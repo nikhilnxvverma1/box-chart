@@ -3,6 +3,26 @@
 export class SemanticModel{
 	classDefinitionList:ClassDefinition[]=[];
 	interfaceDefinitionList:InterfaceDefinition[]=[];
+
+	/** Finds the class for the given name in the class definition list */
+	getClassByName(name:string):ClassDefinition{
+		for(let classDefinition of this.classDefinitionList){
+			if(classDefinition.getName()==name){
+				return classDefinition;
+			}
+		}
+		return null;
+	}
+
+	/** Finds the interface for the given name in the interface definition list */
+	getInterfaceByName(name:string):InterfaceDefinition{
+		for(let interfaceDefinition of this.interfaceDefinitionList){
+			if(interfaceDefinition.getName()==name){
+				return interfaceDefinition;
+			}
+		}
+		return null;
+	}
 }
 
 export interface TypeNode{
@@ -137,8 +157,8 @@ export class InterfaceDefinition implements TypeNode{
 	methodList:MethodPrototype[]=[];//it can be assumed that all the methods are non static public
 
 	parentInterface:InterfaceDefinition;
-	subInterfaces:InterfaceDefinition;
-	implementingClasses:ClassDefinition[];
+	subInterfaces:InterfaceDefinition[]=[];
+	implementingClasses:ClassDefinition[]=[];
 
 	constructor(name:string){
 		this.name=name;

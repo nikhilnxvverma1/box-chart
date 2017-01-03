@@ -7,6 +7,24 @@ $linker-color:#344353;
 	border: 2px solid black;
 }
 
+.selected-block{
+	border-color: $selection-color;
+}
+
+.block-cell{
+	line-height: 34px;
+	padding:4px;
+	margin:0px;
+}
+
+.bottom-border-solid{
+	border-bottom: 2px solid black;
+}
+
+.center-align{
+	text-align: center;
+}
+
 .handle-pick{
 	position:absolute;
 	border:none;

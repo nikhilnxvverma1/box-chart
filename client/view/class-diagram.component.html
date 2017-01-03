@@ -1,1 +1,13 @@
-TODO
+<div class="generic-block"
+[style.left.px]="classDiagram.rect.x"
+[style.top.px]="classDiagram.rect.y"
+[style.width.px]="classDiagram.rect.width"
+[style.height.px]="classDiagram.rect.height"
+[style.selected-block]="classDiagram.selected" 
+(click)="toggleSelection()" 
+(mousepress)="registerDragIntention(this)">
+
+	<div class="block-cell bottom-border-solid center-align">
+		{{classDiagram.classDefinition.name}}
+	</div>
+</div>
