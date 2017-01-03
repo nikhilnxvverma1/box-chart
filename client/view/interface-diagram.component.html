@@ -1,1 +1,26 @@
-TODO
+<div class="generic-block"
+[style.left.px]="interfaceDiagram.rect.x"
+[style.top.px]="interfaceDiagram.rect.y"
+[style.width.px]="interfaceDiagram.rect.width"
+[style.height.px]="interfaceDiagram.rect.height"
+[style.selected-block]="interfaceDiagram.selected" 
+(click)="toggleSelection()" 
+(mousepress)="registerDragIntention(this)">
+
+	<div class="block-cell bottom-border-solid header-block-cell">
+		<div class="header-decorater"> &lt;&lt; Interface &gt;&gt; </div>
+		<span>{{interfaceDiagram.interfaceDefinition.name}}</span>
+	</div>
+
+	<div *ngFor="let method of interfaceDiagram.interfaceDefinition.methodList" 
+		class="block-cell content-block-cell">
+		+ 
+		{{method.identifier}} 
+		(
+			<span *ngFor="let argument of method.argumentList">
+				{{argument.name}} : {{argument.type.getName()}}
+			</span>
+		)
+		: {{method.returnType.getName()}}
+	</div>
+</div>

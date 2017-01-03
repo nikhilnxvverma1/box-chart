@@ -86,9 +86,13 @@ export class MockDataService{
 		var vehicle=softwareDesign.getClassByName("Vehicle");
 		var vehicleClassDiagram=new worksheet.ClassDiagramNode(vehicle,width/2,height/2);
 
+		var cargoCarrier=softwareDesign.getInterfaceByName("CargoCarier");
+		var cargoCarrierDiagram=new worksheet.InterfaceDiagramNode(cargoCarrier,width/2+250,height/2+200);
+
 		var document=new worksheet.Worksheet();
 		document.semanticModel=softwareDesign;
 		document.classDiagramList.push(vehicleClassDiagram);
+		document.interfaceDiagramList.push(cargoCarrierDiagram);
 		return document;
 	}
 }

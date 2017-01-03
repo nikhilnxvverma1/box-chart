@@ -81,6 +81,12 @@ export class InterfaceDiagramNode extends DiagramNode{
 	rect:Rect;
 	methodsCollapsed:boolean;
 
+	constructor(interfaceDefinition:InterfaceDefinition,x:number,y:number){
+		super();
+		this.interfaceDefinition=interfaceDefinition;
+		this.rect=new Rect(x,y,ClassDiagramNode.DEFAULT_WIDTH,250);
+	}
+
 	getGeometry():Geometry{
 		return this.rect;
 	}
