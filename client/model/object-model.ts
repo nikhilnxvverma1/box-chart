@@ -1,6 +1,13 @@
 import { TypeNode,FieldMember,PrimitiveType,VariableDefinition } from './semantic-model';
 import { ClassDefinition,InterfaceDefinition } from './semantic-model';
 
+/** Root class that holds all data objects entries in one place */
+export class ObjectModel{
+	classObjectList:ClassObjectData[]=[];
+	interfaceObjectList:InterfaceObjectData[]=[];
+	collectionList:Collection[]=[];
+}
+
 /** Denotes data value weather represented by primitives, class objects or interface objects */
 export interface Data{
 	isPrimitive():boolean;

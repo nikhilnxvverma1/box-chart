@@ -1,7 +1,8 @@
 
 
-export class SemanticGraph{
-	typeNodeList:TypeNode[]=[];
+export class SemanticModel{
+	classDefinitionList:ClassDefinition[]=[];
+	interfaceDefinitionList:InterfaceDefinition[]=[];
 }
 
 export interface TypeNode{
@@ -16,8 +17,17 @@ export enum PrimitiveType{//minding the name collisions
 	StringType
 }
 
+/** 
+ * Type fpr holdind primitive data like int,char,bool and also(exceptionally) string. 
+ * Refrain from creating new ones as these type are predefined and already exist as
+ * static variable in the SemanticModel class  
+ */
 export class PrimitiveWrapper implements TypeNode{
 	type:PrimitiveType;
+
+	constructor(type:PrimitiveType){
+		this.type=type;
+	}
 
 	static getPrimtiveName(type:PrimitiveType):string{
 		switch(type){
@@ -50,15 +60,26 @@ export enum AccessSpecifier{//minding the name collisions
 
 export class MethodMember{
 	accessSpecifier:AccessSpecifier;
-	isStatic:boolean;
-	isFinal:boolean;
+	isStatic:boolean=false;
+	isFinal:boolean=false;
+	isAbstract:boolean=false;
 	methodPrototype:MethodPrototype;
+
+	constructor(identifier:string,returnType:TypeNode,accessSpecifier:AccessSpecifier=AccessSpecifier.Public){
+		this.methodPrototype=new MethodPrototype(identifier,returnType);
+		this.accessSpecifier=accessSpecifier;
+	}
 }
 
 export class MethodPrototype{
 	identifier:string;
 	argumentList:VariableDefinition[]=[];
 	returnType:TypeNode;
+
+	constructor(identifier:string,returnType:TypeNode){
+		this.identifier=identifier;
+		this.returnType=returnType;
+	}
 }
 
 export class FieldMember{
@@ -66,11 +87,21 @@ export class FieldMember{
 	isStatic:boolean;
 	isFinal:boolean;
 	variableDefinition:VariableDefinition
+
+	constructor(name:string,type:TypeNode,accessSpecifier:AccessSpecifier=AccessSpecifier.Public){
+		this.accessSpecifier=accessSpecifier;
+		this.variableDefinition=new VariableDefinition(name,type);
+	}
 }
 
 export class VariableDefinition{
 	name:string;
 	type:TypeNode;
+
+	constructor(name:string,type:TypeNode){
+		this.name=name;
+		this.type=type;
+	}
 }
 
 export class ClassDefinition implements TypeNode{
@@ -81,10 +112,22 @@ export class ClassDefinition implements TypeNode{
 	methodList:MethodMember[]=[];
 
 	parentClass:ClassDefinition;
-	subClasses:ClassDefinition[];
+	subClasses:ClassDefinition[]=[];
+	interfacesImplemented:InterfaceDefinition[]=[];
+
+	constructor(name:string,parentClass:ClassDefinition=null){
+		this.name=name;
+		this.parentClass=parentClass;
+	}
 
 	getName():string{
 		return this.name;
+	}
+
+	addSubClasses(...subClasses:ClassDefinition[]){
+		for(var i=0;i<subClasses.length;i++){
+			this.subClasses.push(subClasses[i]);
+		}
 	}
 }
 
@@ -95,10 +138,20 @@ export class InterfaceDefinition implements TypeNode{
 
 	parentInterface:InterfaceDefinition;
 	subInterfaces:InterfaceDefinition;
-	implementingClasses:ClassDefinition;
+	implementingClasses:ClassDefinition[];
+
+	constructor(name:string){
+		this.name=name;
+	}
 
 	getName():string{
 		return this.name;
+	}
+
+	addImplementingClasses(...implementations:ClassDefinition[]){
+		for(var i=0;i<implementations.length;i++){
+			this.implementingClasses.push(implementations[i]);
+		}
 	}
 }
 
@@ -142,3 +195,9 @@ export class GenericCollection implements TypeNode{
 		return GenericCollection.getCollectionName(this.type,this.generic);
 	}
 }
+
+export const IntWrapper=new PrimitiveWrapper(PrimitiveType.IntType);
+export const CharWrapper=new PrimitiveWrapper(PrimitiveType.CharType);
+export const BoolWrapper=new PrimitiveWrapper(PrimitiveType.BoolType);
+export const FloatWrapper=new PrimitiveWrapper(PrimitiveType.FloatType);
+export const StringWrapper=new PrimitiveWrapper(PrimitiveType.StringType);

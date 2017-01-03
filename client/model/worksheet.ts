@@ -1,5 +1,5 @@
 import { Geometry,Rect,LinkedPoint,Point,Circle } from './geometry';
-import { SemanticGraph,ClassDefinition,InterfaceDefinition } from './semantic-model';
+import { SemanticModel,ClassDefinition,InterfaceDefinition } from './semantic-model';
 import { TrackingPoint } from './tracking-point';
 import { ClassObjectData,InterfaceObjectData,Collection } from './object-model';
 
@@ -7,8 +7,12 @@ import { ClassObjectData,InterfaceObjectData,Collection } from './object-model';
 export const WorksheetType="Worksheet";//TODO may not be required
 
 export class Worksheet{
-	semanticGraph:SemanticGraph;
+	semanticModel:SemanticModel;
 	commentList:Comment[]=[];
+	classDiagramList:ClassDiagramNode[]=[];
+	interfaceDiagramList:InterfaceDiagramNode[]=[];
+	classObjectListDiagramList:ClassObjectDiagram[]=[];
+	interfaceObjectListDiagramList:InterfaceObjectDiagram[]=[];
 }
 
 /** 
@@ -18,7 +22,10 @@ export class Worksheet{
 export abstract class DiagramNode{
 	incomingEdges:DiagramEdge[]=[];
 	outgoingEdges:DiagramEdge[]=[];
+	/** Gives the geometrical shape for this diagram block */
 	abstract getGeometry():Geometry;
+	/** Each diagram block has a certain cell requirement which can be found using this method */
+	abstract cellRequirement():number;
 }
 
 /** 
@@ -51,6 +58,12 @@ export class ClassDiagramNode extends DiagramNode{
 	getGeometry():Geometry{
 		return this.rect;
 	}
+
+	cellRequirement():number{
+		var fieldCells = !this.fieldsCollapsed ? this.classDefinition.fieldList.length : 1;
+		var methodCells = !this.methodsCollapsed ? this.classDefinition.methodList.length : 0;
+		return 1 + fieldCells + methodCells;
+	}
 }
 
 /** A rect diagram node used for holding interface definition, its associated geometry and collapse flag for method block*/
@@ -62,21 +75,44 @@ export class InterfaceDiagramNode extends DiagramNode{
 	getGeometry():Geometry{
 		return this.rect;
 	}
+
+	cellRequirement():number{
+		var methodCells = !this.methodsCollapsed ? this.interfaceDefinition.methodList.length : 0;
+		return 1 + methodCells;
+	}
 }
 
-/** A single or multi line comment block thats put in a rect */
-export class Comment extends DiagramNode{
+/** A single line comment block thats put in a rect */
+export class SingleLineComment extends DiagramNode{
 
-	isMultiLine:boolean;
 	comment:string;
 	rect:Rect;
 
 	getGeometry():Geometry{
 		return this.rect;
 	}
+
+	cellRequirement():number{
+		return 1;
+	}
 }
 
-export class ObjectDiagram extends DiagramNode{
+/** A multi line comment block thats put in a rect */
+export class MultiLineComment extends DiagramNode{
+
+	lines:string[]=[];
+	rect:Rect;
+
+	getGeometry():Geometry{
+		return this.rect;
+	}
+
+	cellRequirement():number{
+		return this.lines.length;
+	}
+}
+
+export abstract class ObjectDiagram extends DiagramNode{
 	/** If true, this diagram is a rectangle and not a circle */
 	rectNotCircle:boolean;
 	rect:Rect;
@@ -85,12 +121,23 @@ export class ObjectDiagram extends DiagramNode{
 	getGeometry():Geometry{
 		return this.rect;
 	}
+
 }
 
 export class ClassObjectDiagram extends ObjectDiagram{
 	classObject:ClassObjectData;
+
+	cellRequirement():number{
+		//header + description + field data list
+		return 1+1+this.classObject.fieldDataList.length;
+	}
 }
 
 export class InterfaceObjectDiagram extends ObjectDiagram{
 	interfaceObject:InterfaceObjectData;
+
+	cellRequirement():number{
+		//header + description 
+		return 1+1;
+	}
 }

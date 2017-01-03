@@ -23,6 +23,7 @@ import { InterfaceObjectDiagramComponent } from './component/interface-object-di
 import { LinkedSegmentsComponent } from './component/linked-segments.component';
 import { TransformService } from './utility/transform.service';
 import { InterpreterService } from './utility/interpreter.service';
+import { MockDataService } from './utility/mock-data.service';
 import { FocusDirective } from './directive/focus.directive';
 import { MyRectDirective } from './directive/my-rect.directive';
 import { MyCircleDirective } from './directive/my-circle.directive';
