@@ -19,8 +19,26 @@ export class PrimitiveData implements Data{
 	value:string;
 	type:PrimitiveType;
 
+	constructor(type:PrimitiveType,value:string){
+		this.value=value;
+		this.type=type;
+	}
+
+	/** Formats as per the data type eg: 'char',"string", 34.0, 23, true/false etc. */
 	formatted():string{
-		return this.value;// TODO format as per the data type eg: 'char',"string", 34.0, 23, true/false etc.
+		switch(this.type){
+			case PrimitiveType.IntType:
+				return this.value;
+			case PrimitiveType.CharType:
+				return "'"+this.value+"'";
+			case PrimitiveType.BoolType:
+				return this.value.toLowerCase()=="true"?"true":"false";//assuming the value itself is just either true or false
+			case PrimitiveType.FloatType:
+				return parseFloat(this.value).toString();
+			case PrimitiveType.StringType:
+				return "\""+this.value+"\"";
+		}
+		return this.value;// if all else fails, just return the string itself
 	}
 
 	isPrimitive():boolean{
@@ -59,9 +77,16 @@ export class InterfaceObjectData extends ObjectData{
 /** A concrete object holding several values for its fields */
 export class ClassObjectData extends ObjectData{
 
+	name:string;
 	classDefinition:ClassDefinition;
 	description:string;
 	fieldDataList:DataHolder[]=[];
+
+	constructor(name:string,classDefinition:ClassDefinition){
+		super();
+		this.name=name;
+		this.classDefinition=classDefinition;
+	}
 
 	getTypeNode():ClassDefinition{
 		return this.classDefinition;
@@ -73,8 +98,9 @@ export class DataHolder{
 	private variable:VariableDefinition;
 	private data:Data;
 
-	constructor(variable:VariableDefinition){
+	constructor(variable:VariableDefinition,data:Data){
 		this.variable=variable;
+		this.data=data;
 	}
 }
 

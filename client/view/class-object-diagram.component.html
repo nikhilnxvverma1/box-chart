@@ -1,1 +1,23 @@
-TODO
+<div class="generic-block"
+[style.left.px]="classObjectDiagram.rect.x"
+[style.top.px]="classObjectDiagram.rect.y"
+[style.width.px]="classObjectDiagram.rect.width"
+[style.height.px]="classObjectDiagram.rect.height"
+[style.selected-block]="classObjectDiagram.selected" 
+(click)="toggleSelection()" 
+(mousepress)="registerDragIntention(this)">
+
+	<div class="block-cell bottom-border-solid header-block-cell">
+		<span>{{classObjectDiagram.classObject.name}}</span>
+		 : 
+		<span class="bold">{{classObjectDiagram.classObject.classDefinition.getName()}}</span>
+	</div>
+
+	<div *ngFor="let fieldData of classObjectDiagram.classObject.fieldDataList" 
+		class="block-cell content-block-cell">
+		+ 
+		{{fieldData.variable.name}} 
+		=
+		{{fieldData.data.stringRepresentation()}}
+	</div>
+</div>

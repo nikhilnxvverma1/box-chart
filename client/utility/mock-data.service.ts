@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import * as semantic from '../model/semantic-model';
 import * as worksheet from '../model/worksheet';
+import * as object from '../model/object-model';
 import { ArtboardWidth,ArtboardHeight } from '../component/artboard.component';
 
 @Injectable()
@@ -54,6 +55,7 @@ export class MockDataService{
 		var luggage=new semantic.ClassDefinition("Luggage");
 		luggage.fieldList.push(new semantic.FieldMember("weight",semantic.FloatWrapper));
 		luggage.fieldList.push(new semantic.FieldMember("area",semantic.FloatWrapper));
+		luggage.fieldList.push(new semantic.FieldMember("fragile",semantic.BoolWrapper));
 		luggage.interfacesImplemented.push(cargo);
 		cargo.addImplementingClasses(luggage);
 		
@@ -89,10 +91,28 @@ export class MockDataService{
 		var cargoCarrier=softwareDesign.getInterfaceByName("CargoCarier");
 		var cargoCarrierDiagram=new worksheet.InterfaceDiagramNode(cargoCarrier,width/2+250,height/2+200);
 
+		var luggage=softwareDesign.getClassByName("Luggage");
+		var weight=luggage.getFieldByName("weight");
+		var area=luggage.getFieldByName("area");
+		var fragile=luggage.getFieldByName("fragile");
+		
+		var luggageObject=new object.ClassObjectData("luggage",luggage);
+		luggageObject.fieldDataList.push(new object.DataHolder(weight.variableDefinition,
+				new object.PrimitiveData(semantic.PrimitiveType.FloatType,"23.4")));
+
+		luggageObject.fieldDataList.push(new object.DataHolder(area.variableDefinition,
+				new object.PrimitiveData(semantic.PrimitiveType.FloatType,"13.4")));
+
+		luggageObject.fieldDataList.push(new object.DataHolder(weight.variableDefinition,
+				new object.PrimitiveData(semantic.PrimitiveType.BoolType,"true")));
+		
+		var luggageObjectDiagram=new worksheet.ClassObjectDiagram(luggageObject,width/2+100,height/2-300);
+
 		var document=new worksheet.Worksheet();
 		document.semanticModel=softwareDesign;
 		document.classDiagramList.push(vehicleClassDiagram);
 		document.interfaceDiagramList.push(cargoCarrierDiagram);
+		document.classObjectDiagramList.push(luggageObjectDiagram);
 		return document;
 	}
 }

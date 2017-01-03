@@ -11,8 +11,8 @@ export class Worksheet{
 	commentList:Comment[]=[];
 	classDiagramList:ClassDiagramNode[]=[];
 	interfaceDiagramList:InterfaceDiagramNode[]=[];
-	classObjectListDiagramList:ClassObjectDiagram[]=[];
-	interfaceObjectListDiagramList:InterfaceObjectDiagram[]=[];
+	classObjectDiagramList:ClassObjectDiagram[]=[];
+	interfaceObjectDiagramList:InterfaceObjectDiagram[]=[];
 }
 
 /** 
@@ -141,6 +141,12 @@ export abstract class ObjectDiagram extends DiagramNode{
 
 export class ClassObjectDiagram extends ObjectDiagram{
 	classObject:ClassObjectData;
+
+	constructor(classObject:ClassObjectData,x:number,y:number){
+		super();
+		this.classObject=classObject;
+		this.rect=new Rect(x,y,ClassDiagramNode.DEFAULT_WIDTH,250);
+	}
 
 	cellRequirement():number{
 		//header + description + field data list

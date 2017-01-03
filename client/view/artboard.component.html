@@ -16,4 +16,5 @@
 	<line-segment [start]="st" [end]="en"></line-segment>
 	<class-diagram *ngFor="let classDiagram of worksheet.classDiagramList" [classDiagram]="classDiagram"></class-diagram>
 	<interface-diagram *ngFor="let interfaceDiagram of worksheet.interfaceDiagramList" [interfaceDiagram]="interfaceDiagram"></interface-diagram>
+	<class-object-diagram *ngFor="let classObject of worksheet.classObjectDiagramList" [classObjectDiagram]="classObject"></class-object-diagram>
 </div>

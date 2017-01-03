@@ -149,6 +149,15 @@ export class ClassDefinition implements TypeNode{
 			this.subClasses.push(subClasses[i]);
 		}
 	}
+
+	getFieldByName(fieldName:string):FieldMember{
+		for(let field of this.fieldList){
+			if(field.variableDefinition.name==fieldName){
+				return field;
+			}
+		}
+		return null;
+	}
 }
 
 export class InterfaceDefinition implements TypeNode{
