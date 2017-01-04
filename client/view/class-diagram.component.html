@@ -11,12 +11,18 @@
 		<span [class.italic]="classDiagram.classDefinition.isAbstract">{{classDiagram.classDefinition.name}}</span>
 	</div>
 
-	<div *ngFor="let fieldMember of classDiagram.classDefinition.fieldList " class="block-cell content-block-cell">
+	<div 
+	*ngFor="let fieldMember of classDiagram.classDefinition.fieldList " 
+	class="block-cell content-block-cell"
+	contenteditable="true"
+	>
 		{{fieldMember.accessSpecifier | accessSymbol}} {{fieldMember.variableDefinition.name}} : {{fieldMember.variableDefinition.type.getName()}}
 	</div>
 	<div class="solid-horizontal-line mini-top-bottom-margin"> </div>
 	<div *ngFor="let methodMember of classDiagram.classDefinition.methodList; let i=index" 
-		class="block-cell content-block-cell">
+		class="block-cell content-block-cell"
+		contenteditable="true"
+		>
 
 		{{methodMember.accessSpecifier | accessSymbol}} 
 		<span [class.italic]="methodMember.isAbstract">

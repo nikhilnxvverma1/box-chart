@@ -1,4 +1,5 @@
 import { Component,Output,EventEmitter } from '@angular/core';
+import { ViewChild } from '@angular/core';
 import { animate,trigger,state,transition,style } from '@angular/core';
 import { Rect } from '../model/geometry';
 import { Point } from '../model/geometry';
@@ -6,6 +7,7 @@ import { PressDragReleaseProcessor } from '../utility/common';
 import { DiagramaticComponent } from '../editor/diagramatic-element';
 import { Worksheet } from '../model/worksheet';
 import { MockDataService } from '../utility/mock-data.service';
+import { AutoCompletionComponent } from './auto-completion.component';
 
 export const ArtboardWidth=3200;
 export const ArtboardHeight=(2/3)*ArtboardWidth;
@@ -25,6 +27,8 @@ export class ArtboardComponent  {
     @Output() mousedownEvent=new EventEmitter<MouseEvent>();
     @Output() mousemoveEvent=new EventEmitter<MouseEvent>();
     @Output() mouseupEvent=new EventEmitter<MouseEvent>();
+
+	@ViewChild(AutoCompletionComponent) autoCompletion:AutoCompletionComponent;
 
 	private draggingInteraction:PressDragReleaseProcessor;
 

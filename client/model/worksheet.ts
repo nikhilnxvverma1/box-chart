@@ -1,13 +1,14 @@
 import { Geometry,Rect,LinkedPoint,Point,Circle } from './geometry';
 import { SemanticModel,ClassDefinition,InterfaceDefinition } from './semantic-model';
 import { TrackingPoint } from './tracking-point';
-import { ClassObjectData,InterfaceObjectData,Collection } from './object-model';
+import { ObjectModel, ClassObjectData, InterfaceObjectData, Collection } from './object-model';
 
 //the following constants are used to identify objects of this data model in JSON
 export const WorksheetType="Worksheet";//TODO may not be required
 
 export class Worksheet{
 	semanticModel:SemanticModel;
+	objectModel:ObjectModel;
 	commentList:Comment[]=[];
 	classDiagramList:ClassDiagramNode[]=[];
 	interfaceDiagramList:InterfaceDiagramNode[]=[];
