@@ -36,7 +36,8 @@ export class ArtboardComponent  {
     constructor(private mockDataService:MockDataService,private interpreter:InterpreterService ){
       this.massiveArea=new Rect(0,0,ArtboardWidth,ArtboardHeight);
 	  this.worksheet=this.mockDataService.vehicleWorksheet();
-	  this.interpreter.parseFieldMember("+capacity:int");
+	//   this.interpreter.parseFieldMember("+capacity:int");
+	  this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
     }
 
     doubleClickedArtboard(event:MouseEvent){

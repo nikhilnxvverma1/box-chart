@@ -87,7 +87,7 @@ gulp.task('server-typescript',function(){
 gulp.task('prod:client',shell.task('webpack --config config/webpack.prod.js'));
 
 //builds and watches client for development environment using webpack
-gulp.task('run:client',shell.task('webpack --watch --config config/webpack.dev.js'));
+gulp.task('run:client',shell.task('webpack --debug --devtool source-map --watch --config config/webpack.dev.js'));
 
 //server: transpiles typescript, watches ts files and launches the server
 gulp.task('start:server',shell.task('node server/transpiled/index.js'));
