@@ -22,7 +22,7 @@ import { InterfaceDiagramComponent } from './component/interface-diagram.compone
 import { InterfaceObjectDiagramComponent } from './component/interface-object-diagram.component';
 import { LinkedSegmentsComponent } from './component/linked-segments.component';
 import { TransformService } from './utility/transform.service';
-import { InterpreterService } from './utility/interpreter.service';
+import { InterpreterService } from './editor/compiler/interpreter.service';
 import { MockDataService } from './utility/mock-data.service';
 import { FocusDirective } from './helper/focus.directive';
 import { MyRectDirective } from './helper/my-rect.directive';

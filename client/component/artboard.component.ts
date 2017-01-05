@@ -8,6 +8,7 @@ import { DiagramaticComponent } from '../editor/diagramatic-element';
 import { Worksheet } from '../model/worksheet';
 import { MockDataService } from '../utility/mock-data.service';
 import { AutoCompletionComponent } from './auto-completion.component';
+import { InterpreterService } from '../editor/compiler/interpreter.service';
 
 export const ArtboardWidth=3200;
 export const ArtboardHeight=(2/3)*ArtboardWidth;
@@ -32,9 +33,10 @@ export class ArtboardComponent  {
 
 	private draggingInteraction:PressDragReleaseProcessor;
 
-    constructor(private mockDataService:MockDataService){
+    constructor(private mockDataService:MockDataService,private interpreter:InterpreterService ){
       this.massiveArea=new Rect(0,0,ArtboardWidth,ArtboardHeight);
 	  this.worksheet=this.mockDataService.vehicleWorksheet();
+	  this.interpreter.parseFieldMember("+capacity:int");
     }
 
     doubleClickedArtboard(event:MouseEvent){

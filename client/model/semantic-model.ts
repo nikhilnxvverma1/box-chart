@@ -1,4 +1,4 @@
-
+import * as util from '../utility/common';
 
 export class SemanticModel{
 	classDefinitionList:ClassDefinition[]=[];
@@ -89,6 +89,15 @@ export class MethodMember{
 		this.methodPrototype=new MethodPrototype(identifier,returnType);
 		this.accessSpecifier=accessSpecifier;
 	}
+
+	toString():string{
+		var staticPart=this.isStatic?" static":" ";
+		var finalPart=this.isFinal?" final":" ";
+		return util.stringForAccessSpecifier(this.accessSpecifier)
+			+staticPart
+			+finalPart
+			+this.methodPrototype.toString();
+	}
 }
 
 export class MethodPrototype{
@@ -99,6 +108,26 @@ export class MethodPrototype{
 	constructor(identifier:string,returnType:TypeNode){
 		this.identifier=identifier;
 		this.returnType=returnType;
+	}
+
+	toString():string{
+		var returnTypePart=this.returnType!=null?":"+this.returnType.getName():"";
+		var argumentInString="";
+		var commaNeeded=false;
+		for(let argument of this.argumentList){
+			if(commaNeeded){
+				argumentInString+=",";
+			}
+			argumentInString+=argument.toString();
+			commaNeeded=true;
+		}
+		
+		return this.identifier + "("
+			+ argumentInString
+			+")"
+			+returnTypePart;
+
+			
 	}
 }
 
@@ -112,6 +141,15 @@ export class FieldMember{
 		this.accessSpecifier=accessSpecifier;
 		this.variableDefinition=new VariableDefinition(name,type);
 	}
+
+	toString():string{
+		var staticPart=this.isStatic?" static":" ";
+		var finalPart=this.isFinal?" final":" ";
+		return util.stringForAccessSpecifier(this.accessSpecifier)
+				+staticPart
+				+finalPart
+				+this.variableDefinition.toString();
+	}
 }
 
 export class VariableDefinition{
@@ -121,6 +159,10 @@ export class VariableDefinition{
 	constructor(name:string,type:TypeNode){
 		this.name=name;
 		this.type=type;
+	}
+
+	toString():string{
+		return this.name+":"+this.type.getName();
 	}
 }
 
@@ -158,6 +200,10 @@ export class ClassDefinition implements TypeNode{
 		}
 		return null;
 	}
+
+	toString():string{
+		return "class "+this.name;
+	}
 }
 
 export class InterfaceDefinition implements TypeNode{
@@ -181,6 +227,10 @@ export class InterfaceDefinition implements TypeNode{
 		for(var i=0;i<implementations.length;i++){
 			this.implementingClasses.push(implementations[i]);
 		}
+	}
+
+	toString():string{
+		return "interface "+this.name;
 	}
 }
 

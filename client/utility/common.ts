@@ -1,5 +1,6 @@
 import { Point } from '../model/geometry';
 import { PrimitiveType } from '../model/semantic-model';
+import { AccessSpecifier } from '../model/semantic-model';
 
 /** Gives radians when multiplied by an angle in degrees */
 export const DegreesToRadians=Math.PI/180;
@@ -85,5 +86,20 @@ export class LineEquation{
 		var x = (line.b*this.c*(-1) - this.b*line.c*(-1))/delta;
 		var y = (this.a*line.c*(-1) - line.a*this.c*(-1))/delta;
 		return new Point(x,y);
+	}
+}
+
+/** Returns string representation for the access specifier like + for public, - for private, # for protected etc. */
+export function stringForAccessSpecifier(accessSpecifier:AccessSpecifier){
+	switch(accessSpecifier){
+		case AccessSpecifier.Private:
+			return "-";
+		case AccessSpecifier.Protected:
+			return "#";
+		case AccessSpecifier.Public:
+			return "+";
+		case AccessSpecifier.Default:
+		default:
+			return "";
 	}
 }
