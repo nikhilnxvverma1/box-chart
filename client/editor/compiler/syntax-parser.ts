@@ -14,7 +14,7 @@ export interface SyntaxElement{
 	isTerminal():boolean;
 }
 
-export class Variable implements SyntaxElement{
+export class NonTerminal implements SyntaxElement{
 	id:number;
 
 	constructor(id:number){
@@ -45,22 +45,40 @@ export class Epsilon implements SyntaxElement{
 }
 
 export class Rule{
-	from:Variable;
+	from:NonTerminal;
 	goesTo:SyntaxElement[];
 
-	constructor(from:Variable,...goesTo:SyntaxElement[]){
+	constructor(from:NonTerminal,...goesTo:SyntaxElement[]){
 		this.from=from;
 		this.goesTo=goesTo;
 	}
 }
 
 export class ContextFreeGrammer{
-	variableList:Variable[]=[];
+	variableList:NonTerminal[]=[];
 	terminalList:Terminal[]=[];
 	relation:Rule[]=[];
-	start:Variable;
+	start:NonTerminal;
 
-	constructor(start:Variable){
+	constructor(start:NonTerminal){
 		this.start=start;
 	}
+
+	/** Parses a string to give an appropriate parse tree which can be used to retrieve information from(semantic analysis)*/
+	parseString(input:string):ParseTree{
+		return null;//TODO
+	}
+}
+
+/** Tree Structure for containing the Parse tree */
+export class ParseTree{
+	root:NonTerminal;
+	input:string;
+}
+
+/** A single node in the parse tree containing links to left, right and parent */
+export class ParseTreeNode{
+	parent:NonTerminal;
+	left:SyntaxElement;
+	right:SyntaxElement;
 }
