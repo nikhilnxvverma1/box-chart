@@ -5,7 +5,7 @@ webpackJsonp([0],[
 	"use strict";
 	var platform_browser_dynamic_1 = __webpack_require__(1);
 	var app_module_1 = __webpack_require__(23);
-	__webpack_require__(114);
+	__webpack_require__(115);
 	platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
 
 
@@ -56,25 +56,25 @@ webpackJsonp([0],[
 	var workspace_component_1 = __webpack_require__(66);
 	var artboard_component_1 = __webpack_require__(75);
 	var sidebar_component_1 = __webpack_require__(72);
-	var area_component_1 = __webpack_require__(88);
-	var box_component_1 = __webpack_require__(90);
-	var line_segment_component_1 = __webpack_require__(94);
-	var resize_handle_component_1 = __webpack_require__(91);
-	var linker_component_1 = __webpack_require__(96);
-	var input_box_component_1 = __webpack_require__(98);
+	var area_component_1 = __webpack_require__(89);
+	var box_component_1 = __webpack_require__(91);
+	var line_segment_component_1 = __webpack_require__(95);
+	var resize_handle_component_1 = __webpack_require__(92);
+	var linker_component_1 = __webpack_require__(97);
+	var input_box_component_1 = __webpack_require__(99);
 	var auto_completion_component_1 = __webpack_require__(79);
-	var class_diagram_component_1 = __webpack_require__(100);
-	var class_object_diagram_component_1 = __webpack_require__(102);
-	var interface_diagram_component_1 = __webpack_require__(104);
-	var interface_object_diagram_component_1 = __webpack_require__(106);
-	var linked_segments_component_1 = __webpack_require__(108);
+	var class_diagram_component_1 = __webpack_require__(101);
+	var class_object_diagram_component_1 = __webpack_require__(103);
+	var interface_diagram_component_1 = __webpack_require__(105);
+	var interface_object_diagram_component_1 = __webpack_require__(107);
+	var linked_segments_component_1 = __webpack_require__(109);
 	var transform_service_1 = __webpack_require__(67);
 	var interpreter_service_1 = __webpack_require__(82);
 	var mock_data_service_1 = __webpack_require__(76);
-	var focus_directive_1 = __webpack_require__(110);
-	var my_rect_directive_1 = __webpack_require__(111);
-	var my_circle_directive_1 = __webpack_require__(112);
-	var access_symbol_pipe_1 = __webpack_require__(113);
+	var focus_directive_1 = __webpack_require__(111);
+	var my_rect_directive_1 = __webpack_require__(112);
+	var my_circle_directive_1 = __webpack_require__(113);
+	var access_symbol_pipe_1 = __webpack_require__(114);
 	var MyRoutes = router_1.RouterModule.forRoot([
 	    { path: '', component: login_component_1.LoginComponent },
 	    { path: 'signup', component: signup_component_1.SignupComponent },
@@ -6177,8 +6177,8 @@ webpackJsonp([0],[
 	    WorkspaceComponent = __decorate([
 	        core_1.Component({
 	            selector: 'workspace',
-	            styles: [__webpack_require__(86)],
-	            template: __webpack_require__(87),
+	            styles: [__webpack_require__(87)],
+	            template: __webpack_require__(88),
 	            animations: [
 	                core_2.trigger('shiftMenuControls', [
 	                    core_2.state('unshifted', core_2.style({
@@ -7069,8 +7069,8 @@ webpackJsonp([0],[
 	    ArtboardComponent = __decorate([
 	        core_1.Component({
 	            selector: 'artboard',
-	            styles: [__webpack_require__(84)],
-	            template: __webpack_require__(85),
+	            styles: [__webpack_require__(85)],
+	            template: __webpack_require__(86),
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_b = typeof mock_data_service_1.MockDataService !== 'undefined' && mock_data_service_1.MockDataService) === 'function' && _b) || Object, (typeof (_c = typeof interpreter_service_1.InterpreterService !== 'undefined' && interpreter_service_1.InterpreterService) === 'function' && _c) || Object])
 	    ], ArtboardComponent);
@@ -7625,6 +7625,7 @@ webpackJsonp([0],[
 	};
 	var core_1 = __webpack_require__(3);
 	var lexer = __webpack_require__(83);
+	var parser = __webpack_require__(84);
 	var InterpreterService = (function () {
 	    function InterpreterService() {
 	    }
@@ -7635,6 +7636,24 @@ webpackJsonp([0],[
 	            var lexeme = lexemeList_1[_i];
 	            console.log(lexeme);
 	        }
+	        this.testDummyGrammer('', this.makeDummyGrammer());
+	        return null;
+	    };
+	    InterpreterService.prototype.makeDummyGrammer = function () {
+	        var s = new parser.NonTerminal(0);
+	        var a = new parser.NonTerminal(1);
+	        var ta = new parser.Terminal(lexer.LexemeType.Minus);
+	        var tb = new parser.Terminal(lexer.LexemeType.Plus);
+	        var cfg = new parser.ContextFreeGrammer(s);
+	        cfg.variableList.push(s, a);
+	        cfg.terminalList.push(ta, tb);
+	        cfg.relation.push(new parser.Rule(s, a, a));
+	        cfg.relation.push(new parser.Rule(a, ta, a));
+	        cfg.relation.push(new parser.Rule(a, tb));
+	        cfg.augumentGrammer();
+	        return cfg;
+	    };
+	    InterpreterService.prototype.testDummyGrammer = function (input, cfg) {
 	        return null;
 	    };
 	    InterpreterService = __decorate([
@@ -7846,28 +7865,119 @@ webpackJsonp([0],[
 /* 84 */
 /***/ function(module, exports) {
 
-	module.exports = "#massive-area {\n  position: absolute; }\n\n#starter-tip {\n  position: absolute;\n  color: gray; }\n"
+	"use strict";
+	(function (CodeContext) {
+	    CodeContext[CodeContext["GenericBox"] = 0] = "GenericBox";
+	    CodeContext[CodeContext["FieldMember"] = 1] = "FieldMember";
+	    CodeContext[CodeContext["MethodMember"] = 2] = "MethodMember";
+	    CodeContext[CodeContext["InterfaceMethod"] = 3] = "InterfaceMethod";
+	    CodeContext[CodeContext["EnumType"] = 4] = "EnumType";
+	    CodeContext[CodeContext["FieldAssignment"] = 5] = "FieldAssignment";
+	})(exports.CodeContext || (exports.CodeContext = {}));
+	var CodeContext = exports.CodeContext;
+	var NonTerminal = (function () {
+	    function NonTerminal(id) {
+	        this.id = id;
+	    }
+	    NonTerminal.prototype.isTerminal = function () {
+	        return false;
+	    };
+	    return NonTerminal;
+	}());
+	exports.NonTerminal = NonTerminal;
+	var Terminal = (function () {
+	    function Terminal(tokenType) {
+	        this.token = tokenType;
+	    }
+	    Terminal.prototype.isTerminal = function () {
+	        return true;
+	    };
+	    return Terminal;
+	}());
+	exports.Terminal = Terminal;
+	var Epsilon = (function () {
+	    function Epsilon() {
+	    }
+	    Epsilon.prototype.isTerminal = function () {
+	        return false;
+	    };
+	    return Epsilon;
+	}());
+	exports.Epsilon = Epsilon;
+	var Rule = (function () {
+	    function Rule(from) {
+	        var goesTo = [];
+	        for (var _i = 1; _i < arguments.length; _i++) {
+	            goesTo[_i - 1] = arguments[_i];
+	        }
+	        this.from = from;
+	        this.goesTo = goesTo;
+	    }
+	    return Rule;
+	}());
+	exports.Rule = Rule;
+	var ContextFreeGrammer = (function () {
+	    function ContextFreeGrammer(start) {
+	        this.variableList = [];
+	        this.terminalList = [];
+	        this.relation = [];
+	        this.start = start;
+	    }
+	    /** Inserts a new starting rule that goes to the current starting rule adding new non terminal in the proceess*/
+	    ContextFreeGrammer.prototype.augumentGrammer = function () {
+	        var sPrime = new NonTerminal(-1);
+	        this.relation.push(new Rule(sPrime, this.start));
+	        this.start = sPrime;
+	    };
+	    /** Parses a string to give an appropriate parse tree which can be used to retrieve information from(semantic analysis)*/
+	    ContextFreeGrammer.prototype.parseString = function (input) {
+	        return null; //TODO
+	    };
+	    return ContextFreeGrammer;
+	}());
+	exports.ContextFreeGrammer = ContextFreeGrammer;
+	/** Tree Structure for containing the Parse tree */
+	var ParseTree = (function () {
+	    function ParseTree() {
+	    }
+	    return ParseTree;
+	}());
+	exports.ParseTree = ParseTree;
+	/** A single node in the parse tree containing links to left, right and parent */
+	var ParseTreeNode = (function () {
+	    function ParseTreeNode() {
+	    }
+	    return ParseTreeNode;
+	}());
+	exports.ParseTreeNode = ParseTreeNode;
+
 
 /***/ },
 /* 85 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<auto-completion [semanticModel]=\"worksheet.semanticModel\" [objectModel]=\"worksheet.objectModel\"></auto-completion>\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\t<class-diagram *ngFor=\"let classDiagram of worksheet.classDiagramList\" [classDiagram]=\"classDiagram\"></class-diagram>\n\t<interface-diagram *ngFor=\"let interfaceDiagram of worksheet.interfaceDiagramList\" [interfaceDiagram]=\"interfaceDiagram\"></interface-diagram>\n\t<class-object-diagram *ngFor=\"let classObject of worksheet.classObjectDiagramList\" [classObjectDiagram]=\"classObject\"></class-object-diagram>\n\t<line-segment [start]=\"st\" [end]=\"en\"></line-segment>\n</div>";
+	module.exports = "#massive-area {\n  position: absolute; }\n\n#starter-tip {\n  position: absolute;\n  color: gray; }\n"
 
 /***/ },
 /* 86 */
 /***/ function(module, exports) {
 
-	module.exports = "#menu-controls {\n  position: absolute;\n  padding: 0px;\n  top: 10px; }\n  #menu-controls li {\n    color: blue;\n    cursor: pointer;\n    display: inline;\n    list-style: none; }\n  #menu-controls li:hover {\n    color: darkblue; }\n\n#container {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n"
+	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<auto-completion [semanticModel]=\"worksheet.semanticModel\" [objectModel]=\"worksheet.objectModel\"></auto-completion>\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\t<class-diagram *ngFor=\"let classDiagram of worksheet.classDiagramList\" [classDiagram]=\"classDiagram\"></class-diagram>\n\t<interface-diagram *ngFor=\"let interfaceDiagram of worksheet.interfaceDiagramList\" [interfaceDiagram]=\"interfaceDiagram\"></interface-diagram>\n\t<class-object-diagram *ngFor=\"let classObject of worksheet.classObjectDiagramList\" [classObjectDiagram]=\"classObject\"></class-object-diagram>\n\t<line-segment [start]=\"st\" [end]=\"en\"></line-segment>\n</div>";
 
 /***/ },
 /* 87 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t<li>Area</li>\n\t\t<li>Overview</li>\n\t</ul>\n</div>\n";
+	module.exports = "#menu-controls {\n  position: absolute;\n  padding: 0px;\n  top: 10px; }\n  #menu-controls li {\n    color: blue;\n    cursor: pointer;\n    display: inline;\n    list-style: none; }\n  #menu-controls li:hover {\n    color: darkblue; }\n\n#container {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n"
 
 /***/ },
 /* 88 */
+/***/ function(module, exports) {
+
+	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t<li>Area</li>\n\t\t<li>Overview</li>\n\t</ul>\n</div>\n";
+
+/***/ },
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7887,7 +7997,7 @@ webpackJsonp([0],[
 	    AreaComponent = __decorate([
 	        core_1.Component({
 	            selector: 'area-highlight',
-	            template: __webpack_require__(89),
+	            template: __webpack_require__(90),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], AreaComponent);
@@ -7897,13 +8007,13 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 89 */
+/* 90 */
 /***/ function(module, exports) {
 
 	module.exports = "<h1>TODO area</h1>";
 
 /***/ },
-/* 90 */
+/* 91 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7919,7 +8029,7 @@ webpackJsonp([0],[
 	var core_1 = __webpack_require__(3);
 	var core_2 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(68);
-	var resize_handle_component_1 = __webpack_require__(91);
+	var resize_handle_component_1 = __webpack_require__(92);
 	var BoxComponent = (function () {
 	    function BoxComponent() {
 	        this.requestDragging = new core_1.EventEmitter();
@@ -7957,7 +8067,7 @@ webpackJsonp([0],[
 	    BoxComponent = __decorate([
 	        core_1.Component({
 	            selector: 'box',
-	            template: __webpack_require__(93),
+	            template: __webpack_require__(94),
 	            animations: [
 	                core_2.trigger('selection', [
 	                    core_2.state('selected', core_2.style({
@@ -7980,7 +8090,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 91 */
+/* 92 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8146,7 +8256,7 @@ webpackJsonp([0],[
 	    ResizeHandleComponent = __decorate([
 	        core_1.Component({
 	            selector: 'resize-handle',
-	            template: __webpack_require__(92)
+	            template: __webpack_require__(93)
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], ResizeHandleComponent);
@@ -8157,19 +8267,19 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 92 */
+/* 93 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"handle-pick\"\n\t[style.left.px]=\"handle.x\"\n\t[style.top.px]=\"handle.y\"\n\t[style.width.px]=\"handle.width\"\n\t[style.height.px]=\"handle.height\"\n\t[style.cursor]=\"cursor\"\n\t(mousedown)=\"requestDragging.emit(this)\"\n\t></div>";
 
 /***/ },
-/* 93 */
+/* 94 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"rect.x\"\n[style.top.px]=\"rect.y\"\n[style.width.px]=\"rect.width\"\n[style.height.px]=\"rect.height\"\n[@selection]=\"isSelected?'selected':'unselected'\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\"></div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
 
 /***/ },
-/* 94 */
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8202,7 +8312,7 @@ webpackJsonp([0],[
 	    LineSegmentComponent = __decorate([
 	        core_1.Component({
 	            selector: 'line-segment',
-	            template: __webpack_require__(95),
+	            template: __webpack_require__(96),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], LineSegmentComponent);
@@ -8213,13 +8323,13 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 95 */
+/* 96 */
 /***/ function(module, exports) {
 
 	module.exports = "<div \n\tclass=\"line-segment\" \n\t[style.left.px]=\"(start.x+end.x)/2\" \n\t[style.top.px]=\"(start.y+end.y)/2\"\n\t[style.width.px]=\"start.distance(end)\"\n\t[style.-webkit-transform]=\"rotation()\"\n\t[style.-ms-transform]=\"rotation()\"\n\t[style.transform]=\"rotation()\">\n\t<div class=\"line-segment-text\" >\n\t\t<span contenteditable=\"true\">Editable</span>\n\t</div>\n</div>";
 
 /***/ },
-/* 96 */
+/* 97 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8252,7 +8362,7 @@ webpackJsonp([0],[
 	    LinkerComponent = __decorate([
 	        core_1.Component({
 	            selector: 'linker',
-	            template: __webpack_require__(97),
+	            template: __webpack_require__(98),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], LinkerComponent);
@@ -8263,13 +8373,13 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 97 */
+/* 98 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"link-circle\" \n\t[style.left.px]=\"link.center.x\"\n\t[style.top.px]=\"link.center.y\"\n\t[style.width.px]=\"link.radius*2\"\n\t[style.height.px]=\"link.radius*2\">\n\n</div>";
 
 /***/ },
-/* 98 */
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8289,7 +8399,7 @@ webpackJsonp([0],[
 	    InputBoxComponent = __decorate([
 	        core_1.Component({
 	            selector: 'input-box',
-	            template: __webpack_require__(99),
+	            template: __webpack_require__(100),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], InputBoxComponent);
@@ -8299,13 +8409,13 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 99 */
+/* 100 */
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
-/* 100 */
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8341,7 +8451,7 @@ webpackJsonp([0],[
 	    ClassDiagramComponent = __decorate([
 	        core_1.Component({
 	            selector: 'class-diagram',
-	            template: __webpack_require__(101),
+	            template: __webpack_require__(102),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], ClassDiagramComponent);
@@ -8352,13 +8462,13 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 101 */
+/* 102 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classDiagram.rect.x\"\n[style.top.px]=\"classDiagram.rect.y\"\n[style.width.px]=\"classDiagram.rect.width\"\n[style.height.px]=\"classDiagram.rect.height\"\n[style.selected-block]=\"classDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span [class.italic]=\"classDiagram.classDefinition.isAbstract\">{{classDiagram.classDefinition.name}}</span>\n\t</div>\n\n\t<div \n\t*ngFor=\"let fieldMember of classDiagram.classDefinition.fieldList \" \n\tclass=\"block-cell content-block-cell\"\n\tcontenteditable=\"true\"\n\t>\n\t\t{{fieldMember.accessSpecifier | accessSymbol}} {{fieldMember.variableDefinition.name}} : {{fieldMember.variableDefinition.type.getName()}}\n\t</div>\n\t<div class=\"solid-horizontal-line mini-top-bottom-margin\"> </div>\n\t<div *ngFor=\"let methodMember of classDiagram.classDefinition.methodList; let i=index\" \n\t\tclass=\"block-cell content-block-cell\"\n\t\tcontenteditable=\"true\"\n\t\t>\n\n\t\t{{methodMember.accessSpecifier | accessSymbol}} \n\t\t<span [class.italic]=\"methodMember.isAbstract\">\n\t\t{{methodMember.methodPrototype.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of methodMember.methodPrototype.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{methodMember.methodPrototype.returnType.getName()}}\n\t\t</span>\n\t</div>\n</div>";
 
 /***/ },
-/* 102 */
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8394,7 +8504,7 @@ webpackJsonp([0],[
 	    ClassObjectComponent = __decorate([
 	        core_1.Component({
 	            selector: 'class-object-diagram',
-	            template: __webpack_require__(103),
+	            template: __webpack_require__(104),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], ClassObjectComponent);
@@ -8405,13 +8515,13 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 103 */
+/* 104 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classObjectDiagram.rect.x\"\n[style.top.px]=\"classObjectDiagram.rect.y\"\n[style.width.px]=\"classObjectDiagram.rect.width\"\n[style.height.px]=\"classObjectDiagram.rect.height\"\n[style.selected-block]=\"classObjectDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span>{{classObjectDiagram.classObject.name}}</span>\n\t\t : \n\t\t<span class=\"bold\">{{classObjectDiagram.classObject.classDefinition.getName()}}</span>\n\t</div>\n\n\t<div *ngFor=\"let fieldData of classObjectDiagram.classObject.fieldDataList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{fieldData.variable.name}} \n\t\t=\n\t\t{{fieldData.data.stringRepresentation()}}\n\t</div>\n</div>";
 
 /***/ },
-/* 104 */
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8447,7 +8557,7 @@ webpackJsonp([0],[
 	    InterfaceDiagramComponent = __decorate([
 	        core_1.Component({
 	            selector: 'interface-diagram',
-	            template: __webpack_require__(105),
+	            template: __webpack_require__(106),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], InterfaceDiagramComponent);
@@ -8458,13 +8568,13 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 105 */
+/* 106 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"interfaceDiagram.rect.x\"\n[style.top.px]=\"interfaceDiagram.rect.y\"\n[style.width.px]=\"interfaceDiagram.rect.width\"\n[style.height.px]=\"interfaceDiagram.rect.height\"\n[style.selected-block]=\"interfaceDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<div class=\"header-decorater\"> &lt;&lt; Interface &gt;&gt; </div>\n\t\t<span>{{interfaceDiagram.interfaceDefinition.name}}</span>\n\t</div>\n\n\t<div *ngFor=\"let method of interfaceDiagram.interfaceDefinition.methodList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{method.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of method.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{method.returnType.getName()}}\n\t</div>\n</div>";
 
 /***/ },
-/* 106 */
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8484,7 +8594,7 @@ webpackJsonp([0],[
 	    InterfaceObjectDiagramComponent = __decorate([
 	        core_1.Component({
 	            selector: 'interface-object-diagram',
-	            template: __webpack_require__(107),
+	            template: __webpack_require__(108),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], InterfaceObjectDiagramComponent);
@@ -8494,13 +8604,13 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 107 */
+/* 108 */
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
-/* 108 */
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8520,7 +8630,7 @@ webpackJsonp([0],[
 	    LinkedSegmentsComponent = __decorate([
 	        core_1.Component({
 	            selector: 'linked-segments',
-	            template: __webpack_require__(109),
+	            template: __webpack_require__(110),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], LinkedSegmentsComponent);
@@ -8530,13 +8640,13 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 109 */
+/* 110 */
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
-/* 110 */
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8578,7 +8688,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 111 */
+/* 112 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8655,7 +8765,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 112 */
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8733,7 +8843,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 113 */
+/* 114 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8780,16 +8890,16 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 114 */
+/* 115 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(115);
+	var content = __webpack_require__(116);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(117)(content, {});
+	var update = __webpack_require__(118)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -8806,10 +8916,10 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 115 */
+/* 116 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(116)();
+	exports = module.exports = __webpack_require__(117)();
 	// imports
 	
 	
@@ -8820,7 +8930,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 116 */
+/* 117 */
 /***/ function(module, exports) {
 
 	/*
@@ -8876,7 +8986,7 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 117 */
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*

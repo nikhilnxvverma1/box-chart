@@ -64,6 +64,13 @@ export class ContextFreeGrammer{
 		this.start=start;
 	}
 
+	/** Inserts a new starting rule that goes to the current starting rule adding new non terminal in the proceess*/
+	augumentGrammer(){
+		var sPrime=new NonTerminal(-1);
+		this.relation.push(new Rule(sPrime,this.start));
+		this.start=sPrime; 
+	}
+
 	/** Parses a string to give an appropriate parse tree which can be used to retrieve information from(semantic analysis)*/
 	parseString(input:string):ParseTree{
 		return null;//TODO
