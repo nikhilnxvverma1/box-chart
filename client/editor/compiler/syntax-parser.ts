@@ -99,6 +99,8 @@ export class ContextFreeGrammer{
 		var pointer=0;
 		var processing=true;
 		var successfullyParsed=false;
+		var parseTree=new ParseTree(input);
+
 		while(processing){
 			var lexeme=lexemeList[pointer];
 			var terminal=this.terminalList[lexeme.terminalIndex];
@@ -108,39 +110,11 @@ export class ContextFreeGrammer{
 			var action=this.parserTable.getAction(state,terminal);
 
 			if(action.type==ParserTableValueType.Shift){
-				//shift once and add the symbol and that state on top of stack
-				pointer++;
-
-				var symbolElement=new StackElement(StackElementType.Terminal);
-				symbolElement.lexeme=lexeme;
-
-				var stateElement=new StackElement(StackElementType.State); 
-				stateElement.state=action.n;
-
-				stack.push(symbolElement,stateElement);
+				//perform shift operation
+				pointer=this.shift(action,stack,lexemeList,pointer);
 			}else if(action.type==ParserTableValueType.Reduce){
-
-				//get the associated rule that we want to reduce to
-				var rule=this.relation[action.n];
-
-				//pop twice as many elements from stack as there are elements in the rhs
-				var elementsToPop=2 * rule.rhs.length;
-				for(var i=0;i<elementsToPop;i++){
-					stack.pop();
-				}
-
-				//use the top state and the lhs to get the 'goto state'
-				var topAfterPops=stack[stack.length-1].state;
-				var gotoStateNumber=this.parserTable.getGoto(topAfterPops,rule.lhs);
-
-				//push the rule's lhs and the goto on stack
-				var nonTerminalElement=new StackElement(StackElementType.NonTerminal);
-				nonTerminalElement.nonTerminal=rule.lhs;
-
-				var gotoStateElement=new StackElement(StackElementType.State);
-				gotoStateElement.state=gotoStateNumber;
-				
-				stack.push(nonTerminalElement,gotoStateElement);
+				//perform reduce operation
+				this.reduce(action,stack,lexemeList,parseTree);
 			}else if(action.type==ParserTableValueType.Accept){
 				//success (accepted)
 				successfullyParsed=true;
@@ -151,7 +125,55 @@ export class ContextFreeGrammer{
 				processing=false;
 			}
 		}
-		return null;//TODO
+		return parseTree;
+	}
+
+	/** Shifts the pointer once and adds the symbol and that state on top of stack. Returns the new shifted pointer */
+	private shift(action:ParserTableValue,stack:StackElement[],lexemeList:Lexeme[],pointer:number):number{
+		var lexeme=lexemeList[pointer];
+		var terminal=this.terminalList[lexeme.terminalIndex];
+		var symbolElement=new StackElement(StackElementType.Terminal);
+		symbolElement.lexeme=lexeme;
+
+		var stateElement=new StackElement(StackElementType.State); 
+		stateElement.state=action.n;
+
+		stack.push(symbolElement,stateElement);
+		return ++pointer;
+	}
+
+	/** Pops appropriate elements from stack and turns it into a rule */
+	private reduce(action:ParserTableValue,stack:StackElement[],lexemeList:Lexeme[],parseTree:ParseTree){
+		//get the associated rule that we want to reduce to
+		var rule=this.relation[action.n];
+
+		//pop twice as many elements from stack as there are elements in the rhs
+		var elementsToPop=2 * rule.rhs.length;
+
+		//to keep track of all the children arisen from this reduce, hold them in an array
+		var descendents:ParseTreeNode[]=[];
+		for(var i=0;i<elementsToPop;i++){
+			var stackElement=stack.pop();
+			if(stackElement.type==StackElementType.Terminal){
+				descendents.push(new LeafParseTreeNode(stackElement.lexeme));
+			}else if(stackElement.type==StackElementType.NonTerminal){
+				var node=parseTree.root.findChildNodeHoldingNonTerminal(stackElement.nonTerminal);
+				
+			}
+		}
+
+		//use the top state and the lhs to get the 'goto state'
+		var topAfterPops=stack[stack.length-1].state;
+		var gotoStateNumber=this.parserTable.getGoto(topAfterPops,rule.lhs);
+
+		//push the rule's lhs and the goto on stack
+		var nonTerminalElement=new StackElement(StackElementType.NonTerminal);
+		nonTerminalElement.nonTerminal=rule.lhs;
+
+		var gotoStateElement=new StackElement(StackElementType.State);
+		gotoStateElement.state=gotoStateNumber;
+		
+		stack.push(nonTerminalElement,gotoStateElement);
 	}
 
 	/** Sets the indices of terminal in each lexeme for matching lexeme types*/
@@ -256,15 +278,136 @@ class StackElement{
 
 /** Tree Structure for containing the Parse tree */
 export class ParseTree{
-	root:NonTerminal;
+	root:ParentParseTreeNode;
 	input:string;
+
+	constructor(input:string){
+		this.input=input;
+	}
 }
 
-/** A single node in the parse tree containing links to left, right and parent */
-export class ParseTreeNode{
-	parent:NonTerminal;
-	left:SyntaxElement;
-	right:SyntaxElement;
+/** A abstract single node used in the parse tree */
+export interface ParseTreeNode{
+	/**Wheather this node is leaf node or not */
+	isLeaf():boolean;
+	/** Wheather this node denotes a state number inside the parsing stack.*/
+	isStateNumber():boolean;
+	/** Returns non terminal, if this node is supposed to contain a non terminal, null otherwise */
+	getNonTerminal():NonTerminal;
+	/** Returns lexeme, if this node is supposed to contain a lexeme, null otherwise */
+	getLexeme():Lexeme;
+	/** Returns state number, if this node is supposed to contain a state number, null otherwise */
+	getStateNumber():number;
+}
+
+/** As a parent node in the parse tree, this class holds a non terminal and children */
+export class ParentParseTreeNode implements ParseTreeNode{
+	nonTerminal:NonTerminal;
+	children:ParseTreeNode[]=[];
+
+	constructor(nonTerminal:NonTerminal){
+		this.nonTerminal=nonTerminal;
+	}
+
+	isLeaf():boolean{
+		return false;
+	}
+
+	isStateNumber():boolean{
+		return false;
+	}
+
+	/** Finds the child node that contains the supplied non terminal */
+	findChildNodeHoldingNonTerminal(nonTerminal:NonTerminal):ParentParseTreeNode{
+		
+		for(let node of this.children){
+			if(node.getNonTerminal()==nonTerminal){
+				return <ParentParseTreeNode>node;
+			}
+		}
+		return null;
+	}
+
+	/** Returns non terminal, if this node is supposed to contain a non terminal, null otherwise */
+	getNonTerminal():NonTerminal{
+		return this.nonTerminal;
+	}
+	
+	/** Returns lexeme, if this node is supposed to contain a lexeme, null otherwise */
+	getLexeme():Lexeme{
+		return null;
+	}
+
+	/** Returns state number, if this node is supposed to contain a state number, null otherwise */
+	getStateNumber():number{
+		return -1;
+	}
+	
+}
+
+/** As a leaf node in the parse tree, this class holds the lexeme */
+export class LeafParseTreeNode implements ParseTreeNode{
+	lexeme:Lexeme;
+
+	constructor(lexeme:Lexeme){
+		this.lexeme=lexeme;
+	}
+
+	isLeaf():boolean{
+		return true;
+	}
+
+	isStateNumber():boolean{
+		return false;
+	}
+
+	/** Returns non terminal, if this node is supposed to contain a non terminal, null otherwise */
+	getNonTerminal():NonTerminal{
+		return null;
+	}
+	
+	/** Returns lexeme, if this node is supposed to contain a lexeme, null otherwise */
+	getLexeme():Lexeme{
+		return this.lexeme;
+	}
+
+	/** Returns state number, if this node is supposed to contain a state number, null otherwise */
+	getStateNumber():number{
+		return -1;
+	}
+}
+
+/** State numbers are also held as parse tree nodes but only for parsing computation purposes */
+class StateParseTreeNode implements ParseTreeNode{
+
+	state:number;
+
+	constructor(state:number){
+		this.state=state;
+	}
+
+	isLeaf():boolean{
+		return false;
+	}
+
+	isStateNumber():boolean{
+		return false;
+	}
+
+	/** Returns non terminal, if this node is supposed to contain a non terminal, null otherwise */
+	getNonTerminal():NonTerminal{
+		return null;
+	}
+	
+	/** Returns lexeme, if this node is supposed to contain a lexeme, null otherwise */
+	getLexeme():Lexeme{
+		return null;
+	}
+
+	/** Returns state number, if this node is supposed to contain a state number, null otherwise */
+	getStateNumber():number{
+		return this.state;
+	}
 }
 
 /** Type of action in the parser table */

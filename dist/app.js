@@ -7711,7 +7711,10 @@ webpackJsonp([0],[
 	    LexemeType[LexemeType["EOF"] = 39] = "EOF"; //End of File, artificial and used exclusively by parser
 	})(exports.LexemeType || (exports.LexemeType = {}));
 	var LexemeType = exports.LexemeType;
-	/** A token in the string that qualifies as an identified symbol in the grammer */
+	/**
+	 * A token in the string that qualifies as an identified symbol in the grammer .
+	 * A Lexeme should be thought of as an instance of a terminal in the CFG.
+	 */
 	var Lexeme = (function () {
 	    function Lexeme(type, startIndex, length) {
 	        this.type = type;
@@ -7951,6 +7954,7 @@ webpackJsonp([0],[
 	        var pointer = 0;
 	        var processing = true;
 	        var successfullyParsed = false;
+	        var parseTree = new ParseTree(input);
 	        while (processing) {
 	            var lexeme = lexemeList[pointer];
 	            var terminal = this.terminalList[lexeme.terminalIndex];
@@ -7958,31 +7962,12 @@ webpackJsonp([0],[
 	            var state = stack[stack.length - 1].state;
 	            var action = this.parserTable.getAction(state, terminal);
 	            if (action.type == ParserTableValueType.Shift) {
-	                //shift once and add the symbol and that state on top of stack
-	                pointer++;
-	                var symbolElement = new StackElement(StackElementType.Terminal);
-	                symbolElement.lexeme = lexeme;
-	                var stateElement = new StackElement(StackElementType.State);
-	                stateElement.state = action.n;
-	                stack.push(symbolElement, stateElement);
+	                //perform shift operation
+	                pointer = this.shift(action, stack, lexemeList, pointer);
 	            }
 	            else if (action.type == ParserTableValueType.Reduce) {
-	                //get the associated rule that we want to reduce to
-	                var rule = this.relation[action.n];
-	                //pop twice as many elements from stack as there are elements in the rhs
-	                var elementsToPop = 2 * rule.rhs.length;
-	                for (var i = 0; i < elementsToPop; i++) {
-	                    stack.pop();
-	                }
-	                //use the top state and the lhs to get the 'goto state'
-	                var topAfterPops = stack[stack.length - 1].state;
-	                var gotoStateNumber = this.parserTable.getGoto(topAfterPops, rule.lhs);
-	                //push the rule's lhs and the goto on stack
-	                var nonTerminalElement = new StackElement(StackElementType.NonTerminal);
-	                nonTerminalElement.nonTerminal = rule.lhs;
-	                var gotoStateElement = new StackElement(StackElementType.State);
-	                gotoStateElement.state = gotoStateNumber;
-	                stack.push(nonTerminalElement, gotoStateElement);
+	                //perform reduce operation
+	                this.reduce(action, stack, lexemeList, parseTree);
 	            }
 	            else if (action.type == ParserTableValueType.Accept) {
 	                //success (accepted)
@@ -7995,7 +7980,45 @@ webpackJsonp([0],[
 	                processing = false;
 	            }
 	        }
-	        return null; //TODO
+	        return parseTree;
+	    };
+	    /** Shifts the pointer once and adds the symbol and that state on top of stack. Returns the new shifted pointer */
+	    ContextFreeGrammer.prototype.shift = function (action, stack, lexemeList, pointer) {
+	        var lexeme = lexemeList[pointer];
+	        var terminal = this.terminalList[lexeme.terminalIndex];
+	        var symbolElement = new StackElement(StackElementType.Terminal);
+	        symbolElement.lexeme = lexeme;
+	        var stateElement = new StackElement(StackElementType.State);
+	        stateElement.state = action.n;
+	        stack.push(symbolElement, stateElement);
+	        return ++pointer;
+	    };
+	    /** Pops appropriate elements from stack and turns it into a rule */
+	    ContextFreeGrammer.prototype.reduce = function (action, stack, lexemeList, parseTree) {
+	        //get the associated rule that we want to reduce to
+	        var rule = this.relation[action.n];
+	        //pop twice as many elements from stack as there are elements in the rhs
+	        var elementsToPop = 2 * rule.rhs.length;
+	        //to keep track of all the children arisen from this reduce, hold them in an array
+	        var descendents = [];
+	        for (var i = 0; i < elementsToPop; i++) {
+	            var stackElement = stack.pop();
+	            if (stackElement.type == StackElementType.Terminal) {
+	                descendents.push(new LeafParseTreeNode(stackElement.lexeme));
+	            }
+	            else if (stackElement.type == StackElementType.NonTerminal) {
+	                var node = parseTree.root.findChildNodeHoldingNonTerminal(stackElement.nonTerminal);
+	            }
+	        }
+	        //use the top state and the lhs to get the 'goto state'
+	        var topAfterPops = stack[stack.length - 1].state;
+	        var gotoStateNumber = this.parserTable.getGoto(topAfterPops, rule.lhs);
+	        //push the rule's lhs and the goto on stack
+	        var nonTerminalElement = new StackElement(StackElementType.NonTerminal);
+	        nonTerminalElement.nonTerminal = rule.lhs;
+	        var gotoStateElement = new StackElement(StackElementType.State);
+	        gotoStateElement.state = gotoStateNumber;
+	        stack.push(nonTerminalElement, gotoStateElement);
 	    };
 	    /** Sets the indices of terminal in each lexeme for matching lexeme types*/
 	    ContextFreeGrammer.prototype.setRespectiveTerminalIndices = function (lexemeList) {
@@ -8082,18 +8105,100 @@ webpackJsonp([0],[
 	}());
 	/** Tree Structure for containing the Parse tree */
 	var ParseTree = (function () {
-	    function ParseTree() {
+	    function ParseTree(input) {
+	        this.input = input;
 	    }
 	    return ParseTree;
 	}());
 	exports.ParseTree = ParseTree;
-	/** A single node in the parse tree containing links to left, right and parent */
-	var ParseTreeNode = (function () {
-	    function ParseTreeNode() {
+	/** As a parent node in the parse tree, this class holds a non terminal and children */
+	var ParentParseTreeNode = (function () {
+	    function ParentParseTreeNode(nonTerminal) {
+	        this.children = [];
+	        this.nonTerminal = nonTerminal;
 	    }
-	    return ParseTreeNode;
+	    ParentParseTreeNode.prototype.isLeaf = function () {
+	        return false;
+	    };
+	    ParentParseTreeNode.prototype.isStateNumber = function () {
+	        return false;
+	    };
+	    /** Finds the child node that contains the supplied non terminal */
+	    ParentParseTreeNode.prototype.findChildNodeHoldingNonTerminal = function (nonTerminal) {
+	        for (var _i = 0, _a = this.children; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            if (node.getNonTerminal() == nonTerminal) {
+	                return node;
+	            }
+	        }
+	        return null;
+	    };
+	    /** Returns non terminal, if this node is supposed to contain a non terminal, null otherwise */
+	    ParentParseTreeNode.prototype.getNonTerminal = function () {
+	        return this.nonTerminal;
+	    };
+	    /** Returns lexeme, if this node is supposed to contain a lexeme, null otherwise */
+	    ParentParseTreeNode.prototype.getLexeme = function () {
+	        return null;
+	    };
+	    /** Returns state number, if this node is supposed to contain a state number, null otherwise */
+	    ParentParseTreeNode.prototype.getStateNumber = function () {
+	        return -1;
+	    };
+	    return ParentParseTreeNode;
 	}());
-	exports.ParseTreeNode = ParseTreeNode;
+	exports.ParentParseTreeNode = ParentParseTreeNode;
+	/** As a leaf node in the parse tree, this class holds the lexeme */
+	var LeafParseTreeNode = (function () {
+	    function LeafParseTreeNode(lexeme) {
+	        this.lexeme = lexeme;
+	    }
+	    LeafParseTreeNode.prototype.isLeaf = function () {
+	        return true;
+	    };
+	    LeafParseTreeNode.prototype.isStateNumber = function () {
+	        return false;
+	    };
+	    /** Returns non terminal, if this node is supposed to contain a non terminal, null otherwise */
+	    LeafParseTreeNode.prototype.getNonTerminal = function () {
+	        return null;
+	    };
+	    /** Returns lexeme, if this node is supposed to contain a lexeme, null otherwise */
+	    LeafParseTreeNode.prototype.getLexeme = function () {
+	        return this.lexeme;
+	    };
+	    /** Returns state number, if this node is supposed to contain a state number, null otherwise */
+	    LeafParseTreeNode.prototype.getStateNumber = function () {
+	        return -1;
+	    };
+	    return LeafParseTreeNode;
+	}());
+	exports.LeafParseTreeNode = LeafParseTreeNode;
+	/** State numbers are also held as parse tree nodes but only for parsing computation purposes */
+	var StateParseTreeNode = (function () {
+	    function StateParseTreeNode(state) {
+	        this.state = state;
+	    }
+	    StateParseTreeNode.prototype.isLeaf = function () {
+	        return false;
+	    };
+	    StateParseTreeNode.prototype.isStateNumber = function () {
+	        return false;
+	    };
+	    /** Returns non terminal, if this node is supposed to contain a non terminal, null otherwise */
+	    StateParseTreeNode.prototype.getNonTerminal = function () {
+	        return null;
+	    };
+	    /** Returns lexeme, if this node is supposed to contain a lexeme, null otherwise */
+	    StateParseTreeNode.prototype.getLexeme = function () {
+	        return null;
+	    };
+	    /** Returns state number, if this node is supposed to contain a state number, null otherwise */
+	    StateParseTreeNode.prototype.getStateNumber = function () {
+	        return this.state;
+	    };
+	    return StateParseTreeNode;
+	}());
 	/** Type of action in the parser table */
 	(function (ParserTableValueType) {
 	    ParserTableValueType[ParserTableValueType["Blank"] = 1] = "Blank";

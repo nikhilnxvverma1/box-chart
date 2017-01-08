@@ -45,7 +45,10 @@ export enum LexemeType{ //debugging tip: use this line number to derive the numb
 	
 }
 
-/** A token in the string that qualifies as an identified symbol in the grammer */
+/** 
+ * A token in the string that qualifies as an identified symbol in the grammer .
+ * A Lexeme should be thought of as an instance of a terminal in the CFG.
+ */
 export class Lexeme{
 	type:LexemeType;
 	start:number;
