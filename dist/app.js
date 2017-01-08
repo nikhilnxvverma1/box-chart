@@ -7636,7 +7636,8 @@ webpackJsonp([0],[
 	            var lexeme = lexemeList_1[_i];
 	            console.log(lexeme);
 	        }
-	        this.testDummyGrammer('', this.makeDummyGrammer());
+	        var cfg = this.makeDummyGrammer();
+	        cfg.parseString("--++");
 	        return null;
 	    };
 	    InterpreterService.prototype.makeDummyGrammer = function () {
@@ -7650,39 +7651,8 @@ webpackJsonp([0],[
 	        cfg.relation.push(new parser.Rule(s, a, a));
 	        cfg.relation.push(new parser.Rule(a, ta, a));
 	        cfg.relation.push(new parser.Rule(a, tb));
-	        cfg.augumentGrammer();
+	        cfg.finalizeGrammer();
 	        return cfg;
-	    };
-	    InterpreterService.prototype.testDummyGrammer = function (input, cfg) {
-	        var eof = new parser.EndOfFile();
-	        var table = new parser.ParserTable(cfg.terminalList, cfg.variableList, eof, 10);
-	        var s = cfg.getNonTerminalBy(0);
-	        var a = cfg.getNonTerminalBy(1);
-	        var ta = cfg.getTerminalBy(lexer.LexemeType.Minus);
-	        var tb = cfg.getTerminalBy(lexer.LexemeType.Plus);
-	        //table rigging
-	        //final result from https://www.youtube.com/watch?v=APJ_Eh60Qwo
-	        table.setAction(0, ta, parser.ParserTableValueType.Shift, 3);
-	        table.setAction(0, tb, parser.ParserTableValueType.Shift, 4);
-	        table.setGoto(0, a, 2);
-	        table.setGoto(0, s, 1);
-	        table.setAction(1, eof, parser.ParserTableValueType.Accept, 0);
-	        table.setAction(2, ta, parser.ParserTableValueType.Shift, 3);
-	        table.setAction(2, tb, parser.ParserTableValueType.Shift, 4);
-	        table.setGoto(2, a, 5);
-	        table.setAction(3, ta, parser.ParserTableValueType.Shift, 3);
-	        table.setAction(3, tb, parser.ParserTableValueType.Shift, 4);
-	        table.setGoto(3, a, 6);
-	        table.setAction(4, ta, parser.ParserTableValueType.Reduce, 3);
-	        table.setAction(4, tb, parser.ParserTableValueType.Reduce, 3);
-	        table.setAction(4, eof, parser.ParserTableValueType.Reduce, 3);
-	        table.setAction(5, ta, parser.ParserTableValueType.Reduce, 1);
-	        table.setAction(5, tb, parser.ParserTableValueType.Reduce, 1);
-	        table.setAction(5, eof, parser.ParserTableValueType.Reduce, 1);
-	        table.setAction(6, ta, parser.ParserTableValueType.Reduce, 2);
-	        table.setAction(6, tb, parser.ParserTableValueType.Reduce, 2);
-	        table.setAction(6, eof, parser.ParserTableValueType.Reduce, 2);
-	        return null;
 	    };
 	    InterpreterService = __decorate([
 	        core_1.Injectable(), 
@@ -7737,7 +7707,8 @@ webpackJsonp([0],[
 	    LexemeType[LexemeType["Dotted"] = 35] = "Dotted";
 	    LexemeType[LexemeType["DoubleSlash"] = 36] = "DoubleSlash";
 	    LexemeType[LexemeType["OpeningMultiLineComment"] = 37] = "OpeningMultiLineComment";
-	    LexemeType[LexemeType["ClosingMultiLineComment"] = 38] = "ClosingMultiLineComment"; // */
+	    LexemeType[LexemeType["ClosingMultiLineComment"] = 38] = "ClosingMultiLineComment";
+	    LexemeType[LexemeType["EOF"] = 39] = "EOF"; //End of File, artificial and used exclusively by parser
 	})(exports.LexemeType || (exports.LexemeType = {}));
 	var LexemeType = exports.LexemeType;
 	/** A token in the string that qualifies as an identified symbol in the grammer */
@@ -7878,6 +7849,8 @@ webpackJsonp([0],[
 	            i++;
 	        }
 	    }
+	    //at the very end, append the EOF symbol
+	    lexemeList.push(new Lexeme(LexemeType.EOF, input.length, 0));
 	    return lexemeList;
 	}
 	exports.getLexemeList = getLexemeList;
@@ -7900,15 +7873,6 @@ webpackJsonp([0],[
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var lexical_analyzer_1 = __webpack_require__(83);
-	(function (CodeContext) {
-	    CodeContext[CodeContext["GenericBox"] = 0] = "GenericBox";
-	    CodeContext[CodeContext["FieldMember"] = 1] = "FieldMember";
-	    CodeContext[CodeContext["MethodMember"] = 2] = "MethodMember";
-	    CodeContext[CodeContext["InterfaceMethod"] = 3] = "InterfaceMethod";
-	    CodeContext[CodeContext["EnumType"] = 4] = "EnumType";
-	    CodeContext[CodeContext["FieldAssignment"] = 5] = "FieldAssignment";
-	})(exports.CodeContext || (exports.CodeContext = {}));
-	var CodeContext = exports.CodeContext;
 	var NonTerminal = (function () {
 	    function NonTerminal(id) {
 	        this.id = id;
@@ -7944,6 +7908,7 @@ webpackJsonp([0],[
 	    return EndOfFile;
 	}(Terminal));
 	exports.EndOfFile = EndOfFile;
+	/** Denotes an empty string */
 	var Epsilon = (function () {
 	    function Epsilon() {
 	    }
@@ -7959,12 +7924,16 @@ webpackJsonp([0],[
 	        for (var _i = 1; _i < arguments.length; _i++) {
 	            goesTo[_i - 1] = arguments[_i];
 	        }
-	        this.from = from;
-	        this.goesTo = goesTo;
+	        this.lhs = from;
+	        this.rhs = goesTo;
 	    }
 	    return Rule;
 	}());
 	exports.Rule = Rule;
+	/**
+	 * Holds a Context Free Grammer and provides methods for parsing a string.
+	 * For the sake of reliable parsing results unambigous grammer should be supplied.
+	 */
 	var ContextFreeGrammer = (function () {
 	    function ContextFreeGrammer(start) {
 	        this.variableList = [];
@@ -7972,6 +7941,12 @@ webpackJsonp([0],[
 	        this.relation = [];
 	        this.start = start;
 	    }
+	    /** Augments the grammer with a starting rule and creates the parsing table */
+	    ContextFreeGrammer.prototype.finalizeGrammer = function () {
+	        this.augumentGrammer();
+	        this.constructParserTableUsingLR1();
+	        return this.parserTable;
+	    };
 	    /**
 	     * Inserts a new starting rule that goes to the current starting rule adding new non terminal in the proceess.
 	     * Returns the said starting Non Terminal
@@ -7984,7 +7959,71 @@ webpackJsonp([0],[
 	    };
 	    /** Parses a string to give an appropriate parse tree which can be used to retrieve information from(semantic analysis)*/
 	    ContextFreeGrammer.prototype.parseString = function (input) {
+	        var lexemeList = lexical_analyzer_1.getLexemeList(input);
+	        this.setRespectiveTerminalIndices(lexemeList);
+	        var stack = [];
+	        var startingElement = new StackElement(StackElementType.State);
+	        startingElement.state = 0;
+	        var pointer = 0;
+	        var processing = true;
+	        var successfullyParsed = false;
+	        while (processing) {
+	            var lexeme = lexemeList[pointer];
+	            var terminal = this.terminalList[lexeme.terminalIndex];
+	            //get the state from whatever is on top of stack
+	            var state = stack[stack.length - 1].state;
+	            var action = this.parserTable.getAction(state, terminal);
+	            if (action.type == ParserTableValueType.Shift) {
+	                //shift once and add the symbol and that state on top of stack
+	                pointer++;
+	                var symbolElement = new StackElement(StackElementType.Terminal);
+	                symbolElement.lexeme = lexeme;
+	                var stateElement = new StackElement(StackElementType.State);
+	                stateElement.state = action.n;
+	                stack.push(symbolElement, stateElement);
+	            }
+	            else if (action.type == ParserTableValueType.Reduce) {
+	                //get the associated rule that we want to reduce to
+	                var rule = this.relation[action.n];
+	                //pop twice as many elements from stack as there are elements in the rhs
+	                var elementsToPop = 2 * rule.rhs.length;
+	                for (var i = 0; i < elementsToPop; i++) {
+	                    stack.pop();
+	                }
+	                //use the top state and the lhs to get the 'goto state'
+	                var topAfterPops = stack[stack.length - 1].state;
+	                var gotoStateNumber = this.parserTable.getGoto(topAfterPops, rule.lhs);
+	                //push the rule's lhs and the goto on stack
+	                var nonTerminalElement = new StackElement(StackElementType.NonTerminal);
+	                nonTerminalElement.nonTerminal = rule.lhs;
+	                var gotoStateElement = new StackElement(StackElementType.State);
+	                gotoStateElement.state = gotoStateNumber;
+	                stack.push(nonTerminalElement, gotoStateElement);
+	            }
+	            else if (action.type == ParserTableValueType.Accept) {
+	                //success (accepted)
+	                successfullyParsed = true;
+	                processing = false;
+	            }
+	            else if (action.type == ParserTableValueType.Blank) {
+	                //error
+	                successfullyParsed = false;
+	                processing = false;
+	            }
+	        }
 	        return null; //TODO
+	    };
+	    /** Sets the indices of terminal in each lexeme for matching lexeme types*/
+	    ContextFreeGrammer.prototype.setRespectiveTerminalIndices = function (lexemeList) {
+	        for (var _i = 0, lexemeList_1 = lexemeList; _i < lexemeList_1.length; _i++) {
+	            var lexeme = lexemeList_1[_i];
+	            for (var i = 0; i < this.terminalList.length; i++) {
+	                if (this.terminalList[i].token == lexeme.type) {
+	                    lexeme.terminalIndex = i;
+	                    break;
+	                }
+	            }
+	        }
 	    };
 	    /** Loops through the terminal list to return a terminal which matches the given type */
 	    ContextFreeGrammer.prototype.getTerminalBy = function (type) {
@@ -8006,9 +8045,57 @@ webpackJsonp([0],[
 	        }
 	        return null;
 	    };
+	    /** Constructs the parser table using LR1 construction algorithm */
+	    ContextFreeGrammer.prototype.constructParserTableUsingLR1 = function () {
+	        return this.makeDummyParserTable(); //TODO
+	    };
+	    /** Rigs the parser table from the final result of https://www.youtube.com/watch?v=APJ_Eh60Qwo */
+	    ContextFreeGrammer.prototype.makeDummyParserTable = function () {
+	        var eof = new EndOfFile();
+	        var table = new ParserTable(this.terminalList, this.variableList, eof, 10);
+	        var s = this.getNonTerminalBy(0);
+	        var a = this.getNonTerminalBy(1);
+	        var ta = this.getTerminalBy(lexical_analyzer_1.LexemeType.Minus);
+	        var tb = this.getTerminalBy(lexical_analyzer_1.LexemeType.Plus);
+	        //table rigging
+	        //final result from https://www.youtube.com/watch?v=APJ_Eh60Qwo
+	        table.setAction(0, ta, ParserTableValueType.Shift, 3);
+	        table.setAction(0, tb, ParserTableValueType.Shift, 4);
+	        table.setGoto(0, a, 2);
+	        table.setGoto(0, s, 1);
+	        table.setAction(1, eof, ParserTableValueType.Accept, 0);
+	        table.setAction(2, ta, ParserTableValueType.Shift, 3);
+	        table.setAction(2, tb, ParserTableValueType.Shift, 4);
+	        table.setGoto(2, a, 5);
+	        table.setAction(3, ta, ParserTableValueType.Shift, 3);
+	        table.setAction(3, tb, ParserTableValueType.Shift, 4);
+	        table.setGoto(3, a, 6);
+	        table.setAction(4, ta, ParserTableValueType.Reduce, 3);
+	        table.setAction(4, tb, ParserTableValueType.Reduce, 3);
+	        table.setAction(4, eof, ParserTableValueType.Reduce, 3);
+	        table.setAction(5, ta, ParserTableValueType.Reduce, 1);
+	        table.setAction(5, tb, ParserTableValueType.Reduce, 1);
+	        table.setAction(5, eof, ParserTableValueType.Reduce, 1);
+	        table.setAction(6, ta, ParserTableValueType.Reduce, 2);
+	        table.setAction(6, tb, ParserTableValueType.Reduce, 2);
+	        table.setAction(6, eof, ParserTableValueType.Reduce, 2);
+	        return table;
+	    };
 	    return ContextFreeGrammer;
 	}());
 	exports.ContextFreeGrammer = ContextFreeGrammer;
+	var StackElementType;
+	(function (StackElementType) {
+	    StackElementType[StackElementType["Terminal"] = 0] = "Terminal";
+	    StackElementType[StackElementType["State"] = 1] = "State";
+	    StackElementType[StackElementType["NonTerminal"] = 2] = "NonTerminal";
+	})(StackElementType || (StackElementType = {}));
+	var StackElement = (function () {
+	    function StackElement(type) {
+	        this.type = type;
+	    }
+	    return StackElement;
+	}());
 	/** Tree Structure for containing the Parse tree */
 	var ParseTree = (function () {
 	    function ParseTree() {
@@ -8087,7 +8174,7 @@ webpackJsonp([0],[
 	        this.table[row][terminal.tableIndex].n = n;
 	    };
 	    ParserTable.prototype.getGoto = function (row, variable) {
-	        return this.table[row][variable.tableIndex];
+	        return this.table[row][variable.tableIndex].n;
 	    };
 	    ParserTable.prototype.setGoto = function (row, variable, n) {
 	        this.table[row][variable.tableIndex].type = ParserTableValueType.Goto;

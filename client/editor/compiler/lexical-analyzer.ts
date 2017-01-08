@@ -39,9 +39,9 @@ export enum LexemeType{ //debugging tip: use this line number to derive the numb
 	Dotted,//...
 	DoubleSlash,// //
 	OpeningMultiLineComment,// /*
-	ClosingMultiLineComment// */
+	ClosingMultiLineComment,// */
 
-	//TODO add more as needed
+	EOF//End of File, artificial and used exclusively by parser
 	
 }
 
@@ -50,6 +50,12 @@ export class Lexeme{
 	type:LexemeType;
 	start:number;
 	length:number;
+
+	/**
+	 * Index in the terminal list of the context free grammer. This is set and read 
+	 * by the parsing algorithm and as such should not be touched.
+	 */
+	terminalIndex:number;
 
 	constructor(type:LexemeType,startIndex:number,length:number){
 		this.type=type;
@@ -197,6 +203,8 @@ export function getLexemeList(input:string):Lexeme[]{
 		}
 	}
 
+	//at the very end, append the EOF symbol
+	lexemeList.push(new Lexeme(LexemeType.EOF,input.length,0));
 	return lexemeList;
 }
 
