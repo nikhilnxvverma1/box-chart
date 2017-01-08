@@ -1,4 +1,4 @@
-import { Lexeme,LexemeType,getLexemeList } from './lexical-analyzer';
+import { Lexeme,LexemeType,getLexemeList,stringForLexemeType } from './lexical-analyzer';
 
 export interface SyntaxElement{
 	isTerminal():boolean;
@@ -15,6 +15,11 @@ export class NonTerminal implements SyntaxElement{
 	
 	isTerminal():boolean{
 		return false;
+	}
+
+	toString():string{
+		var startLetter="B";
+		return String.fromCharCode(startLetter.charCodeAt(0)+this.id);
 	}
 }
 
@@ -35,12 +40,20 @@ export class Terminal implements SyntaxElement{
 	isEndOfFile():boolean{
 		return this.token==LexemeType.EOF;
 	}
+
+	toString():string{
+		return stringForLexemeType(this.token);
+	}
 }
 
 /** Denotes an empty string */
 export class Epsilon implements SyntaxElement{
 	isTerminal():boolean{
 		return false;
+	}
+
+	toString():string{
+		return "\E";
 	}
 }
 
@@ -51,6 +64,15 @@ export class Rule{
 	constructor(from:NonTerminal,...goesTo:SyntaxElement[]){
 		this.lhs=from;
 		this.rhs=goesTo;
+	}
+
+	toString():string{
+		var line=this.lhs.toString();
+		line+=" -> "
+		for(let element of this.rhs){
+			line+=element.toString()+" ";
+		}
+		return line;
 	}
 }
 
@@ -69,6 +91,13 @@ export class ContextFreeGrammer{
 
 	constructor(start:NonTerminal){
 		this.start=start;
+	}
+
+	/** Simply prints out the rules line by line */
+	printRules(){
+		for(let rule of this.relation){
+			console.log(rule.toString());
+		}
 	}
 
 	/** Augments the grammer with a starting rule and creates the parsing table */
@@ -90,11 +119,11 @@ export class ContextFreeGrammer{
 	}
 
 	/** Parses a string to give an appropriate parse tree which can be used to retrieve information from(semantic analysis)*/
-	parseString(input:string):ParseTree{
+	parse(input:string):ParseTree{
 		var lexemeList=getLexemeList(input);
 		this.setRespectiveTerminalIndices(lexemeList);
-		var stack:StackElement[]=[];
-		var startingElement=new StackElement(StackElementType.State);
+		var stack:ParseTreeNode[]=[];
+		var startingElement=new StateParseTreeNode(0);
 		startingElement.state=0;
 		var pointer=0;
 		var processing=true;
@@ -106,7 +135,7 @@ export class ContextFreeGrammer{
 			var terminal=this.terminalList[lexeme.terminalIndex];
 			
 			//get the state from whatever is on top of stack
-			var state=stack[stack.length-1].state;
+			var state=stack[stack.length-1].getStateNumber();
 			var action=this.parserTable.getAction(state,terminal);
 
 			if(action.type==ParserTableValueType.Shift){
@@ -129,23 +158,24 @@ export class ContextFreeGrammer{
 	}
 
 	/** Shifts the pointer once and adds the symbol and that state on top of stack. Returns the new shifted pointer */
-	private shift(action:ParserTableValue,stack:StackElement[],lexemeList:Lexeme[],pointer:number):number{
+	private shift(action:ParserTableValue,stack:ParseTreeNode[],lexemeList:Lexeme[],pointer:number):number{
 		var lexeme=lexemeList[pointer];
 		var terminal=this.terminalList[lexeme.terminalIndex];
-		var symbolElement=new StackElement(StackElementType.Terminal);
-		symbolElement.lexeme=lexeme;
-
-		var stateElement=new StackElement(StackElementType.State); 
-		stateElement.state=action.n;
+		var symbolElement=new LeafParseTreeNode(lexeme);
+		var stateElement=new StateParseTreeNode(action.n); 
 
 		stack.push(symbolElement,stateElement);
 		return ++pointer;
 	}
 
 	/** Pops appropriate elements from stack and turns it into a rule */
-	private reduce(action:ParserTableValue,stack:StackElement[],lexemeList:Lexeme[],parseTree:ParseTree){
+	private reduce(action:ParserTableValue,stack:ParseTreeNode[],lexemeList:Lexeme[],parseTree:ParseTree){
+		
 		//get the associated rule that we want to reduce to
 		var rule=this.relation[action.n];
+
+		//create a new parent node that denotes this reduction derivative
+		var lhsNode=new ParentParseTreeNode(rule.lhs);
 
 		//pop twice as many elements from stack as there are elements in the rhs
 		var elementsToPop=2 * rule.rhs.length;
@@ -154,26 +184,27 @@ export class ContextFreeGrammer{
 		var descendents:ParseTreeNode[]=[];
 		for(var i=0;i<elementsToPop;i++){
 			var stackElement=stack.pop();
-			if(stackElement.type==StackElementType.Terminal){
-				descendents.push(new LeafParseTreeNode(stackElement.lexeme));
-			}else if(stackElement.type==StackElementType.NonTerminal){
-				var node=parseTree.root.findChildNodeHoldingNonTerminal(stackElement.nonTerminal);
-				
+			if(stackElement.getType()!=ParseTreeNodeType.StateHolder){
+				descendents.push(stackElement);
 			}
 		}
 
-		//use the top state and the lhs to get the 'goto state'
-		var topAfterPops=stack[stack.length-1].state;
+		//because the descendents are popped backwards, reverse the array for the correct order
+		descendents.reverse();
+
+		//set as children to the LHS node
+		lhsNode.children=descendents;
+
+		//use the top state and the LHS to get the 'goto state'
+		var topAfterPops=stack[stack.length-1].getStateNumber();
 		var gotoStateNumber=this.parserTable.getGoto(topAfterPops,rule.lhs);
+		var gotoStateElement=new StateParseTreeNode(gotoStateNumber);
 
-		//push the rule's lhs and the goto on stack
-		var nonTerminalElement=new StackElement(StackElementType.NonTerminal);
-		nonTerminalElement.nonTerminal=rule.lhs;
+		//push the LHS and the goto on stack
+		stack.push(lhsNode,gotoStateElement);
 
-		var gotoStateElement=new StackElement(StackElementType.State);
-		gotoStateElement.state=gotoStateNumber;
-		
-		stack.push(nonTerminalElement,gotoStateElement);
+		//the LHS now becomes the new root of the parse tree
+		parseTree.root=lhsNode;
 	}
 
 	/** Sets the indices of terminal in each lexeme for matching lexeme types*/
@@ -259,23 +290,6 @@ export class ContextFreeGrammer{
 	}
 }
 
-enum StackElementType{
-	Terminal,
-	State,
-	NonTerminal
-}
-
-class StackElement{
-	lexeme:Lexeme;
-	state:number;
-	nonTerminal:NonTerminal;
-	readonly type:StackElementType;
-
-	constructor(type:StackElementType ){
-		this.type=type;
-	}
-}
-
 /** Tree Structure for containing the Parse tree */
 export class ParseTree{
 	root:ParentParseTreeNode;
@@ -284,37 +298,42 @@ export class ParseTree{
 	constructor(input:string){
 		this.input=input;
 	}
+
+	toString():string{
+		return this.root.toString();
+	}
+}
+
+/** Tells wheather a node denotes a leaf,parent, or a state number(used inside the parsing stack).*/
+export enum ParseTreeNodeType{
+	Leaf,
+	Parent,
+	StateHolder
 }
 
 /** A abstract single node used in the parse tree */
 export interface ParseTreeNode{
-	/**Wheather this node is leaf node or not */
-	isLeaf():boolean;
-	/** Wheather this node denotes a state number inside the parsing stack.*/
-	isStateNumber():boolean;
+	/** Wheater it is leaf, parent or state number holder */
+	getType():ParseTreeNodeType;
 	/** Returns non terminal, if this node is supposed to contain a non terminal, null otherwise */
 	getNonTerminal():NonTerminal;
 	/** Returns lexeme, if this node is supposed to contain a lexeme, null otherwise */
 	getLexeme():Lexeme;
-	/** Returns state number, if this node is supposed to contain a state number, null otherwise */
+	/** Returns state number, if this node is supposed to contain a state number, -1 otherwise */
 	getStateNumber():number;
 }
 
 /** As a parent node in the parse tree, this class holds a non terminal and children */
 export class ParentParseTreeNode implements ParseTreeNode{
 	nonTerminal:NonTerminal;
-	children:ParseTreeNode[]=[];
+	children:ParseTreeNode[];
 
 	constructor(nonTerminal:NonTerminal){
 		this.nonTerminal=nonTerminal;
 	}
 
-	isLeaf():boolean{
-		return false;
-	}
-
-	isStateNumber():boolean{
-		return false;
+	getType():ParseTreeNodeType{
+		return ParseTreeNodeType.Parent;
 	}
 
 	/** Finds the child node that contains the supplied non terminal */
@@ -343,6 +362,9 @@ export class ParentParseTreeNode implements ParseTreeNode{
 		return -1;
 	}
 	
+	toString():string{
+		return this.nonTerminal.toString();
+	}
 }
 
 /** As a leaf node in the parse tree, this class holds the lexeme */
@@ -353,12 +375,8 @@ export class LeafParseTreeNode implements ParseTreeNode{
 		this.lexeme=lexeme;
 	}
 
-	isLeaf():boolean{
-		return true;
-	}
-
-	isStateNumber():boolean{
-		return false;
+	getType():ParseTreeNodeType{
+		return ParseTreeNodeType.Leaf;
 	}
 
 	/** Returns non terminal, if this node is supposed to contain a non terminal, null otherwise */
@@ -375,6 +393,10 @@ export class LeafParseTreeNode implements ParseTreeNode{
 	getStateNumber():number{
 		return -1;
 	}
+
+	toString():string{
+		return stringForLexemeType(this.lexeme.type);
+	}
 }
 
 /** State numbers are also held as parse tree nodes but only for parsing computation purposes */
@@ -386,12 +408,8 @@ class StateParseTreeNode implements ParseTreeNode{
 		this.state=state;
 	}
 
-	isLeaf():boolean{
-		return false;
-	}
-
-	isStateNumber():boolean{
-		return false;
+	getType():ParseTreeNodeType{
+		return ParseTreeNodeType.StateHolder;
 	}
 
 	/** Returns non terminal, if this node is supposed to contain a non terminal, null otherwise */
@@ -407,6 +425,10 @@ class StateParseTreeNode implements ParseTreeNode{
 	/** Returns state number, if this node is supposed to contain a state number, null otherwise */
 	getStateNumber():number{
 		return this.state;
+	}
+
+	toString():string{
+		return "'# "+this.state+" #'";
 	}
 }
 

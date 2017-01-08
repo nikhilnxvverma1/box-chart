@@ -13,7 +13,8 @@ export class InterpreterService{
 		}
 
 		var cfg=this.makeDummyGrammer();
-		cfg.parseString("--++");
+		var parseTree=cfg.parse("--++");
+		console.log(parseTree);
 		return null;
 	}
 

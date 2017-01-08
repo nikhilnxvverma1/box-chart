@@ -42,7 +42,58 @@ export enum LexemeType{ //debugging tip: use this line number to derive the numb
 	ClosingMultiLineComment,// */
 
 	EOF//End of File, artificial and used exclusively by parser
+
+	//NOTE: For each addition or change, make sure to revise the string representation method below
 	
+}
+
+/** Returns string representation of the lexeme type. Used only for development purposes */
+export function stringForLexemeType(type:LexemeType):string{
+	
+	switch(type){
+		case LexemeType.Identifier:	return "id";
+		case LexemeType.Number:return "num";
+		case LexemeType.Unknown:return "'unknown'";
+		case LexemeType.Plus:return "+";
+		case LexemeType.Minus:return "-";
+		case LexemeType.HashTag:return "#";
+		case LexemeType.Tilde:return "~";
+		case LexemeType.Colon:return ":";
+		case LexemeType.Comma:return ",";
+		case LexemeType.Int:return "int";
+		case LexemeType.Float:return "float";
+		case LexemeType.Bool:return "bool";
+		case LexemeType.Char:return "char";
+		case LexemeType.String:return "string";
+		case LexemeType.Void:return "void";
+		case LexemeType.Star:return "*";
+		case LexemeType.OpeningSquareBracket:return "[";
+		case LexemeType.ClosingSquareBracket:return "]";
+		case LexemeType.OpeningAngularBracket:return "<";
+		case LexemeType.ClosingAngularBracket:return ">";
+		case LexemeType.OpeningCurvedBracket:return "(";
+		case LexemeType.ClosingCurvedBracket:return ")";
+		case LexemeType.DoubleOpeningSquareBracket:return "[[";
+		case LexemeType.DoubleClosingSquareBracket:return "]]";
+		case LexemeType.DoubleOpeningAngularBracket:return "<<";
+		case LexemeType.DoubleClosingAngularBracket:return ">>";
+		case LexemeType.DoubleOpeningCurvedBracket:return "((";
+		case LexemeType.DoubleClosingCurvedBracket:return "))";
+		case LexemeType.Interface:return "interface";
+		case LexemeType.Enumeration:return "enumeration";
+		case LexemeType.UserSymbol:return "o<<";
+		case LexemeType.DatabaseSymbol:return "o((";
+		case LexemeType.Arrow:return "-->";
+		case LexemeType.Line:return "---";
+		case LexemeType.Dotted:return "...";
+		case LexemeType.DoubleSlash:return "//";
+		case LexemeType.OpeningMultiLineComment:return "/*";
+		case LexemeType.ClosingMultiLineComment:return "*/";
+
+		case LexemeType.EOF:return "EOF";
+	}
+
+	return null;
 }
 
 /** 
@@ -218,3 +269,4 @@ function isAlpha(str:string):boolean{
 function isDigit(str:string):boolean{
 	return /^\d+$/.test(str);
 }
+

@@ -7637,7 +7637,8 @@ webpackJsonp([0],[
 	            console.log(lexeme);
 	        }
 	        var cfg = this.makeDummyGrammer();
-	        cfg.parseString("--++");
+	        var parseTree = cfg.parse("--++");
+	        console.log(parseTree);
 	        return null;
 	    };
 	    InterpreterService.prototype.makeDummyGrammer = function () {
@@ -7711,6 +7712,52 @@ webpackJsonp([0],[
 	    LexemeType[LexemeType["EOF"] = 39] = "EOF"; //End of File, artificial and used exclusively by parser
 	})(exports.LexemeType || (exports.LexemeType = {}));
 	var LexemeType = exports.LexemeType;
+	/** Returns string representation of the lexeme type. Used only for development purposes */
+	function stringForLexemeType(type) {
+	    switch (type) {
+	        case LexemeType.Identifier: return "id";
+	        case LexemeType.Number: return "num";
+	        case LexemeType.Unknown: return "'unknown'";
+	        case LexemeType.Plus: return "+";
+	        case LexemeType.Minus: return "-";
+	        case LexemeType.HashTag: return "#";
+	        case LexemeType.Tilde: return "~";
+	        case LexemeType.Colon: return ":";
+	        case LexemeType.Comma: return ",";
+	        case LexemeType.Int: return "int";
+	        case LexemeType.Float: return "float";
+	        case LexemeType.Bool: return "bool";
+	        case LexemeType.Char: return "char";
+	        case LexemeType.String: return "string";
+	        case LexemeType.Void: return "void";
+	        case LexemeType.Star: return "*";
+	        case LexemeType.OpeningSquareBracket: return "[";
+	        case LexemeType.ClosingSquareBracket: return "]";
+	        case LexemeType.OpeningAngularBracket: return "<";
+	        case LexemeType.ClosingAngularBracket: return ">";
+	        case LexemeType.OpeningCurvedBracket: return "(";
+	        case LexemeType.ClosingCurvedBracket: return ")";
+	        case LexemeType.DoubleOpeningSquareBracket: return "[[";
+	        case LexemeType.DoubleClosingSquareBracket: return "]]";
+	        case LexemeType.DoubleOpeningAngularBracket: return "<<";
+	        case LexemeType.DoubleClosingAngularBracket: return ">>";
+	        case LexemeType.DoubleOpeningCurvedBracket: return "((";
+	        case LexemeType.DoubleClosingCurvedBracket: return "))";
+	        case LexemeType.Interface: return "interface";
+	        case LexemeType.Enumeration: return "enumeration";
+	        case LexemeType.UserSymbol: return "o<<";
+	        case LexemeType.DatabaseSymbol: return "o((";
+	        case LexemeType.Arrow: return "-->";
+	        case LexemeType.Line: return "---";
+	        case LexemeType.Dotted: return "...";
+	        case LexemeType.DoubleSlash: return "//";
+	        case LexemeType.OpeningMultiLineComment: return "/*";
+	        case LexemeType.ClosingMultiLineComment: return "*/";
+	        case LexemeType.EOF: return "EOF";
+	    }
+	    return null;
+	}
+	exports.stringForLexemeType = stringForLexemeType;
 	/**
 	 * A token in the string that qualifies as an identified symbol in the grammer .
 	 * A Lexeme should be thought of as an instance of a terminal in the CFG.
@@ -7878,6 +7925,10 @@ webpackJsonp([0],[
 	    NonTerminal.prototype.isTerminal = function () {
 	        return false;
 	    };
+	    NonTerminal.prototype.toString = function () {
+	        var startLetter = "B";
+	        return String.fromCharCode(startLetter.charCodeAt(0) + this.id);
+	    };
 	    return NonTerminal;
 	}());
 	exports.NonTerminal = NonTerminal;
@@ -7892,6 +7943,9 @@ webpackJsonp([0],[
 	    Terminal.prototype.isEndOfFile = function () {
 	        return this.token == lexical_analyzer_1.LexemeType.EOF;
 	    };
+	    Terminal.prototype.toString = function () {
+	        return lexical_analyzer_1.stringForLexemeType(this.token);
+	    };
 	    return Terminal;
 	}());
 	exports.Terminal = Terminal;
@@ -7901,6 +7955,9 @@ webpackJsonp([0],[
 	    }
 	    Epsilon.prototype.isTerminal = function () {
 	        return false;
+	    };
+	    Epsilon.prototype.toString = function () {
+	        return "\E";
 	    };
 	    return Epsilon;
 	}());
@@ -7914,6 +7971,15 @@ webpackJsonp([0],[
 	        this.lhs = from;
 	        this.rhs = goesTo;
 	    }
+	    Rule.prototype.toString = function () {
+	        var line = this.lhs.toString();
+	        line += " -> ";
+	        for (var _i = 0, _a = this.rhs; _i < _a.length; _i++) {
+	            var element = _a[_i];
+	            line += element.toString() + " ";
+	        }
+	        return line;
+	    };
 	    return Rule;
 	}());
 	exports.Rule = Rule;
@@ -7928,6 +7994,13 @@ webpackJsonp([0],[
 	        this.relation = [];
 	        this.start = start;
 	    }
+	    /** Simply prints out the rules line by line */
+	    ContextFreeGrammer.prototype.printRules = function () {
+	        for (var _i = 0, _a = this.relation; _i < _a.length; _i++) {
+	            var rule = _a[_i];
+	            console.log(rule.toString());
+	        }
+	    };
 	    /** Augments the grammer with a starting rule and creates the parsing table */
 	    ContextFreeGrammer.prototype.finalizeGrammer = function () {
 	        this.augumentGrammer();
@@ -7945,11 +8018,11 @@ webpackJsonp([0],[
 	        return sPrime;
 	    };
 	    /** Parses a string to give an appropriate parse tree which can be used to retrieve information from(semantic analysis)*/
-	    ContextFreeGrammer.prototype.parseString = function (input) {
+	    ContextFreeGrammer.prototype.parse = function (input) {
 	        var lexemeList = lexical_analyzer_1.getLexemeList(input);
 	        this.setRespectiveTerminalIndices(lexemeList);
 	        var stack = [];
-	        var startingElement = new StackElement(StackElementType.State);
+	        var startingElement = new StateParseTreeNode(0);
 	        startingElement.state = 0;
 	        var pointer = 0;
 	        var processing = true;
@@ -7959,7 +8032,7 @@ webpackJsonp([0],[
 	            var lexeme = lexemeList[pointer];
 	            var terminal = this.terminalList[lexeme.terminalIndex];
 	            //get the state from whatever is on top of stack
-	            var state = stack[stack.length - 1].state;
+	            var state = stack[stack.length - 1].getStateNumber();
 	            var action = this.parserTable.getAction(state, terminal);
 	            if (action.type == ParserTableValueType.Shift) {
 	                //perform shift operation
@@ -7986,10 +8059,8 @@ webpackJsonp([0],[
 	    ContextFreeGrammer.prototype.shift = function (action, stack, lexemeList, pointer) {
 	        var lexeme = lexemeList[pointer];
 	        var terminal = this.terminalList[lexeme.terminalIndex];
-	        var symbolElement = new StackElement(StackElementType.Terminal);
-	        symbolElement.lexeme = lexeme;
-	        var stateElement = new StackElement(StackElementType.State);
-	        stateElement.state = action.n;
+	        var symbolElement = new LeafParseTreeNode(lexeme);
+	        var stateElement = new StateParseTreeNode(action.n);
 	        stack.push(symbolElement, stateElement);
 	        return ++pointer;
 	    };
@@ -7997,28 +8068,30 @@ webpackJsonp([0],[
 	    ContextFreeGrammer.prototype.reduce = function (action, stack, lexemeList, parseTree) {
 	        //get the associated rule that we want to reduce to
 	        var rule = this.relation[action.n];
+	        //create a new parent node that denotes this reduction derivative
+	        var lhsNode = new ParentParseTreeNode(rule.lhs);
 	        //pop twice as many elements from stack as there are elements in the rhs
 	        var elementsToPop = 2 * rule.rhs.length;
 	        //to keep track of all the children arisen from this reduce, hold them in an array
 	        var descendents = [];
 	        for (var i = 0; i < elementsToPop; i++) {
 	            var stackElement = stack.pop();
-	            if (stackElement.type == StackElementType.Terminal) {
-	                descendents.push(new LeafParseTreeNode(stackElement.lexeme));
-	            }
-	            else if (stackElement.type == StackElementType.NonTerminal) {
-	                var node = parseTree.root.findChildNodeHoldingNonTerminal(stackElement.nonTerminal);
+	            if (stackElement.getType() != ParseTreeNodeType.StateHolder) {
+	                descendents.push(stackElement);
 	            }
 	        }
-	        //use the top state and the lhs to get the 'goto state'
-	        var topAfterPops = stack[stack.length - 1].state;
+	        //because the descendents are popped backwards, reverse the array for the correct order
+	        descendents.reverse();
+	        //set as children to the LHS node
+	        lhsNode.children = descendents;
+	        //use the top state and the LHS to get the 'goto state'
+	        var topAfterPops = stack[stack.length - 1].getStateNumber();
 	        var gotoStateNumber = this.parserTable.getGoto(topAfterPops, rule.lhs);
-	        //push the rule's lhs and the goto on stack
-	        var nonTerminalElement = new StackElement(StackElementType.NonTerminal);
-	        nonTerminalElement.nonTerminal = rule.lhs;
-	        var gotoStateElement = new StackElement(StackElementType.State);
-	        gotoStateElement.state = gotoStateNumber;
-	        stack.push(nonTerminalElement, gotoStateElement);
+	        var gotoStateElement = new StateParseTreeNode(gotoStateNumber);
+	        //push the LHS and the goto on stack
+	        stack.push(lhsNode, gotoStateElement);
+	        //the LHS now becomes the new root of the parse tree
+	        parseTree.root = lhsNode;
 	    };
 	    /** Sets the indices of terminal in each lexeme for matching lexeme types*/
 	    ContextFreeGrammer.prototype.setRespectiveTerminalIndices = function (lexemeList) {
@@ -8091,37 +8164,31 @@ webpackJsonp([0],[
 	    return ContextFreeGrammer;
 	}());
 	exports.ContextFreeGrammer = ContextFreeGrammer;
-	var StackElementType;
-	(function (StackElementType) {
-	    StackElementType[StackElementType["Terminal"] = 0] = "Terminal";
-	    StackElementType[StackElementType["State"] = 1] = "State";
-	    StackElementType[StackElementType["NonTerminal"] = 2] = "NonTerminal";
-	})(StackElementType || (StackElementType = {}));
-	var StackElement = (function () {
-	    function StackElement(type) {
-	        this.type = type;
-	    }
-	    return StackElement;
-	}());
 	/** Tree Structure for containing the Parse tree */
 	var ParseTree = (function () {
 	    function ParseTree(input) {
 	        this.input = input;
 	    }
+	    ParseTree.prototype.toString = function () {
+	        return this.root.toString();
+	    };
 	    return ParseTree;
 	}());
 	exports.ParseTree = ParseTree;
+	/** Tells wheather a node denotes a leaf,parent, or a state number(used inside the parsing stack).*/
+	(function (ParseTreeNodeType) {
+	    ParseTreeNodeType[ParseTreeNodeType["Leaf"] = 0] = "Leaf";
+	    ParseTreeNodeType[ParseTreeNodeType["Parent"] = 1] = "Parent";
+	    ParseTreeNodeType[ParseTreeNodeType["StateHolder"] = 2] = "StateHolder";
+	})(exports.ParseTreeNodeType || (exports.ParseTreeNodeType = {}));
+	var ParseTreeNodeType = exports.ParseTreeNodeType;
 	/** As a parent node in the parse tree, this class holds a non terminal and children */
 	var ParentParseTreeNode = (function () {
 	    function ParentParseTreeNode(nonTerminal) {
-	        this.children = [];
 	        this.nonTerminal = nonTerminal;
 	    }
-	    ParentParseTreeNode.prototype.isLeaf = function () {
-	        return false;
-	    };
-	    ParentParseTreeNode.prototype.isStateNumber = function () {
-	        return false;
+	    ParentParseTreeNode.prototype.getType = function () {
+	        return ParseTreeNodeType.Parent;
 	    };
 	    /** Finds the child node that contains the supplied non terminal */
 	    ParentParseTreeNode.prototype.findChildNodeHoldingNonTerminal = function (nonTerminal) {
@@ -8145,6 +8212,9 @@ webpackJsonp([0],[
 	    ParentParseTreeNode.prototype.getStateNumber = function () {
 	        return -1;
 	    };
+	    ParentParseTreeNode.prototype.toString = function () {
+	        return this.nonTerminal.toString();
+	    };
 	    return ParentParseTreeNode;
 	}());
 	exports.ParentParseTreeNode = ParentParseTreeNode;
@@ -8153,11 +8223,8 @@ webpackJsonp([0],[
 	    function LeafParseTreeNode(lexeme) {
 	        this.lexeme = lexeme;
 	    }
-	    LeafParseTreeNode.prototype.isLeaf = function () {
-	        return true;
-	    };
-	    LeafParseTreeNode.prototype.isStateNumber = function () {
-	        return false;
+	    LeafParseTreeNode.prototype.getType = function () {
+	        return ParseTreeNodeType.Leaf;
 	    };
 	    /** Returns non terminal, if this node is supposed to contain a non terminal, null otherwise */
 	    LeafParseTreeNode.prototype.getNonTerminal = function () {
@@ -8171,6 +8238,9 @@ webpackJsonp([0],[
 	    LeafParseTreeNode.prototype.getStateNumber = function () {
 	        return -1;
 	    };
+	    LeafParseTreeNode.prototype.toString = function () {
+	        return lexical_analyzer_1.stringForLexemeType(this.lexeme.type);
+	    };
 	    return LeafParseTreeNode;
 	}());
 	exports.LeafParseTreeNode = LeafParseTreeNode;
@@ -8179,11 +8249,8 @@ webpackJsonp([0],[
 	    function StateParseTreeNode(state) {
 	        this.state = state;
 	    }
-	    StateParseTreeNode.prototype.isLeaf = function () {
-	        return false;
-	    };
-	    StateParseTreeNode.prototype.isStateNumber = function () {
-	        return false;
+	    StateParseTreeNode.prototype.getType = function () {
+	        return ParseTreeNodeType.StateHolder;
 	    };
 	    /** Returns non terminal, if this node is supposed to contain a non terminal, null otherwise */
 	    StateParseTreeNode.prototype.getNonTerminal = function () {
@@ -8196,6 +8263,9 @@ webpackJsonp([0],[
 	    /** Returns state number, if this node is supposed to contain a state number, null otherwise */
 	    StateParseTreeNode.prototype.getStateNumber = function () {
 	        return this.state;
+	    };
+	    StateParseTreeNode.prototype.toString = function () {
+	        return "'# " + this.state + " #'";
 	    };
 	    return StateParseTreeNode;
 	}());
