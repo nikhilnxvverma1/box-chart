@@ -7654,6 +7654,34 @@ webpackJsonp([0],[
 	        return cfg;
 	    };
 	    InterpreterService.prototype.testDummyGrammer = function (input, cfg) {
+	        var eof = new parser.EndOfFile();
+	        var table = new parser.ParserTable(cfg.terminalList, cfg.variableList, eof, 10);
+	        var s = cfg.getNonTerminalBy(0);
+	        var a = cfg.getNonTerminalBy(1);
+	        var ta = cfg.getTerminalBy(lexer.LexemeType.Minus);
+	        var tb = cfg.getTerminalBy(lexer.LexemeType.Plus);
+	        //table rigging
+	        //final result from https://www.youtube.com/watch?v=APJ_Eh60Qwo
+	        table.setAction(0, ta, parser.ParserTableValueType.Shift, 3);
+	        table.setAction(0, tb, parser.ParserTableValueType.Shift, 4);
+	        table.setGoto(0, a, 2);
+	        table.setGoto(0, s, 1);
+	        table.setAction(1, eof, parser.ParserTableValueType.Accept, 0);
+	        table.setAction(2, ta, parser.ParserTableValueType.Shift, 3);
+	        table.setAction(2, tb, parser.ParserTableValueType.Shift, 4);
+	        table.setGoto(2, a, 5);
+	        table.setAction(3, ta, parser.ParserTableValueType.Shift, 3);
+	        table.setAction(3, tb, parser.ParserTableValueType.Shift, 4);
+	        table.setGoto(3, a, 6);
+	        table.setAction(4, ta, parser.ParserTableValueType.Reduce, 3);
+	        table.setAction(4, tb, parser.ParserTableValueType.Reduce, 3);
+	        table.setAction(4, eof, parser.ParserTableValueType.Reduce, 3);
+	        table.setAction(5, ta, parser.ParserTableValueType.Reduce, 1);
+	        table.setAction(5, tb, parser.ParserTableValueType.Reduce, 1);
+	        table.setAction(5, eof, parser.ParserTableValueType.Reduce, 1);
+	        table.setAction(6, ta, parser.ParserTableValueType.Reduce, 2);
+	        table.setAction(6, tb, parser.ParserTableValueType.Reduce, 2);
+	        table.setAction(6, eof, parser.ParserTableValueType.Reduce, 2);
 	        return null;
 	    };
 	    InterpreterService = __decorate([
@@ -7863,9 +7891,15 @@ webpackJsonp([0],[
 
 /***/ },
 /* 84 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var lexical_analyzer_1 = __webpack_require__(83);
 	(function (CodeContext) {
 	    CodeContext[CodeContext["GenericBox"] = 0] = "GenericBox";
 	    CodeContext[CodeContext["FieldMember"] = 1] = "FieldMember";
@@ -7892,9 +7926,24 @@ webpackJsonp([0],[
 	    Terminal.prototype.isTerminal = function () {
 	        return true;
 	    };
+	    Terminal.prototype.isEndOfFile = function () {
+	        return false;
+	    };
 	    return Terminal;
 	}());
 	exports.Terminal = Terminal;
+	/** Indicates the terminating point in a string. This is also treated as a terminal. Only used internally. */
+	var EndOfFile = (function (_super) {
+	    __extends(EndOfFile, _super);
+	    function EndOfFile() {
+	        _super.call(this, lexical_analyzer_1.LexemeType.Unknown);
+	    }
+	    EndOfFile.prototype.isEndOfFile = function () {
+	        return true;
+	    };
+	    return EndOfFile;
+	}(Terminal));
+	exports.EndOfFile = EndOfFile;
 	var Epsilon = (function () {
 	    function Epsilon() {
 	    }
@@ -7923,15 +7972,39 @@ webpackJsonp([0],[
 	        this.relation = [];
 	        this.start = start;
 	    }
-	    /** Inserts a new starting rule that goes to the current starting rule adding new non terminal in the proceess*/
+	    /**
+	     * Inserts a new starting rule that goes to the current starting rule adding new non terminal in the proceess.
+	     * Returns the said starting Non Terminal
+	     */
 	    ContextFreeGrammer.prototype.augumentGrammer = function () {
 	        var sPrime = new NonTerminal(-1);
 	        this.relation.push(new Rule(sPrime, this.start));
 	        this.start = sPrime;
+	        return sPrime;
 	    };
 	    /** Parses a string to give an appropriate parse tree which can be used to retrieve information from(semantic analysis)*/
 	    ContextFreeGrammer.prototype.parseString = function (input) {
 	        return null; //TODO
+	    };
+	    /** Loops through the terminal list to return a terminal which matches the given type */
+	    ContextFreeGrammer.prototype.getTerminalBy = function (type) {
+	        for (var _i = 0, _a = this.terminalList; _i < _a.length; _i++) {
+	            var terminal = _a[_i];
+	            if (terminal.token == type) {
+	                return terminal;
+	            }
+	        }
+	        return null;
+	    };
+	    /** Loops through the variable list to return a variable which matches the given id */
+	    ContextFreeGrammer.prototype.getNonTerminalBy = function (id) {
+	        for (var _i = 0, _a = this.variableList; _i < _a.length; _i++) {
+	            var variable = _a[_i];
+	            if (variable.id == id) {
+	                return variable;
+	            }
+	        }
+	        return null;
 	    };
 	    return ContextFreeGrammer;
 	}());
@@ -7950,6 +8023,79 @@ webpackJsonp([0],[
 	    return ParseTreeNode;
 	}());
 	exports.ParseTreeNode = ParseTreeNode;
+	/** Type of action in the parser table */
+	(function (ParserTableValueType) {
+	    ParserTableValueType[ParserTableValueType["Blank"] = 1] = "Blank";
+	    ParserTableValueType[ParserTableValueType["Shift"] = 2] = "Shift";
+	    ParserTableValueType[ParserTableValueType["Reduce"] = 3] = "Reduce";
+	    ParserTableValueType[ParserTableValueType["Goto"] = 4] = "Goto";
+	    ParserTableValueType[ParserTableValueType["Accept"] = 5] = "Accept";
+	})(exports.ParserTableValueType || (exports.ParserTableValueType = {}));
+	var ParserTableValueType = exports.ParserTableValueType;
+	/**  Inidivual cell value of the 2d parse table. */
+	var ParserTableValue = (function () {
+	    function ParserTableValue(type, n) {
+	        this.type = type;
+	        this.n = n;
+	    }
+	    return ParserTableValue;
+	}());
+	exports.ParserTableValue = ParserTableValue;
+	/** Holds a 2d table that dictates the shift reduce algorithm. */
+	var ParserTable = (function () {
+	    function ParserTable(terminalList, variableList, eof, rows) {
+	        if (rows === void 0) { rows = 20; }
+	        this.rowCount = 0;
+	        this.terminalList = terminalList;
+	        this.variableList = variableList;
+	        //set the indices and get table length
+	        this.setIndices();
+	        //initialize the 2d table
+	        //make the specified amount of rows, we can grow rows later as needed
+	        for (var i = 0; i < rows; i++) {
+	            this.makeNewRow();
+	        }
+	    }
+	    /** Sets the indices of the terminal and variable elements and */
+	    ParserTable.prototype.setIndices = function () {
+	        var index = 0;
+	        for (; index < this.terminalList.length; index++) {
+	            this.terminalList[index].tableIndex = index;
+	        }
+	        this.eof.tableIndex = index;
+	        for (var j = 0; j < this.variableList.length; j++) {
+	            this.variableList[j].tableIndex = index++;
+	        }
+	        return this.terminalList.length + 1 + this.variableList.length;
+	    };
+	    /** Returns total column length of the parser table */
+	    ParserTable.prototype.totalColumns = function () {
+	        return this.terminalList.length + 1 + this.variableList.length;
+	    };
+	    /** Creates new row in the table column */
+	    ParserTable.prototype.makeNewRow = function () {
+	        var totalColumns = this.totalColumns();
+	        for (var j = 0; j < totalColumns; j++) {
+	            this.table[this.rowCount++][j] = new ParserTableValue(ParserTableValueType.Blank, 0);
+	        }
+	    };
+	    ParserTable.prototype.getAction = function (row, terminal) {
+	        return this.table[row][terminal.tableIndex];
+	    };
+	    ParserTable.prototype.setAction = function (row, terminal, type, n) {
+	        this.table[row][terminal.tableIndex].type = type;
+	        this.table[row][terminal.tableIndex].n = n;
+	    };
+	    ParserTable.prototype.getGoto = function (row, variable) {
+	        return this.table[row][variable.tableIndex];
+	    };
+	    ParserTable.prototype.setGoto = function (row, variable, n) {
+	        this.table[row][variable.tableIndex].type = ParserTableValueType.Goto;
+	        this.table[row][variable.tableIndex].n = n;
+	    };
+	    return ParserTable;
+	}());
+	exports.ParserTable = ParserTable;
 
 
 /***/ },
