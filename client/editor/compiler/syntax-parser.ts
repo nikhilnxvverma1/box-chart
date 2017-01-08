@@ -31,20 +31,9 @@ export class Terminal implements SyntaxElement{
 		return true;
 	}
 
+	/** Indicates the terminating point in a string. This is also treated as a terminal. */
 	isEndOfFile():boolean{
-		return false;
-	}
-}
-
-/** Indicates the terminating point in a string. This is also treated as a terminal. Only used internally. */
-export class EndOfFile extends Terminal{
-
-	constructor(){
-		super(LexemeType.Unknown);
-	}
-
-	isEndOfFile():boolean{
-		return true;
+		return this.token==LexemeType.EOF;
 	}
 }
 
@@ -206,7 +195,7 @@ export class ContextFreeGrammer{
 	/** Rigs the parser table from the final result of https://www.youtube.com/watch?v=APJ_Eh60Qwo */
 	private makeDummyParserTable():ParserTable{
 
-		var eof=new EndOfFile();
+		var eof=new Terminal(LexemeType.EOF);
 		var table=new ParserTable(this.terminalList,this.variableList,eof,10);
 		
 		var s=this.getNonTerminalBy(0);
@@ -302,11 +291,11 @@ export class ParserTableValue{
 export class ParserTable{
 	private terminalList:Terminal[];
 	private variableList:NonTerminal[];
-	private eof:EndOfFile;
+	private eof:Terminal;
 	private table:ParserTableValue[][];
 	private rowCount=0;
 
-	constructor(terminalList:Terminal[],variableList:NonTerminal[],eof:EndOfFile,rows=20){
+	constructor(terminalList:Terminal[],variableList:NonTerminal[],eof:Terminal,rows=20){
 		this.terminalList=terminalList;
 		this.variableList=variableList;
 		

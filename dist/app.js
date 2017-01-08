@@ -7867,11 +7867,6 @@ webpackJsonp([0],[
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
 	var lexical_analyzer_1 = __webpack_require__(83);
 	var NonTerminal = (function () {
 	    function NonTerminal(id) {
@@ -7890,24 +7885,13 @@ webpackJsonp([0],[
 	    Terminal.prototype.isTerminal = function () {
 	        return true;
 	    };
+	    /** Indicates the terminating point in a string. This is also treated as a terminal. */
 	    Terminal.prototype.isEndOfFile = function () {
-	        return false;
+	        return this.token == lexical_analyzer_1.LexemeType.EOF;
 	    };
 	    return Terminal;
 	}());
 	exports.Terminal = Terminal;
-	/** Indicates the terminating point in a string. This is also treated as a terminal. Only used internally. */
-	var EndOfFile = (function (_super) {
-	    __extends(EndOfFile, _super);
-	    function EndOfFile() {
-	        _super.call(this, lexical_analyzer_1.LexemeType.Unknown);
-	    }
-	    EndOfFile.prototype.isEndOfFile = function () {
-	        return true;
-	    };
-	    return EndOfFile;
-	}(Terminal));
-	exports.EndOfFile = EndOfFile;
 	/** Denotes an empty string */
 	var Epsilon = (function () {
 	    function Epsilon() {
@@ -8051,7 +8035,7 @@ webpackJsonp([0],[
 	    };
 	    /** Rigs the parser table from the final result of https://www.youtube.com/watch?v=APJ_Eh60Qwo */
 	    ContextFreeGrammer.prototype.makeDummyParserTable = function () {
-	        var eof = new EndOfFile();
+	        var eof = new Terminal(lexical_analyzer_1.LexemeType.EOF);
 	        var table = new ParserTable(this.terminalList, this.variableList, eof, 10);
 	        var s = this.getNonTerminalBy(0);
 	        var a = this.getNonTerminalBy(1);
