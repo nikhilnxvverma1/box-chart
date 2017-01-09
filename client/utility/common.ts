@@ -103,3 +103,36 @@ export function stringForAccessSpecifier(accessSpecifier:AccessSpecifier){
 			return "";
 	}
 }
+
+/** Returns a matching element if present in list, null otherwise */
+export function existsInList(item:any,list:any[]):boolean{
+	for(let inList of list){
+		if(item==inList){
+			return true;
+		}
+	}
+	return false;
+}
+
+/** 
+ * Merges two lists together ensuring no two elements are repeated. Returns duplicates count.
+ * The result list should not be either of the two lists.
+ */
+export function merge(list1:any[],list2:any[],result:any[]):number{
+	var duplicatesFound=0;
+
+	//add all items of first list
+	for(let fromList1 of list1){
+		result.push(fromList1);
+	}
+
+	//only add those items of second list that don't exist already
+	for(let fromList2 of list2){
+		if(!existsInList(fromList2,result)){
+			result.push(fromList2);
+		}else{
+			duplicatesFound++;
+		}
+	}
+	return duplicatesFound;
+}

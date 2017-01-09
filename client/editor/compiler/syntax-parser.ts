@@ -1,10 +1,20 @@
 import { Lexeme,LexemeType,getLexemeList,stringForLexemeType } from './lexical-analyzer';
 import { ParserTable,ParserTableValue,ParserTableValueType } from './parser-table';
+import  * as util from '../../utility/common';
 
-export interface SyntaxElement{
-	isTerminal():boolean;
+/** Different types of syntax elements that can exists in a CFG */
+export enum SyntaxElementType{
+	NonTerminal,
+	Terminal,
+	Epsilon
 }
 
+/** A single element in the CFG rule: Terminal, Non Terminal or Epsilon */
+export interface SyntaxElement{
+	getType():SyntaxElementType;
+}
+
+/** A variable in the context free grammer */
 export class NonTerminal implements SyntaxElement{
 	id:number;
 	/** Index of this node in parser tables. This should only be set by the ParserTable class */
@@ -14,8 +24,8 @@ export class NonTerminal implements SyntaxElement{
 		this.id=id;
 	}
 	
-	isTerminal():boolean{
-		return false;
+	getType():SyntaxElementType{
+		return SyntaxElementType.NonTerminal;
 	}
 
 	toString():string{
@@ -24,6 +34,7 @@ export class NonTerminal implements SyntaxElement{
 	}
 }
 
+/** An ending symbol in the context free grammer */
 export class Terminal implements SyntaxElement{
 	token:LexemeType;
 	/** Index of this node in parser tables. This should only be touched by the ParserTable class */
@@ -33,8 +44,8 @@ export class Terminal implements SyntaxElement{
 		this.token=tokenType;
 	}
 
-	isTerminal():boolean{
-		return true;
+	getType():SyntaxElementType{
+		return SyntaxElementType.Terminal;
 	}
 
 	/** Indicates the terminating point in a string. This is also treated as a terminal. */
@@ -49,8 +60,8 @@ export class Terminal implements SyntaxElement{
 
 /** Denotes an empty string */
 export class Epsilon implements SyntaxElement{
-	isTerminal():boolean{
-		return false;
+	getType():SyntaxElementType{
+		return SyntaxElementType.Epsilon;
 	}
 
 	toString():string{
@@ -58,6 +69,7 @@ export class Epsilon implements SyntaxElement{
 	}
 }
 
+/** Container that holds the LHS and RHS of a CFG rule */
 export class Rule{
 	lhs:NonTerminal;
 	rhs:SyntaxElement[];
@@ -75,6 +87,7 @@ export class Rule{
 		}
 		return line;
 	}
+
 }
 
 /** 
@@ -87,7 +100,7 @@ export class ContextFreeGrammer{
 	relation:Rule[]=[];
 	start:NonTerminal;
 
-	readonly eof:Terminal;
+	readonly eof:Terminal=new Terminal(LexemeType.EOF);
 
 	/** Parsing table is constructed once and used several times */
 	private parserTable:ParserTable;
@@ -106,10 +119,42 @@ export class ContextFreeGrammer{
 	/** Augments the grammer with a starting rule,adds EOF, creates the parsing table etc.*/
 	finalizeGrammer():ParserTable{
 		this.augumentGrammer();
-		this.eof=new Terminal(LexemeType.EOF);
 		this.terminalList.push(this.eof);
 		this.constructParserTableUsingLR1();
 		return this.parserTable;
+	}
+
+	/** Finds the possible first terminals for the given non terminal in this Grammer */
+	first(variable:NonTerminal,found:Terminal[],recursive=true){
+
+		//for each rule where lhs matches the given variable
+		for(let rule of this.relation){
+			if(rule.lhs==variable){
+				var element=rule.rhs[0];
+				if(element.getType()==SyntaxElementType.NonTerminal &&
+					element!=variable && recursive){
+
+					//for a new non terminal recursively find and add its first element
+					this.first(<NonTerminal>element,found);
+				}else if(element.getType()==SyntaxElementType.Terminal && 
+					!util.existsInList(element,found)){
+					
+					//for a newly discovered terminal, add to list
+					found.push(<Terminal>element);
+				}
+			}
+		}
+	}
+
+	/** Returns all rules where supplied variable is the LHS */
+	rulesFor(variable:NonTerminal):Rule[]{
+		var ruleList:Rule[]=[];
+		for(let rule of this.relation){
+			if(rule.lhs==variable){
+				ruleList.push(rule);
+			}
+		}
+		return ruleList;
 	}
 
 	/**

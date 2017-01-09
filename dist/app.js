@@ -6469,6 +6469,41 @@ webpackJsonp([0],{
 	    }
 	}
 	exports.stringForAccessSpecifier = stringForAccessSpecifier;
+	/** Returns a matching element if present in list, null otherwise */
+	function existsInList(item, list) {
+	    for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
+	        var inList = list_1[_i];
+	        if (item == inList) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	exports.existsInList = existsInList;
+	/**
+	 * Merges two lists together ensuring no two elements are repeated. Returns duplicates count.
+	 * The result list should not be either of the two lists.
+	 */
+	function merge(list1, list2, result) {
+	    var duplicatesFound = 0;
+	    //add all items of first list
+	    for (var _i = 0, list1_1 = list1; _i < list1_1.length; _i++) {
+	        var fromList1 = list1_1[_i];
+	        result.push(fromList1);
+	    }
+	    //only add those items of second list that don't exist already
+	    for (var _a = 0, list2_1 = list2; _a < list2_1.length; _a++) {
+	        var fromList2 = list2_1[_a];
+	        if (!existsInList(fromList2, result)) {
+	            result.push(fromList2);
+	        }
+	        else {
+	            duplicatesFound++;
+	        }
+	    }
+	    return duplicatesFound;
+	}
+	exports.merge = merge;
 
 
 /***/ },
@@ -7894,12 +7929,21 @@ webpackJsonp([0],{
 	"use strict";
 	var lexical_analyzer_1 = __webpack_require__(83);
 	var parser_table_1 = __webpack_require__(673);
+	var util = __webpack_require__(69);
+	/** Different types of syntax elements that can exists in a CFG */
+	(function (SyntaxElementType) {
+	    SyntaxElementType[SyntaxElementType["NonTerminal"] = 0] = "NonTerminal";
+	    SyntaxElementType[SyntaxElementType["Terminal"] = 1] = "Terminal";
+	    SyntaxElementType[SyntaxElementType["Epsilon"] = 2] = "Epsilon";
+	})(exports.SyntaxElementType || (exports.SyntaxElementType = {}));
+	var SyntaxElementType = exports.SyntaxElementType;
+	/** A variable in the context free grammer */
 	var NonTerminal = (function () {
 	    function NonTerminal(id) {
 	        this.id = id;
 	    }
-	    NonTerminal.prototype.isTerminal = function () {
-	        return false;
+	    NonTerminal.prototype.getType = function () {
+	        return SyntaxElementType.NonTerminal;
 	    };
 	    NonTerminal.prototype.toString = function () {
 	        var startLetter = "B";
@@ -7908,12 +7952,13 @@ webpackJsonp([0],{
 	    return NonTerminal;
 	}());
 	exports.NonTerminal = NonTerminal;
+	/** An ending symbol in the context free grammer */
 	var Terminal = (function () {
 	    function Terminal(tokenType) {
 	        this.token = tokenType;
 	    }
-	    Terminal.prototype.isTerminal = function () {
-	        return true;
+	    Terminal.prototype.getType = function () {
+	        return SyntaxElementType.Terminal;
 	    };
 	    /** Indicates the terminating point in a string. This is also treated as a terminal. */
 	    Terminal.prototype.isEndOfFile = function () {
@@ -7929,8 +7974,8 @@ webpackJsonp([0],{
 	var Epsilon = (function () {
 	    function Epsilon() {
 	    }
-	    Epsilon.prototype.isTerminal = function () {
-	        return false;
+	    Epsilon.prototype.getType = function () {
+	        return SyntaxElementType.Epsilon;
 	    };
 	    Epsilon.prototype.toString = function () {
 	        return "\E";
@@ -7938,6 +7983,7 @@ webpackJsonp([0],{
 	    return Epsilon;
 	}());
 	exports.Epsilon = Epsilon;
+	/** Container that holds the LHS and RHS of a CFG rule */
 	var Rule = (function () {
 	    function Rule(from) {
 	        var goesTo = [];
@@ -7968,6 +8014,7 @@ webpackJsonp([0],{
 	        this.variableList = [];
 	        this.terminalList = [];
 	        this.relation = [];
+	        this.eof = new Terminal(lexical_analyzer_1.LexemeType.EOF);
 	        this.start = start;
 	    }
 	    /** Simply prints out the rules line by line */
@@ -7980,10 +8027,41 @@ webpackJsonp([0],{
 	    /** Augments the grammer with a starting rule,adds EOF, creates the parsing table etc.*/
 	    ContextFreeGrammer.prototype.finalizeGrammer = function () {
 	        this.augumentGrammer();
-	        this.eof = new Terminal(lexical_analyzer_1.LexemeType.EOF);
 	        this.terminalList.push(this.eof);
 	        this.constructParserTableUsingLR1();
 	        return this.parserTable;
+	    };
+	    /** Finds the possible first terminals for the given non terminal in this Grammer */
+	    ContextFreeGrammer.prototype.first = function (variable, found, recursive) {
+	        if (recursive === void 0) { recursive = true; }
+	        //for each rule where lhs matches the given variable
+	        for (var _i = 0, _a = this.relation; _i < _a.length; _i++) {
+	            var rule = _a[_i];
+	            if (rule.lhs == variable) {
+	                var element = rule.rhs[0];
+	                if (element.getType() == SyntaxElementType.NonTerminal &&
+	                    element != variable && recursive) {
+	                    //for a new non terminal recursively find and add its first element
+	                    this.first(element, found);
+	                }
+	                else if (element.getType() == SyntaxElementType.Terminal &&
+	                    !util.existsInList(element, found)) {
+	                    //for a newly discovered terminal, add to list
+	                    found.push(element);
+	                }
+	            }
+	        }
+	    };
+	    /** Returns all rules where supplied variable is the LHS */
+	    ContextFreeGrammer.prototype.rulesFor = function (variable) {
+	        var ruleList = [];
+	        for (var _i = 0, _a = this.relation; _i < _a.length; _i++) {
+	            var rule = _a[_i];
+	            if (rule.lhs == variable) {
+	                ruleList.push(rule);
+	            }
+	        }
+	        return ruleList;
 	    };
 	    /**
 	     * Inserts a new starting rule that goes to the current starting rule adding new non terminal in the proceess.
@@ -9602,9 +9680,11 @@ webpackJsonp([0],{
 /***/ },
 
 /***/ 673:
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
+	var syntax_parser_1 = __webpack_require__(84);
+	var util = __webpack_require__(69);
 	/** Type of action in the parser table */
 	(function (ParserTableValueType) {
 	    ParserTableValueType[ParserTableValueType["Blank"] = 1] = "Blank";
@@ -9687,7 +9767,7 @@ webpackJsonp([0],{
 	        var firstItem = new LR1Item(this.cfg.relation[0], 0);
 	        firstItem.lookaheads.push(this.cfg.eof);
 	        //closure is found internally inside the constructor
-	        var firstState = new ParsingState(firstItem);
+	        var firstState = new ParsingState(firstItem, this.cfg);
 	        //find the outgoing transitions for all the unprocessed states 
 	        unprocessedStates.push(firstState);
 	        while (unprocessedStates.length != 0) {
@@ -9698,7 +9778,7 @@ webpackJsonp([0],{
 	            //for each LR(1) item of this state, find outgoing states 
 	            for (var _i = 0, _a = state.itemList; _i < _a.length; _i++) {
 	                var item = _a[_i];
-	                var outgoing = item.proceed();
+	                var outgoing = item.proceed(this.cfg);
 	                if (outgoing != null) {
 	                    //add this transition to the current state's transition list
 	                    outgoing.from = state;
@@ -9717,6 +9797,7 @@ webpackJsonp([0],{
 	            }
 	        }
 	    };
+	    /** Finds the matching state from a list of states, if exists */
 	    ParserTable.prototype.findMatchingState = function (parsingState, list) {
 	        for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
 	            var stateInList = list_1[_i];
@@ -9729,7 +9810,7 @@ webpackJsonp([0],{
 	    return ParserTable;
 	}());
 	exports.ParserTable = ParserTable;
-	/** A combination of rule, position of cursor(dot) and lookahead symbols */
+	/** An LR(1) item is a combination of rule, position of cursor(dot) and lookahead symbols */
 	var LR1Item = (function () {
 	    function LR1Item(rule, dot) {
 	        this.lookaheads = [];
@@ -9768,9 +9849,9 @@ webpackJsonp([0],{
 	     * Proceeds the cursor(dot) one step to produce a parsing transition
 	     * to a new state . The transition returned has an empty 'from' state.
 	     */
-	    LR1Item.prototype.proceed = function () {
+	    LR1Item.prototype.proceed = function (cfg) {
 	        if (this.dot < this.rule.rhs.length) {
-	            return new ParsingTransition(this);
+	            return new ParsingTransition(this, cfg);
 	        }
 	        return null;
 	    };
@@ -9778,11 +9859,11 @@ webpackJsonp([0],{
 	}());
 	/** A collection of LR(1) item set along with transitions to other states */
 	var ParsingState = (function () {
-	    function ParsingState(firstItem) {
+	    function ParsingState(firstItem, cfg) {
 	        this.itemList = [];
 	        this.transitions = [];
 	        this.itemList.push(firstItem);
-	        this.closure(firstItem);
+	        this.closure(firstItem, cfg); //only first item is not derived
 	    }
 	    /** Checks if the two states are same by comparing only their LR(1) item set */
 	    ParsingState.prototype.equals = function (other) {
@@ -9812,14 +9893,46 @@ webpackJsonp([0],{
 	        }
 	        return itemsMatch;
 	    };
-	    ParsingState.prototype.closure = function (item) {
-	        //TODO
+	    /** Recursively finds and adds all LR(1) items by looking at the position of the dot */
+	    ParsingState.prototype.closure = function (item, cfg) {
+	        if (item.dot < item.rule.rhs.length) {
+	            //check the item after the dot
+	            var afterDot = item.rule.rhs[item.dot];
+	            if (afterDot.getType() == syntax_parser_1.SyntaxElementType.NonTerminal) {
+	                //find all rules for this non terminal
+	                var variableRules = cfg.rulesFor(afterDot);
+	                //for each variable rule, 
+	                for (var _i = 0, variableRules_1 = variableRules; _i < variableRules_1.length; _i++) {
+	                    var variableRule = variableRules_1[_i];
+	                    //make an LR(1) item with dot placed at the beginning,
+	                    var derived = new LR1Item(variableRule, 0);
+	                    //find first and store in a list
+	                    var firstTerminals = [];
+	                    cfg.first(afterDot, firstTerminals, false); //we intentionally don't find first recursively
+	                    //if the first list is empty, 
+	                    if (firstTerminals.length == 0) {
+	                        //use the first from existing item
+	                        firstTerminals = item.lookaheads;
+	                    }
+	                    else {
+	                        //otherwise merge with existing
+	                        var mergedList = [];
+	                        util.merge(firstTerminals, item.lookaheads, mergedList);
+	                        firstTerminals = mergedList;
+	                    }
+	                    //set the lookaheads for the derived items 
+	                    derived.lookaheads = firstTerminals;
+	                    //and find its closure recursively
+	                    this.closure(derived, cfg);
+	                }
+	            }
+	        }
 	    };
 	    return ParsingState;
 	}());
 	/** Denotes transition from one parsing state to another for a given syntax element */
 	var ParsingTransition = (function () {
-	    function ParsingTransition(item) {
+	    function ParsingTransition(item, cfg) {
 	        if (item.dot < item.rule.rhs.length) {
 	            //set the syntax element as the current position of the dot
 	            this.syntaxElement = item.rule.rhs[item.dot];
@@ -9831,7 +9944,7 @@ webpackJsonp([0],{
 	                proceededItem.lookaheads.push(lookahead);
 	            }
 	            //create a new outgoing state for the proceeded item
-	            this.to = new ParsingState(proceededItem);
+	            this.to = new ParsingState(proceededItem, cfg);
 	        }
 	    }
 	    return ParsingTransition;

@@ -1,4 +1,6 @@
-import { ContextFreeGrammer,Terminal,NonTerminal,Rule,SyntaxElement } from './syntax-parser';
+import { ContextFreeGrammer,Rule } from './syntax-parser';
+import { Terminal,NonTerminal,SyntaxElement,SyntaxElementType } from './syntax-parser';
+import * as util from '../../utility/common';
 
 /** Type of action in the parser table */
 export enum ParserTableValueType{
@@ -101,7 +103,7 @@ export class ParserTable{
 		firstItem.lookaheads.push(this.cfg.eof);
 
 		//closure is found internally inside the constructor
-		var firstState=new ParsingState(firstItem);
+		var firstState=new ParsingState(firstItem,this.cfg);
 
 		//find the outgoing transitions for all the unprocessed states 
 		unprocessedStates.push(firstState);
@@ -114,7 +116,7 @@ export class ParserTable{
 
 			//for each LR(1) item of this state, find outgoing states 
 			for(let item of state.itemList){
-				var outgoing=item.proceed();
+				var outgoing=item.proceed(this.cfg);
 				if(outgoing!=null){
 					//add this transition to the current state's transition list
 					outgoing.from=state;
@@ -136,6 +138,7 @@ export class ParserTable{
 		
 	}
 
+	/** Finds the matching state from a list of states, if exists */
 	private findMatchingState(parsingState:ParsingState,list:ParsingState[]):ParsingState{
 		for(let stateInList of list){
 			if(parsingState!=stateInList && parsingState.equals(stateInList)){
@@ -146,7 +149,7 @@ export class ParserTable{
 	}
 }
 
-/** A combination of rule, position of cursor(dot) and lookahead symbols */
+/** An LR(1) item is a combination of rule, position of cursor(dot) and lookahead symbols */
 class LR1Item{
 
 	rule:Rule;
@@ -189,9 +192,9 @@ class LR1Item{
 	 * Proceeds the cursor(dot) one step to produce a parsing transition
 	 * to a new state . The transition returned has an empty 'from' state.
 	 */
-	proceed():ParsingTransition{
+	proceed(cfg:ContextFreeGrammer):ParsingTransition{
 		if(this.dot<this.rule.rhs.length){
-			return new ParsingTransition(this);
+			return new ParsingTransition(this,cfg);
 		}
 		return null;
 	}
@@ -203,9 +206,9 @@ class ParsingState{
 	itemList:LR1Item[]=[];
 	transitions:ParsingTransition[]=[];
 
-	constructor(firstItem:LR1Item){
+	constructor(firstItem:LR1Item,cfg:ContextFreeGrammer){
 		this.itemList.push(firstItem);
-		this.closure(firstItem);
+		this.closure(firstItem,cfg);//only first item is not derived
 	}
 
 	/** Checks if the two states are same by comparing only their LR(1) item set */
@@ -234,8 +237,47 @@ class ParsingState{
 		return itemsMatch;
 	}
 
-	private closure(item:LR1Item){
-		//TODO
+	/** Recursively finds and adds all LR(1) items by looking at the position of the dot */
+	private closure(item:LR1Item,cfg:ContextFreeGrammer){
+		if(item.dot<item.rule.rhs.length){
+
+			//check the item after the dot
+			var afterDot=item.rule.rhs[item.dot];
+			if(afterDot.getType()==SyntaxElementType.NonTerminal){
+				
+				//find all rules for this non terminal
+				var variableRules=cfg.rulesFor(<NonTerminal>afterDot);
+
+				//for each variable rule, 
+				for(let variableRule of variableRules){
+
+					//make an LR(1) item with dot placed at the beginning,
+					var derived=new LR1Item(variableRule,0);
+
+					//find first and store in a list
+					var firstTerminals:Terminal[]=[];
+					cfg.first(<NonTerminal>afterDot,firstTerminals,false);//we intentionally don't find first recursively
+
+					//if the first list is empty, 
+					if(firstTerminals.length==0){
+						//use the first from existing item
+						firstTerminals=item.lookaheads;
+					}else{
+						//otherwise merge with existing
+						var mergedList:Terminal[]=[];
+						util.merge(firstTerminals,item.lookaheads,mergedList);
+						firstTerminals=mergedList;
+					}
+
+					//set the lookaheads for the derived items 
+					derived.lookaheads=firstTerminals;
+
+					//and find its closure recursively
+					this.closure(derived,cfg);
+				}
+				
+			}
+		}
 	}
 }
 
@@ -245,7 +287,7 @@ class ParsingTransition{
 	from:ParsingState;
 	to:ParsingState;
 
-	constructor(item:LR1Item){
+	constructor(item:LR1Item,cfg:ContextFreeGrammer){
 		if(item.dot<item.rule.rhs.length){
 
 			//set the syntax element as the current position of the dot
@@ -260,7 +302,7 @@ class ParsingTransition{
 			}
 
 			//create a new outgoing state for the proceeded item
-			this.to=new ParsingState(proceededItem);
+			this.to=new ParsingState(proceededItem,cfg);
 		}
 	}
 }
