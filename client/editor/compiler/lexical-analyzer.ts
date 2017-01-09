@@ -5,8 +5,8 @@ export enum LexemeType{ //debugging tip: use this line number to derive the numb
 	Identifier=1,	//alphanumeric starting with a letter,underscore accepted
 	Number,// any integer number
 	Unknown,// just anything, this has the lease priority 
-	Plus,//+
 	Minus,//-
+	Plus,//+
 	HashTag,//#
 	Tilde,//~
 	Colon,//:
@@ -40,7 +40,6 @@ export enum LexemeType{ //debugging tip: use this line number to derive the numb
 	DoubleSlash,// //
 	OpeningMultiLineComment,// /*
 	ClosingMultiLineComment,// */
-
 	EOF//End of File, artificial and used exclusively by parser
 
 	//NOTE: For each addition or change, make sure to revise the string representation method below
@@ -54,8 +53,8 @@ export function stringForLexemeType(type:LexemeType):string{
 		case LexemeType.Identifier:	return "id";
 		case LexemeType.Number:return "num";
 		case LexemeType.Unknown:return "'unknown'";
-		case LexemeType.Plus:return "+";
 		case LexemeType.Minus:return "-";
+		case LexemeType.Plus:return "+";
 		case LexemeType.HashTag:return "#";
 		case LexemeType.Tilde:return "~";
 		case LexemeType.Colon:return ":";

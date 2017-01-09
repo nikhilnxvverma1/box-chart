@@ -86,6 +86,8 @@ export class ContextFreeGrammer{
 	relation:Rule[]=[];
 	start:NonTerminal;
 
+	private eof:Terminal;
+
 	/** Parsing table is constructed once and used several times */
 	private parserTable:ParserTable;
 
@@ -100,9 +102,11 @@ export class ContextFreeGrammer{
 		}
 	}
 
-	/** Augments the grammer with a starting rule and creates the parsing table */
+	/** Augments the grammer with a starting rule,adds EOF, creates the parsing table etc.*/
 	finalizeGrammer():ParserTable{
 		this.augumentGrammer();
+		this.eof=new Terminal(LexemeType.EOF);
+		this.terminalList.push(this.eof);
 		this.constructParserTableUsingLR1();
 		return this.parserTable;
 	}
@@ -113,25 +117,23 @@ export class ContextFreeGrammer{
 	 */
 	private augumentGrammer():NonTerminal{
 		var sPrime=new NonTerminal(-1);
-		this.relation.push(new Rule(sPrime,this.start));
+		//its IMPORTANT to insert the new augumented rule at the start
+		this.variableList.unshift(sPrime);
+		this.relation.unshift(new Rule(sPrime,this.start));
 		this.start=sPrime;
 		return sPrime; 
 	}
 
 	/** Parses a string to give an appropriate parse tree which can be used to retrieve information from(semantic analysis)*/
-	parse(input:string):ParseTree{
-		var lexemeList=getLexemeList(input);
-		this.setRespectiveTerminalIndices(lexemeList);
+	parse(input:string):ParsingResult{
+		var parsingResult=new ParsingResult(input);
+		parsingResult.lexemeList=getLexemeList(input);
+		this.setRespectiveTerminalIndices(parsingResult.lexemeList);
 		var stack:ParseTreeNode[]=[];
-		var startingElement=new StateParseTreeNode(0);
-		startingElement.state=0;
-		var pointer=0;
-		var processing=true;
-		var successfullyParsed=false;
-		var parseTree=new ParseTree(input);
+		stack.push(new StateParseTreeNode(0));
 
-		while(processing){
-			var lexeme=lexemeList[pointer];
+		while(parsingResult.status==ParsingStatus.InProgress){
+			var lexeme=parsingResult.lexemeList[parsingResult.pointer];
 			var terminal=this.terminalList[lexeme.terminalIndex];
 			
 			//get the state from whatever is on top of stack
@@ -140,36 +142,33 @@ export class ContextFreeGrammer{
 
 			if(action.type==ParserTableValueType.Shift){
 				//perform shift operation
-				pointer=this.shift(action,stack,lexemeList,pointer);
+				this.shift(action,stack,parsingResult);
 			}else if(action.type==ParserTableValueType.Reduce){
 				//perform reduce operation
-				this.reduce(action,stack,lexemeList,parseTree);
+				this.reduce(action,stack,parsingResult);
 			}else if(action.type==ParserTableValueType.Accept){
 				//success (accepted)
-				successfullyParsed=true;
-				processing=false;
+				parsingResult.status=ParsingStatus.Passed;
 			}else if(action.type==ParserTableValueType.Blank){
 				//error
-				successfullyParsed=false;
-				processing=false;
+				parsingResult.status=ParsingStatus.Failed;
 			}
 		}
-		return parseTree;
+		return parsingResult;
 	}
 
 	/** Shifts the pointer once and adds the symbol and that state on top of stack. Returns the new shifted pointer */
-	private shift(action:ParserTableValue,stack:ParseTreeNode[],lexemeList:Lexeme[],pointer:number):number{
-		var lexeme=lexemeList[pointer];
+	private shift(action:ParserTableValue,stack:ParseTreeNode[],parsingResult:ParsingResult){
+		var lexeme=parsingResult.lexemeList[parsingResult.pointer];
 		var terminal=this.terminalList[lexeme.terminalIndex];
 		var symbolElement=new LeafParseTreeNode(lexeme);
 		var stateElement=new StateParseTreeNode(action.n); 
-
 		stack.push(symbolElement,stateElement);
-		return ++pointer;
+		parsingResult.pointer++;
 	}
 
 	/** Pops appropriate elements from stack and turns it into a rule */
-	private reduce(action:ParserTableValue,stack:ParseTreeNode[],lexemeList:Lexeme[],parseTree:ParseTree){
+	private reduce(action:ParserTableValue,stack:ParseTreeNode[],parsingResult:ParsingResult){
 		
 		//get the associated rule that we want to reduce to
 		var rule=this.relation[action.n];
@@ -195,16 +194,44 @@ export class ContextFreeGrammer{
 		//set as children to the LHS node
 		lhsNode.children=descendents;
 
+		//the LHS now becomes the new root of the parse tree
+		parsingResult.root=lhsNode;
+
 		//use the top state and the LHS to get the 'goto state'
 		var topAfterPops=stack[stack.length-1].getStateNumber();
 		var gotoStateNumber=this.parserTable.getGoto(topAfterPops,rule.lhs);
 		var gotoStateElement=new StateParseTreeNode(gotoStateNumber);
 
-		//push the LHS and the goto on stack
+		//push the LHS and the goto on stack and perform the goto operation immediately
 		stack.push(lhsNode,gotoStateElement);
+		this.gotoStateAndPerformAction(stack,parsingResult,parsingResult.pointer);
+	}
 
-		//the LHS now becomes the new root of the parse tree
-		parseTree.root=lhsNode;
+	/** 
+	 * Goto part of the reduce step that occurs after the main reduce step is performed.
+	 * It is assumed that the top elemen on the stack is a goto action. 
+	 */
+	private gotoStateAndPerformAction(stack:ParseTreeNode[],parsingResult:ParsingResult,pointer:number){
+		var lexeme=parsingResult.lexemeList[pointer];
+		var terminal=this.terminalList[lexeme.terminalIndex];
+
+		//get the state from whatever is on top of stack
+		var state=stack[stack.length-1].getStateNumber();
+		var action=this.parserTable.getAction(state,terminal);
+
+		if(action.type==ParserTableValueType.Shift){
+			//perform shift operation
+			this.shift(action,stack,parsingResult);
+		}else if(action.type==ParserTableValueType.Reduce){
+			//perform reduce operation again. This recursively builds the parse tree bottom up.
+			this.reduce(action,stack,parsingResult);
+		}else if(action.type==ParserTableValueType.Accept){
+			//success (accepted)
+			parsingResult.status=ParsingStatus.Passed;
+		}else if(action.type==ParserTableValueType.Blank){
+			//error
+			parsingResult.status=ParsingStatus.Failed;
+		}
 	}
 
 	/** Sets the indices of terminal in each lexeme for matching lexeme types*/
@@ -241,15 +268,15 @@ export class ContextFreeGrammer{
 
 
 	/** Constructs the parser table using LR1 construction algorithm */
-	private constructParserTableUsingLR1():ParserTable{
-		return this.makeDummyParserTable();//TODO
+	private constructParserTableUsingLR1(){
+
+		this.parserTable=this.makeDummyParserTable();//TODO
 	}
 
 	/** Rigs the parser table from the final result of https://www.youtube.com/watch?v=APJ_Eh60Qwo */
 	private makeDummyParserTable():ParserTable{
 
-		var eof=new Terminal(LexemeType.EOF);
-		var table=new ParserTable(this.terminalList,this.variableList,eof,10);
+		var table=new ParserTable(this.terminalList,this.variableList,this.eof,10);
 		
 		var s=this.getNonTerminalBy(0);
 		var a=this.getNonTerminalBy(1);
@@ -264,7 +291,7 @@ export class ContextFreeGrammer{
 		table.setGoto(0,a,2);
 		table.setGoto(0,s,1);
 
-		table.setAction(1,eof,ParserTableValueType.Accept,0);
+		table.setAction(1,this.eof,ParserTableValueType.Accept,0);
 		
 		table.setAction(2,ta,ParserTableValueType.Shift,3);
 		table.setAction(2,tb,ParserTableValueType.Shift,4);
@@ -276,27 +303,43 @@ export class ContextFreeGrammer{
 
 		table.setAction(4,ta,ParserTableValueType.Reduce,3);
 		table.setAction(4,tb,ParserTableValueType.Reduce,3);
-		table.setAction(4,eof,ParserTableValueType.Reduce,3);
+		table.setAction(4,this.eof,ParserTableValueType.Reduce,3);
 
 		table.setAction(5,ta,ParserTableValueType.Reduce,1);
 		table.setAction(5,tb,ParserTableValueType.Reduce,1);
-		table.setAction(5,eof,ParserTableValueType.Reduce,1);
+		table.setAction(5,this.eof,ParserTableValueType.Reduce,1);
 
 		table.setAction(6,ta,ParserTableValueType.Reduce,2);
 		table.setAction(6,tb,ParserTableValueType.Reduce,2);
-		table.setAction(6,eof,ParserTableValueType.Reduce,2);
+		table.setAction(6,this.eof,ParserTableValueType.Reduce,2);
 
 		return table;
 	}
 }
 
+export enum ParsingStatus{
+	Passed=1,
+	Failed,
+	InProgress
+}
+
 /** Tree Structure for containing the Parse tree */
-export class ParseTree{
+export class ParsingResult{
+	/** The root of the parsing table */
 	root:ParentParseTreeNode;
+	/** The raw input string that was supplied */
 	input:string;
+	/** Wheater the input passed,failed or is currently being computed */
+	status:ParsingStatus;
+	/** Internal progress in the shift reduce algorithm's input buffer */
+	pointer:number;
+	/** List of lexemes created from the raw input */
+	lexemeList:Lexeme[];
 
 	constructor(input:string){
 		this.input=input;
+		this.status=ParsingStatus.InProgress;
+		this.pointer=0;
 	}
 
 	toString():string{
@@ -457,12 +500,13 @@ export class ParserTable{
 	private terminalList:Terminal[];
 	private variableList:NonTerminal[];
 	private eof:Terminal;
-	private table:ParserTableValue[][];
+	private table:ParserTableValue[][]=[];
 	private rowCount=0;
 
 	constructor(terminalList:Terminal[],variableList:NonTerminal[],eof:Terminal,rows=20){
 		this.terminalList=terminalList;
 		this.variableList=variableList;
+		this.eof=eof;
 		
 		//set the indices and get table length
 		this.setIndices();
@@ -480,7 +524,6 @@ export class ParserTable{
 		for(;index<this.terminalList.length;index++){
 			this.terminalList[index].tableIndex=index;
 		}
-
 		this.eof.tableIndex=index;
 
 		for(var j=0;j<this.variableList.length;j++){
@@ -497,9 +540,11 @@ export class ParserTable{
 	/** Creates new row in the table column */
 	private makeNewRow(){
 		var totalColumns=this.totalColumns();
+		this.table[this.rowCount]=[];
 		for(var j=0;j<totalColumns;j++){
-				this.table[this.rowCount++][j]=new ParserTableValue(ParserTableValueType.Blank,0);
+			this.table[this.rowCount][j]=new ParserTableValue(ParserTableValueType.Blank,0);
 		}
+		this.rowCount++;
 	}
 
 	getAction(row:number,terminal:Terminal):ParserTableValue{
