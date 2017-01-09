@@ -9678,7 +9678,53 @@ webpackJsonp([0],{
 	    };
 	    /** Constructs the parser table using LR1 construction algorithm */
 	    ParserTable.prototype.constructUsingLR1 = function () {
-	        //TODO
+	        //used in marking the indices of all the states
+	        var stateCount = 0;
+	        //these two stack help in tracking which all states have got their transitions found
+	        var processedStates = [];
+	        var unprocessedStates = [];
+	        //create the first state by finding the closure of the first rule
+	        var firstItem = new LR1Item(this.cfg.relation[0], 0);
+	        firstItem.lookaheads.push(this.cfg.eof);
+	        //closure is found internally inside the constructor
+	        var firstState = new ParsingState(firstItem);
+	        //find the outgoing transitions for all the unprocessed states 
+	        unprocessedStates.push(firstState);
+	        while (unprocessedStates.length != 0) {
+	            //pop from unprocessed and push to processed before  adding new states
+	            var state = unprocessedStates.pop();
+	            processedStates.push(state);
+	            state.stateNo = stateCount++;
+	            //for each LR(1) item of this state, find outgoing states 
+	            for (var _i = 0, _a = state.itemList; _i < _a.length; _i++) {
+	                var item = _a[_i];
+	                var outgoing = item.proceed();
+	                if (outgoing != null) {
+	                    //add this transition to the current state's transition list
+	                    outgoing.from = state;
+	                    state.transitions.push(outgoing);
+	                    //check if this state already exists
+	                    var existing = this.findMatchingState(outgoing.to, processedStates);
+	                    if (existing != null) {
+	                        //use existing state if they exist, 
+	                        outgoing.to = existing;
+	                    }
+	                    else {
+	                        //otherwise add the new state to unprocessed list
+	                        unprocessedStates.push(outgoing.to);
+	                    }
+	                }
+	            }
+	        }
+	    };
+	    ParserTable.prototype.findMatchingState = function (parsingState, list) {
+	        for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
+	            var stateInList = list_1[_i];
+	            if (parsingState != stateInList && parsingState.equals(stateInList)) {
+	                return stateInList;
+	            }
+	        }
+	        return null;
 	    };
 	    return ParserTable;
 	}());
@@ -9686,17 +9732,9 @@ webpackJsonp([0],{
 	/** A combination of rule, position of cursor(dot) and lookahead symbols */
 	var LR1Item = (function () {
 	    function LR1Item(rule, dot) {
-	        var lookaheads = [];
-	        for (var _i = 2; _i < arguments.length; _i++) {
-	            lookaheads[_i - 2] = arguments[_i];
-	        }
 	        this.lookaheads = [];
 	        this.rule = rule;
 	        this.dot = dot;
-	        for (var _a = 0, lookaheads_1 = lookaheads; _a < lookaheads_1.length; _a++) {
-	            var lookahead = lookaheads_1[_a];
-	            this.lookaheads.push(lookahead);
-	        }
 	    }
 	    /** Checks if the two items are same by comparing their attributes */
 	    LR1Item.prototype.equals = function (other) {
@@ -9726,13 +9764,23 @@ webpackJsonp([0],{
 	        }
 	        return this.rule == other.rule && this.dot == other.dot && lookaheadsMatch;
 	    };
+	    /**
+	     * Proceeds the cursor(dot) one step to produce a parsing transition
+	     * to a new state . The transition returned has an empty 'from' state.
+	     */
+	    LR1Item.prototype.proceed = function () {
+	        if (this.dot < this.rule.rhs.length) {
+	            return new ParsingTransition(this);
+	        }
+	        return null;
+	    };
 	    return LR1Item;
 	}());
+	/** A collection of LR(1) item set along with transitions to other states */
 	var ParsingState = (function () {
-	    function ParsingState(stateNo, firstItem) {
+	    function ParsingState(firstItem) {
 	        this.itemList = [];
 	        this.transitions = [];
-	        this.stateNo = stateNo;
 	        this.itemList.push(firstItem);
 	        this.closure(firstItem);
 	    }
@@ -9769,8 +9817,22 @@ webpackJsonp([0],{
 	    };
 	    return ParsingState;
 	}());
+	/** Denotes transition from one parsing state to another for a given syntax element */
 	var ParsingTransition = (function () {
-	    function ParsingTransition() {
+	    function ParsingTransition(item) {
+	        if (item.dot < item.rule.rhs.length) {
+	            //set the syntax element as the current position of the dot
+	            this.syntaxElement = item.rule.rhs[item.dot];
+	            //create a new LR(1) item which is a proceeded version of given item
+	            var proceededItem = new LR1Item(item.rule, item.dot + 1);
+	            //while transitioning, the lookaheads dont change
+	            for (var _i = 0, _a = item.lookaheads; _i < _a.length; _i++) {
+	                var lookahead = _a[_i];
+	                proceededItem.lookaheads.push(lookahead);
+	            }
+	            //create a new outgoing state for the proceeded item
+	            this.to = new ParsingState(proceededItem);
+	        }
 	    }
 	    return ParsingTransition;
 	}());

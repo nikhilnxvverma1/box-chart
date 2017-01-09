@@ -1,4 +1,4 @@
-import { ContextFreeGrammer,Terminal,NonTerminal,Rule } from './syntax-parser';
+import { ContextFreeGrammer,Terminal,NonTerminal,Rule,SyntaxElement } from './syntax-parser';
 
 /** Type of action in the parser table */
 export enum ParserTableValueType{
@@ -88,7 +88,61 @@ export class ParserTable{
 
 	/** Constructs the parser table using LR1 construction algorithm */
 	private constructUsingLR1(){
-		//TODO
+		
+		//used in marking the indices of all the states
+		var stateCount=0;
+
+		//these two stack help in tracking which all states have got their transitions found
+		var processedStates:ParsingState[]=[];
+		var unprocessedStates:ParsingState[]=[];
+
+		//create the first state by finding the closure of the first rule
+		var firstItem=new LR1Item(this.cfg.relation[0],0);
+		firstItem.lookaheads.push(this.cfg.eof);
+
+		//closure is found internally inside the constructor
+		var firstState=new ParsingState(firstItem);
+
+		//find the outgoing transitions for all the unprocessed states 
+		unprocessedStates.push(firstState);
+		while(unprocessedStates.length!=0){
+
+			//pop from unprocessed and push to processed before  adding new states
+			var state=unprocessedStates.pop();
+			processedStates.push(state);
+			state.stateNo=stateCount++;
+
+			//for each LR(1) item of this state, find outgoing states 
+			for(let item of state.itemList){
+				var outgoing=item.proceed();
+				if(outgoing!=null){
+					//add this transition to the current state's transition list
+					outgoing.from=state;
+					state.transitions.push(outgoing);
+
+					//check if this state already exists
+					var existing=this.findMatchingState(outgoing.to,processedStates);
+					if(existing!=null){
+						//use existing state if they exist, 
+						outgoing.to=existing;
+					}else{
+						//otherwise add the new state to unprocessed list
+						unprocessedStates.push(outgoing.to);
+					}
+				}
+			}
+
+		}
+		
+	}
+
+	private findMatchingState(parsingState:ParsingState,list:ParsingState[]):ParsingState{
+		for(let stateInList of list){
+			if(parsingState!=stateInList && parsingState.equals(stateInList)){
+				return stateInList;
+			}
+		}
+		return null;
 	}
 }
 
@@ -100,12 +154,9 @@ class LR1Item{
 	dot:number;
 	lookaheads:Terminal[]=[];
 
-	constructor(rule:Rule,dot:number,...lookaheads:Terminal[]){
+	constructor(rule:Rule,dot:number){
 		this.rule=rule;
 		this.dot=dot;
-		for(let lookahead of lookaheads){
-			this.lookaheads.push(lookahead);
-		}
 	}
 
 	/** Checks if the two items are same by comparing their attributes */
@@ -133,15 +184,26 @@ class LR1Item{
 		}
 		return this.rule==other.rule && this.dot==other.dot && lookaheadsMatch;
 	}
+
+	/**
+	 * Proceeds the cursor(dot) one step to produce a parsing transition
+	 * to a new state . The transition returned has an empty 'from' state.
+	 */
+	proceed():ParsingTransition{
+		if(this.dot<this.rule.rhs.length){
+			return new ParsingTransition(this);
+		}
+		return null;
+	}
 }
 
+/** A collection of LR(1) item set along with transitions to other states */
 class ParsingState{
 	stateNo:number;
 	itemList:LR1Item[]=[];
 	transitions:ParsingTransition[]=[];
 
-	constructor(stateNo:number,firstItem:LR1Item){
-		this.stateNo=stateNo;
+	constructor(firstItem:LR1Item){
 		this.itemList.push(firstItem);
 		this.closure(firstItem);
 	}
@@ -177,8 +239,28 @@ class ParsingState{
 	}
 }
 
+/** Denotes transition from one parsing state to another for a given syntax element */
 class ParsingTransition{
-	terminal:Terminal;
+	syntaxElement:SyntaxElement;
 	from:ParsingState;
 	to:ParsingState;
+
+	constructor(item:LR1Item){
+		if(item.dot<item.rule.rhs.length){
+
+			//set the syntax element as the current position of the dot
+			this.syntaxElement=item.rule.rhs[item.dot];
+
+			//create a new LR(1) item which is a proceeded version of given item
+			var proceededItem=new LR1Item(item.rule,item.dot+1);
+
+			//while transitioning, the lookaheads dont change
+			for(let lookahead of item.lookaheads){
+				proceededItem.lookaheads.push(lookahead);
+			}
+
+			//create a new outgoing state for the proceeded item
+			this.to=new ParsingState(proceededItem);
+		}
+	}
 }
