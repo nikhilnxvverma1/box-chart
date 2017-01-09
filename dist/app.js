@@ -9605,11 +9605,6 @@ webpackJsonp([0],{
 /***/ function(module, exports) {
 
 	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
 	/** Type of action in the parser table */
 	(function (ParserTableValueType) {
 	    ParserTableValueType[ParserTableValueType["Blank"] = 1] = "Blank";
@@ -9628,7 +9623,7 @@ webpackJsonp([0],{
 	    return ParserTableValue;
 	}());
 	exports.ParserTableValue = ParserTableValue;
-	/** Holds a 2d table that dictates the shift reduce algorithm. */
+	/** Holds a 2d table that drives the shift reduce algorithm. */
 	var ParserTable = (function () {
 	    function ParserTable(cfg) {
 	        this.table = [];
@@ -9688,34 +9683,90 @@ webpackJsonp([0],{
 	    return ParserTable;
 	}());
 	exports.ParserTable = ParserTable;
-	var LR0Item = (function () {
-	    function LR0Item(rule, dot) {
-	        this.rule = rule;
-	        this.dot = dot;
-	    }
-	    return LR0Item;
-	}());
-	var LR1Item = (function (_super) {
-	    __extends(LR1Item, _super);
+	/** A combination of rule, position of cursor(dot) and lookahead symbols */
+	var LR1Item = (function () {
 	    function LR1Item(rule, dot) {
 	        var lookaheads = [];
 	        for (var _i = 2; _i < arguments.length; _i++) {
 	            lookaheads[_i - 2] = arguments[_i];
 	        }
-	        _super.call(this, rule, dot);
 	        this.lookaheads = [];
+	        this.rule = rule;
+	        this.dot = dot;
 	        for (var _a = 0, lookaheads_1 = lookaheads; _a < lookaheads_1.length; _a++) {
 	            var lookahead = lookaheads_1[_a];
 	            this.lookaheads.push(lookahead);
 	        }
 	    }
+	    /** Checks if the two items are same by comparing their attributes */
+	    LR1Item.prototype.equals = function (other) {
+	        var lookaheadsMatch = true;
+	        if (this.lookaheads.length == other.lookaheads.length) {
+	            //matches lookaheads in both items 
+	            for (var _i = 0, _a = this.lookaheads; _i < _a.length; _i++) {
+	                var lookahead = _a[_i];
+	                //using two loops ensure order of lookaheads in each doesn't matter
+	                //if both lookahead lists are in same order, this will take O(n) time anyway
+	                var found = false;
+	                for (var _b = 0, _c = other.lookaheads; _b < _c.length; _b++) {
+	                    var otherLookahead = _c[_b];
+	                    if (lookahead == otherLookahead) {
+	                        found = true;
+	                        break;
+	                    }
+	                }
+	                if (!found) {
+	                    lookaheadsMatch = false;
+	                    break;
+	                }
+	            }
+	        }
+	        else {
+	            lookaheadsMatch = false;
+	        }
+	        return this.rule == other.rule && this.dot == other.dot && lookaheadsMatch;
+	    };
 	    return LR1Item;
-	}(LR0Item));
+	}());
 	var ParsingState = (function () {
-	    function ParsingState() {
-	        this.lr1ItemList = [];
+	    function ParsingState(stateNo, firstItem) {
+	        this.itemList = [];
 	        this.transitions = [];
+	        this.stateNo = stateNo;
+	        this.itemList.push(firstItem);
+	        this.closure(firstItem);
 	    }
+	    /** Checks if the two states are same by comparing only their LR(1) item set */
+	    ParsingState.prototype.equals = function (other) {
+	        var itemsMatch = true;
+	        if (this.itemList.length == other.itemList.length) {
+	            //matches LR(1) items in both states
+	            for (var _i = 0, _a = this.itemList; _i < _a.length; _i++) {
+	                var item = _a[_i];
+	                //using two loops ensure order of LR(1) items in each doesn't matter
+	                //if both item lists are in same order, this will take O(n) time anyway
+	                var found = false;
+	                for (var _b = 0, _c = other.itemList; _b < _c.length; _b++) {
+	                    var otherItem = _c[_b];
+	                    if (item.equals(otherItem)) {
+	                        found = true;
+	                        break;
+	                    }
+	                }
+	                if (!found) {
+	                    itemsMatch = false;
+	                    break;
+	                }
+	            }
+	        }
+	        else {
+	            itemsMatch = false;
+	        }
+	        return itemsMatch;
+	    };
+	    ParsingState.prototype.closure = function (item) {
+	        //TODO
+	    };
 	    return ParsingState;
 	}());
 	var ParsingTransition = (function () {

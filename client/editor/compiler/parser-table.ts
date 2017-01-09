@@ -20,7 +20,7 @@ export class ParserTableValue{
 	}
 }
 
-/** Holds a 2d table that dictates the shift reduce algorithm. */
+/** Holds a 2d table that drives the shift reduce algorithm. */
 export class ParserTable{
 	private cfg:ContextFreeGrammer;
 	private table:ParserTableValue[][]=[];
@@ -92,34 +92,89 @@ export class ParserTable{
 	}
 }
 
-
-class LR0Item{
+/** A combination of rule, position of cursor(dot) and lookahead symbols */
+class LR1Item{
 
 	rule:Rule;
 	/** Denotes cursor position which is specified by index in the rule's RHS.*/
 	dot:number;
-
-	constructor(rule:Rule,dot:number){
-		this.rule=rule;
-		this.dot=dot;
-	}
-}
-
-class LR1Item extends LR0Item{
 	lookaheads:Terminal[]=[];
 
 	constructor(rule:Rule,dot:number,...lookaheads:Terminal[]){
-		super(rule,dot);
+		this.rule=rule;
+		this.dot=dot;
 		for(let lookahead of lookaheads){
 			this.lookaheads.push(lookahead);
 		}
+	}
+
+	/** Checks if the two items are same by comparing their attributes */
+	equals(other:LR1Item):boolean{
+		var lookaheadsMatch=true;
+		if(this.lookaheads.length==other.lookaheads.length){
+			//matches lookaheads in both items 
+			for(let lookahead of this.lookaheads){
+				//using two loops ensure order of lookaheads in each doesn't matter
+				//if both lookahead lists are in same order, this will take O(n) time anyway
+				var found=false;
+				for(let otherLookahead of other.lookaheads){
+					if(lookahead==otherLookahead){
+						found=true;
+						break;
+					}
+				}
+				if(!found){
+					lookaheadsMatch=false;
+					break;
+				}
+			}
+		}else{
+			lookaheadsMatch=false;
+		}
+		return this.rule==other.rule && this.dot==other.dot && lookaheadsMatch;
 	}
 }
 
 class ParsingState{
 	stateNo:number;
-	lr1ItemList:LR1Item[]=[];
+	itemList:LR1Item[]=[];
 	transitions:ParsingTransition[]=[];
+
+	constructor(stateNo:number,firstItem:LR1Item){
+		this.stateNo=stateNo;
+		this.itemList.push(firstItem);
+		this.closure(firstItem);
+	}
+
+	/** Checks if the two states are same by comparing only their LR(1) item set */
+	equals(other:ParsingState):boolean{
+		var itemsMatch=true;
+		if(this.itemList.length==other.itemList.length){
+			//matches LR(1) items in both states
+			for(let item of this.itemList){
+				//using two loops ensure order of LR(1) items in each doesn't matter
+				//if both item lists are in same order, this will take O(n) time anyway
+				var found=false;
+				for(let otherItem of other.itemList){
+					if(item.equals(otherItem)){
+						found=true;
+						break;
+					}
+				}
+				if(!found){
+					itemsMatch=false;
+					break;
+				}
+			}
+		}else{
+			itemsMatch=false;
+		}
+		return itemsMatch;
+	}
+
+	private closure(item:LR1Item){
+		//TODO
+	}
 }
 
 class ParsingTransition{
