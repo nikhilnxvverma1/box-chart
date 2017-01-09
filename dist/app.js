@@ -1,5 +1,6 @@
-webpackJsonp([0],[
-/* 0 */
+webpackJsonp([0],{
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10,29 +11,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */
+
+/***/ 23:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -128,7 +108,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 24 */
+
+/***/ 24:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -5898,40 +5879,8 @@ webpackJsonp([0],[
 	}));
 
 /***/ },
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */,
-/* 30 */,
-/* 31 */,
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */
+
+/***/ 58:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5962,13 +5911,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 59 */
+
+/***/ 59:
 /***/ function(module, exports) {
 
 	module.exports = "<router-outlet></router-outlet>\n\n";
 
 /***/ },
-/* 60 */
+
+/***/ 60:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5998,13 +5949,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 61 */
+
+/***/ 61:
 /***/ function(module, exports) {
 
 	module.exports = "<a href='\\signup'>Signup now </a>";
 
 /***/ },
-/* 62 */
+
+/***/ 62:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6034,13 +5987,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 63 */
+
+/***/ 63:
 /***/ function(module, exports) {
 
 	module.exports = "<h1>TODO signup</h1>";
 
 /***/ },
-/* 64 */
+
+/***/ 64:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6070,13 +6025,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 65 */
+
+/***/ 65:
 /***/ function(module, exports) {
 
 	module.exports = "<h1>TODO document list</h1>";
 
 /***/ },
-/* 66 */
+
+/***/ 66:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6201,7 +6158,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 67 */
+
+/***/ 67:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6241,7 +6199,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 68 */
+
+/***/ 68:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6421,7 +6380,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 69 */
+
+/***/ 69:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6512,7 +6472,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 70 */
+
+/***/ 70:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6774,7 +6735,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 71 */
+
+/***/ 71:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6912,7 +6874,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 72 */
+
+/***/ 72:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6957,19 +6920,22 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 73 */
+
+/***/ 73:
 /***/ function(module, exports) {
 
 	module.exports = "#sidebar {\n  background: #8f42de;\n  color: whitesmoke;\n  width: 280px;\n  height: 100%;\n  position: absolute;\n  top: 0px; }\n"
 
 /***/ },
-/* 74 */
+
+/***/ 74:
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"sidebar\" [@sidebarOpen]=\"open?'open':'close'\">\n\t<h2>sidebar</h2>\n\t<i class=\"ms-Icon ms-Icon--Cancel\" aria-hidden=\"true\" (click)=\"open=false\"></i>\n\t\n</div>";
 
 /***/ },
-/* 75 */
+
+/***/ 75:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7081,7 +7047,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 76 */
+
+/***/ 76:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7194,7 +7161,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 77 */
+
+/***/ 77:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7350,7 +7318,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 78 */
+
+/***/ 78:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7554,7 +7523,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 79 */
+
+/***/ 79:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7598,19 +7568,22 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 80 */
+
+/***/ 80:
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"auto-completion-box\"\n\t[style.left.px]=\"position.x\"\n\t[style.top.px]=\"position.y\"\n\t>\n\tSomeClassName\n</div>";
 
 /***/ },
-/* 81 */
+
+/***/ 81:
 /***/ function(module, exports) {
 
 	module.exports = "#auto-completion-box {\n  position: absolute;\n  background: #6f6f6f;\n  color: white;\n  width: 250px;\n  height: 200px;\n  overflow-x: hidden;\n  overflow-y: scroll; }\n"
 
 /***/ },
-/* 82 */
+
+/***/ 82:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7665,7 +7638,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 83 */
+
+/***/ 83:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -7913,11 +7887,13 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 84 */
+
+/***/ 84:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var lexical_analyzer_1 = __webpack_require__(83);
+	var parser_table_1 = __webpack_require__(673);
 	var NonTerminal = (function () {
 	    function NonTerminal(id) {
 	        this.id = id;
@@ -8034,19 +8010,19 @@ webpackJsonp([0],[
 	            //get the state from whatever is on top of stack
 	            var state = stack[stack.length - 1].getStateNumber();
 	            var action = this.parserTable.getAction(state, terminal);
-	            if (action.type == ParserTableValueType.Shift) {
+	            if (action.type == parser_table_1.ParserTableValueType.Shift) {
 	                //perform shift operation
 	                this.shift(action, stack, parsingResult);
 	            }
-	            else if (action.type == ParserTableValueType.Reduce) {
+	            else if (action.type == parser_table_1.ParserTableValueType.Reduce) {
 	                //perform reduce operation
 	                this.reduce(action, stack, parsingResult);
 	            }
-	            else if (action.type == ParserTableValueType.Accept) {
+	            else if (action.type == parser_table_1.ParserTableValueType.Accept) {
 	                //success (accepted)
 	                parsingResult.status = ParsingStatus.Passed;
 	            }
-	            else if (action.type == ParserTableValueType.Blank) {
+	            else if (action.type == parser_table_1.ParserTableValueType.Blank) {
 	                //error
 	                parsingResult.status = ParsingStatus.Failed;
 	            }
@@ -8102,19 +8078,19 @@ webpackJsonp([0],[
 	        //get the state from whatever is on top of stack
 	        var state = stack[stack.length - 1].getStateNumber();
 	        var action = this.parserTable.getAction(state, terminal);
-	        if (action.type == ParserTableValueType.Shift) {
+	        if (action.type == parser_table_1.ParserTableValueType.Shift) {
 	            //perform shift operation
 	            this.shift(action, stack, parsingResult);
 	        }
-	        else if (action.type == ParserTableValueType.Reduce) {
+	        else if (action.type == parser_table_1.ParserTableValueType.Reduce) {
 	            //perform reduce operation again. This recursively builds the parse tree bottom up.
 	            this.reduce(action, stack, parsingResult);
 	        }
-	        else if (action.type == ParserTableValueType.Accept) {
+	        else if (action.type == parser_table_1.ParserTableValueType.Accept) {
 	            //success (accepted)
 	            parsingResult.status = ParsingStatus.Passed;
 	        }
-	        else if (action.type == ParserTableValueType.Blank) {
+	        else if (action.type == parser_table_1.ParserTableValueType.Blank) {
 	            //error
 	            parsingResult.status = ParsingStatus.Failed;
 	        }
@@ -8157,33 +8133,33 @@ webpackJsonp([0],[
 	    };
 	    /** Rigs the parser table from the final result of https://www.youtube.com/watch?v=APJ_Eh60Qwo */
 	    ContextFreeGrammer.prototype.makeDummyParserTable = function () {
-	        var table = new ParserTable(this.terminalList, this.variableList, this.eof, 10);
+	        var table = new parser_table_1.ParserTable(this);
 	        var s = this.getNonTerminalBy(0);
 	        var a = this.getNonTerminalBy(1);
 	        var ta = this.getTerminalBy(lexical_analyzer_1.LexemeType.Minus);
 	        var tb = this.getTerminalBy(lexical_analyzer_1.LexemeType.Plus);
 	        //table rigging
 	        //final result from https://www.youtube.com/watch?v=APJ_Eh60Qwo
-	        table.setAction(0, ta, ParserTableValueType.Shift, 3);
-	        table.setAction(0, tb, ParserTableValueType.Shift, 4);
+	        table.setAction(0, ta, parser_table_1.ParserTableValueType.Shift, 3);
+	        table.setAction(0, tb, parser_table_1.ParserTableValueType.Shift, 4);
 	        table.setGoto(0, a, 2);
 	        table.setGoto(0, s, 1);
-	        table.setAction(1, this.eof, ParserTableValueType.Accept, 0);
-	        table.setAction(2, ta, ParserTableValueType.Shift, 3);
-	        table.setAction(2, tb, ParserTableValueType.Shift, 4);
+	        table.setAction(1, this.eof, parser_table_1.ParserTableValueType.Accept, 0);
+	        table.setAction(2, ta, parser_table_1.ParserTableValueType.Shift, 3);
+	        table.setAction(2, tb, parser_table_1.ParserTableValueType.Shift, 4);
 	        table.setGoto(2, a, 5);
-	        table.setAction(3, ta, ParserTableValueType.Shift, 3);
-	        table.setAction(3, tb, ParserTableValueType.Shift, 4);
+	        table.setAction(3, ta, parser_table_1.ParserTableValueType.Shift, 3);
+	        table.setAction(3, tb, parser_table_1.ParserTableValueType.Shift, 4);
 	        table.setGoto(3, a, 6);
-	        table.setAction(4, ta, ParserTableValueType.Reduce, 3);
-	        table.setAction(4, tb, ParserTableValueType.Reduce, 3);
-	        table.setAction(4, this.eof, ParserTableValueType.Reduce, 3);
-	        table.setAction(5, ta, ParserTableValueType.Reduce, 1);
-	        table.setAction(5, tb, ParserTableValueType.Reduce, 1);
-	        table.setAction(5, this.eof, ParserTableValueType.Reduce, 1);
-	        table.setAction(6, ta, ParserTableValueType.Reduce, 2);
-	        table.setAction(6, tb, ParserTableValueType.Reduce, 2);
-	        table.setAction(6, this.eof, ParserTableValueType.Reduce, 2);
+	        table.setAction(4, ta, parser_table_1.ParserTableValueType.Reduce, 3);
+	        table.setAction(4, tb, parser_table_1.ParserTableValueType.Reduce, 3);
+	        table.setAction(4, this.eof, parser_table_1.ParserTableValueType.Reduce, 3);
+	        table.setAction(5, ta, parser_table_1.ParserTableValueType.Reduce, 1);
+	        table.setAction(5, tb, parser_table_1.ParserTableValueType.Reduce, 1);
+	        table.setAction(5, this.eof, parser_table_1.ParserTableValueType.Reduce, 1);
+	        table.setAction(6, ta, parser_table_1.ParserTableValueType.Reduce, 2);
+	        table.setAction(6, tb, parser_table_1.ParserTableValueType.Reduce, 2);
+	        table.setAction(6, this.eof, parser_table_1.ParserTableValueType.Reduce, 2);
 	        return table;
 	    };
 	    return ContextFreeGrammer;
@@ -8302,111 +8278,39 @@ webpackJsonp([0],[
 	    };
 	    return StateParseTreeNode;
 	}());
-	/** Type of action in the parser table */
-	(function (ParserTableValueType) {
-	    ParserTableValueType[ParserTableValueType["Blank"] = 1] = "Blank";
-	    ParserTableValueType[ParserTableValueType["Shift"] = 2] = "Shift";
-	    ParserTableValueType[ParserTableValueType["Reduce"] = 3] = "Reduce";
-	    ParserTableValueType[ParserTableValueType["Goto"] = 4] = "Goto";
-	    ParserTableValueType[ParserTableValueType["Accept"] = 5] = "Accept";
-	})(exports.ParserTableValueType || (exports.ParserTableValueType = {}));
-	var ParserTableValueType = exports.ParserTableValueType;
-	/**  Inidivual cell value of the 2d parse table. */
-	var ParserTableValue = (function () {
-	    function ParserTableValue(type, n) {
-	        this.type = type;
-	        this.n = n;
-	    }
-	    return ParserTableValue;
-	}());
-	exports.ParserTableValue = ParserTableValue;
-	/** Holds a 2d table that dictates the shift reduce algorithm. */
-	var ParserTable = (function () {
-	    function ParserTable(terminalList, variableList, eof, rows) {
-	        if (rows === void 0) { rows = 20; }
-	        this.table = [];
-	        this.rowCount = 0;
-	        this.terminalList = terminalList;
-	        this.variableList = variableList;
-	        this.eof = eof;
-	        //set the indices and get table length
-	        this.setIndices();
-	        //initialize the 2d table
-	        //make the specified amount of rows, we can grow rows later as needed
-	        for (var i = 0; i < rows; i++) {
-	            this.makeNewRow();
-	        }
-	    }
-	    /** Sets the indices of the terminal and variable elements and */
-	    ParserTable.prototype.setIndices = function () {
-	        var index = 0;
-	        for (; index < this.terminalList.length; index++) {
-	            this.terminalList[index].tableIndex = index;
-	        }
-	        this.eof.tableIndex = index;
-	        for (var j = 0; j < this.variableList.length; j++) {
-	            this.variableList[j].tableIndex = index++;
-	        }
-	        return this.terminalList.length + 1 + this.variableList.length;
-	    };
-	    /** Returns total column length of the parser table */
-	    ParserTable.prototype.totalColumns = function () {
-	        return this.terminalList.length + 1 + this.variableList.length;
-	    };
-	    /** Creates new row in the table column */
-	    ParserTable.prototype.makeNewRow = function () {
-	        var totalColumns = this.totalColumns();
-	        this.table[this.rowCount] = [];
-	        for (var j = 0; j < totalColumns; j++) {
-	            this.table[this.rowCount][j] = new ParserTableValue(ParserTableValueType.Blank, 0);
-	        }
-	        this.rowCount++;
-	    };
-	    ParserTable.prototype.getAction = function (row, terminal) {
-	        return this.table[row][terminal.tableIndex];
-	    };
-	    ParserTable.prototype.setAction = function (row, terminal, type, n) {
-	        this.table[row][terminal.tableIndex].type = type;
-	        this.table[row][terminal.tableIndex].n = n;
-	    };
-	    ParserTable.prototype.getGoto = function (row, variable) {
-	        return this.table[row][variable.tableIndex].n;
-	    };
-	    ParserTable.prototype.setGoto = function (row, variable, n) {
-	        this.table[row][variable.tableIndex].type = ParserTableValueType.Goto;
-	        this.table[row][variable.tableIndex].n = n;
-	    };
-	    return ParserTable;
-	}());
-	exports.ParserTable = ParserTable;
 
 
 /***/ },
-/* 85 */
+
+/***/ 85:
 /***/ function(module, exports) {
 
 	module.exports = "#massive-area {\n  position: absolute; }\n\n#starter-tip {\n  position: absolute;\n  color: gray; }\n"
 
 /***/ },
-/* 86 */
+
+/***/ 86:
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<auto-completion [semanticModel]=\"worksheet.semanticModel\" [objectModel]=\"worksheet.objectModel\"></auto-completion>\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\t<class-diagram *ngFor=\"let classDiagram of worksheet.classDiagramList\" [classDiagram]=\"classDiagram\"></class-diagram>\n\t<interface-diagram *ngFor=\"let interfaceDiagram of worksheet.interfaceDiagramList\" [interfaceDiagram]=\"interfaceDiagram\"></interface-diagram>\n\t<class-object-diagram *ngFor=\"let classObject of worksheet.classObjectDiagramList\" [classObjectDiagram]=\"classObject\"></class-object-diagram>\n\t<line-segment [start]=\"st\" [end]=\"en\"></line-segment>\n</div>";
 
 /***/ },
-/* 87 */
+
+/***/ 87:
 /***/ function(module, exports) {
 
 	module.exports = "#menu-controls {\n  position: absolute;\n  padding: 0px;\n  top: 10px; }\n  #menu-controls li {\n    color: blue;\n    cursor: pointer;\n    display: inline;\n    list-style: none; }\n  #menu-controls li:hover {\n    color: darkblue; }\n\n#container {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n"
 
 /***/ },
-/* 88 */
+
+/***/ 88:
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t<li>Area</li>\n\t\t<li>Overview</li>\n\t</ul>\n</div>\n";
 
 /***/ },
-/* 89 */
+
+/***/ 89:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8436,13 +8340,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 90 */
+
+/***/ 90:
 /***/ function(module, exports) {
 
 	module.exports = "<h1>TODO area</h1>";
 
 /***/ },
-/* 91 */
+
+/***/ 91:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8519,7 +8425,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 92 */
+
+/***/ 92:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8696,19 +8603,22 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 93 */
+
+/***/ 93:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"handle-pick\"\n\t[style.left.px]=\"handle.x\"\n\t[style.top.px]=\"handle.y\"\n\t[style.width.px]=\"handle.width\"\n\t[style.height.px]=\"handle.height\"\n\t[style.cursor]=\"cursor\"\n\t(mousedown)=\"requestDragging.emit(this)\"\n\t></div>";
 
 /***/ },
-/* 94 */
+
+/***/ 94:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"rect.x\"\n[style.top.px]=\"rect.y\"\n[style.width.px]=\"rect.width\"\n[style.height.px]=\"rect.height\"\n[@selection]=\"isSelected?'selected':'unselected'\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\"></div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
 
 /***/ },
-/* 95 */
+
+/***/ 95:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8752,13 +8662,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 96 */
+
+/***/ 96:
 /***/ function(module, exports) {
 
 	module.exports = "<div \n\tclass=\"line-segment\" \n\t[style.left.px]=\"(start.x+end.x)/2\" \n\t[style.top.px]=\"(start.y+end.y)/2\"\n\t[style.width.px]=\"start.distance(end)\"\n\t[style.-webkit-transform]=\"rotation()\"\n\t[style.-ms-transform]=\"rotation()\"\n\t[style.transform]=\"rotation()\">\n\t<div class=\"line-segment-text\" >\n\t\t<span contenteditable=\"true\">Editable</span>\n\t</div>\n</div>";
 
 /***/ },
-/* 97 */
+
+/***/ 97:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8802,13 +8714,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 98 */
+
+/***/ 98:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"link-circle\" \n\t[style.left.px]=\"link.center.x\"\n\t[style.top.px]=\"link.center.y\"\n\t[style.width.px]=\"link.radius*2\"\n\t[style.height.px]=\"link.radius*2\">\n\n</div>";
 
 /***/ },
-/* 99 */
+
+/***/ 99:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8838,13 +8752,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 100 */
+
+/***/ 100:
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
-/* 101 */
+
+/***/ 101:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8891,13 +8807,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 102 */
+
+/***/ 102:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classDiagram.rect.x\"\n[style.top.px]=\"classDiagram.rect.y\"\n[style.width.px]=\"classDiagram.rect.width\"\n[style.height.px]=\"classDiagram.rect.height\"\n[style.selected-block]=\"classDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span [class.italic]=\"classDiagram.classDefinition.isAbstract\">{{classDiagram.classDefinition.name}}</span>\n\t</div>\n\n\t<div \n\t*ngFor=\"let fieldMember of classDiagram.classDefinition.fieldList \" \n\tclass=\"block-cell content-block-cell\"\n\tcontenteditable=\"true\"\n\t>\n\t\t{{fieldMember.accessSpecifier | accessSymbol}} {{fieldMember.variableDefinition.name}} : {{fieldMember.variableDefinition.type.getName()}}\n\t</div>\n\t<div class=\"solid-horizontal-line mini-top-bottom-margin\"> </div>\n\t<div *ngFor=\"let methodMember of classDiagram.classDefinition.methodList; let i=index\" \n\t\tclass=\"block-cell content-block-cell\"\n\t\tcontenteditable=\"true\"\n\t\t>\n\n\t\t{{methodMember.accessSpecifier | accessSymbol}} \n\t\t<span [class.italic]=\"methodMember.isAbstract\">\n\t\t{{methodMember.methodPrototype.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of methodMember.methodPrototype.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{methodMember.methodPrototype.returnType.getName()}}\n\t\t</span>\n\t</div>\n</div>";
 
 /***/ },
-/* 103 */
+
+/***/ 103:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8944,13 +8862,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 104 */
+
+/***/ 104:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classObjectDiagram.rect.x\"\n[style.top.px]=\"classObjectDiagram.rect.y\"\n[style.width.px]=\"classObjectDiagram.rect.width\"\n[style.height.px]=\"classObjectDiagram.rect.height\"\n[style.selected-block]=\"classObjectDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span>{{classObjectDiagram.classObject.name}}</span>\n\t\t : \n\t\t<span class=\"bold\">{{classObjectDiagram.classObject.classDefinition.getName()}}</span>\n\t</div>\n\n\t<div *ngFor=\"let fieldData of classObjectDiagram.classObject.fieldDataList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{fieldData.variable.name}} \n\t\t=\n\t\t{{fieldData.data.stringRepresentation()}}\n\t</div>\n</div>";
 
 /***/ },
-/* 105 */
+
+/***/ 105:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8997,13 +8917,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 106 */
+
+/***/ 106:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"interfaceDiagram.rect.x\"\n[style.top.px]=\"interfaceDiagram.rect.y\"\n[style.width.px]=\"interfaceDiagram.rect.width\"\n[style.height.px]=\"interfaceDiagram.rect.height\"\n[style.selected-block]=\"interfaceDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<div class=\"header-decorater\"> &lt;&lt; Interface &gt;&gt; </div>\n\t\t<span>{{interfaceDiagram.interfaceDefinition.name}}</span>\n\t</div>\n\n\t<div *ngFor=\"let method of interfaceDiagram.interfaceDefinition.methodList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{method.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of method.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{method.returnType.getName()}}\n\t</div>\n</div>";
 
 /***/ },
-/* 107 */
+
+/***/ 107:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9033,13 +8955,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 108 */
+
+/***/ 108:
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
-/* 109 */
+
+/***/ 109:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9069,13 +8993,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 110 */
+
+/***/ 110:
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
-/* 111 */
+
+/***/ 111:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9117,7 +9043,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 112 */
+
+/***/ 112:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9194,7 +9121,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 113 */
+
+/***/ 113:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9272,7 +9200,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 114 */
+
+/***/ 114:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9319,7 +9248,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 115 */
+
+/***/ 115:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
@@ -9345,7 +9275,8 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 116 */
+
+/***/ 116:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(117)();
@@ -9359,7 +9290,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 117 */
+
+/***/ 117:
 /***/ function(module, exports) {
 
 	/*
@@ -9415,7 +9347,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 118 */
+
+/***/ 118:
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -9666,6 +9599,133 @@ webpackJsonp([0],[
 	}
 
 
+/***/ },
+
+/***/ 673:
+/***/ function(module, exports) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	/** Type of action in the parser table */
+	(function (ParserTableValueType) {
+	    ParserTableValueType[ParserTableValueType["Blank"] = 1] = "Blank";
+	    ParserTableValueType[ParserTableValueType["Shift"] = 2] = "Shift";
+	    ParserTableValueType[ParserTableValueType["Reduce"] = 3] = "Reduce";
+	    ParserTableValueType[ParserTableValueType["Goto"] = 4] = "Goto";
+	    ParserTableValueType[ParserTableValueType["Accept"] = 5] = "Accept";
+	})(exports.ParserTableValueType || (exports.ParserTableValueType = {}));
+	var ParserTableValueType = exports.ParserTableValueType;
+	/**  Inidivual cell value of the 2d parse table. */
+	var ParserTableValue = (function () {
+	    function ParserTableValue(type, n) {
+	        this.type = type;
+	        this.n = n;
+	    }
+	    return ParserTableValue;
+	}());
+	exports.ParserTableValue = ParserTableValue;
+	/** Holds a 2d table that dictates the shift reduce algorithm. */
+	var ParserTable = (function () {
+	    function ParserTable(cfg) {
+	        this.table = [];
+	        this.rowCount = 0;
+	        this.cfg = cfg;
+	        //set the indices and get table length
+	        this.setIndices();
+	        //initialize the 2d table
+	        //make the specified amount of rows, we can grow rows later as needed
+	        for (var i = 0; i < 20; i++) {
+	            this.makeNewRow();
+	        }
+	    }
+	    /** Sets the indices of the terminal and variable elements and */
+	    ParserTable.prototype.setIndices = function () {
+	        var index = 0;
+	        for (; index < this.cfg.terminalList.length; index++) {
+	            this.cfg.terminalList[index].tableIndex = index;
+	        }
+	        this.cfg.eof.tableIndex = index;
+	        for (var j = 0; j < this.cfg.variableList.length; j++) {
+	            this.cfg.variableList[j].tableIndex = index++;
+	        }
+	        return this.cfg.terminalList.length + 1 + this.cfg.variableList.length;
+	    };
+	    /** Returns total column length of the parser table */
+	    ParserTable.prototype.totalColumns = function () {
+	        return this.cfg.terminalList.length + 1 + this.cfg.variableList.length;
+	    };
+	    /** Creates new row in the table column */
+	    ParserTable.prototype.makeNewRow = function () {
+	        var totalColumns = this.totalColumns();
+	        this.table[this.rowCount] = [];
+	        for (var j = 0; j < totalColumns; j++) {
+	            this.table[this.rowCount][j] = new ParserTableValue(ParserTableValueType.Blank, 0);
+	        }
+	        this.rowCount++;
+	    };
+	    ParserTable.prototype.getAction = function (row, terminal) {
+	        return this.table[row][terminal.tableIndex];
+	    };
+	    ParserTable.prototype.setAction = function (row, terminal, type, n) {
+	        this.table[row][terminal.tableIndex].type = type;
+	        this.table[row][terminal.tableIndex].n = n;
+	    };
+	    ParserTable.prototype.getGoto = function (row, variable) {
+	        return this.table[row][variable.tableIndex].n;
+	    };
+	    ParserTable.prototype.setGoto = function (row, variable, n) {
+	        this.table[row][variable.tableIndex].type = ParserTableValueType.Goto;
+	        this.table[row][variable.tableIndex].n = n;
+	    };
+	    /** Constructs the parser table using LR1 construction algorithm */
+	    ParserTable.prototype.constructUsingLR1 = function () {
+	        //TODO
+	    };
+	    return ParserTable;
+	}());
+	exports.ParserTable = ParserTable;
+	var LR0Item = (function () {
+	    function LR0Item(rule, dot) {
+	        this.rule = rule;
+	        this.dot = dot;
+	    }
+	    return LR0Item;
+	}());
+	var LR1Item = (function (_super) {
+	    __extends(LR1Item, _super);
+	    function LR1Item(rule, dot) {
+	        var lookaheads = [];
+	        for (var _i = 2; _i < arguments.length; _i++) {
+	            lookaheads[_i - 2] = arguments[_i];
+	        }
+	        _super.call(this, rule, dot);
+	        this.lookaheads = [];
+	        for (var _a = 0, lookaheads_1 = lookaheads; _a < lookaheads_1.length; _a++) {
+	            var lookahead = lookaheads_1[_a];
+	            this.lookaheads.push(lookahead);
+	        }
+	    }
+	    return LR1Item;
+	}(LR0Item));
+	var ParsingState = (function () {
+	    function ParsingState() {
+	        this.lr1ItemList = [];
+	        this.transitions = [];
+	    }
+	    return ParsingState;
+	}());
+	var ParsingTransition = (function () {
+	    function ParsingTransition() {
+	    }
+	    return ParsingTransition;
+	}());
+
+
 /***/ }
-]);
+
+});
 //# sourceMappingURL=app.js.map

@@ -1,4 +1,5 @@
 import { Lexeme,LexemeType,getLexemeList,stringForLexemeType } from './lexical-analyzer';
+import { ParserTable,ParserTableValue,ParserTableValueType } from './parser-table';
 
 export interface SyntaxElement{
 	isTerminal():boolean;
@@ -86,7 +87,7 @@ export class ContextFreeGrammer{
 	relation:Rule[]=[];
 	start:NonTerminal;
 
-	private eof:Terminal;
+	readonly eof:Terminal;
 
 	/** Parsing table is constructed once and used several times */
 	private parserTable:ParserTable;
@@ -276,7 +277,7 @@ export class ContextFreeGrammer{
 	/** Rigs the parser table from the final result of https://www.youtube.com/watch?v=APJ_Eh60Qwo */
 	private makeDummyParserTable():ParserTable{
 
-		var table=new ParserTable(this.terminalList,this.variableList,this.eof,10);
+		var table=new ParserTable(this);
 		
 		var s=this.getNonTerminalBy(0);
 		var a=this.getNonTerminalBy(1);
@@ -473,96 +474,4 @@ class StateParseTreeNode implements ParseTreeNode{
 	toString():string{
 		return "'# "+this.state+" #'";
 	}
-}
-
-/** Type of action in the parser table */
-export enum ParserTableValueType{
-	Blank=1,
-	Shift,
-	Reduce,
-	Goto,
-	Accept
-}
-
-/**  Inidivual cell value of the 2d parse table. */
-export class ParserTableValue{
-	type:ParserTableValueType;
-	n:number;
-
-	constructor(type:ParserTableValueType,n:number){
-		this.type=type;
-		this.n=n;
-	}
-}
-
-/** Holds a 2d table that dictates the shift reduce algorithm. */
-export class ParserTable{
-	private terminalList:Terminal[];
-	private variableList:NonTerminal[];
-	private eof:Terminal;
-	private table:ParserTableValue[][]=[];
-	private rowCount=0;
-
-	constructor(terminalList:Terminal[],variableList:NonTerminal[],eof:Terminal,rows=20){
-		this.terminalList=terminalList;
-		this.variableList=variableList;
-		this.eof=eof;
-		
-		//set the indices and get table length
-		this.setIndices();
-
-		//initialize the 2d table
-		//make the specified amount of rows, we can grow rows later as needed
-		for(var i=0;i<rows;i++){
-			this.makeNewRow();
-		}
-	}
-
-	/** Sets the indices of the terminal and variable elements and */
-	private setIndices():number{
-		var index=0;
-		for(;index<this.terminalList.length;index++){
-			this.terminalList[index].tableIndex=index;
-		}
-		this.eof.tableIndex=index;
-
-		for(var j=0;j<this.variableList.length;j++){
-			this.variableList[j].tableIndex=index++;
-		}
-		return this.terminalList.length + 1 + this.variableList.length;
-	}
-
-	/** Returns total column length of the parser table */
-	private totalColumns(){
-		return this.terminalList.length + 1 + this.variableList.length;
-	}
-
-	/** Creates new row in the table column */
-	private makeNewRow(){
-		var totalColumns=this.totalColumns();
-		this.table[this.rowCount]=[];
-		for(var j=0;j<totalColumns;j++){
-			this.table[this.rowCount][j]=new ParserTableValue(ParserTableValueType.Blank,0);
-		}
-		this.rowCount++;
-	}
-
-	getAction(row:number,terminal:Terminal):ParserTableValue{
-		return this.table[row][terminal.tableIndex];
-	}
-
-	setAction(row:number,terminal:Terminal,type:ParserTableValueType,n:number){
-		this.table[row][terminal.tableIndex].type=type;
-		this.table[row][terminal.tableIndex].n=n;
-	}
-
-	getGoto(row:number,variable:NonTerminal):number{
-		return this.table[row][variable.tableIndex].n;
-	}
-
-	setGoto(row:number,variable:NonTerminal,n:number){
-		this.table[row][variable.tableIndex].type=ParserTableValueType.Goto;
-		this.table[row][variable.tableIndex].n=n;
-	}
-
 }
