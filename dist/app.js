@@ -6504,6 +6504,25 @@ webpackJsonp([0],{
 	    return duplicatesFound;
 	}
 	exports.merge = merge;
+	/** Returns a delimeter separated string for a supplied list */
+	function csv(list, delimeter) {
+	    if (delimeter === void 0) { delimeter = ","; }
+	    var csv = "";
+	    for (var _i = 0, list_2 = list; _i < list_2.length; _i++) {
+	        var item = list_2[_i];
+	        csv += item.toString();
+	    }
+	    return csv;
+	}
+	exports.csv = csv;
+	/** Outputs the supplied list by calling its toString for each element */
+	function printList(list) {
+	    for (var _i = 0, list_3 = list; _i < list_3.length; _i++) {
+	        var item = list_3[_i];
+	        console.log(item.toString());
+	    }
+	}
+	exports.printList = printList;
 
 
 /***/ },
@@ -8028,6 +8047,7 @@ webpackJsonp([0],{
 	    ContextFreeGrammer.prototype.finalizeGrammer = function () {
 	        this.augumentGrammer();
 	        this.terminalList.push(this.eof);
+	        this.setRuleIndices();
 	        this.constructParserTableUsingLR1();
 	        return this.parserTable;
 	    };
@@ -8074,6 +8094,13 @@ webpackJsonp([0],{
 	        this.relation.unshift(new Rule(sPrime, this.start));
 	        this.start = sPrime;
 	        return sPrime;
+	    };
+	    /** Sets the indices on the rules of the context free grammer. */
+	    ContextFreeGrammer.prototype.setRuleIndices = function () {
+	        for (var _i = 0, _a = this.relation; _i < _a.length; _i++) {
+	            var rule = _a[_i];
+	            rule.ruleIndex = this.relation.indexOf(rule);
+	        }
 	    };
 	    /** Parses a string to give an appropriate parse tree which can be used to retrieve information from(semantic analysis)*/
 	    ContextFreeGrammer.prototype.parse = function (input) {
@@ -9711,6 +9738,7 @@ webpackJsonp([0],{
 	        this.cfg = cfg;
 	        //set the indices and get table length
 	        this.setIndices();
+	        this.constructUsingLR1();
 	        //initialize the 2d table
 	        //make the specified amount of rows, we can grow rows later as needed
 	        for (var i = 0; i < 20; i++) {
@@ -9782,7 +9810,7 @@ webpackJsonp([0],{
 	                if (outgoing != null) {
 	                    //add this transition to the current state's transition list
 	                    outgoing.from = state;
-	                    state.transitions.push(outgoing);
+	                    state.transitions.push(outgoing); //note that this is a transition and not a state
 	                    //check if this state already exists
 	                    var existing = this.findMatchingState(outgoing.to, processedStates);
 	                    if (existing != null) {
@@ -9794,6 +9822,25 @@ webpackJsonp([0],{
 	                        unprocessedStates.push(outgoing.to);
 	                    }
 	                }
+	            }
+	        }
+	        //output
+	        util.printList(processedStates); //only states
+	        this.printStateDiagram(processedStates);
+	    };
+	    /** Prints the entire state diagram with the transitions */
+	    ParserTable.prototype.printStateDiagram = function (stateList) {
+	        console.log("LR(1) State Diagram");
+	        //go to each state
+	        for (var _i = 0, stateList_1 = stateList; _i < stateList_1.length; _i++) {
+	            var state = stateList_1[_i];
+	            //print transition between states for this state
+	            for (var _a = 0, _b = state.transitions; _a < _b.length; _a++) {
+	                var transition = _b[_a];
+	                console.log(state.stateNo + " " +
+	                    transition.syntaxElement.toString() +
+	                    " > " +
+	                    transition.to.stateNo);
 	            }
 	        }
 	    };
@@ -9855,6 +9902,33 @@ webpackJsonp([0],{
 	        }
 	        return null;
 	    };
+	    /**
+	     * Gives the element after dot.Optionally, you can also skip elements(default is 0).
+	     * Gives null if dot(plus skip) is beyond the length of RHS
+	     */
+	    LR1Item.prototype.elementAfterDot = function (skip) {
+	        if (skip === void 0) { skip = 0; }
+	        if (this.dot + skip < this.rule.rhs.length) {
+	            return this.rule.rhs[this.dot + skip];
+	        }
+	        return null;
+	    };
+	    /** Returns true if dot exists before a variable or terminal, false otherwise */
+	    LR1Item.prototype.dotBeforeSyntaxElement = function () {
+	        return this.dot < this.rule.rhs.length; //TODO what about epsilon
+	    };
+	    LR1Item.prototype.toString = function () {
+	        var rhsProgress = "";
+	        for (var i = 0; i < this.dot; i++) {
+	            rhsProgress += this.rule.rhs[i].toString(); //+" ";
+	        }
+	        rhsProgress += ".";
+	        while (i < this.rule.rhs.length) {
+	            rhsProgress += this.rule.rhs[i].toString(); //+" ";
+	            i++;
+	        }
+	        return this.rule.lhs.toString() + "->" + rhsProgress + "," + util.csv(this.lookaheads, " ");
+	    };
 	    return LR1Item;
 	}());
 	/** A collection of LR(1) item set along with transitions to other states */
@@ -9895,9 +9969,9 @@ webpackJsonp([0],{
 	    };
 	    /** Recursively finds and adds all LR(1) items by looking at the position of the dot */
 	    ParsingState.prototype.closure = function (item, cfg) {
-	        if (item.dot < item.rule.rhs.length) {
+	        if (item.dotBeforeSyntaxElement()) {
 	            //check the item after the dot
-	            var afterDot = item.rule.rhs[item.dot];
+	            var afterDot = item.elementAfterDot();
 	            if (afterDot.getType() == syntax_parser_1.SyntaxElementType.NonTerminal) {
 	                //find all rules for this non terminal
 	                var variableRules = cfg.rulesFor(afterDot);
@@ -9906,36 +9980,64 @@ webpackJsonp([0],{
 	                    var variableRule = variableRules_1[_i];
 	                    //make an LR(1) item with dot placed at the beginning,
 	                    var derived = new LR1Item(variableRule, 0);
-	                    //find first and store in a list
-	                    var firstTerminals = [];
-	                    cfg.first(afterDot, firstTerminals, false); //we intentionally don't find first recursively
-	                    //if the first list is empty, 
-	                    if (firstTerminals.length == 0) {
-	                        //use the first from existing item
-	                        firstTerminals = item.lookaheads;
+	                    //find the lookaheads for the derived item
+	                    var derivedsLookaheads;
+	                    var followingAfterDot = item.elementAfterDot(1); //it is item's follow after dot
+	                    if (followingAfterDot != null) {
+	                        if (followingAfterDot.getType() == syntax_parser_1.SyntaxElementType.NonTerminal) {
+	                            //find first and store in a list
+	                            var firstTerminals = [];
+	                            cfg.first(followingAfterDot, firstTerminals, false); //we intentionally don't find first recursively
+	                            //if the first list is empty, 
+	                            if (firstTerminals.length == 0) {
+	                                //use the first from existing item
+	                                derivedsLookaheads = item.lookaheads;
+	                            }
+	                            else {
+	                                //remove eof from first terminal if exist
+	                                var eofIndex = firstTerminals.indexOf(cfg.eof);
+	                                if (eofIndex != -1) {
+	                                    firstTerminals.splice(eofIndex, 1);
+	                                }
+	                                derivedsLookaheads = firstTerminals;
+	                            }
+	                        }
+	                        else if (followingAfterDot.getType() == syntax_parser_1.SyntaxElementType.Terminal) {
+	                            //only add that terminal in the deriveds lookahead
+	                            derivedsLookaheads = [];
+	                            derivedsLookaheads.push(followingAfterDot);
+	                        }
 	                    }
 	                    else {
-	                        //otherwise merge with existing
-	                        var mergedList = [];
-	                        util.merge(firstTerminals, item.lookaheads, mergedList);
-	                        firstTerminals = mergedList;
+	                        derivedsLookaheads = item.lookaheads; //TODO same object may cause problems later if changes are made
 	                    }
 	                    //set the lookaheads for the derived items 
-	                    derived.lookaheads = firstTerminals;
+	                    derived.lookaheads = derivedsLookaheads;
+	                    //add this item to the set
+	                    this.itemList.push(derived);
 	                    //and find its closure recursively
 	                    this.closure(derived, cfg);
 	                }
 	            }
 	        }
 	    };
+	    ParsingState.prototype.toString = function () {
+	        var itemSets = "";
+	        for (var _i = 0, _a = this.itemList; _i < _a.length; _i++) {
+	            var item = _a[_i];
+	            itemSets += item.toString();
+	            itemSets += ", ";
+	        }
+	        return this.stateNo + ":" + itemSets;
+	    };
 	    return ParsingState;
 	}());
 	/** Denotes transition from one parsing state to another for a given syntax element */
 	var ParsingTransition = (function () {
 	    function ParsingTransition(item, cfg) {
-	        if (item.dot < item.rule.rhs.length) {
+	        if (item.dotBeforeSyntaxElement()) {
 	            //set the syntax element as the current position of the dot
-	            this.syntaxElement = item.rule.rhs[item.dot];
+	            this.syntaxElement = item.elementAfterDot();
 	            //create a new LR(1) item which is a proceeded version of given item
 	            var proceededItem = new LR1Item(item.rule, item.dot + 1);
 	            //while transitioning, the lookaheads dont change
@@ -9947,6 +10049,9 @@ webpackJsonp([0],{
 	            this.to = new ParsingState(proceededItem, cfg);
 	        }
 	    }
+	    ParsingTransition.prototype.toString = function () {
+	        return this.from.stateNo + ":" + this.syntaxElement.toString() + ":" + this.to.toString();
+	    };
 	    return ParsingTransition;
 	}());
 

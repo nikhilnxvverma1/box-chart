@@ -34,6 +34,8 @@ export class ParserTable{
 		//set the indices and get table length
 		this.setIndices();
 
+		this.constructUsingLR1();
+
 		//initialize the 2d table
 		//make the specified amount of rows, we can grow rows later as needed
 		for(var i=0;i<20;i++){
@@ -120,7 +122,7 @@ export class ParserTable{
 				if(outgoing!=null){
 					//add this transition to the current state's transition list
 					outgoing.from=state;
-					state.transitions.push(outgoing);
+					state.transitions.push(outgoing);//note that this is a transition and not a state
 
 					//check if this state already exists
 					var existing=this.findMatchingState(outgoing.to,processedStates);
@@ -133,9 +135,28 @@ export class ParserTable{
 					}
 				}
 			}
-
 		}
+
+		//output
+		util.printList(processedStates);//only states
+		this.printStateDiagram(processedStates);
 		
+	}
+
+	/** Prints the entire state diagram with the transitions */
+	private printStateDiagram(stateList:ParsingState[]){
+		console.log("LR(1) State Diagram");
+
+		//go to each state
+		for(let state of stateList){			
+			//print transition between states for this state
+			for(let transition of state.transitions){
+				console.log(state.stateNo+" "+
+				transition.syntaxElement.toString()+
+				" > "+
+				transition.to.stateNo);
+			}
+		}
 	}
 
 	/** Finds the matching state from a list of states, if exists */
@@ -198,6 +219,35 @@ class LR1Item{
 		}
 		return null;
 	}
+
+	/** 
+	 * Gives the element after dot.Optionally, you can also skip elements(default is 0).
+	 * Gives null if dot(plus skip) is beyond the length of RHS
+	 */
+	elementAfterDot(skip=0):SyntaxElement{
+		if(this.dot+skip<this.rule.rhs.length){
+			return this.rule.rhs[this.dot+skip];
+		}
+		return null;
+	}
+
+	/** Returns true if dot exists before a variable or terminal, false otherwise */
+	dotBeforeSyntaxElement():boolean{
+		return this.dot<this.rule.rhs.length;//TODO what about epsilon
+	}
+
+	toString():string{
+		var rhsProgress="";
+		for(var i=0;i<this.dot;i++){
+			rhsProgress+=this.rule.rhs[i].toString();//+" ";
+		}
+		rhsProgress+=".";
+		while(i<this.rule.rhs.length){
+			rhsProgress+=this.rule.rhs[i].toString();//+" ";
+			i++;
+		}
+		return this.rule.lhs.toString()+"->"+rhsProgress+","+util.csv(this.lookaheads," ");
+	}
 }
 
 /** A collection of LR(1) item set along with transitions to other states */
@@ -239,10 +289,10 @@ class ParsingState{
 
 	/** Recursively finds and adds all LR(1) items by looking at the position of the dot */
 	private closure(item:LR1Item,cfg:ContextFreeGrammer){
-		if(item.dot<item.rule.rhs.length){
+		if(item.dotBeforeSyntaxElement()){
 
 			//check the item after the dot
-			var afterDot=item.rule.rhs[item.dot];
+			var afterDot=item.elementAfterDot();
 			if(afterDot.getType()==SyntaxElementType.NonTerminal){
 				
 				//find all rules for this non terminal
@@ -254,30 +304,58 @@ class ParsingState{
 					//make an LR(1) item with dot placed at the beginning,
 					var derived=new LR1Item(variableRule,0);
 
-					//find first and store in a list
-					var firstTerminals:Terminal[]=[];
-					cfg.first(<NonTerminal>afterDot,firstTerminals,false);//we intentionally don't find first recursively
+					//find the lookaheads for the derived item
+					var derivedsLookaheads:Terminal[];
+					var followingAfterDot=item.elementAfterDot(1);//it is item's follow after dot
 
-					//if the first list is empty, 
-					if(firstTerminals.length==0){
-						//use the first from existing item
-						firstTerminals=item.lookaheads;
+					if(followingAfterDot!=null){
+
+						if(followingAfterDot.getType()==SyntaxElementType.NonTerminal){
+							//find first and store in a list
+							var firstTerminals:Terminal[]=[];
+							cfg.first(<NonTerminal>followingAfterDot,firstTerminals,false);//we intentionally don't find first recursively
+
+							//if the first list is empty, 
+							if(firstTerminals.length==0){
+								//use the first from existing item
+								derivedsLookaheads=item.lookaheads;
+							}else{
+								//remove eof from first terminal if exist
+								var eofIndex=firstTerminals.indexOf(cfg.eof);
+								if(eofIndex!=-1){
+									firstTerminals.splice(eofIndex,1);
+								}
+								derivedsLookaheads=firstTerminals;
+							}
+						}else if(followingAfterDot.getType()==SyntaxElementType.Terminal){
+							//only add that terminal in the deriveds lookahead
+							derivedsLookaheads=[];
+							derivedsLookaheads.push(<Terminal>followingAfterDot);
+						}
 					}else{
-						//otherwise merge with existing
-						var mergedList:Terminal[]=[];
-						util.merge(firstTerminals,item.lookaheads,mergedList);
-						firstTerminals=mergedList;
+						derivedsLookaheads=item.lookaheads;//TODO same object may cause problems later if changes are made
 					}
 
 					//set the lookaheads for the derived items 
-					derived.lookaheads=firstTerminals;
+					derived.lookaheads=derivedsLookaheads;
+
+					//add this item to the set
+					this.itemList.push(derived);
 
 					//and find its closure recursively
 					this.closure(derived,cfg);
 				}
-				
 			}
 		}
+	}
+
+	toString():string{
+		var itemSets="";
+		for(let item of this.itemList){
+			itemSets+=item.toString();
+			itemSets+=", ";
+		}
+		return this.stateNo+":"+itemSets;
 	}
 }
 
@@ -288,10 +366,10 @@ class ParsingTransition{
 	to:ParsingState;
 
 	constructor(item:LR1Item,cfg:ContextFreeGrammer){
-		if(item.dot<item.rule.rhs.length){
+		if(item.dotBeforeSyntaxElement()){
 
 			//set the syntax element as the current position of the dot
-			this.syntaxElement=item.rule.rhs[item.dot];
+			this.syntaxElement=item.elementAfterDot();
 
 			//create a new LR(1) item which is a proceeded version of given item
 			var proceededItem=new LR1Item(item.rule,item.dot+1);
@@ -304,5 +382,9 @@ class ParsingTransition{
 			//create a new outgoing state for the proceeded item
 			this.to=new ParsingState(proceededItem,cfg);
 		}
+	}
+
+	toString():string{
+		return this.from.stateNo+":"+this.syntaxElement.toString()+":"+this.to.toString();
 	}
 }

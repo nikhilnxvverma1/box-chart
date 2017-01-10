@@ -136,3 +136,19 @@ export function merge(list1:any[],list2:any[],result:any[]):number{
 	}
 	return duplicatesFound;
 }
+
+/** Returns a delimeter separated string for a supplied list */
+export function csv(list:any[],delimeter=","):string{
+	var csv="";
+	for(let item of list){
+		csv+=item.toString();
+	}
+	return csv;
+}
+
+/** Outputs the supplied list by calling its toString for each element */
+export function printList(list:any[]){
+	for(let item of list){
+		console.log(item.toString());
+	}
+}

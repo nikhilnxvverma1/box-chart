@@ -73,6 +73,12 @@ export class Epsilon implements SyntaxElement{
 export class Rule{
 	lhs:NonTerminal;
 	rhs:SyntaxElement[];
+	/** 
+	 * Identifies the rule number(starting from 0) as an index in the rule set.
+	 * Used by the parsing table and shift reduce algorithm. 
+	 * This should NOT be changed once set(by the setRuleIndices() method).
+	 */
+	ruleIndex:number;
 
 	constructor(from:NonTerminal,...goesTo:SyntaxElement[]){
 		this.lhs=from;
@@ -120,6 +126,7 @@ export class ContextFreeGrammer{
 	finalizeGrammer():ParserTable{
 		this.augumentGrammer();
 		this.terminalList.push(this.eof);
+		this.setRuleIndices();
 		this.constructParserTableUsingLR1();
 		return this.parserTable;
 	}
@@ -168,6 +175,13 @@ export class ContextFreeGrammer{
 		this.relation.unshift(new Rule(sPrime,this.start));
 		this.start=sPrime;
 		return sPrime; 
+	}
+
+	/** Sets the indices on the rules of the context free grammer. */
+	private setRuleIndices(){
+		for(let rule of this.relation){
+			rule.ruleIndex=this.relation.indexOf(rule);
+		}
 	}
 
 	/** Parses a string to give an appropriate parse tree which can be used to retrieve information from(semantic analysis)*/
