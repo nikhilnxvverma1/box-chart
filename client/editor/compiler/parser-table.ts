@@ -20,6 +20,17 @@ export class ParserTableValue{
 		this.type=type;
 		this.n=n;
 	}
+
+	toString():string{
+		switch(this.type){
+			case ParserTableValueType.Blank:return "  ";
+			case ParserTableValueType.Shift:return "S"+this.n;
+			case ParserTableValueType.Reduce:return "R"+this.n;
+			case ParserTableValueType.Goto:return "G"+this.n;
+			case ParserTableValueType.Accept:return "Ac";
+		}
+		return null;
+	}
 }
 
 /** Holds a 2d table that drives the shift reduce algorithm. */
@@ -35,12 +46,6 @@ export class ParserTable{
 		this.setIndices();
 
 		this.constructUsingLR1();
-
-		//initialize the 2d table
-		//make the specified amount of rows, we can grow rows later as needed
-		for(var i=0;i<20;i++){
-			this.makeNewRow();
-		}
 	}
 
 	/** Sets the indices of the terminal and variable elements and */
@@ -49,7 +54,7 @@ export class ParserTable{
 		for(;index<this.cfg.terminalList.length;index++){
 			this.cfg.terminalList[index].tableIndex=index;
 		}
-		this.cfg.eof.tableIndex=index;
+		// this.cfg.eof.tableIndex=index;
 
 		for(var j=0;j<this.cfg.variableList.length;j++){
 			this.cfg.variableList[j].tableIndex=index++;
@@ -59,7 +64,7 @@ export class ParserTable{
 
 	/** Returns total column length of the parser table */
 	private totalColumns(){
-		return this.cfg.terminalList.length + 1 + this.cfg.variableList.length;
+		return this.cfg.terminalList.length + this.cfg.variableList.length;
 	}
 
 	/** Creates new row in the table column */
@@ -137,15 +142,71 @@ export class ParserTable{
 			}
 		}
 
+		this.fillTableUsing(processedStates);
+
 		//output
 		util.printList(processedStates);//only states
 		this.printStateDiagram(processedStates);
-		
+		this.printParsingTable();
+	}
+
+
+	/** Uses the LR(1) state diagram to fill entries in the parsing table */
+	private fillTableUsing(stateDiagram:ParsingState[]){
+
+		//initialize the 2d table
+		for(var i=0;i<stateDiagram.length;i++){//as many row as are states
+			this.makeNewRow();
+		}
+
+		//for each state
+		for(let state of stateDiagram){
+
+			if(state.isFinalState()){
+				//get the only first entry from the state
+				var item=state.itemList[0];
+				if(item.rule.ruleIndex==0){//accept entry (starting rule)
+					this.setAction(
+						state.stateNo,
+						this.cfg.eof,
+						ParserTableValueType.Accept,
+						-1);
+				}else{//reduce entry
+
+					// set the reduce entries only under the lookahead symbols
+					for(let lookahead of item.lookaheads){
+						this.setAction(
+							state.stateNo,
+							lookahead,
+							ParserTableValueType.Reduce,
+							item.rule.ruleIndex);
+					}
+				}
+			}else{
+				//check all its transitions 
+				for(let transition of state.transitions){
+					//if the outgoing symbol is a non terminal
+					if(transition.syntaxElement.getType()==SyntaxElementType.NonTerminal){//goto entry 
+						this.setGoto(
+							state.stateNo,
+							<NonTerminal>transition.syntaxElement,
+							transition.to.stateNo);
+					}else{//(terminal or epsilon) : shift entry
+						this.setAction(
+							state.stateNo,
+							<Terminal>transition.syntaxElement,
+							ParserTableValueType.Shift,
+							transition.to.stateNo);
+					}
+				}
+				
+			}
+		}
 	}
 
 	/** Prints the entire state diagram with the transitions */
 	private printStateDiagram(stateList:ParsingState[]){
-		console.log("LR(1) State Diagram");
+		console.log("LR(1) State Diagram. Total States: "+stateList.length);
 
 		//go to each state
 		for(let state of stateList){			
@@ -156,6 +217,32 @@ export class ParserTable{
 				" > "+
 				transition.to.stateNo);
 			}
+		}
+	}
+
+
+	/** Prints the entire table held by this object */
+	private printParsingTable(){
+		console.log("Parsing table");
+
+		var headerString="	";
+		for(var i=0;i<this.cfg.terminalList.length;i++){
+			headerString+=this.cfg.terminalList[i].toString()+"		";
+		}
+		// headerString+=this.cfg.eof.toString()+"  ";
+
+		for(var j=0;j<this.cfg.variableList.length;j++){
+			headerString+=this.cfg.variableList[j].toString()+"		";
+		}
+
+		console.log(headerString);
+
+		for(i=0;i<this.table.length;i++){
+			var rowString=i+"	";
+			for(let cell of this.table[i]){
+				rowString+=cell.toString()+"|		";
+			}
+			console.log(rowString);
 		}
 	}
 
@@ -259,6 +346,11 @@ class ParsingState{
 	constructor(firstItem:LR1Item,cfg:ContextFreeGrammer){
 		this.itemList.push(firstItem);
 		this.closure(firstItem,cfg);//only first item is not derived
+	}
+
+	/** A final state is one which has a single item where the dot is at the end */
+	isFinalState():boolean{
+		return this.itemList.length==1 && !this.itemList[0].dotBeforeSyntaxElement();
 	}
 
 	/** Checks if the two states are same by comparing only their LR(1) item set */

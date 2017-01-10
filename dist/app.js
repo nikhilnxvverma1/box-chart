@@ -7958,6 +7958,10 @@ webpackJsonp([0],{
 	var SyntaxElementType = exports.SyntaxElementType;
 	/** A variable in the context free grammer */
 	var NonTerminal = (function () {
+	    /**
+	     * Constructs a non terminal with a representational id.
+	     * For augumented variable, this should always be -1
+	     */
 	    function NonTerminal(id) {
 	        this.id = id;
 	    }
@@ -7965,8 +7969,14 @@ webpackJsonp([0],{
 	        return SyntaxElementType.NonTerminal;
 	    };
 	    NonTerminal.prototype.toString = function () {
-	        var startLetter = "B";
+	        if (this.isAugumentedVariable()) {
+	            return "A'";
+	        }
+	        var startLetter = "A";
 	        return String.fromCharCode(startLetter.charCodeAt(0) + this.id);
+	    };
+	    NonTerminal.prototype.isAugumentedVariable = function () {
+	        return this.id == -1;
 	    };
 	    return NonTerminal;
 	}());
@@ -8048,7 +8058,7 @@ webpackJsonp([0],{
 	        this.augumentGrammer();
 	        this.terminalList.push(this.eof);
 	        this.setRuleIndices();
-	        this.constructParserTableUsingLR1();
+	        this.parserTable = new parser_table_1.ParserTable(this);
 	        return this.parserTable;
 	    };
 	    /** Finds the possible first terminals for the given non terminal in this Grammer */
@@ -8088,7 +8098,7 @@ webpackJsonp([0],{
 	     * Returns the said starting Non Terminal
 	     */
 	    ContextFreeGrammer.prototype.augumentGrammer = function () {
-	        var sPrime = new NonTerminal(-1);
+	        var sPrime = new NonTerminal(-1); //-1 indicates augumented start rule
 	        //its IMPORTANT to insert the new augumented rule at the start
 	        this.variableList.unshift(sPrime);
 	        this.relation.unshift(new Rule(sPrime, this.start));
@@ -8236,7 +8246,7 @@ webpackJsonp([0],{
 	    ContextFreeGrammer.prototype.constructParserTableUsingLR1 = function () {
 	        this.parserTable = this.makeDummyParserTable(); //TODO
 	    };
-	    /** Rigs the parser table from the final result of https://www.youtube.com/watch?v=APJ_Eh60Qwo */
+	    /** Rigs a parser table from the final result of https://www.youtube.com/watch?v=APJ_Eh60Qwo */
 	    ContextFreeGrammer.prototype.makeDummyParserTable = function () {
 	        var table = new parser_table_1.ParserTable(this);
 	        var s = this.getNonTerminalBy(0);
@@ -9727,6 +9737,16 @@ webpackJsonp([0],{
 	        this.type = type;
 	        this.n = n;
 	    }
+	    ParserTableValue.prototype.toString = function () {
+	        switch (this.type) {
+	            case ParserTableValueType.Blank: return "  ";
+	            case ParserTableValueType.Shift: return "S" + this.n;
+	            case ParserTableValueType.Reduce: return "R" + this.n;
+	            case ParserTableValueType.Goto: return "G" + this.n;
+	            case ParserTableValueType.Accept: return "Ac";
+	        }
+	        return null;
+	    };
 	    return ParserTableValue;
 	}());
 	exports.ParserTableValue = ParserTableValue;
@@ -9739,11 +9759,6 @@ webpackJsonp([0],{
 	        //set the indices and get table length
 	        this.setIndices();
 	        this.constructUsingLR1();
-	        //initialize the 2d table
-	        //make the specified amount of rows, we can grow rows later as needed
-	        for (var i = 0; i < 20; i++) {
-	            this.makeNewRow();
-	        }
 	    }
 	    /** Sets the indices of the terminal and variable elements and */
 	    ParserTable.prototype.setIndices = function () {
@@ -9751,7 +9766,7 @@ webpackJsonp([0],{
 	        for (; index < this.cfg.terminalList.length; index++) {
 	            this.cfg.terminalList[index].tableIndex = index;
 	        }
-	        this.cfg.eof.tableIndex = index;
+	        // this.cfg.eof.tableIndex=index;
 	        for (var j = 0; j < this.cfg.variableList.length; j++) {
 	            this.cfg.variableList[j].tableIndex = index++;
 	        }
@@ -9759,7 +9774,7 @@ webpackJsonp([0],{
 	    };
 	    /** Returns total column length of the parser table */
 	    ParserTable.prototype.totalColumns = function () {
-	        return this.cfg.terminalList.length + 1 + this.cfg.variableList.length;
+	        return this.cfg.terminalList.length + this.cfg.variableList.length;
 	    };
 	    /** Creates new row in the table column */
 	    ParserTable.prototype.makeNewRow = function () {
@@ -9824,13 +9839,53 @@ webpackJsonp([0],{
 	                }
 	            }
 	        }
+	        this.fillTableUsing(processedStates);
 	        //output
 	        util.printList(processedStates); //only states
 	        this.printStateDiagram(processedStates);
+	        this.printParsingTable();
+	    };
+	    /** Uses the LR(1) state diagram to fill entries in the parsing table */
+	    ParserTable.prototype.fillTableUsing = function (stateDiagram) {
+	        //initialize the 2d table
+	        for (var i = 0; i < stateDiagram.length; i++) {
+	            this.makeNewRow();
+	        }
+	        //for each state
+	        for (var _i = 0, stateDiagram_1 = stateDiagram; _i < stateDiagram_1.length; _i++) {
+	            var state = stateDiagram_1[_i];
+	            if (state.isFinalState()) {
+	                //get the only first entry from the state
+	                var item = state.itemList[0];
+	                if (item.rule.ruleIndex == 0) {
+	                    this.setAction(state.stateNo, this.cfg.eof, ParserTableValueType.Accept, -1);
+	                }
+	                else {
+	                    // set the reduce entries only under the lookahead symbols
+	                    for (var _a = 0, _b = item.lookaheads; _a < _b.length; _a++) {
+	                        var lookahead = _b[_a];
+	                        this.setAction(state.stateNo, lookahead, ParserTableValueType.Reduce, item.rule.ruleIndex);
+	                    }
+	                }
+	            }
+	            else {
+	                //check all its transitions 
+	                for (var _c = 0, _d = state.transitions; _c < _d.length; _c++) {
+	                    var transition = _d[_c];
+	                    //if the outgoing symbol is a non terminal
+	                    if (transition.syntaxElement.getType() == syntax_parser_1.SyntaxElementType.NonTerminal) {
+	                        this.setGoto(state.stateNo, transition.syntaxElement, transition.to.stateNo);
+	                    }
+	                    else {
+	                        this.setAction(state.stateNo, transition.syntaxElement, ParserTableValueType.Shift, transition.to.stateNo);
+	                    }
+	                }
+	            }
+	        }
 	    };
 	    /** Prints the entire state diagram with the transitions */
 	    ParserTable.prototype.printStateDiagram = function (stateList) {
-	        console.log("LR(1) State Diagram");
+	        console.log("LR(1) State Diagram. Total States: " + stateList.length);
 	        //go to each state
 	        for (var _i = 0, stateList_1 = stateList; _i < stateList_1.length; _i++) {
 	            var state = stateList_1[_i];
@@ -9842,6 +9897,27 @@ webpackJsonp([0],{
 	                    " > " +
 	                    transition.to.stateNo);
 	            }
+	        }
+	    };
+	    /** Prints the entire table held by this object */
+	    ParserTable.prototype.printParsingTable = function () {
+	        console.log("Parsing table");
+	        var headerString = "	";
+	        for (var i = 0; i < this.cfg.terminalList.length; i++) {
+	            headerString += this.cfg.terminalList[i].toString() + "		";
+	        }
+	        // headerString+=this.cfg.eof.toString()+"  ";
+	        for (var j = 0; j < this.cfg.variableList.length; j++) {
+	            headerString += this.cfg.variableList[j].toString() + "		";
+	        }
+	        console.log(headerString);
+	        for (i = 0; i < this.table.length; i++) {
+	            var rowString = i + "	";
+	            for (var _i = 0, _a = this.table[i]; _i < _a.length; _i++) {
+	                var cell = _a[_i];
+	                rowString += cell.toString() + "|		";
+	            }
+	            console.log(rowString);
 	        }
 	    };
 	    /** Finds the matching state from a list of states, if exists */
@@ -9939,6 +10015,10 @@ webpackJsonp([0],{
 	        this.itemList.push(firstItem);
 	        this.closure(firstItem, cfg); //only first item is not derived
 	    }
+	    /** A final state is one which has a single item where the dot is at the end */
+	    ParsingState.prototype.isFinalState = function () {
+	        return this.itemList.length == 1 && !this.itemList[0].dotBeforeSyntaxElement();
+	    };
 	    /** Checks if the two states are same by comparing only their LR(1) item set */
 	    ParsingState.prototype.equals = function (other) {
 	        var itemsMatch = true;

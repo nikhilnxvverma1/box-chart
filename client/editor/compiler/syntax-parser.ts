@@ -16,10 +16,15 @@ export interface SyntaxElement{
 
 /** A variable in the context free grammer */
 export class NonTerminal implements SyntaxElement{
+	/** Used for representational purposes. For augumented variable, this should always be -1 */
 	id:number;
 	/** Index of this node in parser tables. This should only be set by the ParserTable class */
 	tableIndex:number;
 
+	/**
+	 * Constructs a non terminal with a representational id.
+	 * For augumented variable, this should always be -1 
+	 */
 	constructor(id:number){
 		this.id=id;
 	}
@@ -29,8 +34,15 @@ export class NonTerminal implements SyntaxElement{
 	}
 
 	toString():string{
-		var startLetter="B";
+		if(this.isAugumentedVariable()){
+			return "A'";
+		}
+		var startLetter="A";
 		return String.fromCharCode(startLetter.charCodeAt(0)+this.id);
+	}
+
+	isAugumentedVariable():boolean{
+		return this.id==-1;
 	}
 }
 
@@ -127,7 +139,7 @@ export class ContextFreeGrammer{
 		this.augumentGrammer();
 		this.terminalList.push(this.eof);
 		this.setRuleIndices();
-		this.constructParserTableUsingLR1();
+		this.parserTable=new ParserTable(this);
 		return this.parserTable;
 	}
 
@@ -169,7 +181,7 @@ export class ContextFreeGrammer{
 	 * Returns the said starting Non Terminal
 	 */
 	private augumentGrammer():NonTerminal{
-		var sPrime=new NonTerminal(-1);
+		var sPrime=new NonTerminal(-1);//-1 indicates augumented start rule
 		//its IMPORTANT to insert the new augumented rule at the start
 		this.variableList.unshift(sPrime);
 		this.relation.unshift(new Rule(sPrime,this.start));
@@ -333,7 +345,7 @@ export class ContextFreeGrammer{
 		this.parserTable=this.makeDummyParserTable();//TODO
 	}
 
-	/** Rigs the parser table from the final result of https://www.youtube.com/watch?v=APJ_Eh60Qwo */
+	/** Rigs a parser table from the final result of https://www.youtube.com/watch?v=APJ_Eh60Qwo */
 	private makeDummyParserTable():ParserTable{
 
 		var table=new ParserTable(this);
