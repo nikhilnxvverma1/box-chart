@@ -7230,6 +7230,8 @@ webpackJsonp([0],{
 	exports.WorksheetType = "Worksheet"; //TODO may not be required
 	var Worksheet = (function () {
 	    function Worksheet() {
+	        this.diagramNodeList = [];
+	        this.diagramEdgeList = [];
 	        this.commentList = [];
 	        this.classDiagramList = [];
 	        this.interfaceDiagramList = [];
@@ -7246,7 +7248,7 @@ webpackJsonp([0],{
 	var DiagramNode = (function () {
 	    function DiagramNode() {
 	        /** Used exclusively as a flag to tell weather this block is selected in the editor or not */
-	        this.selected = false;
+	        this.selected = false; //TODO this should be a part of the component
 	        this.incomingEdges = [];
 	        this.outgoingEdges = [];
 	    }
@@ -7263,6 +7265,33 @@ webpackJsonp([0],{
 	    return DiagramEdge;
 	}());
 	exports.DiagramEdge = DiagramEdge;
+	(function (GenericDiagramNodeType) {
+	    GenericDiagramNodeType[GenericDiagramNodeType["Rectangle"] = 0] = "Rectangle";
+	    GenericDiagramNodeType[GenericDiagramNodeType["Circle"] = 1] = "Circle";
+	    GenericDiagramNodeType[GenericDiagramNodeType["Diamond"] = 2] = "Diamond";
+	    GenericDiagramNodeType[GenericDiagramNodeType["Ellipse"] = 3] = "Ellipse";
+	    GenericDiagramNodeType[GenericDiagramNodeType["StickFigure"] = 4] = "StickFigure";
+	    GenericDiagramNodeType[GenericDiagramNodeType["Database"] = 5] = "Database";
+	})(exports.GenericDiagramNodeType || (exports.GenericDiagramNodeType = {}));
+	var GenericDiagramNodeType = exports.GenericDiagramNodeType;
+	var GenericDiagramNode = (function (_super) {
+	    __extends(GenericDiagramNode, _super);
+	    function GenericDiagramNode(type) {
+	        _super.call(this);
+	        this.rect = new geometry_1.Rect(0, 0, GenericDiagramNode.Width, GenericDiagramNode.Height);
+	        this.type = type;
+	    }
+	    GenericDiagramNode.prototype.getGeometry = function () {
+	        return this.rect;
+	    };
+	    GenericDiagramNode.prototype.cellRequirement = function () {
+	        return 0;
+	    };
+	    GenericDiagramNode.Width = 200;
+	    GenericDiagramNode.Height = 30;
+	    return GenericDiagramNode;
+	}(DiagramNode));
+	exports.GenericDiagramNode = GenericDiagramNode;
 	/** A rect diagram node used for holding class definition, its associated geometry and collapse flags for field and method blocks*/
 	var ClassDiagramNode = (function (_super) {
 	    __extends(ClassDiagramNode, _super);

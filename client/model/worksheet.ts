@@ -7,6 +7,10 @@ import { ObjectModel, ClassObjectData, InterfaceObjectData, Collection } from '.
 export const WorksheetType="Worksheet";//TODO may not be required
 
 export class Worksheet{
+
+	diagramNodeList:DiagramNode[]=[];
+	diagramEdgeList:DiagramEdge[]=[];
+
 	semanticModel:SemanticModel;
 	objectModel:ObjectModel;
 	commentList:Comment[]=[];
@@ -22,7 +26,11 @@ export class Worksheet{
  */
 export abstract class DiagramNode{
 	/** Used exclusively as a flag to tell weather this block is selected in the editor or not */
-	selected:boolean=false;
+	selected:boolean=false;//TODO this should be a part of the component
+	/** A unique identifier for this node */
+	id:string;
+	/** A string that describes this node */
+	label:string;
 	incomingEdges:DiagramEdge[]=[];
 	outgoingEdges:DiagramEdge[]=[];
 	/** Gives the geometrical shape for this diagram block */
@@ -49,6 +57,38 @@ export class DiagramEdge{
 
 	/** The end of a doubly linked list of points that make up the line segments */
 	intermediatePointLast:LinkedPoint;
+}
+
+export enum GenericDiagramNodeType{
+	Rectangle,
+	Circle,
+	Diamond,
+	Ellipse,
+	StickFigure,
+	Database
+}
+
+export class GenericDiagramNode extends DiagramNode{
+	private static readonly Width=200;
+	private static readonly Height=30;
+
+	private type:GenericDiagramNodeType;
+	private rect:Rect=new Rect(0,0,GenericDiagramNode.Width,GenericDiagramNode.Height);
+	private content:string;
+
+	constructor(type:GenericDiagramNodeType){
+		super();
+		this.type=type;
+	}
+
+	getGeometry():Geometry{
+		return this.rect;
+	}
+	
+	cellRequirement():number{
+		return 0;
+	}
+
 }
 
 /** A rect diagram node used for holding class definition, its associated geometry and collapse flags for field and method blocks*/
