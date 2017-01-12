@@ -38,6 +38,7 @@ webpackJsonp([0],{
 	var sidebar_component_1 = __webpack_require__(72);
 	var area_component_1 = __webpack_require__(89);
 	var box_component_1 = __webpack_require__(91);
+	var generic_node_component_1 = __webpack_require__(674);
 	var line_segment_component_1 = __webpack_require__(95);
 	var resize_handle_component_1 = __webpack_require__(92);
 	var linker_component_1 = __webpack_require__(97);
@@ -85,6 +86,7 @@ webpackJsonp([0],{
 	                artboard_component_1.ArtboardComponent,
 	                area_component_1.AreaComponent,
 	                box_component_1.BoxComponent,
+	                generic_node_component_1.GenericNodeComponent,
 	                line_segment_component_1.LineSegmentComponent,
 	                resize_handle_component_1.ResizeHandleComponent,
 	                input_box_component_1.InputBoxComponent,
@@ -6807,14 +6809,13 @@ webpackJsonp([0],{
 	        this.rect = rect;
 	        this.side = direction;
 	        this.fraction = fraction;
-	        this.trackedPoint = this.pointOnSide(fraction);
+	        this.trackedPoint = this.pointOnSide(this.side, this.fraction);
 	    }
 	    RectTrackingPoint.prototype.pointOnGeometry = function () {
-	        return this.trackedPoint;
+	        return this.pointOnSide(this.side, this.fraction);
 	    };
 	    /** Returns the point defined by a side and a fraction between 0 and 1 */
 	    RectTrackingPoint.prototype.pointOnSide = function (side, fraction) {
-	        if (side === void 0) { side = this.side; }
 	        if (fraction === void 0) { fraction = this.fraction; }
 	        var startPoint;
 	        var endPoint;
@@ -7009,6 +7010,7 @@ webpackJsonp([0],{
 	var mock_data_service_1 = __webpack_require__(76);
 	var auto_completion_component_1 = __webpack_require__(79);
 	var interpreter_service_1 = __webpack_require__(82);
+	var worksheet_1 = __webpack_require__(77);
 	exports.ArtboardWidth = 3200;
 	exports.ArtboardHeight = (2 / 3) * exports.ArtboardWidth;
 	var ArtboardComponent = (function () {
@@ -7020,13 +7022,20 @@ webpackJsonp([0],{
 	        this.mousedownEvent = new core_1.EventEmitter();
 	        this.mousemoveEvent = new core_1.EventEmitter();
 	        this.mouseupEvent = new core_1.EventEmitter();
+	        //testing stuff
 	        this.st = new geometry_2.Point(1501, 1300);
 	        this.en = new geometry_2.Point(1700, 700);
 	        this.massiveArea = new geometry_1.Rect(0, 0, exports.ArtboardWidth, exports.ArtboardHeight);
 	        this.worksheet = this.mockDataService.vehicleWorksheet();
-	        //   this.interpreter.parseFieldMember("+capacity:int");
-	        this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
+	        this.testing();
 	    }
+	    ArtboardComponent.prototype.testing = function () {
+	        this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
+	        this.genericNode = new worksheet_1.GenericDiagramNode(worksheet_1.GenericDiagramNodeType.Rectangle);
+	        this.genericNode.rect.x = 1500;
+	        this.genericNode.rect.y = 1400;
+	        this.rectList.push(new geometry_1.Rect(1300, 1000, 200, 50));
+	    };
 	    ArtboardComponent.prototype.doubleClickedArtboard = function (event) {
 	        var width = 200;
 	        var height = 50;
@@ -7279,7 +7288,7 @@ webpackJsonp([0],{
 	    function GenericDiagramNode(type) {
 	        _super.call(this);
 	        this.rect = new geometry_1.Rect(0, 0, GenericDiagramNode.Width, GenericDiagramNode.Height);
-	        this.type = type;
+	        this._type = type;
 	    }
 	    GenericDiagramNode.prototype.getGeometry = function () {
 	        return this.rect;
@@ -7287,6 +7296,23 @@ webpackJsonp([0],{
 	    GenericDiagramNode.prototype.cellRequirement = function () {
 	        return 0;
 	    };
+	    Object.defineProperty(GenericDiagramNode.prototype, "type", {
+	        // get rect():Rect{
+	        // 	return this.rect;
+	        // }
+	        get: function () {
+	            return this._type;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(GenericDiagramNode.prototype, "content", {
+	        get: function () {
+	            return this._content;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    GenericDiagramNode.Width = 200;
 	    GenericDiagramNode.Height = 30;
 	    return GenericDiagramNode;
@@ -8436,7 +8462,7 @@ webpackJsonp([0],{
 /***/ 86:
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<auto-completion [semanticModel]=\"worksheet.semanticModel\" [objectModel]=\"worksheet.objectModel\"></auto-completion>\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\t<class-diagram *ngFor=\"let classDiagram of worksheet.classDiagramList\" [classDiagram]=\"classDiagram\"></class-diagram>\n\t<interface-diagram *ngFor=\"let interfaceDiagram of worksheet.interfaceDiagramList\" [interfaceDiagram]=\"interfaceDiagram\"></interface-diagram>\n\t<class-object-diagram *ngFor=\"let classObject of worksheet.classObjectDiagramList\" [classObjectDiagram]=\"classObject\"></class-object-diagram>\n\t<line-segment [start]=\"st\" [end]=\"en\"></line-segment>\n</div>";
+	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<auto-completion [semanticModel]=\"worksheet.semanticModel\" [objectModel]=\"worksheet.objectModel\"></auto-completion>\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\t<generic-node [genericNode]=\"genericNode\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n<!--\t\n\t<class-diagram *ngFor=\"let classDiagram of worksheet.classDiagramList\" [classDiagram]=\"classDiagram\"></class-diagram>\n\t<interface-diagram *ngFor=\"let interfaceDiagram of worksheet.interfaceDiagramList\" [interfaceDiagram]=\"interfaceDiagram\"></interface-diagram>\n\t<class-object-diagram *ngFor=\"let classObject of worksheet.classObjectDiagramList\" [classObjectDiagram]=\"classObject\"></class-object-diagram>\n\t<line-segment [start]=\"st\" [end]=\"en\"></line-segment>\n\t-->\n</div>";
 
 /***/ },
 
@@ -8591,6 +8617,7 @@ webpackJsonp([0],{
 	    function ResizeHandleComponent() {
 	        this.requestDragging = new core_1.EventEmitter();
 	        this.updateAllResizeHandlers = new core_1.EventEmitter();
+	        //the following private fields are used exclusively to handle the drag event
 	        this.startX = 0;
 	        this.startY = 0;
 	        this.lastX = 0;
@@ -10164,6 +10191,91 @@ webpackJsonp([0],{
 	    return ParsingTransition;
 	}());
 
+
+/***/ },
+
+/***/ 674:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var core_2 = __webpack_require__(3);
+	var resize_handle_component_1 = __webpack_require__(92);
+	var worksheet_1 = __webpack_require__(77);
+	var GenericNodeComponent = (function () {
+	    function GenericNodeComponent() {
+	        this.requestDragging = new core_1.EventEmitter();
+	        this.isSelected = false;
+	    }
+	    GenericNodeComponent.prototype.toggleSelection = function () {
+	        this.isSelected = !this.isSelected;
+	    };
+	    GenericNodeComponent.prototype.handleMousePress = function (event) {
+	    };
+	    GenericNodeComponent.prototype.handleMouseDrag = function (event) {
+	    };
+	    GenericNodeComponent.prototype.handleMouseRelease = function (event) {
+	    };
+	    GenericNodeComponent.prototype.registerDragIntention = function (dragProcessor) {
+	        this.requestDragging.emit(dragProcessor);
+	    };
+	    GenericNodeComponent.prototype.updateAllResizeHandlers = function (resizeHandler) {
+	        this.resizeHandlers.forEach(function (item) {
+	            item.updateHandlePosition();
+	        });
+	    };
+	    __decorate([
+	        core_1.Input('genericNode'), 
+	        __metadata('design:type', (typeof (_a = typeof worksheet_1.GenericDiagramNode !== 'undefined' && worksheet_1.GenericDiagramNode) === 'function' && _a) || Object)
+	    ], GenericNodeComponent.prototype, "node", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], GenericNodeComponent.prototype, "requestDragging", void 0);
+	    __decorate([
+	        core_1.ViewChildren(resize_handle_component_1.ResizeHandleComponent), 
+	        __metadata('design:type', (typeof (_b = typeof core_1.QueryList !== 'undefined' && core_1.QueryList) === 'function' && _b) || Object)
+	    ], GenericNodeComponent.prototype, "resizeHandlers", void 0);
+	    GenericNodeComponent = __decorate([
+	        core_1.Component({
+	            selector: 'generic-node',
+	            template: __webpack_require__(675),
+	            animations: [
+	                core_2.trigger('selection', [
+	                    core_2.state('selected', core_2.style({
+	                        borderColor: "#2BA3FC"
+	                    })),
+	                    core_2.state('unselected', core_2.style({
+	                        borderColor: "black"
+	                    })),
+	                    core_2.transition('selected => unselected', core_2.animate('100ms ease-in')),
+	                    core_2.transition('unselected => selected', core_2.animate('100ms ease-out'))
+	                ])
+	            ]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], GenericNodeComponent);
+	    return GenericNodeComponent;
+	    var _a, _b;
+	}());
+	exports.GenericNodeComponent = GenericNodeComponent;
+
+
+/***/ },
+
+/***/ 675:
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"isSelected?'selected':'unselected'\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\"></div>\n\n<!-- Linker associated with this box-->\n<!--<linker [geometry]=\"node.rect\"></linker>-->\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
 
 /***/ }
 

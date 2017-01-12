@@ -1,0 +1,61 @@
+<div class="generic-block"
+[style.left.px]="node.rect.x"
+[style.top.px]="node.rect.y"
+[style.width.px]="node.rect.width"
+[style.height.px]="node.rect.height"
+[@selection]="isSelected?'selected':'unselected'" 
+(click)="toggleSelection()" 
+(mousepress)="registerDragIntention(this)"></div>
+
+<!-- Linker associated with this box-->
+<!--<linker [geometry]="node.rect"></linker>-->
+
+<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->
+<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->
+<resize-handle [rect]="node.rect" [placement]="1" 
+*ngIf="isSelected" 
+(requestDragging)="registerDragIntention($event)" 
+(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
+</resize-handle>
+
+<resize-handle [rect]="node.rect" [placement]="2"  
+*ngIf="isSelected" 
+(requestDragging)="registerDragIntention($event)" 
+(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
+</resize-handle>
+
+<resize-handle [rect]="node.rect" [placement]="3"  
+*ngIf="isSelected" 
+(requestDragging)="registerDragIntention($event)" 
+(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
+</resize-handle>
+
+<resize-handle [rect]="node.rect" [placement]="4"  
+*ngIf="isSelected" 
+(requestDragging)="registerDragIntention($event)" 
+(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
+</resize-handle>
+
+<resize-handle [rect]="node.rect" [placement]="5"  
+*ngIf="isSelected" 
+(requestDragging)="registerDragIntention($event)" 
+(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
+</resize-handle>
+
+<resize-handle [rect]="node.rect" [placement]="6"  
+*ngIf="isSelected" 
+(requestDragging)="registerDragIntention($event)" 
+(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
+</resize-handle>
+
+<resize-handle [rect]="node.rect" [placement]="7" 
+*ngIf="isSelected" 
+(requestDragging)="registerDragIntention($event)" 
+(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
+</resize-handle>
+
+<resize-handle [rect]="node.rect" [placement]="8"  
+*ngIf="isSelected" 
+(requestDragging)="registerDragIntention($event)" 
+(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
+</resize-handle>

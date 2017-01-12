@@ -26,15 +26,15 @@ export class RectTrackingPoint implements TrackingPoint{
 		this.rect=rect;
 		this.side=direction;
 		this.fraction=fraction;
-		this.trackedPoint=this.pointOnSide(fraction);
+		this.trackedPoint=this.pointOnSide(this.side,this.fraction);
 	}
 
 	pointOnGeometry():Point{
-		return this.trackedPoint;
+		return this.pointOnSide(this.side,this.fraction);
 	}
 
 	/** Returns the point defined by a side and a fraction between 0 and 1 */
-	pointOnSide(side=this.side,fraction:number=this.fraction):Point{
+	pointOnSide(side:Direction,fraction:number=this.fraction):Point{//TODO redundant arguments?
 		var startPoint:Point;
 		var endPoint:Point;
 

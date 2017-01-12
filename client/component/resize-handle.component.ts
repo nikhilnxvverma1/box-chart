@@ -20,6 +20,7 @@ export class ResizeHandleComponent implements OnInit,PressDragReleaseProcessor{
 	private pointOnSide:RectTrackingPoint;
 	private cursor:string;
 
+	//the following private fields are used exclusively to handle the drag event
 	private startX=0;
 	private startY=0;
 	private lastX=0;

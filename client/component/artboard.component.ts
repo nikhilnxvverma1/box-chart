@@ -9,6 +9,7 @@ import { Worksheet } from '../model/worksheet';
 import { MockDataService } from '../utility/mock-data.service';
 import { AutoCompletionComponent } from './auto-completion.component';
 import { InterpreterService } from '../editor/compiler/interpreter.service';
+import { GenericDiagramNode,GenericDiagramNodeType } from '../model/worksheet';
 
 export const ArtboardWidth=3200;
 export const ArtboardHeight=(2/3)*ArtboardWidth;
@@ -33,12 +34,20 @@ export class ArtboardComponent  {
 
 	private draggingInteraction:PressDragReleaseProcessor;
 
-    constructor(private mockDataService:MockDataService,private interpreter:InterpreterService ){
-      this.massiveArea=new Rect(0,0,ArtboardWidth,ArtboardHeight);
-	  this.worksheet=this.mockDataService.vehicleWorksheet();
-	//   this.interpreter.parseFieldMember("+capacity:int");
-	  this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
-    }
+	constructor(private mockDataService:MockDataService,private interpreter:InterpreterService ){
+		this.massiveArea=new Rect(0,0,ArtboardWidth,ArtboardHeight);
+		this.worksheet=this.mockDataService.vehicleWorksheet();
+		this.testing();
+		
+	}
+
+	testing(){
+		this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
+		this.genericNode=new GenericDiagramNode(GenericDiagramNodeType.Rectangle);
+		this.genericNode.rect.x=1500;
+		this.genericNode.rect.y=1400;
+		this.rectList.push(new Rect(1300,1000,200,50));
+	}
 
     doubleClickedArtboard(event:MouseEvent){
         var width=200;
@@ -90,7 +99,10 @@ export class ArtboardComponent  {
 		}
 	}
 
+	//testing stuff
 	st=new Point(1501,1300);
 	en=new Point(1700,700);
+
+	genericNode:GenericDiagramNode;
 
 }

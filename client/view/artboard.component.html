@@ -15,8 +15,11 @@
 	[style.top.px]="massiveArea.height/2"
 	>Double click anywhere to create a box</h1>
 	<box *ngFor="let rect of rectList" [rect]="rect" (requestDragging)="setDragInteractionIfEmpty($event)"></box>
+	<generic-node [genericNode]="genericNode" (requestDragging)="setDragInteractionIfEmpty($event)"></generic-node>
+<!--	
 	<class-diagram *ngFor="let classDiagram of worksheet.classDiagramList" [classDiagram]="classDiagram"></class-diagram>
 	<interface-diagram *ngFor="let interfaceDiagram of worksheet.interfaceDiagramList" [interfaceDiagram]="interfaceDiagram"></interface-diagram>
 	<class-object-diagram *ngFor="let classObject of worksheet.classObjectDiagramList" [classObjectDiagram]="classObject"></class-object-diagram>
 	<line-segment [start]="st" [end]="en"></line-segment>
+	-->
 </div>

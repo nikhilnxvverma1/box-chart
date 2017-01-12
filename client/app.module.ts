@@ -11,6 +11,7 @@ import { ArtboardComponent } from './component/artboard.component';
 import { SidebarComponent } from './component/sidebar.component';
 import { AreaComponent } from './component/area.component';
 import { BoxComponent } from './component/box.component';
+import { GenericNodeComponent } from './component/generic-node.component';
 import { LineSegmentComponent } from './component/line-segment.component';
 import { ResizeHandleComponent } from './component/resize-handle.component';
 import { LinkerComponent } from './component/linker.component';
@@ -37,38 +38,39 @@ const MyRoutes=RouterModule.forRoot([
 ]);
 
 @NgModule({
-    imports:      [ 
-        BrowserModule,
+	imports:[ 
+		BrowserModule,
 		FormsModule,
-        MyRoutes
-     ],
-    declarations: [
-         FocusDirective,
-         MyRectDirective,
-         MyCircleDirective,
-		 AccessSymbol,
-         AppComponent,
-         LoginComponent,
-         SignupComponent,
-         DocumentListComponent,
-         WorkspaceComponent,
-         SidebarComponent,
-         ArtboardComponent,
-         AreaComponent,
-         BoxComponent,
-         LineSegmentComponent,
-         ResizeHandleComponent,
-         InputBoxComponent,
-         AutoCompletionComponent,
-		 ClassDiagramComponent,
-		 ClassObjectComponent,
-		 InterfaceDiagramComponent,
-		 InterfaceObjectDiagramComponent,
-		 LinkedSegmentsComponent,
-         LinkerComponent
-         ],
-    schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-    providers:[TransformService,InterpreterService,MockDataService],
-    bootstrap:    [ AppComponent ]
+		MyRoutes
+	],
+	declarations: [
+		FocusDirective,
+		MyRectDirective,
+		MyCircleDirective,
+		AccessSymbol,
+		AppComponent,
+		LoginComponent,
+		SignupComponent,
+		DocumentListComponent,
+		WorkspaceComponent,
+		SidebarComponent,
+		ArtboardComponent,
+		AreaComponent,
+		BoxComponent,
+		GenericNodeComponent,
+		LineSegmentComponent,
+		ResizeHandleComponent,
+		InputBoxComponent,
+		AutoCompletionComponent,
+		ClassDiagramComponent,
+		ClassObjectComponent,
+		InterfaceDiagramComponent,
+		InterfaceObjectDiagramComponent,
+		LinkedSegmentsComponent,
+		LinkerComponent
+		],
+	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
+	providers:[TransformService,InterpreterService,MockDataService],
+	bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

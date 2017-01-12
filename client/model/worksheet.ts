@@ -72,13 +72,13 @@ export class GenericDiagramNode extends DiagramNode{
 	private static readonly Width=200;
 	private static readonly Height=30;
 
-	private type:GenericDiagramNodeType;
-	private rect:Rect=new Rect(0,0,GenericDiagramNode.Width,GenericDiagramNode.Height);
-	private content:string;
+	private _type:GenericDiagramNodeType;
+	rect:Rect=new Rect(0,0,GenericDiagramNode.Width,GenericDiagramNode.Height);
+	private _content:string;
 
 	constructor(type:GenericDiagramNodeType){
 		super();
-		this.type=type;
+		this._type=type;
 	}
 
 	getGeometry():Geometry{
@@ -87,6 +87,18 @@ export class GenericDiagramNode extends DiagramNode{
 	
 	cellRequirement():number{
 		return 0;
+	}
+
+	// get rect():Rect{
+	// 	return this.rect;
+	// }
+
+	get type():GenericDiagramNodeType{
+		return this._type;
+	}
+
+	get content():string{
+		return this._content;
 	}
 
 }
