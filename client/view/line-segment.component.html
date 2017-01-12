@@ -3,13 +3,10 @@
 	[style.left.px]="(start.x+end.x)/2" 
 	[style.top.px]="(start.y+end.y)/2"
 	[style.width.px]="start.distance(end)"
-	[style.-webkit-transform]="rotation()"
-	[style.-ms-transform]="rotation()"
-	[style.transform]="rotation()">
+	[style.-webkit-transform]="transformationMatrix()"
+	[style.-ms-transform]="transformationMatrix()"
+	[style.transform]="transformationMatrix()">
 	<div class="line-segment-text" >
 		<span contenteditable="true">Editable</span>
 	</div>
 </div>
-
-<!--<div class="debug" [style.left.px]="(start.x+end.x)/2" 
-	[style.top.px]="(start.y+end.y)/2" [style.width.px]="start.distance(end)" ></div>-->

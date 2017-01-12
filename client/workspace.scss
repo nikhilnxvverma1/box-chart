@@ -6,6 +6,7 @@ $linker-color:#344353;
 	// background:white;
 	// border: 2px solid black;
 	overflow: scroll;
+	z-index: 1;
 }
 
 .node-background{
@@ -102,7 +103,6 @@ h1 {
 	position:absolute;
 	height:1px;//indicates thickness
 	background:black;
-	transform-origin: center;
 	z-index: -1;
 }
 
