@@ -29,6 +29,7 @@ import { FocusDirective } from './helper/focus.directive';
 import { MyRectDirective } from './helper/my-rect.directive';
 import { MyCircleDirective } from './helper/my-circle.directive';
 import { AccessSymbol } from './helper/access-symbol.pipe';
+import { NodeBackground } from './helper/node-background.pipe';
 
 const MyRoutes=RouterModule.forRoot([
     {path:'',component:LoginComponent},
@@ -48,6 +49,7 @@ const MyRoutes=RouterModule.forRoot([
 		MyRectDirective,
 		MyCircleDirective,
 		AccessSymbol,
+		NodeBackground,
 		AppComponent,
 		LoginComponent,
 		SignupComponent,

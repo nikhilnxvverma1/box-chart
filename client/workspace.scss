@@ -3,9 +3,20 @@ $linker-color:#344353;
 
 .generic-block{
 	position:absolute;
-	background:white;
-	border: 2px solid black;
+	// background:white;
+	// border: 2px solid black;
 	overflow: scroll;
+}
+
+.node-background{
+	z-index: -1;
+	position: absolute;
+	top: 0px;
+	left: 0px;
+}
+
+.node-content{
+	text-align: center;
 }
 
 .selected-block{

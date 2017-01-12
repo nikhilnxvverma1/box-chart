@@ -45,7 +45,7 @@ export class ArtboardComponent  {
 		this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
 		this.genericNode=new GenericDiagramNode(GenericDiagramNodeType.Rectangle);
 		this.genericNode.rect.x=1500;
-		this.genericNode.rect.y=1400;
+		this.genericNode.rect.y=1200;
 		this.rectList.push(new Rect(1300,1000,200,50));
 	}
 

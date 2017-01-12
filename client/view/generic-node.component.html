@@ -5,10 +5,24 @@
 [style.height.px]="node.rect.height"
 [@selection]="isSelected?'selected':'unselected'" 
 (click)="toggleSelection()" 
-(mousepress)="registerDragIntention(this)"></div>
+(mousepress)="registerDragIntention(this)">
+	<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->
+	<svg width="100%" height="100%" class="node-background">
+		<!--Rectangle(1)-->
+		<rect *ngIf="node.type==1" x="0" y="0" width="100%" height="100%" [style.fill]="node.background.hashCode()" [style.stroke]="node.stroke.hashCode()" [style.stroke-width]="3"/>
+		<!--Circle(2) or Ellipse(4)-->
+		<ellipse *ngIf="node.type==2||node.type==4" cx="50%" cy="50%" rx="50%" ry="50%" [style.fill]="node.background.hashCode()" [style.stroke]="node.stroke.hashCode()" [style.stroke-width]="3"/>
+		<!--Rounded Rectangle(5)-->
+		<rect *ngIf="node.type==5" width="100%" height="100%" rx="20px" ry="20px" [style.fill]="node.background.hashCode()" [style.stroke]="node.stroke.hashCode()" [style.stroke-width]="3"/>
+		<!--Parallelogram(8)-->
+		<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->
+		<rect *ngIf="node.type==8" x="0" y="0" width="100%" height="100%" transform="skewX(-20)" [style.fill]="node.background.hashCode()" [style.stroke]="node.stroke.hashCode()" [style.stroke-width]="3"/>
+	</svg>
+	<div class="node-content" [style.color]="node.foreground.hashCode()" >{{node.content}}</div>
+</div>
 
 <!-- Linker associated with this box-->
-<!--<linker [geometry]="node.rect"></linker>-->
+<linker [geometry]="node.rect"></linker>
 
 <!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->
 <!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->

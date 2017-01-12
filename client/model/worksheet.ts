@@ -20,6 +20,26 @@ export class Worksheet{
 	interfaceObjectDiagramList:InterfaceObjectDiagram[]=[];
 }
 
+/** Specifies color in the range 0-255 for four channels. Default is white(255,255,255,255) */
+export class Color{
+	red:number;
+	green:number;
+	blue:number;
+	alpha:number;
+
+	constructor(r=255,g=255,b=255,a=255){
+		this.red=r;
+		this.green=g;
+		this.blue=b;
+		this.alpha=a;
+	}
+
+	/** Returns the a hashcode equivalent string like #2343A4 */
+	hashCode():string{
+		return "#"+this.red.toString(16)+this.green.toString(16)+this.blue.toString(16);
+	}
+}
+
 /** 
  * A node in the diagram graph that contains both the incoming and outgoing edges.
  * A diagram node is also a visual block to display and additionally also holds geometry.
@@ -31,6 +51,13 @@ export abstract class DiagramNode{
 	id:string;
 	/** A string that describes this node */
 	label:string;
+	/** Color of the background */
+	background=new Color();//white by default
+	/** Color of the foreground(text) */
+	foreground=new Color(0,0,0,0);
+	/** Color of the stroke */
+	stroke=new Color(0,0,0,0);
+
 	incomingEdges:DiagramEdge[]=[];
 	outgoingEdges:DiagramEdge[]=[];
 	/** Gives the geometrical shape for this diagram block */
@@ -59,13 +86,61 @@ export class DiagramEdge{
 	intermediatePointLast:LinkedPoint;
 }
 
+/** Identification for the type of generic node */
 export enum GenericDiagramNodeType{
-	Rectangle,
-	Circle,
-	Diamond,
-	Ellipse,
-	StickFigure,
-	Database
+
+	//WARNING: These number are connected to the values in the template. Don't change them
+
+	Rectangle=1,
+	Circle=2,
+	Diamond=3,
+	Ellipse=4,
+	RoundedRectangle=5,
+	StickFigure=6,
+	Database=7,
+	Parallelogram=8
+
+	//TODO add more below, not in the middle
+}
+
+/** Returns a rectangle whose dimensions are based on the generic node type */
+export function getRectForGenericNode(nodeType:GenericDiagramNodeType,x=0,y=0){
+	var width=0;
+	var height=0;
+	switch(nodeType){
+		case GenericDiagramNodeType.Rectangle:
+			width=200;
+			height=30;
+			break;
+		case GenericDiagramNodeType.Circle:
+			width=100;
+			height=100;
+			break;
+		case GenericDiagramNodeType.Diamond:
+			width=100;
+			height=100;
+			break;
+		case GenericDiagramNodeType.Ellipse:
+			width=200;
+			height=60;
+			break;
+		case GenericDiagramNodeType.RoundedRectangle:
+			width=200;
+			height=60;
+			break;
+		case GenericDiagramNodeType.StickFigure:
+			width=80;
+			height=120;
+			break;
+		case GenericDiagramNodeType.Database:
+			width=80;
+			height=120;
+		case GenericDiagramNodeType.Parallelogram:
+			width=200;
+			height=80;
+			break;
+	}
+	return new Rect(x,y,width,height);
 }
 
 export class GenericDiagramNode extends DiagramNode{
@@ -73,25 +148,27 @@ export class GenericDiagramNode extends DiagramNode{
 	private static readonly Height=30;
 
 	private _type:GenericDiagramNodeType;
-	rect:Rect=new Rect(0,0,GenericDiagramNode.Width,GenericDiagramNode.Height);
+	private _rect:Rect;
 	private _content:string;
 
 	constructor(type:GenericDiagramNodeType){
 		super();
 		this._type=type;
+		this._rect=getRectForGenericNode(this._type);
+		this._content="Content";
 	}
 
 	getGeometry():Geometry{
-		return this.rect;
+		return this._rect;
 	}
 	
 	cellRequirement():number{
 		return 0;
 	}
 
-	// get rect():Rect{
-	// 	return this.rect;
-	// }
+	get rect():Rect{
+		return this._rect;
+	}
 
 	get type():GenericDiagramNodeType{
 		return this._type;

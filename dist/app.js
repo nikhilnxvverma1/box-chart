@@ -56,6 +56,7 @@ webpackJsonp([0],{
 	var my_rect_directive_1 = __webpack_require__(112);
 	var my_circle_directive_1 = __webpack_require__(113);
 	var access_symbol_pipe_1 = __webpack_require__(114);
+	var node_background_pipe_1 = __webpack_require__(676);
 	var MyRoutes = router_1.RouterModule.forRoot([
 	    { path: '', component: login_component_1.LoginComponent },
 	    { path: 'signup', component: signup_component_1.SignupComponent },
@@ -77,6 +78,7 @@ webpackJsonp([0],{
 	                my_rect_directive_1.MyRectDirective,
 	                my_circle_directive_1.MyCircleDirective,
 	                access_symbol_pipe_1.AccessSymbol,
+	                node_background_pipe_1.NodeBackground,
 	                app_component_1.AppComponent,
 	                login_component_1.LoginComponent,
 	                signup_component_1.SignupComponent,
@@ -7033,7 +7035,7 @@ webpackJsonp([0],{
 	        this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
 	        this.genericNode = new worksheet_1.GenericDiagramNode(worksheet_1.GenericDiagramNodeType.Rectangle);
 	        this.genericNode.rect.x = 1500;
-	        this.genericNode.rect.y = 1400;
+	        this.genericNode.rect.y = 1200;
 	        this.rectList.push(new geometry_1.Rect(1300, 1000, 200, 50));
 	    };
 	    ArtboardComponent.prototype.doubleClickedArtboard = function (event) {
@@ -7250,6 +7252,25 @@ webpackJsonp([0],{
 	    return Worksheet;
 	}());
 	exports.Worksheet = Worksheet;
+	/** Specifies color in the range 0-255 for four channels. Default is white(255,255,255,255) */
+	var Color = (function () {
+	    function Color(r, g, b, a) {
+	        if (r === void 0) { r = 255; }
+	        if (g === void 0) { g = 255; }
+	        if (b === void 0) { b = 255; }
+	        if (a === void 0) { a = 255; }
+	        this.red = r;
+	        this.green = g;
+	        this.blue = b;
+	        this.alpha = a;
+	    }
+	    /** Returns the a hashcode equivalent string like #2343A4 */
+	    Color.prototype.hashCode = function () {
+	        return "#" + this.red.toString(16) + this.green.toString(16) + this.blue.toString(16);
+	    };
+	    return Color;
+	}());
+	exports.Color = Color;
 	/**
 	 * A node in the diagram graph that contains both the incoming and outgoing edges.
 	 * A diagram node is also a visual block to display and additionally also holds geometry.
@@ -7258,6 +7279,12 @@ webpackJsonp([0],{
 	    function DiagramNode() {
 	        /** Used exclusively as a flag to tell weather this block is selected in the editor or not */
 	        this.selected = false; //TODO this should be a part of the component
+	        /** Color of the background */
+	        this.background = new Color(); //white by default
+	        /** Color of the foreground(text) */
+	        this.foreground = new Color(0, 0, 0, 0);
+	        /** Color of the stroke */
+	        this.stroke = new Color(0, 0, 0, 0);
 	        this.incomingEdges = [];
 	        this.outgoingEdges = [];
 	    }
@@ -7274,32 +7301,83 @@ webpackJsonp([0],{
 	    return DiagramEdge;
 	}());
 	exports.DiagramEdge = DiagramEdge;
+	/** Identification for the type of generic node */
 	(function (GenericDiagramNodeType) {
-	    GenericDiagramNodeType[GenericDiagramNodeType["Rectangle"] = 0] = "Rectangle";
-	    GenericDiagramNodeType[GenericDiagramNodeType["Circle"] = 1] = "Circle";
-	    GenericDiagramNodeType[GenericDiagramNodeType["Diamond"] = 2] = "Diamond";
-	    GenericDiagramNodeType[GenericDiagramNodeType["Ellipse"] = 3] = "Ellipse";
-	    GenericDiagramNodeType[GenericDiagramNodeType["StickFigure"] = 4] = "StickFigure";
-	    GenericDiagramNodeType[GenericDiagramNodeType["Database"] = 5] = "Database";
+	    //WARNING: These number are connected to the values in the template. Don't change them
+	    GenericDiagramNodeType[GenericDiagramNodeType["Rectangle"] = 1] = "Rectangle";
+	    GenericDiagramNodeType[GenericDiagramNodeType["Circle"] = 2] = "Circle";
+	    GenericDiagramNodeType[GenericDiagramNodeType["Diamond"] = 3] = "Diamond";
+	    GenericDiagramNodeType[GenericDiagramNodeType["Ellipse"] = 4] = "Ellipse";
+	    GenericDiagramNodeType[GenericDiagramNodeType["RoundedRectangle"] = 5] = "RoundedRectangle";
+	    GenericDiagramNodeType[GenericDiagramNodeType["StickFigure"] = 6] = "StickFigure";
+	    GenericDiagramNodeType[GenericDiagramNodeType["Database"] = 7] = "Database";
+	    GenericDiagramNodeType[GenericDiagramNodeType["Parallelogram"] = 8] = "Parallelogram";
 	})(exports.GenericDiagramNodeType || (exports.GenericDiagramNodeType = {}));
 	var GenericDiagramNodeType = exports.GenericDiagramNodeType;
+	/** Returns a rectangle whose dimensions are based on the generic node type */
+	function getRectForGenericNode(nodeType, x, y) {
+	    if (x === void 0) { x = 0; }
+	    if (y === void 0) { y = 0; }
+	    var width = 0;
+	    var height = 0;
+	    switch (nodeType) {
+	        case GenericDiagramNodeType.Rectangle:
+	            width = 200;
+	            height = 30;
+	            break;
+	        case GenericDiagramNodeType.Circle:
+	            width = 100;
+	            height = 100;
+	            break;
+	        case GenericDiagramNodeType.Diamond:
+	            width = 100;
+	            height = 100;
+	            break;
+	        case GenericDiagramNodeType.Ellipse:
+	            width = 200;
+	            height = 60;
+	            break;
+	        case GenericDiagramNodeType.RoundedRectangle:
+	            width = 200;
+	            height = 60;
+	            break;
+	        case GenericDiagramNodeType.StickFigure:
+	            width = 80;
+	            height = 120;
+	            break;
+	        case GenericDiagramNodeType.Database:
+	            width = 80;
+	            height = 120;
+	        case GenericDiagramNodeType.Parallelogram:
+	            width = 200;
+	            height = 80;
+	            break;
+	    }
+	    return new geometry_1.Rect(x, y, width, height);
+	}
+	exports.getRectForGenericNode = getRectForGenericNode;
 	var GenericDiagramNode = (function (_super) {
 	    __extends(GenericDiagramNode, _super);
 	    function GenericDiagramNode(type) {
 	        _super.call(this);
-	        this.rect = new geometry_1.Rect(0, 0, GenericDiagramNode.Width, GenericDiagramNode.Height);
 	        this._type = type;
+	        this._rect = getRectForGenericNode(this._type);
+	        this._content = "Content";
 	    }
 	    GenericDiagramNode.prototype.getGeometry = function () {
-	        return this.rect;
+	        return this._rect;
 	    };
 	    GenericDiagramNode.prototype.cellRequirement = function () {
 	        return 0;
 	    };
+	    Object.defineProperty(GenericDiagramNode.prototype, "rect", {
+	        get: function () {
+	            return this._rect;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    Object.defineProperty(GenericDiagramNode.prototype, "type", {
-	        // get rect():Rect{
-	        // 	return this.rect;
-	        // }
 	        get: function () {
 	            return this._type;
 	        },
@@ -9455,7 +9533,7 @@ webpackJsonp([0],{
 	
 	
 	// module
-	exports.push([module.id, ".generic-block {\n  position: absolute;\n  background: white;\n  border: 2px solid black;\n  overflow: scroll; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  transform-origin: center; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n", ""]);
+	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  text-align: center; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  transform-origin: center; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n", ""]);
 	
 	// exports
 
@@ -10275,7 +10353,59 @@ webpackJsonp([0],{
 /***/ 675:
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"isSelected?'selected':'unselected'\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\"></div>\n\n<!-- Linker associated with this box-->\n<!--<linker [geometry]=\"node.rect\"></linker>-->\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"isSelected?'selected':'unselected'\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\">\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"node.rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
+
+/***/ },
+
+/***/ 676:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var worksheet_1 = __webpack_require__(77);
+	/*
+	 * Gives the background(mostly svg) for generic type node
+	 * @Deprecated (Using inline svgs now)
+	 * Usage:
+	 *   value | nodeBg
+	*/
+	var NodeBackground = (function () {
+	    function NodeBackground() {
+	    }
+	    NodeBackground.prototype.transform = function (value) {
+	        var pathToBg = "";
+	        switch (value) {
+	            case worksheet_1.GenericDiagramNodeType.Rectangle:
+	                break;
+	            case worksheet_1.GenericDiagramNodeType.Circle:
+	                break;
+	            case worksheet_1.GenericDiagramNodeType.Diamond:
+	                break;
+	            case worksheet_1.GenericDiagramNodeType.Ellipse:
+	                break;
+	            case worksheet_1.GenericDiagramNodeType.StickFigure:
+	                break;
+	            case worksheet_1.GenericDiagramNodeType.Database:
+	        }
+	        return pathToBg;
+	    };
+	    NodeBackground = __decorate([
+	        core_1.Pipe({ name: 'nodeBg' }), 
+	        __metadata('design:paramtypes', [])
+	    ], NodeBackground);
+	    return NodeBackground;
+	}());
+	exports.NodeBackground = NodeBackground;
+
 
 /***/ }
 
