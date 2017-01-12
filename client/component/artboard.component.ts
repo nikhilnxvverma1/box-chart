@@ -9,7 +9,7 @@ import { Worksheet } from '../model/worksheet';
 import { MockDataService } from '../utility/mock-data.service';
 import { AutoCompletionComponent } from './auto-completion.component';
 import { InterpreterService } from '../editor/compiler/interpreter.service';
-import { GenericDiagramNode,GenericDiagramNodeType } from '../model/worksheet';
+import { GenericDiagramNode,GenericDiagramNodeType,DiagramEdge } from '../model/worksheet';
 
 export const ArtboardWidth=3200;
 export const ArtboardHeight=(2/3)*ArtboardWidth;
@@ -43,10 +43,20 @@ export class ArtboardComponent  {
 
 	testing(){
 		this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
-		this.genericNode=new GenericDiagramNode(GenericDiagramNodeType.Rectangle);
-		this.genericNode.rect.x=1500;
-		this.genericNode.rect.y=1200;
 		this.rectList.push(new Rect(1300,1000,200,50));
+
+		this.genericNode1=new GenericDiagramNode(GenericDiagramNodeType.Rectangle);
+		this.genericNode1.rect.x=1500;
+		this.genericNode1.rect.y=1200;
+
+		this.genericNode2=new GenericDiagramNode(GenericDiagramNodeType.RoundedRectangle);
+		this.genericNode2.rect.x=1800;
+		this.genericNode2.rect.y=1000;
+
+		this.edge=new DiagramEdge();
+		this.edge.from=this.genericNode1;
+		this.edge.to=this.genericNode2;
+		
 	}
 
     doubleClickedArtboard(event:MouseEvent){
@@ -103,6 +113,9 @@ export class ArtboardComponent  {
 	st=new Point(1501,1300);
 	en=new Point(1700,700);
 
-	genericNode:GenericDiagramNode;
+	genericNode1:GenericDiagramNode;
+	genericNode2:GenericDiagramNode;
+	
+	edge:DiagramEdge;
 
 }

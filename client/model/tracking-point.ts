@@ -1,7 +1,7 @@
 import { Direction,linearInterpolation,LineEquation } from '../utility/common';
-import { Point,Rect,Circle,LineSegment } from './geometry';
+import { Point,Rect,Circle,LineSegment,Geometry } from './geometry';
 
-/** Represents a data structure that can denote a point on the surface of a geometry */
+/** Represents a data structure that can denote a point on a geometry */
 export interface TrackingPoint{
 	/** Finds the point on geometry for the current configuration of the tracking point */
 	pointOnGeometry():Point;
@@ -9,6 +9,33 @@ export interface TrackingPoint{
 	 * Sets the configuration so that the tracked point exists nearest to the point being supplied. 
 	 * Additionally also returns said point  */
 	gravitateTowards(p:Point):Point;
+}
+
+/** A simple point. Empty suggests that this tracking point is not tracking anything(geometry) */
+export class EmptyTrackingPoint implements TrackingPoint{
+	point:Point;
+	pointOnGeometry():Point{
+		return this.point;
+	}
+	gravitateTowards(p:Point):Point{
+		return this.point;
+	}
+}
+
+/** Tracks the center point of a given geometry */
+export class CenterTrackingPoint implements TrackingPoint{
+	geometry:Geometry;
+
+	constructor(geometry:Geometry){
+		this.geometry=geometry;
+	}
+
+	pointOnGeometry():Point{
+		return this.geometry.getBoundingBox().center();
+	}
+	gravitateTowards(p:Point):Point{
+		return this.geometry.getBoundingBox().center();
+	}
 }
 
 export class RectTrackingPoint implements TrackingPoint{

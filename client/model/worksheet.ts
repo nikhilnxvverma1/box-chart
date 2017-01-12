@@ -1,6 +1,6 @@
 import { Geometry,Rect,LinkedPoint,Point,Circle } from './geometry';
 import { SemanticModel,ClassDefinition,InterfaceDefinition } from './semantic-model';
-import { TrackingPoint } from './tracking-point';
+import { TrackingPoint,CenterTrackingPoint } from './tracking-point';
 import { ObjectModel, ClassObjectData, InterfaceObjectData, Collection } from './object-model';
 
 //the following constants are used to identify objects of this data model in JSON
@@ -71,19 +71,55 @@ export abstract class DiagramNode{
  * Additionally(and optionally) it also contains label and intermediate points that may be required for denoting linked line segments.
  */
 export class DiagramEdge{
-	from:DiagramNode;
-	to:DiagramNode;
-	fromPoint:TrackingPoint;
-	toPoint:TrackingPoint;
+	private _from:DiagramNode;
+	private _to:DiagramNode;
+	private _fromPoint:TrackingPoint;
+	private _toPoint:TrackingPoint;
 
 	/**Optional label on edge*/
 	label:string;
 
 	/** The start of a doubly linked list of points that make up the line segments */
-	intermediatePointStart:LinkedPoint;
+	private _intermediatePointStart:LinkedPoint;
 
 	/** The end of a doubly linked list of points that make up the line segments */
-	intermediatePointLast:LinkedPoint;
+	private _intermediatePointLast:LinkedPoint;
+
+	get from():DiagramNode{
+		return this._from;
+	}
+
+	set from(value:DiagramNode){
+		this._from=value;
+		this._fromPoint=new CenterTrackingPoint(value.getGeometry());
+	}
+
+	get to():DiagramNode{
+		return this._to;
+	}
+
+	set to(value:DiagramNode){
+		this._to=value;
+		this._toPoint=new CenterTrackingPoint(value.getGeometry());
+	}
+
+	get fromPoint():TrackingPoint{
+		return this._fromPoint;
+	}
+
+	set fromPoint(value:TrackingPoint){
+		this._fromPoint=value;
+	}
+
+	get toPoint():TrackingPoint{
+		return this._toPoint;
+	}
+
+	set toPoint(value:TrackingPoint){
+		this._toPoint=value;
+	}
+
+	
 }
 
 /** Identification for the type of generic node */

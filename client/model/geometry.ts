@@ -111,6 +111,8 @@ export interface Geometry{
 	contains(p:Point):boolean;
 	/** Makes a tracking point specific to this geometry that can be used to get a point on the circumferance of this geometry */
 	getTrackingPoint():TrackingPoint;
+	/** Returns a rect that tells about this geometry's top left position and dimensions */
+	getBoundingBox():Rect;
 }
 
 export class Rect implements Geometry{
@@ -155,6 +157,14 @@ export class Rect implements Geometry{
 	bottomLeft():Point{
 		return new Point(this.x,this.y+this.height);
 	}
+
+	center():Point{
+		return new Point(this.x+this.width/2,this.y+this.height/2);
+	}
+
+	getBoundingBox():Rect{
+		return new Rect(this.x,this.y,this.width,this.height);
+	}
 }
 
 export class Circle implements Geometry{
@@ -176,6 +186,10 @@ export class Circle implements Geometry{
 
 	getTrackingPoint():TrackingPoint{
 		return new CircleTrackingPoint(this);
+	}
+
+	getBoundingBox():Rect{
+		return new Rect(this.center.x-this.radius,this.center.y-this.radius,this.radius*2,this.radius*2);
 	}
 }
 
@@ -204,5 +218,13 @@ export class LineSegment implements Geometry{
 
 	getTrackingPoint():TrackingPoint{
 		return new LineSegmentTrackingPoint();
+	}
+
+	getBoundingBox():Rect{
+		var lx=this.start.x<this.end.x?this.start.x:this.end.x;
+		var ly=this.start.y<this.end.y?this.start.y:this.end.y;
+		var hx=this.start.x>this.end.x?this.start.x:this.end.x;
+		var hy=this.start.y>this.end.y?this.start.y:this.end.y;
+		return new Rect(lx,ly,hx-lx,hy-ly);
 	}
 }

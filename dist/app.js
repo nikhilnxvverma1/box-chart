@@ -6339,6 +6339,12 @@ webpackJsonp([0],{
 	    Rect.prototype.bottomLeft = function () {
 	        return new Point(this.x, this.y + this.height);
 	    };
+	    Rect.prototype.center = function () {
+	        return new Point(this.x + this.width / 2, this.y + this.height / 2);
+	    };
+	    Rect.prototype.getBoundingBox = function () {
+	        return new Rect(this.x, this.y, this.width, this.height);
+	    };
 	    return Rect;
 	}());
 	exports.Rect = Rect;
@@ -6355,6 +6361,9 @@ webpackJsonp([0],{
 	    };
 	    Circle.prototype.getTrackingPoint = function () {
 	        return new tracking_point_1.CircleTrackingPoint(this);
+	    };
+	    Circle.prototype.getBoundingBox = function () {
+	        return new Rect(this.center.x - this.radius, this.center.y - this.radius, this.radius * 2, this.radius * 2);
 	    };
 	    return Circle;
 	}());
@@ -6376,6 +6385,13 @@ webpackJsonp([0],{
 	    };
 	    LineSegment.prototype.getTrackingPoint = function () {
 	        return new tracking_point_1.LineSegmentTrackingPoint();
+	    };
+	    LineSegment.prototype.getBoundingBox = function () {
+	        var lx = this.start.x < this.end.x ? this.start.x : this.end.x;
+	        var ly = this.start.y < this.end.y ? this.start.y : this.end.y;
+	        var hx = this.start.x > this.end.x ? this.start.x : this.end.x;
+	        var hy = this.start.y > this.end.y ? this.start.y : this.end.y;
+	        return new Rect(lx, ly, hx - lx, hy - ly);
 	    };
 	    LineSegment.closeEnoughDistance = 10;
 	    return LineSegment;
@@ -6800,6 +6816,33 @@ webpackJsonp([0],{
 	"use strict";
 	var common_1 = __webpack_require__(69);
 	var geometry_1 = __webpack_require__(68);
+	/** A simple point. Empty suggests that this tracking point is not tracking anything(geometry) */
+	var EmptyTrackingPoint = (function () {
+	    function EmptyTrackingPoint() {
+	    }
+	    EmptyTrackingPoint.prototype.pointOnGeometry = function () {
+	        return this.point;
+	    };
+	    EmptyTrackingPoint.prototype.gravitateTowards = function (p) {
+	        return this.point;
+	    };
+	    return EmptyTrackingPoint;
+	}());
+	exports.EmptyTrackingPoint = EmptyTrackingPoint;
+	/** Tracks the center point of a given geometry */
+	var CenterTrackingPoint = (function () {
+	    function CenterTrackingPoint(geometry) {
+	        this.geometry = geometry;
+	    }
+	    CenterTrackingPoint.prototype.pointOnGeometry = function () {
+	        return this.geometry.getBoundingBox().center();
+	    };
+	    CenterTrackingPoint.prototype.gravitateTowards = function (p) {
+	        return this.geometry.getBoundingBox().center();
+	    };
+	    return CenterTrackingPoint;
+	}());
+	exports.CenterTrackingPoint = CenterTrackingPoint;
 	var RectTrackingPoint = (function () {
 	    /**
 	     * Creates a new tracking point for a given side of a rect with a
@@ -7033,10 +7076,16 @@ webpackJsonp([0],{
 	    }
 	    ArtboardComponent.prototype.testing = function () {
 	        this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
-	        this.genericNode = new worksheet_1.GenericDiagramNode(worksheet_1.GenericDiagramNodeType.Rectangle);
-	        this.genericNode.rect.x = 1500;
-	        this.genericNode.rect.y = 1200;
 	        this.rectList.push(new geometry_1.Rect(1300, 1000, 200, 50));
+	        this.genericNode1 = new worksheet_1.GenericDiagramNode(worksheet_1.GenericDiagramNodeType.Rectangle);
+	        this.genericNode1.rect.x = 1500;
+	        this.genericNode1.rect.y = 1200;
+	        this.genericNode2 = new worksheet_1.GenericDiagramNode(worksheet_1.GenericDiagramNodeType.RoundedRectangle);
+	        this.genericNode2.rect.x = 1800;
+	        this.genericNode2.rect.y = 1000;
+	        this.edge = new worksheet_1.DiagramEdge();
+	        this.edge.from = this.genericNode1;
+	        this.edge.to = this.genericNode2;
 	    };
 	    ArtboardComponent.prototype.doubleClickedArtboard = function (event) {
 	        var width = 200;
@@ -7237,6 +7286,7 @@ webpackJsonp([0],{
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var geometry_1 = __webpack_require__(68);
+	var tracking_point_1 = __webpack_require__(71);
 	//the following constants are used to identify objects of this data model in JSON
 	exports.WorksheetType = "Worksheet"; //TODO may not be required
 	var Worksheet = (function () {
@@ -7298,6 +7348,48 @@ webpackJsonp([0],{
 	var DiagramEdge = (function () {
 	    function DiagramEdge() {
 	    }
+	    Object.defineProperty(DiagramEdge.prototype, "from", {
+	        get: function () {
+	            return this._from;
+	        },
+	        set: function (value) {
+	            this._from = value;
+	            this._fromPoint = new tracking_point_1.CenterTrackingPoint(value.getGeometry());
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(DiagramEdge.prototype, "to", {
+	        get: function () {
+	            return this._to;
+	        },
+	        set: function (value) {
+	            this._to = value;
+	            this._toPoint = new tracking_point_1.CenterTrackingPoint(value.getGeometry());
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(DiagramEdge.prototype, "fromPoint", {
+	        get: function () {
+	            return this._fromPoint;
+	        },
+	        set: function (value) {
+	            this._fromPoint = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(DiagramEdge.prototype, "toPoint", {
+	        get: function () {
+	            return this._toPoint;
+	        },
+	        set: function (value) {
+	            this._toPoint = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    return DiagramEdge;
 	}());
 	exports.DiagramEdge = DiagramEdge;
@@ -8540,7 +8632,7 @@ webpackJsonp([0],{
 /***/ 86:
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<auto-completion [semanticModel]=\"worksheet.semanticModel\" [objectModel]=\"worksheet.objectModel\"></auto-completion>\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\t<generic-node [genericNode]=\"genericNode\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n<!--\t\n\t<class-diagram *ngFor=\"let classDiagram of worksheet.classDiagramList\" [classDiagram]=\"classDiagram\"></class-diagram>\n\t<interface-diagram *ngFor=\"let interfaceDiagram of worksheet.interfaceDiagramList\" [interfaceDiagram]=\"interfaceDiagram\"></interface-diagram>\n\t<class-object-diagram *ngFor=\"let classObject of worksheet.classObjectDiagramList\" [classObjectDiagram]=\"classObject\"></class-object-diagram>\n\t<line-segment [start]=\"st\" [end]=\"en\"></line-segment>\n\t-->\n</div>";
+	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<auto-completion [semanticModel]=\"worksheet.semanticModel\" [objectModel]=\"worksheet.objectModel\"></auto-completion>\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\t<generic-node [genericNode]=\"genericNode1\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n\t<generic-node [genericNode]=\"genericNode2\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n\t<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>\n<!--\t\n\t<class-diagram *ngFor=\"let classDiagram of worksheet.classDiagramList\" [classDiagram]=\"classDiagram\"></class-diagram>\n\t<interface-diagram *ngFor=\"let interfaceDiagram of worksheet.interfaceDiagramList\" [interfaceDiagram]=\"interfaceDiagram\"></interface-diagram>\n\t<class-object-diagram *ngFor=\"let classObject of worksheet.classObjectDiagramList\" [classObjectDiagram]=\"classObject\"></class-object-diagram>\n\t<line-segment [start]=\"st\" [end]=\"en\"></line-segment>\n\t-->\n</div>";
 
 /***/ },
 
@@ -8915,7 +9007,7 @@ webpackJsonp([0],{
 /***/ 96:
 /***/ function(module, exports) {
 
-	module.exports = "<div \n\tclass=\"line-segment\" \n\t[style.left.px]=\"(start.x+end.x)/2\" \n\t[style.top.px]=\"(start.y+end.y)/2\"\n\t[style.width.px]=\"start.distance(end)\"\n\t[style.-webkit-transform]=\"rotation()\"\n\t[style.-ms-transform]=\"rotation()\"\n\t[style.transform]=\"rotation()\">\n\t<div class=\"line-segment-text\" >\n\t\t<span contenteditable=\"true\">Editable</span>\n\t</div>\n</div>";
+	module.exports = "<div \n\tclass=\"line-segment\" \n\t[style.left.px]=\"(start.x+end.x)/2\" \n\t[style.top.px]=\"(start.y+end.y)/2\"\n\t[style.width.px]=\"start.distance(end)\"\n\t[style.-webkit-transform]=\"rotation()\"\n\t[style.-ms-transform]=\"rotation()\"\n\t[style.transform]=\"rotation()\">\n\t<div class=\"line-segment-text\" >\n\t\t<span contenteditable=\"true\">Editable</span>\n\t</div>\n</div>\n\n<!--<div class=\"debug\" [style.left.px]=\"(start.x+end.x)/2\" \n\t[style.top.px]=\"(start.y+end.y)/2\" [style.width.px]=\"start.distance(end)\" ></div>-->";
 
 /***/ },
 
@@ -9533,7 +9625,7 @@ webpackJsonp([0],{
 	
 	
 	// module
-	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  text-align: center; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  transform-origin: center; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n", ""]);
+	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  text-align: center; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  transform-origin: center;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n", ""]);
 	
 	// exports
 

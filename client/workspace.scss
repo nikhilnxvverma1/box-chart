@@ -103,6 +103,7 @@ h1 {
 	height:1px;//indicates thickness
 	background:black;
 	transform-origin: center;
+	z-index: -1;
 }
 
 .line-segment-text{
@@ -119,4 +120,13 @@ h1 {
 	border-radius:50%;
 	transform:translate(-50%,-50%);
 	background:$linker-color;
+}
+
+.debug{
+	position:absolute;
+	width:20px;
+	height: 20px;
+	background: red;
+	border:1px solid black;
+	transform:translate(-50%,-50%);
 }
