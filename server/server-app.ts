@@ -1,5 +1,7 @@
 import * as express from 'express'
 import * as path from 'path'
+import * as ojs from 'orientjs';
+
 export class ServerApp {
     
 	private _app: express.Application;
@@ -22,6 +24,16 @@ export class ServerApp {
         // Templating engine will NOT be used. Everything is handled in angular 2
         // this._app.set('views',path.join(__dirname,'../','views'));
 		// this._app.set('view engine','jade');
+
+		var dbConfig = {
+			user_name: "admin",
+			user_password: "admin"
+		};
+		var serverConfig = {
+			host: "localhost",
+			port: 2424
+		};
+		
         
         this._app.listen(3000); //TODO normalize ports by environment variables        
     }
@@ -32,4 +44,29 @@ export class ServerApp {
 		console.log("Server refreshed index file: "+pathToIndexPage);		
         res.sendFile(pathToIndexPage);
     }
+}
+
+class MyServerConfiguration implements ojs.ServerConfiguration, ojs.ServerConfig{
+
+	useToken: boolean;
+	host: string;
+	port: number;
+	username: string;
+	password: string;
+
+	constructor(config?: any){
+	}
+             
+
+	get(name: string): string{
+		return "";
+	}
+
+	set(key: string, value: string): string{
+		return "";
+	}
+
+	list(): any{
+
+	}
 }

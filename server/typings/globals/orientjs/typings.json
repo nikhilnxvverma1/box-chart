@@ -1,0 +1,8 @@
+{
+  "resolution": "main",
+  "tree": {
+    "src": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/f0640142d8222a7b0290d3a5a13261c80ade99d7/orientjs/index.d.ts",
+    "raw": "registry:dt/orientjs#2.1.0+20161130235936",
+    "typings": "https://raw.githubusercontent.com/DefinitelyTyped/DefinitelyTyped/f0640142d8222a7b0290d3a5a13261c80ade99d7/orientjs/index.d.ts"
+  }
+}

@@ -1,5 +1,9 @@
 {
   "dependencies": {
+    "bluebird": "registry:npm/bluebird#3.4.1+20160909132857",
     "express": "registry:npm/express#4.14.0+20160925001530"
+  },
+  "globalDependencies": {
+    "orientjs": "registry:dt/orientjs#2.1.0+20161130235936"
   }
 }
