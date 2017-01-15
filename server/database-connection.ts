@@ -1,8 +1,9 @@
 import orientjs= require('orientjs');
+import winston=require('winston');
 
 //server configuration parameters, TODO ideally these should come from environment variables
 const serverHost="localhost";
-const serverPort=2480;
+const serverPort=2424;
 
 /**
  *  Connects to database instance for type-diagram.
@@ -28,20 +29,22 @@ export class DatabaseConnection{
 		//configure database server and location
 		var serverConfig = {
 			host: serverHost,
-			port: serverPort
+			port: serverPort,
+			username:this.username,
+			password:this.password
 		};
 		return orientjs(serverConfig);
 	}
 
 	private connectToDatabase(server:orientjs.Server){
 		//find the database on server
-		server.list().then((dbs)=>{
-			console.log("Searching database "+(this.name)+" amongst "+dbs.length+" databases on server");
+		server.list().then((dbs:orientjs.Db[])=>{
+			winston.log('info',"Searching database '"+(this.name)+"' amongst "+dbs.length+" databases on server");
 			var foundDatabase=false;
 			for(let db of dbs){
 				//check if database exists
 				if(db.name==this.name){
-					console.log('Connected to existing database: ' + db.name);
+					winston.log('info','Connected to existing database: ' + db.name);
 					//initializes and use the db
 					var databaseInitialized=server.use(this.name);
 					this.afterDbIsConnected(null,databaseInitialized);
@@ -54,14 +57,14 @@ export class DatabaseConnection{
 
 			//if said database doesn't exist, create a new one
 			if(!foundDatabase){
-				console.log('Did not find database'+(this.name)+' on server, creating a new one ');
+				winston.log('info','Did not find database \''+(this.name)+'\' on server, creating a new one ');
 				DatabaseConnection.dbType
 				var db = server.create({
 					name:    this.name,
 					type:    DatabaseConnection.dbType,
 					storage: DatabaseConnection.dbStorage
 				}).then((db)=>{
-					console.log('Created(and connected) a new database: ' + db.name);
+					winston.log('info','Created(and connected) a new database: ' + db.name);
 					this.afterDbIsConnected(null,db);
 					//server can be safely closed, now that we found the database
 					server.close();

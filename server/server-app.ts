@@ -1,6 +1,7 @@
 import * as express from 'express'
 import * as path from 'path'
 import orientjs= require('orientjs');
+import winston=require('winston');
 
 export class ServerApp {
     
@@ -34,7 +35,7 @@ export class ServerApp {
     private _homePage(req: express.Request, res: express.Response) {
 		// res.render('index');		
 		var pathToIndexPage=path.join(__dirname,'../../','dist/','index.html'); //a static index file from 'dist' folder
-		console.log("Server refreshed index file: "+pathToIndexPage);		
+		winston.log('info',"Server refreshed index file: "+pathToIndexPage);
         res.sendFile(pathToIndexPage);
     }
 }
