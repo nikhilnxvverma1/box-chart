@@ -23,7 +23,7 @@ var paths = {
 	  server:{
 			src: ['./server/**/*.ts'],
 			rootTypescriptDir:'./server',
-			outputJavascriptDir:'./server/transpiled',
+			outputJavascriptDir:'./server/transpiled',//different one used for debugging in vscode
 			relativeSourcemaps:'./sourcemaps'
 	  }
   }
@@ -76,12 +76,29 @@ gulp.task('watch:server-typescript',function(){
 gulp.task('server-typescript',function(){
 
 	var tsProject = ts.createProject(path.resolve('./server/tsconfig.json'));
+	// .pipe(sourcemaps.write(paths.typescript.server.relativeSourcemaps))
     return gulp.src(paths.typescript.server.src)
         .pipe(sourcemaps.init())
         .pipe(tsProject())
         .pipe(sourcemaps.write(paths.typescript.server.relativeSourcemaps))
         .pipe(gulp.dest(paths.typescript.server.outputJavascriptDir));
 });
+
+//compiles in the same directory(to enable debugging inside vscode)
+// vscode outFiles bug makes it impossible to debug transpiled JS outside current TS directory. 
+gulp.task('server-vscode:typescript',function(){
+
+	var tsProject = ts.createProject(path.resolve('./server/tsconfig.json'));
+	// .pipe(sourcemaps.write(paths.typescript.server.relativeSourcemaps))
+    return gulp.src(paths.typescript.server.src)
+        .pipe(sourcemaps.init())
+        .pipe(tsProject())
+        .pipe(sourcemaps.write({sourceRoot:"."}))
+        .pipe(gulp.dest("./server"));
+});
+
+//clean up javascript files that may have resulted from vscode debugging in the same directory
+gulp.task('server:clean',shell.task('rm server/*.js'));
 
 //builds the client codebase for production
 gulp.task('prod:client',shell.task('webpack --config config/webpack.prod.js'));

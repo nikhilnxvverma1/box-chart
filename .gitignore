@@ -11,5 +11,6 @@ _test-output
 _temp
 client/transpiled
 server/transpiled
+server/*.js
 .vscode
 dist
