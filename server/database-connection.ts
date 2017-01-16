@@ -14,6 +14,8 @@ export class DatabaseConnection{
 	static readonly dbType="graph";
 	/** Storage of a new database. (used while creating database) */
 	static readonly dbStorage="plocal";
+	/** Reference to the open database server. This is open and should be closed on application shutdown. */
+	private server:orientjs.Server;
 	
 	constructor(
 		private username:string,
@@ -21,8 +23,8 @@ export class DatabaseConnection{
 		private name:string,
 		private afterDbIsConnected:(err:Error,db:orientjs.Db)=>void){
 
-		var server=this.connectToServer();
-		this.connectToDatabase(server);
+		this.server=this.connectToServer();
+		this.connectToDatabase(this.server);
 	}
 
 	private connectToServer(){
@@ -38,7 +40,7 @@ export class DatabaseConnection{
 
 	private connectToDatabase(server:orientjs.Server){
 		//find the database on server
-		server.list().then((dbs:orientjs.Db[])=>{
+		server.list().bind(this).then((dbs:orientjs.Db[])=>{
 			winston.log('info',"Searching database '"+(this.name)+"' amongst "+dbs.length+" databases on server");
 			var foundDatabase=false;
 			for(let db of dbs){
@@ -46,10 +48,13 @@ export class DatabaseConnection{
 				if(db.name==this.name){
 					winston.log('info','Connected to existing database: ' + db.name);
 					//initializes and use the db
-					var databaseInitialized=server.use(this.name);
-					this.afterDbIsConnected(null,databaseInitialized);
-					//server can be safely closed, now that we found the database
-					server.close();
+					winston.log('info',"connecting with username "+this.username);//DONT LOG CREDENTIALS!!!
+					var databaseInitialized=server.use({name:this.name,username:this.username,password:this.password});
+					databaseInitialized.open().bind(this).then((db:orientjs.Db)=>{
+						this.afterDbIsConnected(null,db);
+						//server can be safely closed, now that we found the database
+						// server.close();
+					});
 					foundDatabase=true;
 					break;
 				}
@@ -66,8 +71,6 @@ export class DatabaseConnection{
 				}).then((db)=>{
 					winston.log('info','Created(and connected) a new database: ' + db.name);
 					this.afterDbIsConnected(null,db);
-					//server can be safely closed, now that we found the database
-					server.close();
 				});
 			}
 		});
