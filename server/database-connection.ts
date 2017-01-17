@@ -48,12 +48,9 @@ export class DatabaseConnection{
 				if(db.name==this.name){
 					winston.log('info','Connected to existing database: ' + db.name);
 					//initializes and use the db
-					winston.log('info',"connecting with username "+this.username);//DONT LOG CREDENTIALS!!!
 					var databaseInitialized=server.use({name:this.name,username:this.username,password:this.password});
 					databaseInitialized.open().bind(this).then((db:orientjs.Db)=>{
 						this.afterDbIsConnected(null,db);
-						//server can be safely closed, now that we found the database
-						// server.close();
 					});
 					foundDatabase=true;
 					break;
