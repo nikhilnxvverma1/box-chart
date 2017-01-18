@@ -5957,7 +5957,7 @@ webpackJsonp([0],{
 /***/ 62:
 /***/ function(module, exports) {
 
-	module.exports = "<h1>homepage</h1> ";
+	module.exports = "<h1>homepage</h1> \n<!-- All the design stuff goes here-->\n<login></login>";
 
 /***/ },
 
@@ -5975,9 +5975,22 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
+	var user_account_1 = __webpack_require__(685);
 	var SignupComponent = (function () {
 	    function SignupComponent() {
+	        this.user = new user_account_1.User();
 	    }
+	    SignupComponent.prototype.createUserAccount = function () {
+	        if (this.validPassword()) {
+	            console.log("TODO register user: " + this.user.toString());
+	        }
+	        else {
+	            console.log("Passwords not valid");
+	        }
+	    };
+	    SignupComponent.prototype.validPassword = function () {
+	        return this.user.password != null && this.user.password.length >= 8 && this.user.password == this.confirmPassword;
+	    };
 	    SignupComponent = __decorate([
 	        core_1.Component({
 	            selector: 'signup',
@@ -5995,7 +6008,7 @@ webpackJsonp([0],{
 /***/ 64:
 /***/ function(module, exports) {
 
-	module.exports = "<h1>TODO signup</h1>";
+	module.exports = "<h1>signup</h1>\n\n\n<div>\n\t<span>firstName:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.firstName\"/>\n</div>\n\n<div>\n\t<span>lastName:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.lastName\"/>\n</div>\n\n<div>\n\t<span>email:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.email\"/>\n</div>\n\n<div>\n\t<span>password:</span>\n\t<input type=\"password\" [(ngModel)]=\"user.password\"/>\n</div>\n\n<div>\n\t<span>confirmPassword:</span>\n\t<input type=\"password\" [(ngModel)]=\"confirmPassword\"/>\n</div>\n\n<a (click)=\"createUserAccount()\">Sign Up</a>";
 
 /***/ },
 
@@ -6013,9 +6026,28 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
+	var worksheet_1 = __webpack_require__(82);
 	var DashboardComponent = (function () {
 	    function DashboardComponent() {
+	        this.worksheetList = [];
 	    }
+	    DashboardComponent.prototype.ngOnInit = function () {
+	        this.fillWithDummyData(); //TODO  this will come from server
+	    };
+	    DashboardComponent.prototype.fillWithDummyData = function () {
+	        var first = new worksheet_1.Worksheet();
+	        first.title = "Bubble sort";
+	        first.description = "Functioning of a sorting algorithm";
+	        this.worksheetList.push(first);
+	        var second = new worksheet_1.Worksheet();
+	        second.title = "Class project";
+	        second.description = "Implementation of class project (discussion related)";
+	        this.worksheetList.push(second);
+	        var third = new worksheet_1.Worksheet();
+	        third.title = "Binary tree";
+	        third.description = "Different type of traversal techniques in binary trees";
+	        this.worksheetList.push(third);
+	    };
 	    DashboardComponent = __decorate([
 	        core_1.Component({
 	            selector: 'dashboard',
@@ -6033,7 +6065,7 @@ webpackJsonp([0],{
 /***/ 66:
 /***/ function(module, exports) {
 
-	module.exports = "<h1>TODO worksheet list</h1>\n<router-outlet></router-outlet>";
+	module.exports = "<h1>TODO worksheet list</h1>\n\n<div class=\"worksheet-tag\" *ngFor=\"let worksheet of worksheetList\">\n\t<div>{{worksheet.title}}</div>\n\t<div>{{worksheet.description}}</div>\n</div>";
 
 /***/ },
 
@@ -6051,9 +6083,14 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
+	var user_account_1 = __webpack_require__(685);
 	var LoginComponent = (function () {
 	    function LoginComponent() {
+	        this.login = new user_account_1.LoginCredential();
 	    }
+	    LoginComponent.prototype.attemptLogin = function () {
+	        console.log("Attemtping login for " + this.login.toString());
+	    };
 	    LoginComponent = __decorate([
 	        core_1.Component({
 	            selector: 'login',
@@ -6071,7 +6108,7 @@ webpackJsonp([0],{
 /***/ 68:
 /***/ function(module, exports) {
 
-	module.exports = "<a href='\\signup'>Signup now </a>";
+	module.exports = "<input type=\"text\" [(ngModel)]=\"login.username\"/>\n<input type=\"password\" [(ngModel)]=\"login.password\"/>\n<a href=\"#\" (click)=\"attemptLogin()\">Login</a>\n<div><a routerLink=\"/signup\">Sign Up</a></div>";
 
 /***/ },
 
@@ -7414,11 +7451,6 @@ webpackJsonp([0],{
 	    function Worksheet() {
 	        this.diagramNodeList = [];
 	        this.diagramEdgeList = [];
-	        this.commentList = [];
-	        this.classDiagramList = [];
-	        this.interfaceDiagramList = [];
-	        this.classObjectDiagramList = [];
-	        this.interfaceObjectDiagramList = [];
 	    }
 	    return Worksheet;
 	}());
@@ -10716,7 +10748,7 @@ webpackJsonp([0],{
 /***/ 683:
 /***/ function(module, exports) {
 
-	module.exports = "TODO Account";
+	module.exports = "Account\n\n<div>\n\t<span>firstName:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.firstName\"/>\n</div>\n\n<div>\n\t<span>lastName:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.lastName\"/>\n</div>\n\n<div>\n\t<span>email:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.email\"/>\n</div>\n\n<!--TODO allow changing password-->\n\n<a (click)=\"saveAccountDetails()\">Save details</a>";
 
 /***/ },
 
@@ -10734,9 +10766,19 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
+	var user_account_1 = __webpack_require__(685);
 	var AccountComponent = (function () {
 	    function AccountComponent() {
 	    }
+	    AccountComponent.prototype.ngOnInit = function () {
+	        this.user = new user_account_1.User(); //TODO get from session
+	        this.user.firstName = "Nikhil";
+	        this.user.lastName = "Verma";
+	        this.user.email = "nikhilnxvverma1@gmail.com";
+	    };
+	    AccountComponent.prototype.saveAccountDetails = function () {
+	        console.log("TODO Saving account Details");
+	    };
 	    AccountComponent = __decorate([
 	        core_1.Component({
 	            selector: 'account',
@@ -10747,6 +10789,32 @@ webpackJsonp([0],{
 	    return AccountComponent;
 	}());
 	exports.AccountComponent = AccountComponent;
+
+
+/***/ },
+
+/***/ 685:
+/***/ function(module, exports) {
+
+	"use strict";
+	var LoginCredential = (function () {
+	    function LoginCredential() {
+	    }
+	    LoginCredential.prototype.toString = function () {
+	        return this.username;
+	    };
+	    return LoginCredential;
+	}());
+	exports.LoginCredential = LoginCredential;
+	var User = (function () {
+	    function User() {
+	    }
+	    User.prototype.toString = function () {
+	        return this.firstName + " " + this.lastName;
+	    };
+	    return User;
+	}());
+	exports.User = User;
 
 
 /***/ }

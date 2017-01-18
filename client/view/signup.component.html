@@ -1,1 +1,29 @@
-<h1>TODO signup</h1>
+<h1>signup</h1>
+
+
+<div>
+	<span>firstName:</span>
+	<input type="text" [(ngModel)]="user.firstName"/>
+</div>
+
+<div>
+	<span>lastName:</span>
+	<input type="text" [(ngModel)]="user.lastName"/>
+</div>
+
+<div>
+	<span>email:</span>
+	<input type="text" [(ngModel)]="user.email"/>
+</div>
+
+<div>
+	<span>password:</span>
+	<input type="password" [(ngModel)]="user.password"/>
+</div>
+
+<div>
+	<span>confirmPassword:</span>
+	<input type="password" [(ngModel)]="confirmPassword"/>
+</div>
+
+<a (click)="createUserAccount()">Sign Up</a>

@@ -1,1 +1,20 @@
-TODO Account
+Account
+
+<div>
+	<span>firstName:</span>
+	<input type="text" [(ngModel)]="user.firstName"/>
+</div>
+
+<div>
+	<span>lastName:</span>
+	<input type="text" [(ngModel)]="user.lastName"/>
+</div>
+
+<div>
+	<span>email:</span>
+	<input type="text" [(ngModel)]="user.email"/>
+</div>
+
+<!--TODO allow changing password-->
+
+<a (click)="saveAccountDetails()">Save details</a>

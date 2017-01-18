@@ -1,1 +1,4 @@
-<a href='\signup'>Signup now </a>
+<input type="text" [(ngModel)]="login.username"/>
+<input type="password" [(ngModel)]="login.password"/>
+<a href="#" (click)="attemptLogin()">Login</a>
+<div><a routerLink="/signup">Sign Up</a></div>

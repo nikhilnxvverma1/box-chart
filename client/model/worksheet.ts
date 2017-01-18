@@ -8,16 +8,11 @@ export const WorksheetType="Worksheet";//TODO may not be required
 
 export class Worksheet{
 
+	title:string;
+	description:string;
+
 	diagramNodeList:DiagramNode[]=[];
 	diagramEdgeList:DiagramEdge[]=[];
-
-	semanticModel:SemanticModel;
-	objectModel:ObjectModel;
-	commentList:Comment[]=[];
-	classDiagramList:ClassDiagramNode[]=[];
-	interfaceDiagramList:InterfaceDiagramNode[]=[];
-	classObjectDiagramList:ClassObjectDiagram[]=[];
-	interfaceObjectDiagramList:InterfaceObjectDiagram[]=[];
 }
 
 /** Specifies color in the range 0-255 for four channels. Default is white(255,255,255,255) */
