@@ -6,7 +6,7 @@ webpackJsonp([0],{
 	"use strict";
 	var platform_browser_dynamic_1 = __webpack_require__(1);
 	var app_module_1 = __webpack_require__(23);
-	__webpack_require__(115);
+	__webpack_require__(95);
 	platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
 
 
@@ -28,41 +28,14 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var platform_browser_1 = __webpack_require__(21);
 	var forms_1 = __webpack_require__(24);
-	var router_1 = __webpack_require__(28);
-	var app_component_1 = __webpack_require__(58);
-	var login_component_1 = __webpack_require__(60);
-	var signup_component_1 = __webpack_require__(62);
-	var document_list_component_1 = __webpack_require__(64);
-	var workspace_component_1 = __webpack_require__(66);
-	var artboard_component_1 = __webpack_require__(75);
-	var sidebar_component_1 = __webpack_require__(72);
-	var area_component_1 = __webpack_require__(89);
-	var box_component_1 = __webpack_require__(91);
-	var generic_node_component_1 = __webpack_require__(674);
-	var line_segment_component_1 = __webpack_require__(95);
-	var resize_handle_component_1 = __webpack_require__(92);
-	var linker_component_1 = __webpack_require__(97);
-	var input_box_component_1 = __webpack_require__(99);
-	var auto_completion_component_1 = __webpack_require__(79);
-	var class_diagram_component_1 = __webpack_require__(101);
-	var class_object_diagram_component_1 = __webpack_require__(103);
-	var interface_diagram_component_1 = __webpack_require__(105);
-	var interface_object_diagram_component_1 = __webpack_require__(107);
-	var linked_segments_component_1 = __webpack_require__(109);
-	var transform_service_1 = __webpack_require__(67);
-	var interpreter_service_1 = __webpack_require__(82);
-	var mock_data_service_1 = __webpack_require__(76);
-	var focus_directive_1 = __webpack_require__(111);
-	var my_rect_directive_1 = __webpack_require__(112);
-	var my_circle_directive_1 = __webpack_require__(113);
-	var access_symbol_pipe_1 = __webpack_require__(114);
-	var node_background_pipe_1 = __webpack_require__(676);
-	var MyRoutes = router_1.RouterModule.forRoot([
-	    { path: '', component: login_component_1.LoginComponent },
-	    { path: 'signup', component: signup_component_1.SignupComponent },
-	    { path: 'all-docs', component: document_list_component_1.DocumentListComponent },
-	    { path: 'all-docs/document', component: workspace_component_1.WorkspaceComponent },
-	]);
+	var app_component_1 = __webpack_require__(28);
+	var app_routing_module_1 = __webpack_require__(30);
+	var home_component_1 = __webpack_require__(61);
+	var login_component_1 = __webpack_require__(67);
+	var signup_component_1 = __webpack_require__(63);
+	var dashboard_module_1 = __webpack_require__(69);
+	var workspace_module_1 = __webpack_require__(653);
+	var account_component_1 = __webpack_require__(684);
 	var AppModule = (function () {
 	    function AppModule() {
 	    }
@@ -71,37 +44,17 @@ webpackJsonp([0],{
 	            imports: [
 	                platform_browser_1.BrowserModule,
 	                forms_1.FormsModule,
-	                MyRoutes
+	                app_routing_module_1.AppRoutingModule,
+	                dashboard_module_1.DashboardModule,
+	                workspace_module_1.WorkspaceModule
 	            ],
 	            declarations: [
-	                focus_directive_1.FocusDirective,
-	                my_rect_directive_1.MyRectDirective,
-	                my_circle_directive_1.MyCircleDirective,
-	                access_symbol_pipe_1.AccessSymbol,
-	                node_background_pipe_1.NodeBackground,
 	                app_component_1.AppComponent,
+	                home_component_1.HomeComponent,
 	                login_component_1.LoginComponent,
 	                signup_component_1.SignupComponent,
-	                document_list_component_1.DocumentListComponent,
-	                workspace_component_1.WorkspaceComponent,
-	                sidebar_component_1.SidebarComponent,
-	                artboard_component_1.ArtboardComponent,
-	                area_component_1.AreaComponent,
-	                box_component_1.BoxComponent,
-	                generic_node_component_1.GenericNodeComponent,
-	                line_segment_component_1.LineSegmentComponent,
-	                resize_handle_component_1.ResizeHandleComponent,
-	                input_box_component_1.InputBoxComponent,
-	                auto_completion_component_1.AutoCompletionComponent,
-	                class_diagram_component_1.ClassDiagramComponent,
-	                class_object_diagram_component_1.ClassObjectComponent,
-	                interface_diagram_component_1.InterfaceDiagramComponent,
-	                interface_object_diagram_component_1.InterfaceObjectDiagramComponent,
-	                linked_segments_component_1.LinkedSegmentsComponent,
-	                linker_component_1.LinkerComponent
+	                account_component_1.AccountComponent
 	            ],
-	            schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA],
-	            providers: [transform_service_1.TransformService, interpreter_service_1.InterpreterService, mock_data_service_1.MockDataService],
 	            bootstrap: [app_component_1.AppComponent]
 	        }), 
 	        __metadata('design:paramtypes', [])
@@ -5884,7 +5837,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 58:
+/***/ 28:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5905,7 +5858,7 @@ webpackJsonp([0],{
 	    AppComponent = __decorate([
 	        core_1.Component({
 	            selector: 'my-app',
-	            template: __webpack_require__(59),
+	            template: __webpack_require__(29),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], AppComponent);
@@ -5916,14 +5869,14 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 59:
+/***/ 29:
 /***/ function(module, exports) {
 
 	module.exports = "<router-outlet></router-outlet>\n\n";
 
 /***/ },
 
-/***/ 60:
+/***/ 30:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5937,31 +5890,78 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var LoginComponent = (function () {
-	    function LoginComponent() {
+	var router_1 = __webpack_require__(31);
+	var home_component_1 = __webpack_require__(61);
+	var signup_component_1 = __webpack_require__(63);
+	var dashboard_component_1 = __webpack_require__(65);
+	var workspace_component_1 = __webpack_require__(71);
+	var account_component_1 = __webpack_require__(684);
+	var AppRoutingModule = (function () {
+	    function AppRoutingModule() {
 	    }
-	    LoginComponent = __decorate([
-	        core_1.Component({
-	            selector: 'login',
-	            template: __webpack_require__(61),
+	    AppRoutingModule = __decorate([
+	        core_1.NgModule({
+	            imports: [
+	                router_1.RouterModule.forRoot([
+	                    { path: '', component: home_component_1.HomeComponent },
+	                    { path: 'signup', component: signup_component_1.SignupComponent },
+	                    { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
+	                    { path: 'worksheet', component: workspace_component_1.WorkspaceComponent },
+	                    { path: 'account', component: account_component_1.AccountComponent },
+	                ])
+	            ],
+	            exports: [
+	                router_1.RouterModule
+	            ]
 	        }), 
 	        __metadata('design:paramtypes', [])
-	    ], LoginComponent);
-	    return LoginComponent;
+	    ], AppRoutingModule);
+	    return AppRoutingModule;
 	}());
-	exports.LoginComponent = LoginComponent;
+	exports.AppRoutingModule = AppRoutingModule;
 
 
 /***/ },
 
 /***/ 61:
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<a href='\\signup'>Signup now </a>";
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var HomeComponent = (function () {
+	    function HomeComponent() {
+	    }
+	    HomeComponent = __decorate([
+	        core_1.Component({
+	            selector: 'home',
+	            template: __webpack_require__(62),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], HomeComponent);
+	    return HomeComponent;
+	}());
+	exports.HomeComponent = HomeComponent;
+
 
 /***/ },
 
 /***/ 62:
+/***/ function(module, exports) {
+
+	module.exports = "<h1>homepage</h1> ";
+
+/***/ },
+
+/***/ 63:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5981,7 +5981,7 @@ webpackJsonp([0],{
 	    SignupComponent = __decorate([
 	        core_1.Component({
 	            selector: 'signup',
-	            template: __webpack_require__(63),
+	            template: __webpack_require__(64),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], SignupComponent);
@@ -5992,14 +5992,14 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 63:
+/***/ 64:
 /***/ function(module, exports) {
 
 	module.exports = "<h1>TODO signup</h1>";
 
 /***/ },
 
-/***/ 64:
+/***/ 65:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6013,31 +6013,152 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var DocumentListComponent = (function () {
-	    function DocumentListComponent() {
+	var DashboardComponent = (function () {
+	    function DashboardComponent() {
 	    }
-	    DocumentListComponent = __decorate([
+	    DashboardComponent = __decorate([
 	        core_1.Component({
-	            selector: 'document-list',
-	            template: __webpack_require__(65),
+	            selector: 'dashboard',
+	            template: __webpack_require__(66),
 	        }), 
 	        __metadata('design:paramtypes', [])
-	    ], DocumentListComponent);
-	    return DocumentListComponent;
+	    ], DashboardComponent);
+	    return DashboardComponent;
 	}());
-	exports.DocumentListComponent = DocumentListComponent;
+	exports.DashboardComponent = DashboardComponent;
 
-
-/***/ },
-
-/***/ 65:
-/***/ function(module, exports) {
-
-	module.exports = "<h1>TODO document list</h1>";
 
 /***/ },
 
 /***/ 66:
+/***/ function(module, exports) {
+
+	module.exports = "<h1>TODO worksheet list</h1>\n<router-outlet></router-outlet>";
+
+/***/ },
+
+/***/ 67:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var LoginComponent = (function () {
+	    function LoginComponent() {
+	    }
+	    LoginComponent = __decorate([
+	        core_1.Component({
+	            selector: 'login',
+	            template: __webpack_require__(68),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], LoginComponent);
+	    return LoginComponent;
+	}());
+	exports.LoginComponent = LoginComponent;
+
+
+/***/ },
+
+/***/ 68:
+/***/ function(module, exports) {
+
+	module.exports = "<a href='\\signup'>Signup now </a>";
+
+/***/ },
+
+/***/ 69:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var platform_browser_1 = __webpack_require__(21);
+	var forms_1 = __webpack_require__(24);
+	var dashboard_routing_module_1 = __webpack_require__(70);
+	var dashboard_component_1 = __webpack_require__(65);
+	var DashboardModule = (function () {
+	    function DashboardModule() {
+	    }
+	    DashboardModule = __decorate([
+	        core_1.NgModule({
+	            imports: [
+	                platform_browser_1.BrowserModule,
+	                forms_1.FormsModule,
+	                dashboard_routing_module_1.DashboardRoutingModule
+	            ],
+	            declarations: [
+	                dashboard_component_1.DashboardComponent
+	            ],
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], DashboardModule);
+	    return DashboardModule;
+	}());
+	exports.DashboardModule = DashboardModule;
+
+
+/***/ },
+
+/***/ 70:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var router_1 = __webpack_require__(31);
+	var dashboard_component_1 = __webpack_require__(65);
+	var DashboardRoutingModule = (function () {
+	    function DashboardRoutingModule() {
+	    }
+	    DashboardRoutingModule = __decorate([
+	        core_1.NgModule({
+	            imports: [
+	                router_1.RouterModule.forChild([
+	                    {
+	                        path: 'dashboard',
+	                        component: dashboard_component_1.DashboardComponent
+	                    },
+	                ])
+	            ],
+	            exports: [
+	                router_1.RouterModule
+	            ]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], DashboardRoutingModule);
+	    return DashboardRoutingModule;
+	}());
+	exports.DashboardRoutingModule = DashboardRoutingModule;
+
+
+/***/ },
+
+/***/ 71:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6052,10 +6173,10 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(3);
 	var core_2 = __webpack_require__(3);
-	var transform_service_1 = __webpack_require__(67);
-	var geometry_1 = __webpack_require__(68);
-	var sidebar_component_1 = __webpack_require__(72);
-	var artboard_component_1 = __webpack_require__(75);
+	var transform_service_1 = __webpack_require__(72);
+	var geometry_1 = __webpack_require__(73);
+	var sidebar_component_1 = __webpack_require__(77);
+	var artboard_component_1 = __webpack_require__(80);
 	var SpaceKey = 32;
 	var WorkspaceComponent = (function () {
 	    function WorkspaceComponent(transformService) {
@@ -6138,8 +6259,8 @@ webpackJsonp([0],{
 	    WorkspaceComponent = __decorate([
 	        core_1.Component({
 	            selector: 'workspace',
-	            styles: [__webpack_require__(87)],
-	            template: __webpack_require__(88),
+	            styles: [__webpack_require__(93)],
+	            template: __webpack_require__(94),
 	            animations: [
 	                core_2.trigger('shiftMenuControls', [
 	                    core_2.state('unshifted', core_2.style({
@@ -6163,7 +6284,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 67:
+/***/ 72:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6177,7 +6298,7 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(68);
+	var geometry_1 = __webpack_require__(73);
 	var TransformService = (function () {
 	    function TransformService() {
 	    }
@@ -6204,7 +6325,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 68:
+/***/ 73:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6213,8 +6334,8 @@ webpackJsonp([0],{
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var common_1 = __webpack_require__(69);
-	var tracking_point_1 = __webpack_require__(71);
+	var common_1 = __webpack_require__(74);
+	var tracking_point_1 = __webpack_require__(76);
 	/** Generic model for storing 2d coordinates */
 	var Point = (function () {
 	    function Point(x, y) {
@@ -6401,12 +6522,12 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 69:
+/***/ 74:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var geometry_1 = __webpack_require__(68);
-	var semantic_model_1 = __webpack_require__(70);
+	var geometry_1 = __webpack_require__(73);
+	var semantic_model_1 = __webpack_require__(75);
 	/** Gives radians when multiplied by an angle in degrees */
 	exports.DegreesToRadians = Math.PI / 180;
 	/** Gives degrees when multiplied by an angle in radians */
@@ -6547,11 +6668,11 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 70:
+/***/ 75:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var util = __webpack_require__(69);
+	var util = __webpack_require__(74);
 	var SemanticModel = (function () {
 	    function SemanticModel() {
 	        this.classDefinitionList = [];
@@ -6810,12 +6931,12 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 71:
+/***/ 76:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var common_1 = __webpack_require__(69);
-	var geometry_1 = __webpack_require__(68);
+	var common_1 = __webpack_require__(74);
+	var geometry_1 = __webpack_require__(73);
 	/** A simple point. Empty suggests that this tracking point is not tracking anything(geometry) */
 	var EmptyTrackingPoint = (function () {
 	    function EmptyTrackingPoint() {
@@ -6975,7 +7096,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 72:
+/***/ 77:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6997,8 +7118,8 @@ webpackJsonp([0],{
 	    SidebarComponent = __decorate([
 	        core_1.Component({
 	            selector: 'sidebar',
-	            styles: [__webpack_require__(73)],
-	            template: __webpack_require__(74),
+	            styles: [__webpack_require__(78)],
+	            template: __webpack_require__(79),
 	            animations: [
 	                core_2.trigger('sidebarOpen', [
 	                    core_2.state('close', core_2.style({
@@ -7021,21 +7142,21 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 73:
+/***/ 78:
 /***/ function(module, exports) {
 
 	module.exports = "#sidebar {\n  background: #8f42de;\n  color: whitesmoke;\n  width: 280px;\n  height: 100%;\n  position: absolute;\n  top: 0px; }\n"
 
 /***/ },
 
-/***/ 74:
+/***/ 79:
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"sidebar\" [@sidebarOpen]=\"open?'open':'close'\">\n\t<h2>sidebar</h2>\n\t<i class=\"ms-Icon ms-Icon--Cancel\" aria-hidden=\"true\" (click)=\"open=false\"></i>\n\t\n</div>";
 
 /***/ },
 
-/***/ 75:
+/***/ 80:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7050,12 +7171,12 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(3);
 	var core_2 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(68);
-	var geometry_2 = __webpack_require__(68);
-	var mock_data_service_1 = __webpack_require__(76);
-	var auto_completion_component_1 = __webpack_require__(79);
-	var interpreter_service_1 = __webpack_require__(82);
-	var worksheet_1 = __webpack_require__(77);
+	var geometry_1 = __webpack_require__(73);
+	var geometry_2 = __webpack_require__(73);
+	var mock_data_service_1 = __webpack_require__(81);
+	var auto_completion_component_1 = __webpack_require__(84);
+	var interpreter_service_1 = __webpack_require__(87);
+	var worksheet_1 = __webpack_require__(82);
 	exports.ArtboardWidth = 3200;
 	exports.ArtboardHeight = (2 / 3) * exports.ArtboardWidth;
 	var ArtboardComponent = (function () {
@@ -7149,8 +7270,8 @@ webpackJsonp([0],{
 	    ArtboardComponent = __decorate([
 	        core_1.Component({
 	            selector: 'artboard',
-	            styles: [__webpack_require__(85)],
-	            template: __webpack_require__(86),
+	            styles: [__webpack_require__(91)],
+	            template: __webpack_require__(92),
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_b = typeof mock_data_service_1.MockDataService !== 'undefined' && mock_data_service_1.MockDataService) === 'function' && _b) || Object, (typeof (_c = typeof interpreter_service_1.InterpreterService !== 'undefined' && interpreter_service_1.InterpreterService) === 'function' && _c) || Object])
 	    ], ArtboardComponent);
@@ -7162,7 +7283,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 76:
+/***/ 81:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7176,10 +7297,10 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var semantic = __webpack_require__(70);
-	var worksheet = __webpack_require__(77);
-	var object = __webpack_require__(78);
-	var artboard_component_1 = __webpack_require__(75);
+	var semantic = __webpack_require__(75);
+	var worksheet = __webpack_require__(82);
+	var object = __webpack_require__(83);
+	var artboard_component_1 = __webpack_require__(80);
 	var MockDataService = (function () {
 	    function MockDataService() {
 	    }
@@ -7276,7 +7397,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 77:
+/***/ 82:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7285,8 +7406,8 @@ webpackJsonp([0],{
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var geometry_1 = __webpack_require__(68);
-	var tracking_point_1 = __webpack_require__(71);
+	var geometry_1 = __webpack_require__(73);
+	var tracking_point_1 = __webpack_require__(76);
 	//the following constants are used to identify objects of this data model in JSON
 	exports.WorksheetType = "Worksheet"; //TODO may not be required
 	var Worksheet = (function () {
@@ -7598,7 +7719,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 78:
+/***/ 83:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7607,7 +7728,7 @@ webpackJsonp([0],{
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var semantic_model_1 = __webpack_require__(70);
+	var semantic_model_1 = __webpack_require__(75);
 	/** Root class that holds all data objects entries in one place */
 	var ObjectModel = (function () {
 	    function ObjectModel() {
@@ -7803,7 +7924,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 79:
+/***/ 84:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7817,9 +7938,9 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(68);
-	var semantic_model_1 = __webpack_require__(70);
-	var object_model_1 = __webpack_require__(78);
+	var geometry_1 = __webpack_require__(73);
+	var semantic_model_1 = __webpack_require__(75);
+	var object_model_1 = __webpack_require__(83);
 	var AutoCompletionComponent = (function () {
 	    function AutoCompletionComponent() {
 	        this.position = new geometry_1.Point(1200, 900);
@@ -7835,8 +7956,8 @@ webpackJsonp([0],{
 	    AutoCompletionComponent = __decorate([
 	        core_1.Component({
 	            selector: 'auto-completion',
-	            template: __webpack_require__(80),
-	            styles: [__webpack_require__(81)]
+	            template: __webpack_require__(85),
+	            styles: [__webpack_require__(86)]
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], AutoCompletionComponent);
@@ -7848,21 +7969,21 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 80:
+/***/ 85:
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"auto-completion-box\"\n\t[style.left.px]=\"position.x\"\n\t[style.top.px]=\"position.y\"\n\t>\n\tSomeClassName\n</div>";
 
 /***/ },
 
-/***/ 81:
+/***/ 86:
 /***/ function(module, exports) {
 
 	module.exports = "#auto-completion-box {\n  position: absolute;\n  background: #6f6f6f;\n  color: white;\n  width: 250px;\n  height: 200px;\n  overflow-x: hidden;\n  overflow-y: scroll; }\n"
 
 /***/ },
 
-/***/ 82:
+/***/ 87:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7876,8 +7997,8 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var lexer = __webpack_require__(83);
-	var parser = __webpack_require__(84);
+	var lexer = __webpack_require__(88);
+	var parser = __webpack_require__(89);
 	var InterpreterService = (function () {
 	    function InterpreterService() {
 	    }
@@ -7918,7 +8039,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 83:
+/***/ 88:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8167,13 +8288,13 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 84:
+/***/ 89:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var lexical_analyzer_1 = __webpack_require__(83);
-	var parser_table_1 = __webpack_require__(673);
-	var util = __webpack_require__(69);
+	var lexical_analyzer_1 = __webpack_require__(88);
+	var parser_table_1 = __webpack_require__(90);
+	var util = __webpack_require__(74);
 	/** Different types of syntax elements that can exists in a CFG */
 	(function (SyntaxElementType) {
 	    SyntaxElementType[SyntaxElementType["NonTerminal"] = 0] = "NonTerminal";
@@ -8622,1339 +8743,12 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 85:
-/***/ function(module, exports) {
-
-	module.exports = "#massive-area {\n  position: absolute; }\n\n#starter-tip {\n  position: absolute;\n  color: gray; }\n"
-
-/***/ },
-
-/***/ 86:
-/***/ function(module, exports) {
-
-	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<auto-completion [semanticModel]=\"worksheet.semanticModel\" [objectModel]=\"worksheet.objectModel\"></auto-completion>\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\t<generic-node [genericNode]=\"genericNode1\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n\t<generic-node [genericNode]=\"genericNode2\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n\t<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>\n<!--\t\n\t<class-diagram *ngFor=\"let classDiagram of worksheet.classDiagramList\" [classDiagram]=\"classDiagram\"></class-diagram>\n\t<interface-diagram *ngFor=\"let interfaceDiagram of worksheet.interfaceDiagramList\" [interfaceDiagram]=\"interfaceDiagram\"></interface-diagram>\n\t<class-object-diagram *ngFor=\"let classObject of worksheet.classObjectDiagramList\" [classObjectDiagram]=\"classObject\"></class-object-diagram>\n\t<line-segment [start]=\"st\" [end]=\"en\"></line-segment>\n\t-->\n</div>";
-
-/***/ },
-
-/***/ 87:
-/***/ function(module, exports) {
-
-	module.exports = "#menu-controls {\n  position: absolute;\n  padding: 0px;\n  top: 10px; }\n  #menu-controls li {\n    color: blue;\n    cursor: pointer;\n    display: inline;\n    list-style: none; }\n  #menu-controls li:hover {\n    color: darkblue; }\n\n#container {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n"
-
-/***/ },
-
-/***/ 88:
-/***/ function(module, exports) {
-
-	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t<li>Area</li>\n\t\t<li>Overview</li>\n\t</ul>\n</div>\n";
-
-/***/ },
-
-/***/ 89:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var AreaComponent = (function () {
-	    function AreaComponent() {
-	    }
-	    AreaComponent = __decorate([
-	        core_1.Component({
-	            selector: 'area-highlight',
-	            template: __webpack_require__(90),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], AreaComponent);
-	    return AreaComponent;
-	}());
-	exports.AreaComponent = AreaComponent;
-
-
-/***/ },
-
 /***/ 90:
-/***/ function(module, exports) {
-
-	module.exports = "<h1>TODO area</h1>";
-
-/***/ },
-
-/***/ 91:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var core_2 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(68);
-	var resize_handle_component_1 = __webpack_require__(92);
-	var BoxComponent = (function () {
-	    function BoxComponent() {
-	        this.requestDragging = new core_1.EventEmitter();
-	        this.isSelected = false;
-	    }
-	    BoxComponent.prototype.toggleSelection = function () {
-	        this.isSelected = !this.isSelected;
-	    };
-	    BoxComponent.prototype.handleMousePress = function (event) {
-	    };
-	    BoxComponent.prototype.handleMouseDrag = function (event) {
-	    };
-	    BoxComponent.prototype.handleMouseRelease = function (event) {
-	    };
-	    BoxComponent.prototype.registerDragIntention = function (dragProcessor) {
-	        this.requestDragging.emit(dragProcessor);
-	    };
-	    BoxComponent.prototype.updateAllResizeHandlers = function (resizeHandler) {
-	        this.resizeHandlers.forEach(function (item) {
-	            item.updateHandlePosition();
-	        });
-	    };
-	    __decorate([
-	        core_1.Input('rect'), 
-	        __metadata('design:type', (typeof (_a = typeof geometry_1.Rect !== 'undefined' && geometry_1.Rect) === 'function' && _a) || Object)
-	    ], BoxComponent.prototype, "rect", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], BoxComponent.prototype, "requestDragging", void 0);
-	    __decorate([
-	        core_1.ViewChildren(resize_handle_component_1.ResizeHandleComponent), 
-	        __metadata('design:type', (typeof (_b = typeof core_1.QueryList !== 'undefined' && core_1.QueryList) === 'function' && _b) || Object)
-	    ], BoxComponent.prototype, "resizeHandlers", void 0);
-	    BoxComponent = __decorate([
-	        core_1.Component({
-	            selector: 'box',
-	            template: __webpack_require__(94),
-	            animations: [
-	                core_2.trigger('selection', [
-	                    core_2.state('selected', core_2.style({
-	                        borderColor: "#2BA3FC"
-	                    })),
-	                    core_2.state('unselected', core_2.style({
-	                        borderColor: "black"
-	                    })),
-	                    core_2.transition('selected => unselected', core_2.animate('100ms ease-in')),
-	                    core_2.transition('unselected => selected', core_2.animate('100ms ease-out'))
-	                ])
-	            ]
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], BoxComponent);
-	    return BoxComponent;
-	    var _a, _b;
-	}());
-	exports.BoxComponent = BoxComponent;
-
-
-/***/ },
-
-/***/ 92:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(68);
-	var common_1 = __webpack_require__(69);
-	var tracking_point_1 = __webpack_require__(71);
-	var ResizeHandleComponent = (function () {
-	    function ResizeHandleComponent() {
-	        this.requestDragging = new core_1.EventEmitter();
-	        this.updateAllResizeHandlers = new core_1.EventEmitter();
-	        //the following private fields are used exclusively to handle the drag event
-	        this.startX = 0;
-	        this.startY = 0;
-	        this.lastX = 0;
-	        this.lastY = 0;
-	    }
-	    ResizeHandleComponent.prototype.ngOnInit = function () {
-	        this.initHandle();
-	        this.updateHandlePosition();
-	    };
-	    ResizeHandleComponent.prototype.initHandle = function () {
-	        //initialize tracking point based on this handles placement
-	        this.pointOnSide = new tracking_point_1.RectTrackingPoint(this.rect);
-	        switch (this.placement) {
-	            case common_1.Direction.Top:
-	                this.pointOnSide.fraction = 0.5;
-	                this.pointOnSide.side = common_1.Direction.Top;
-	                this.cursor = "ns-resize";
-	                break;
-	            case common_1.Direction.TopLeft:
-	                this.pointOnSide.fraction = 0;
-	                this.pointOnSide.side = common_1.Direction.Top;
-	                this.cursor = "nwse-resize";
-	                break;
-	            case common_1.Direction.TopRight:
-	                this.pointOnSide.fraction = 1;
-	                this.pointOnSide.side = common_1.Direction.Top;
-	                this.cursor = "nesw-resize";
-	                break;
-	            case common_1.Direction.Bottom:
-	                this.pointOnSide.fraction = 0.5;
-	                this.pointOnSide.side = common_1.Direction.Bottom;
-	                this.cursor = "ns-resize";
-	                break;
-	            case common_1.Direction.BottomLeft:
-	                this.pointOnSide.fraction = 1; //because fraction of rect with side goes clockwise
-	                this.pointOnSide.side = common_1.Direction.Bottom;
-	                this.cursor = "nesw-resize";
-	                break;
-	            case common_1.Direction.BottomRight:
-	                this.pointOnSide.fraction = 0;
-	                this.pointOnSide.side = common_1.Direction.Bottom;
-	                this.cursor = "nwse-resize";
-	                break;
-	            case common_1.Direction.Left:
-	                this.pointOnSide.fraction = 0.5;
-	                this.pointOnSide.side = common_1.Direction.Left;
-	                this.cursor = "ew-resize";
-	                break;
-	            case common_1.Direction.Right:
-	                this.pointOnSide.fraction = 0.5;
-	                this.pointOnSide.side = common_1.Direction.Right;
-	                this.cursor = "ew-resize";
-	                break;
-	        }
-	        //initialize handle's rect by using the tracking point
-	        var point = this.pointOnSide.pointOnSide(this.pointOnSide.side, this.pointOnSide.fraction);
-	        this.handle = new geometry_1.Rect(point.x - ResizeHandleComponent.HandleWidth / 2, point.y - ResizeHandleComponent.HandleWidth / 2, ResizeHandleComponent.HandleWidth, ResizeHandleComponent.HandleWidth);
-	    };
-	    ResizeHandleComponent.prototype.updateHandlePosition = function () {
-	        var point = this.pointOnSide.pointOnGeometry();
-	        //shift in the x and y relative to handle's width
-	        var xShift = -0.5;
-	        var yShift = -0.5;
-	        //TODO fix minor visual displacement due to border outsets
-	        this.handle.x = point.x + xShift * ResizeHandleComponent.HandleWidth;
-	        this.handle.y = point.y + yShift * ResizeHandleComponent.HandleWidth;
-	    };
-	    ResizeHandleComponent.prototype.handleMousePress = function (event) {
-	        this.startX = event.clientX;
-	        this.startY = event.clientY;
-	        this.lastX = event.clientX;
-	        this.lastY = event.clientY;
-	    };
-	    ResizeHandleComponent.prototype.handleMouseDrag = function (event) {
-	        var dx = event.clientX - this.lastX;
-	        var dy = event.clientY - this.lastY;
-	        if (event.buttons == 1) {
-	            //change the transform of the rect basis this handle's placement
-	            switch (this.placement) {
-	                case common_1.Direction.TopLeft:
-	                    this.rect.x += dx;
-	                    this.rect.y += dy;
-	                    this.rect.width -= dx;
-	                    this.rect.height -= dy;
-	                    break;
-	                case common_1.Direction.Top:
-	                    this.rect.y += dy;
-	                    this.rect.height -= dy;
-	                    break;
-	                case common_1.Direction.TopRight:
-	                    this.rect.y += dy;
-	                    this.rect.width += dx;
-	                    this.rect.height -= dy;
-	                    break;
-	                case common_1.Direction.Right:
-	                    this.rect.width += dx;
-	                    break;
-	                case common_1.Direction.BottomRight:
-	                    this.rect.width += dx;
-	                    this.rect.height += dy;
-	                    break;
-	                case common_1.Direction.Bottom:
-	                    this.rect.height += dy;
-	                    break;
-	                case common_1.Direction.BottomLeft:
-	                    this.rect.x += dx;
-	                    this.rect.width -= dx;
-	                    this.rect.height += dy;
-	                    break;
-	                case common_1.Direction.Left:
-	                    this.rect.x += dx;
-	                    this.rect.width -= dx;
-	                    break;
-	            }
-	            this.updateAllResizeHandlers.emit(this);
-	        }
-	        this.lastX = event.clientX;
-	        this.lastY = event.clientY;
-	    };
-	    ResizeHandleComponent.prototype.handleMouseRelease = function (event) {
-	        //TODO make command
-	    };
-	    ResizeHandleComponent.prototype.modelHasBeenChanged = function () {
-	        console.log("Model has been changed");
-	    };
-	    ResizeHandleComponent.HandleWidth = 8;
-	    __decorate([
-	        core_1.Input('rect'), 
-	        __metadata('design:type', (typeof (_a = typeof geometry_1.Rect !== 'undefined' && geometry_1.Rect) === 'function' && _a) || Object)
-	    ], ResizeHandleComponent.prototype, "rect", void 0);
-	    __decorate([
-	        core_1.Input('placement'), 
-	        __metadata('design:type', (typeof (_b = typeof common_1.Direction !== 'undefined' && common_1.Direction) === 'function' && _b) || Object)
-	    ], ResizeHandleComponent.prototype, "placement", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], ResizeHandleComponent.prototype, "requestDragging", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], ResizeHandleComponent.prototype, "updateAllResizeHandlers", void 0);
-	    ResizeHandleComponent = __decorate([
-	        core_1.Component({
-	            selector: 'resize-handle',
-	            template: __webpack_require__(93)
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], ResizeHandleComponent);
-	    return ResizeHandleComponent;
-	    var _a, _b;
-	}());
-	exports.ResizeHandleComponent = ResizeHandleComponent;
-
-
-/***/ },
-
-/***/ 93:
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"handle-pick\"\n\t[style.left.px]=\"handle.x\"\n\t[style.top.px]=\"handle.y\"\n\t[style.width.px]=\"handle.width\"\n\t[style.height.px]=\"handle.height\"\n\t[style.cursor]=\"cursor\"\n\t(mousedown)=\"requestDragging.emit(this)\"\n\t></div>";
-
-/***/ },
-
-/***/ 94:
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"rect.x\"\n[style.top.px]=\"rect.y\"\n[style.width.px]=\"rect.width\"\n[style.height.px]=\"rect.height\"\n[@selection]=\"isSelected?'selected':'unselected'\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\"></div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
-
-/***/ },
-
-/***/ 95:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(68);
-	var LineSegmentComponent = (function () {
-	    function LineSegmentComponent() {
-	    }
-	    LineSegmentComponent.prototype.transformationMatrix = function () {
-	        var xMid = this.start.distance(this.end) / 2;
-	        var yMid = 1; //TODO purely hardcoded based on the value in the stylesheet for line-segment class
-	        var degree = this.start.angleOfSegment(this.end);
-	        var radians = Math.PI * degree / 180;
-	        return "matrix(" +
-	            Math.cos(radians) + "," + Math.sin(radians) + "," +
-	            -Math.sin(radians) + "," + Math.cos(radians) + "," +
-	            -xMid + "," + -yMid
-	            + ")";
-	    };
-	    __decorate([
-	        core_1.Input('start'), 
-	        __metadata('design:type', (typeof (_a = typeof geometry_1.Point !== 'undefined' && geometry_1.Point) === 'function' && _a) || Object)
-	    ], LineSegmentComponent.prototype, "start", void 0);
-	    __decorate([
-	        core_1.Input('end'), 
-	        __metadata('design:type', (typeof (_b = typeof geometry_1.Point !== 'undefined' && geometry_1.Point) === 'function' && _b) || Object)
-	    ], LineSegmentComponent.prototype, "end", void 0);
-	    LineSegmentComponent = __decorate([
-	        core_1.Component({
-	            selector: 'line-segment',
-	            template: __webpack_require__(96),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], LineSegmentComponent);
-	    return LineSegmentComponent;
-	    var _a, _b;
-	}());
-	exports.LineSegmentComponent = LineSegmentComponent;
-
-
-/***/ },
-
-/***/ 96:
-/***/ function(module, exports) {
-
-	module.exports = "<div \n\tclass=\"line-segment\" \n\t[style.left.px]=\"(start.x+end.x)/2\" \n\t[style.top.px]=\"(start.y+end.y)/2\"\n\t[style.width.px]=\"start.distance(end)\"\n\t[style.-webkit-transform]=\"transformationMatrix()\"\n\t[style.-ms-transform]=\"transformationMatrix()\"\n\t[style.transform]=\"transformationMatrix()\">\n\t<div class=\"line-segment-text\" >\n\t\t<span contenteditable=\"true\">Editable</span>\n\t</div>\n</div>";
-
-/***/ },
-
-/***/ 97:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(68);
-	var LinkerComponent = (function () {
-	    function LinkerComponent() {
-	    }
-	    LinkerComponent.prototype.ngOnInit = function () {
-	        this.trackingPoint = this.geometry.getTrackingPoint();
-	        var point = this.trackingPoint.pointOnGeometry();
-	        this.link = new geometry_1.Circle(point, 7);
-	    };
-	    LinkerComponent.prototype.ngOnDestroy = function () {
-	        //TODO make diagrammatic element an abstract class and then handle this
-	    };
-	    __decorate([
-	        core_1.Input('geometry'), 
-	        __metadata('design:type', (typeof (_a = typeof geometry_1.Geometry !== 'undefined' && geometry_1.Geometry) === 'function' && _a) || Object)
-	    ], LinkerComponent.prototype, "geometry", void 0);
-	    LinkerComponent = __decorate([
-	        core_1.Component({
-	            selector: 'linker',
-	            template: __webpack_require__(98),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], LinkerComponent);
-	    return LinkerComponent;
-	    var _a;
-	}());
-	exports.LinkerComponent = LinkerComponent;
-
-
-/***/ },
-
-/***/ 98:
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"link-circle\" \n\t[style.left.px]=\"link.center.x\"\n\t[style.top.px]=\"link.center.y\"\n\t[style.width.px]=\"link.radius*2\"\n\t[style.height.px]=\"link.radius*2\">\n\n</div>";
-
-/***/ },
-
-/***/ 99:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var InputBoxComponent = (function () {
-	    function InputBoxComponent() {
-	    }
-	    InputBoxComponent = __decorate([
-	        core_1.Component({
-	            selector: 'input-box',
-	            template: __webpack_require__(100),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], InputBoxComponent);
-	    return InputBoxComponent;
-	}());
-	exports.InputBoxComponent = InputBoxComponent;
-
-
-/***/ },
-
-/***/ 100:
-/***/ function(module, exports) {
-
-	module.exports = "TODO";
-
-/***/ },
-
-/***/ 101:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var worksheet_1 = __webpack_require__(77);
-	var ClassDiagramComponent = (function () {
-	    function ClassDiagramComponent() {
-	        this.requestDragging = new core_1.EventEmitter();
-	    }
-	    ClassDiagramComponent.prototype.toggleSelection = function () {
-	        this.classDiagram.selected = !this.classDiagram.selected;
-	    };
-	    ClassDiagramComponent.prototype.registerDragIntention = function (dragProcessor) {
-	        this.requestDragging.emit(dragProcessor);
-	    };
-	    __decorate([
-	        core_1.Input('classDiagram'), 
-	        __metadata('design:type', (typeof (_a = typeof worksheet_1.ClassDiagramNode !== 'undefined' && worksheet_1.ClassDiagramNode) === 'function' && _a) || Object)
-	    ], ClassDiagramComponent.prototype, "classDiagram", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], ClassDiagramComponent.prototype, "requestDragging", void 0);
-	    ClassDiagramComponent = __decorate([
-	        core_1.Component({
-	            selector: 'class-diagram',
-	            template: __webpack_require__(102),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], ClassDiagramComponent);
-	    return ClassDiagramComponent;
-	    var _a;
-	}());
-	exports.ClassDiagramComponent = ClassDiagramComponent;
-
-
-/***/ },
-
-/***/ 102:
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classDiagram.rect.x\"\n[style.top.px]=\"classDiagram.rect.y\"\n[style.width.px]=\"classDiagram.rect.width\"\n[style.height.px]=\"classDiagram.rect.height\"\n[style.selected-block]=\"classDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span [class.italic]=\"classDiagram.classDefinition.isAbstract\">{{classDiagram.classDefinition.name}}</span>\n\t</div>\n\n\t<div \n\t*ngFor=\"let fieldMember of classDiagram.classDefinition.fieldList \" \n\tclass=\"block-cell content-block-cell\"\n\tcontenteditable=\"true\"\n\t>\n\t\t{{fieldMember.accessSpecifier | accessSymbol}} {{fieldMember.variableDefinition.name}} : {{fieldMember.variableDefinition.type.getName()}}\n\t</div>\n\t<div class=\"solid-horizontal-line mini-top-bottom-margin\"> </div>\n\t<div *ngFor=\"let methodMember of classDiagram.classDefinition.methodList; let i=index\" \n\t\tclass=\"block-cell content-block-cell\"\n\t\tcontenteditable=\"true\"\n\t\t>\n\n\t\t{{methodMember.accessSpecifier | accessSymbol}} \n\t\t<span [class.italic]=\"methodMember.isAbstract\">\n\t\t{{methodMember.methodPrototype.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of methodMember.methodPrototype.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{methodMember.methodPrototype.returnType.getName()}}\n\t\t</span>\n\t</div>\n</div>";
-
-/***/ },
-
-/***/ 103:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var worksheet_1 = __webpack_require__(77);
-	var ClassObjectComponent = (function () {
-	    function ClassObjectComponent() {
-	        this.requestDragging = new core_1.EventEmitter();
-	    }
-	    ClassObjectComponent.prototype.toggleSelection = function () {
-	        this.classObjectDiagram.selected = !this.classObjectDiagram.selected;
-	    };
-	    ClassObjectComponent.prototype.registerDragIntention = function (dragProcessor) {
-	        this.requestDragging.emit(dragProcessor);
-	    };
-	    __decorate([
-	        core_1.Input('classObjectDiagram'), 
-	        __metadata('design:type', (typeof (_a = typeof worksheet_1.ClassObjectDiagram !== 'undefined' && worksheet_1.ClassObjectDiagram) === 'function' && _a) || Object)
-	    ], ClassObjectComponent.prototype, "classObjectDiagram", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], ClassObjectComponent.prototype, "requestDragging", void 0);
-	    ClassObjectComponent = __decorate([
-	        core_1.Component({
-	            selector: 'class-object-diagram',
-	            template: __webpack_require__(104),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], ClassObjectComponent);
-	    return ClassObjectComponent;
-	    var _a;
-	}());
-	exports.ClassObjectComponent = ClassObjectComponent;
-
-
-/***/ },
-
-/***/ 104:
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classObjectDiagram.rect.x\"\n[style.top.px]=\"classObjectDiagram.rect.y\"\n[style.width.px]=\"classObjectDiagram.rect.width\"\n[style.height.px]=\"classObjectDiagram.rect.height\"\n[style.selected-block]=\"classObjectDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span>{{classObjectDiagram.classObject.name}}</span>\n\t\t : \n\t\t<span class=\"bold\">{{classObjectDiagram.classObject.classDefinition.getName()}}</span>\n\t</div>\n\n\t<div *ngFor=\"let fieldData of classObjectDiagram.classObject.fieldDataList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{fieldData.variable.name}} \n\t\t=\n\t\t{{fieldData.data.stringRepresentation()}}\n\t</div>\n</div>";
-
-/***/ },
-
-/***/ 105:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var worksheet_1 = __webpack_require__(77);
-	var InterfaceDiagramComponent = (function () {
-	    function InterfaceDiagramComponent() {
-	        this.requestDragging = new core_1.EventEmitter();
-	    }
-	    InterfaceDiagramComponent.prototype.toggleSelection = function () {
-	        this.interfaceDiagram.selected = !this.interfaceDiagram.selected;
-	    };
-	    InterfaceDiagramComponent.prototype.registerDragIntention = function (dragProcessor) {
-	        this.requestDragging.emit(dragProcessor);
-	    };
-	    __decorate([
-	        core_1.Input('interfaceDiagram'), 
-	        __metadata('design:type', (typeof (_a = typeof worksheet_1.InterfaceDiagramNode !== 'undefined' && worksheet_1.InterfaceDiagramNode) === 'function' && _a) || Object)
-	    ], InterfaceDiagramComponent.prototype, "interfaceDiagram", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], InterfaceDiagramComponent.prototype, "requestDragging", void 0);
-	    InterfaceDiagramComponent = __decorate([
-	        core_1.Component({
-	            selector: 'interface-diagram',
-	            template: __webpack_require__(106),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], InterfaceDiagramComponent);
-	    return InterfaceDiagramComponent;
-	    var _a;
-	}());
-	exports.InterfaceDiagramComponent = InterfaceDiagramComponent;
-
-
-/***/ },
-
-/***/ 106:
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"interfaceDiagram.rect.x\"\n[style.top.px]=\"interfaceDiagram.rect.y\"\n[style.width.px]=\"interfaceDiagram.rect.width\"\n[style.height.px]=\"interfaceDiagram.rect.height\"\n[style.selected-block]=\"interfaceDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<div class=\"header-decorater\"> &lt;&lt; Interface &gt;&gt; </div>\n\t\t<span>{{interfaceDiagram.interfaceDefinition.name}}</span>\n\t</div>\n\n\t<div *ngFor=\"let method of interfaceDiagram.interfaceDefinition.methodList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{method.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of method.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{method.returnType.getName()}}\n\t</div>\n</div>";
-
-/***/ },
-
-/***/ 107:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var InterfaceObjectDiagramComponent = (function () {
-	    function InterfaceObjectDiagramComponent() {
-	    }
-	    InterfaceObjectDiagramComponent = __decorate([
-	        core_1.Component({
-	            selector: 'interface-object-diagram',
-	            template: __webpack_require__(108),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], InterfaceObjectDiagramComponent);
-	    return InterfaceObjectDiagramComponent;
-	}());
-	exports.InterfaceObjectDiagramComponent = InterfaceObjectDiagramComponent;
-
-
-/***/ },
-
-/***/ 108:
-/***/ function(module, exports) {
-
-	module.exports = "TODO";
-
-/***/ },
-
-/***/ 109:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var LinkedSegmentsComponent = (function () {
-	    function LinkedSegmentsComponent() {
-	    }
-	    LinkedSegmentsComponent = __decorate([
-	        core_1.Component({
-	            selector: 'linked-segments',
-	            template: __webpack_require__(110),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], LinkedSegmentsComponent);
-	    return LinkedSegmentsComponent;
-	}());
-	exports.LinkedSegmentsComponent = LinkedSegmentsComponent;
-
-
-/***/ },
-
-/***/ 110:
-/***/ function(module, exports) {
-
-	module.exports = "TODO";
-
-/***/ },
-
-/***/ 111:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var __param = (this && this.__param) || function (paramIndex, decorator) {
-	    return function (target, key) { decorator(target, key, paramIndex); }
-	};
-	var core_1 = __webpack_require__(3);
-	var FocusDirective = (function () {
-	    function FocusDirective(element) {
-	        this.element = element;
-	    }
-	    FocusDirective.prototype.ngOnChanges = function () {
-	        this.element.nativeElement.focus();
-	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Boolean)
-	    ], FocusDirective.prototype, "focus", void 0);
-	    FocusDirective = __decorate([
-	        core_1.Directive({
-	            selector: '[focus]'
-	        }),
-	        __param(0, core_1.Inject(core_1.ElementRef)), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
-	    ], FocusDirective);
-	    return FocusDirective;
-	    var _a;
-	}());
-	exports.FocusDirective = FocusDirective;
-
-
-/***/ },
-
-/***/ 112:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var __param = (this && this.__param) || function (paramIndex, decorator) {
-	    return function (target, key) { decorator(target, key, paramIndex); }
-	};
-	var core_1 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(68);
-	var MyRectDirective = (function () {
-	    function MyRectDirective(element) {
-	        this.element = element;
-	        this.background = "white";
-	        this.strokeColor = 'black';
-	        this.strokeWidth = 2;
-	        this.strokeStyle = 'solid';
-	        this.opacity = 1;
-	    }
-	    MyRectDirective.prototype.ngOnChanges = function () {
-	        this.element.nativeElement.style.position = "absolute";
-	        this.element.nativeElement.style.left = this.myRect.x + "px";
-	        this.element.nativeElement.style.top = this.myRect.y + "px";
-	        this.element.nativeElement.style.width = this.myRect.width + "px";
-	        this.element.nativeElement.style.height = this.myRect.height + "px";
-	        this.element.nativeElement.style.background = this.background;
-	        this.element.nativeElement.style.borderColor = this.strokeColor;
-	        this.element.nativeElement.style.borderWidth = this.strokeWidth + "px";
-	        this.element.nativeElement.style.borderStyle = this.strokeStyle;
-	        this.element.nativeElement.style.opacity = this.opacity;
-	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', (typeof (_a = typeof geometry_1.Rect !== 'undefined' && geometry_1.Rect) === 'function' && _a) || Object)
-	    ], MyRectDirective.prototype, "myRect", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Object)
-	    ], MyRectDirective.prototype, "background", void 0);
-	    __decorate([
-	        core_1.Input('borderColor'), 
-	        __metadata('design:type', Object)
-	    ], MyRectDirective.prototype, "strokeColor", void 0);
-	    __decorate([
-	        core_1.Input('borderWidth'), 
-	        __metadata('design:type', Object)
-	    ], MyRectDirective.prototype, "strokeWidth", void 0);
-	    __decorate([
-	        core_1.Input('borderStyle'), 
-	        __metadata('design:type', Object)
-	    ], MyRectDirective.prototype, "strokeStyle", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Object)
-	    ], MyRectDirective.prototype, "opacity", void 0);
-	    MyRectDirective = __decorate([
-	        core_1.Directive({
-	            selector: '[myRect]'
-	        }),
-	        __param(0, core_1.Inject(core_1.ElementRef)), 
-	        __metadata('design:paramtypes', [(typeof (_b = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _b) || Object])
-	    ], MyRectDirective);
-	    return MyRectDirective;
-	    var _a, _b;
-	}());
-	exports.MyRectDirective = MyRectDirective;
-
-
-/***/ },
-
-/***/ 113:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var __param = (this && this.__param) || function (paramIndex, decorator) {
-	    return function (target, key) { decorator(target, key, paramIndex); }
-	};
-	var core_1 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(68);
-	var MyCircleDirective = (function () {
-	    function MyCircleDirective(element) {
-	        this.element = element;
-	        this.background = "white";
-	        this.strokeColor = 'black';
-	        this.strokeWidth = 2;
-	        this.strokeStyle = 'solid';
-	        this.opacity = 1;
-	    }
-	    MyCircleDirective.prototype.ngOnChanges = function () {
-	        this.element.nativeElement.style.borderRadius = "50%";
-	        this.element.nativeElement.style.position = "absolute";
-	        this.element.nativeElement.style.left = this.myCircle.center.x + "px";
-	        this.element.nativeElement.style.top = this.myCircle.center.y + "px";
-	        this.element.nativeElement.style.width = this.myCircle.radius * 2 + "px";
-	        this.element.nativeElement.style.height = this.myCircle.radius * 2 + "px";
-	        this.element.nativeElement.style.background = this.background;
-	        this.element.nativeElement.style.borderColor = this.strokeColor;
-	        this.element.nativeElement.style.borderWidth = this.strokeWidth + "px";
-	        this.element.nativeElement.style.borderStyle = this.strokeStyle;
-	        this.element.nativeElement.style.opacity = this.opacity;
-	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', (typeof (_a = typeof geometry_1.Circle !== 'undefined' && geometry_1.Circle) === 'function' && _a) || Object)
-	    ], MyCircleDirective.prototype, "myCircle", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Object)
-	    ], MyCircleDirective.prototype, "background", void 0);
-	    __decorate([
-	        core_1.Input('borderColor'), 
-	        __metadata('design:type', Object)
-	    ], MyCircleDirective.prototype, "strokeColor", void 0);
-	    __decorate([
-	        core_1.Input('borderWidth'), 
-	        __metadata('design:type', Object)
-	    ], MyCircleDirective.prototype, "strokeWidth", void 0);
-	    __decorate([
-	        core_1.Input('borderStyle'), 
-	        __metadata('design:type', Object)
-	    ], MyCircleDirective.prototype, "strokeStyle", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Object)
-	    ], MyCircleDirective.prototype, "opacity", void 0);
-	    MyCircleDirective = __decorate([
-	        core_1.Directive({
-	            selector: '[myCircle]'
-	        }),
-	        __param(0, core_1.Inject(core_1.ElementRef)), 
-	        __metadata('design:paramtypes', [(typeof (_b = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _b) || Object])
-	    ], MyCircleDirective);
-	    return MyCircleDirective;
-	    var _a, _b;
-	}());
-	exports.MyCircleDirective = MyCircleDirective;
-
-
-/***/ },
-
-/***/ 114:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var semantic_model_1 = __webpack_require__(70);
-	/*
-	 * Gives the symbol for an access specifier
-	 *
-	 * Usage:
-	 *   value | accessSymbol
-	*/
-	var AccessSymbol = (function () {
-	    function AccessSymbol() {
-	    }
-	    AccessSymbol.prototype.transform = function (value) {
-	        switch (value) {
-	            case semantic_model_1.AccessSpecifier.Private:
-	                return "-";
-	            case semantic_model_1.AccessSpecifier.Protected:
-	                return "#";
-	            case semantic_model_1.AccessSpecifier.Public:
-	                return "+";
-	            case semantic_model_1.AccessSpecifier.Default:
-	            default:
-	                return " ";
-	        }
-	    };
-	    AccessSymbol = __decorate([
-	        core_1.Pipe({ name: 'accessSymbol' }), 
-	        __metadata('design:paramtypes', [])
-	    ], AccessSymbol);
-	    return AccessSymbol;
-	}());
-	exports.AccessSymbol = AccessSymbol;
-
-
-/***/ },
-
-/***/ 115:
-/***/ function(module, exports, __webpack_require__) {
-
-	// style-loader: Adds some css to the DOM by adding a <style> tag
-	
-	// load the styles
-	var content = __webpack_require__(116);
-	if(typeof content === 'string') content = [[module.id, content, '']];
-	// add the styles to the DOM
-	var update = __webpack_require__(118)(content, {});
-	if(content.locals) module.exports = content.locals;
-	// Hot Module Replacement
-	if(false) {
-		// When the styles change, update the <style> tags
-		if(!content.locals) {
-			module.hot.accept("!!./../node_modules/css-loader/index.js!./../node_modules/sass-loader/index.js!./workspace.scss", function() {
-				var newContent = require("!!./../node_modules/css-loader/index.js!./../node_modules/sass-loader/index.js!./workspace.scss");
-				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
-				update(newContent);
-			});
-		}
-		// When the module is disposed, remove the <style> tags
-		module.hot.dispose(function() { update(); });
-	}
-
-/***/ },
-
-/***/ 116:
-/***/ function(module, exports, __webpack_require__) {
-
-	exports = module.exports = __webpack_require__(117)();
-	// imports
-	
-	
-	// module
-	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  text-align: center; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n", ""]);
-	
-	// exports
-
-
-/***/ },
-
-/***/ 117:
-/***/ function(module, exports) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	// css base code, injected by the css-loader
-	module.exports = function() {
-		var list = [];
-	
-		// return the list of modules as css string
-		list.toString = function toString() {
-			var result = [];
-			for(var i = 0; i < this.length; i++) {
-				var item = this[i];
-				if(item[2]) {
-					result.push("@media " + item[2] + "{" + item[1] + "}");
-				} else {
-					result.push(item[1]);
-				}
-			}
-			return result.join("");
-		};
-	
-		// import a list of modules into the list
-		list.i = function(modules, mediaQuery) {
-			if(typeof modules === "string")
-				modules = [[null, modules, ""]];
-			var alreadyImportedModules = {};
-			for(var i = 0; i < this.length; i++) {
-				var id = this[i][0];
-				if(typeof id === "number")
-					alreadyImportedModules[id] = true;
-			}
-			for(i = 0; i < modules.length; i++) {
-				var item = modules[i];
-				// skip already imported module
-				// this implementation is not 100% perfect for weird media query combinations
-				//  when a module is imported multiple times with different media queries.
-				//  I hope this will never occur (Hey this way we have smaller bundles)
-				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
-					if(mediaQuery && !item[2]) {
-						item[2] = mediaQuery;
-					} else if(mediaQuery) {
-						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
-					}
-					list.push(item);
-				}
-			}
-		};
-		return list;
-	};
-
-
-/***/ },
-
-/***/ 118:
-/***/ function(module, exports, __webpack_require__) {
-
-	/*
-		MIT License http://www.opensource.org/licenses/mit-license.php
-		Author Tobias Koppers @sokra
-	*/
-	var stylesInDom = {},
-		memoize = function(fn) {
-			var memo;
-			return function () {
-				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
-				return memo;
-			};
-		},
-		isOldIE = memoize(function() {
-			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
-		}),
-		getHeadElement = memoize(function () {
-			return document.head || document.getElementsByTagName("head")[0];
-		}),
-		singletonElement = null,
-		singletonCounter = 0,
-		styleElementsInsertedAtTop = [];
-	
-	module.exports = function(list, options) {
-		if(true) {
-			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
-		}
-	
-		options = options || {};
-		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
-		// tags it will allow on a page
-		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
-	
-		// By default, add <style> tags to the bottom of <head>.
-		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
-	
-		var styles = listToStyles(list);
-		addStylesToDom(styles, options);
-	
-		return function update(newList) {
-			var mayRemove = [];
-			for(var i = 0; i < styles.length; i++) {
-				var item = styles[i];
-				var domStyle = stylesInDom[item.id];
-				domStyle.refs--;
-				mayRemove.push(domStyle);
-			}
-			if(newList) {
-				var newStyles = listToStyles(newList);
-				addStylesToDom(newStyles, options);
-			}
-			for(var i = 0; i < mayRemove.length; i++) {
-				var domStyle = mayRemove[i];
-				if(domStyle.refs === 0) {
-					for(var j = 0; j < domStyle.parts.length; j++)
-						domStyle.parts[j]();
-					delete stylesInDom[domStyle.id];
-				}
-			}
-		};
-	}
-	
-	function addStylesToDom(styles, options) {
-		for(var i = 0; i < styles.length; i++) {
-			var item = styles[i];
-			var domStyle = stylesInDom[item.id];
-			if(domStyle) {
-				domStyle.refs++;
-				for(var j = 0; j < domStyle.parts.length; j++) {
-					domStyle.parts[j](item.parts[j]);
-				}
-				for(; j < item.parts.length; j++) {
-					domStyle.parts.push(addStyle(item.parts[j], options));
-				}
-			} else {
-				var parts = [];
-				for(var j = 0; j < item.parts.length; j++) {
-					parts.push(addStyle(item.parts[j], options));
-				}
-				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
-			}
-		}
-	}
-	
-	function listToStyles(list) {
-		var styles = [];
-		var newStyles = {};
-		for(var i = 0; i < list.length; i++) {
-			var item = list[i];
-			var id = item[0];
-			var css = item[1];
-			var media = item[2];
-			var sourceMap = item[3];
-			var part = {css: css, media: media, sourceMap: sourceMap};
-			if(!newStyles[id])
-				styles.push(newStyles[id] = {id: id, parts: [part]});
-			else
-				newStyles[id].parts.push(part);
-		}
-		return styles;
-	}
-	
-	function insertStyleElement(options, styleElement) {
-		var head = getHeadElement();
-		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
-		if (options.insertAt === "top") {
-			if(!lastStyleElementInsertedAtTop) {
-				head.insertBefore(styleElement, head.firstChild);
-			} else if(lastStyleElementInsertedAtTop.nextSibling) {
-				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
-			} else {
-				head.appendChild(styleElement);
-			}
-			styleElementsInsertedAtTop.push(styleElement);
-		} else if (options.insertAt === "bottom") {
-			head.appendChild(styleElement);
-		} else {
-			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
-		}
-	}
-	
-	function removeStyleElement(styleElement) {
-		styleElement.parentNode.removeChild(styleElement);
-		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
-		if(idx >= 0) {
-			styleElementsInsertedAtTop.splice(idx, 1);
-		}
-	}
-	
-	function createStyleElement(options) {
-		var styleElement = document.createElement("style");
-		styleElement.type = "text/css";
-		insertStyleElement(options, styleElement);
-		return styleElement;
-	}
-	
-	function createLinkElement(options) {
-		var linkElement = document.createElement("link");
-		linkElement.rel = "stylesheet";
-		insertStyleElement(options, linkElement);
-		return linkElement;
-	}
-	
-	function addStyle(obj, options) {
-		var styleElement, update, remove;
-	
-		if (options.singleton) {
-			var styleIndex = singletonCounter++;
-			styleElement = singletonElement || (singletonElement = createStyleElement(options));
-			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
-			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
-		} else if(obj.sourceMap &&
-			typeof URL === "function" &&
-			typeof URL.createObjectURL === "function" &&
-			typeof URL.revokeObjectURL === "function" &&
-			typeof Blob === "function" &&
-			typeof btoa === "function") {
-			styleElement = createLinkElement(options);
-			update = updateLink.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-				if(styleElement.href)
-					URL.revokeObjectURL(styleElement.href);
-			};
-		} else {
-			styleElement = createStyleElement(options);
-			update = applyToTag.bind(null, styleElement);
-			remove = function() {
-				removeStyleElement(styleElement);
-			};
-		}
-	
-		update(obj);
-	
-		return function updateStyle(newObj) {
-			if(newObj) {
-				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
-					return;
-				update(obj = newObj);
-			} else {
-				remove();
-			}
-		};
-	}
-	
-	var replaceText = (function () {
-		var textStore = [];
-	
-		return function (index, replacement) {
-			textStore[index] = replacement;
-			return textStore.filter(Boolean).join('\n');
-		};
-	})();
-	
-	function applyToSingletonTag(styleElement, index, remove, obj) {
-		var css = remove ? "" : obj.css;
-	
-		if (styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = replaceText(index, css);
-		} else {
-			var cssNode = document.createTextNode(css);
-			var childNodes = styleElement.childNodes;
-			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
-			if (childNodes.length) {
-				styleElement.insertBefore(cssNode, childNodes[index]);
-			} else {
-				styleElement.appendChild(cssNode);
-			}
-		}
-	}
-	
-	function applyToTag(styleElement, obj) {
-		var css = obj.css;
-		var media = obj.media;
-	
-		if(media) {
-			styleElement.setAttribute("media", media)
-		}
-	
-		if(styleElement.styleSheet) {
-			styleElement.styleSheet.cssText = css;
-		} else {
-			while(styleElement.firstChild) {
-				styleElement.removeChild(styleElement.firstChild);
-			}
-			styleElement.appendChild(document.createTextNode(css));
-		}
-	}
-	
-	function updateLink(linkElement, obj) {
-		var css = obj.css;
-		var sourceMap = obj.sourceMap;
-	
-		if(sourceMap) {
-			// http://stackoverflow.com/a/26603875
-			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
-		}
-	
-		var blob = new Blob([css], { type: "text/css" });
-	
-		var oldSrc = linkElement.href;
-	
-		linkElement.href = URL.createObjectURL(blob);
-	
-		if(oldSrc)
-			URL.revokeObjectURL(oldSrc);
-	}
-
-
-/***/ },
-
-/***/ 673:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var syntax_parser_1 = __webpack_require__(84);
-	var util = __webpack_require__(69);
+	var syntax_parser_1 = __webpack_require__(89);
+	var util = __webpack_require__(74);
 	/** Type of action in the parser table */
 	(function (ParserTableValueType) {
 	    ParserTableValueType[ParserTableValueType["Blank"] = 1] = "Blank";
@@ -10371,7 +9165,509 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 674:
+/***/ 91:
+/***/ function(module, exports) {
+
+	module.exports = "#massive-area {\n  position: absolute; }\n\n#starter-tip {\n  position: absolute;\n  color: gray; }\n"
+
+/***/ },
+
+/***/ 92:
+/***/ function(module, exports) {
+
+	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<auto-completion [semanticModel]=\"worksheet.semanticModel\" [objectModel]=\"worksheet.objectModel\"></auto-completion>\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\t<generic-node [genericNode]=\"genericNode1\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n\t<generic-node [genericNode]=\"genericNode2\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n\t<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>\n<!--\t\n\t<class-diagram *ngFor=\"let classDiagram of worksheet.classDiagramList\" [classDiagram]=\"classDiagram\"></class-diagram>\n\t<interface-diagram *ngFor=\"let interfaceDiagram of worksheet.interfaceDiagramList\" [interfaceDiagram]=\"interfaceDiagram\"></interface-diagram>\n\t<class-object-diagram *ngFor=\"let classObject of worksheet.classObjectDiagramList\" [classObjectDiagram]=\"classObject\"></class-object-diagram>\n\t<line-segment [start]=\"st\" [end]=\"en\"></line-segment>\n\t-->\n</div>";
+
+/***/ },
+
+/***/ 93:
+/***/ function(module, exports) {
+
+	module.exports = "#menu-controls {\n  position: absolute;\n  padding: 0px;\n  top: 10px; }\n  #menu-controls li {\n    color: blue;\n    cursor: pointer;\n    display: inline;\n    list-style: none; }\n  #menu-controls li:hover {\n    color: darkblue; }\n\n#container {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n"
+
+/***/ },
+
+/***/ 94:
+/***/ function(module, exports) {
+
+	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t<li>Area</li>\n\t\t<li>Overview</li>\n\t</ul>\n</div>\n";
+
+/***/ },
+
+/***/ 95:
+/***/ function(module, exports, __webpack_require__) {
+
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+	
+	// load the styles
+	var content = __webpack_require__(96);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(98)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../node_modules/css-loader/index.js!./../node_modules/sass-loader/index.js!./workspace.scss", function() {
+				var newContent = require("!!./../node_modules/css-loader/index.js!./../node_modules/sass-loader/index.js!./workspace.scss");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+
+/***/ 96:
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(97)();
+	// imports
+	
+	
+	// module
+	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  text-align: center; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n", ""]);
+	
+	// exports
+
+
+/***/ },
+
+/***/ 97:
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+	
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+	
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+
+/***/ 98:
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0,
+		styleElementsInsertedAtTop = [];
+	
+	module.exports = function(list, options) {
+		if(true) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+	
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+	
+		// By default, add <style> tags to the bottom of <head>.
+		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+	
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+	
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+	
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+	
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+	
+	function insertStyleElement(options, styleElement) {
+		var head = getHeadElement();
+		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+		if (options.insertAt === "top") {
+			if(!lastStyleElementInsertedAtTop) {
+				head.insertBefore(styleElement, head.firstChild);
+			} else if(lastStyleElementInsertedAtTop.nextSibling) {
+				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+			} else {
+				head.appendChild(styleElement);
+			}
+			styleElementsInsertedAtTop.push(styleElement);
+		} else if (options.insertAt === "bottom") {
+			head.appendChild(styleElement);
+		} else {
+			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+		}
+	}
+	
+	function removeStyleElement(styleElement) {
+		styleElement.parentNode.removeChild(styleElement);
+		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+		if(idx >= 0) {
+			styleElementsInsertedAtTop.splice(idx, 1);
+		}
+	}
+	
+	function createStyleElement(options) {
+		var styleElement = document.createElement("style");
+		styleElement.type = "text/css";
+		insertStyleElement(options, styleElement);
+		return styleElement;
+	}
+	
+	function createLinkElement(options) {
+		var linkElement = document.createElement("link");
+		linkElement.rel = "stylesheet";
+		insertStyleElement(options, linkElement);
+		return linkElement;
+	}
+	
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+	
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement(options));
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement(options);
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement(options);
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+			};
+		}
+	
+		update(obj);
+	
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+	
+	var replaceText = (function () {
+		var textStore = [];
+	
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+	
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+	
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+	
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+	
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+	
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+	
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var sourceMap = obj.sourceMap;
+	
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+	
+		var blob = new Blob([css], { type: "text/css" });
+	
+		var oldSrc = linkElement.href;
+	
+		linkElement.href = URL.createObjectURL(blob);
+	
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
+
+/***/ },
+
+/***/ 653:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var platform_browser_1 = __webpack_require__(21);
+	var forms_1 = __webpack_require__(24);
+	var workspace_component_1 = __webpack_require__(71);
+	var artboard_component_1 = __webpack_require__(80);
+	var sidebar_component_1 = __webpack_require__(77);
+	var area_component_1 = __webpack_require__(654);
+	var box_component_1 = __webpack_require__(656);
+	var generic_node_component_1 = __webpack_require__(660);
+	var line_segment_component_1 = __webpack_require__(662);
+	var resize_handle_component_1 = __webpack_require__(657);
+	var linker_component_1 = __webpack_require__(664);
+	var input_box_component_1 = __webpack_require__(666);
+	var auto_completion_component_1 = __webpack_require__(84);
+	var class_diagram_component_1 = __webpack_require__(668);
+	var class_object_diagram_component_1 = __webpack_require__(670);
+	var interface_diagram_component_1 = __webpack_require__(672);
+	var interface_object_diagram_component_1 = __webpack_require__(674);
+	var linked_segments_component_1 = __webpack_require__(676);
+	var transform_service_1 = __webpack_require__(72);
+	var interpreter_service_1 = __webpack_require__(87);
+	var mock_data_service_1 = __webpack_require__(81);
+	var focus_directive_1 = __webpack_require__(678);
+	var my_rect_directive_1 = __webpack_require__(679);
+	var my_circle_directive_1 = __webpack_require__(680);
+	var access_symbol_pipe_1 = __webpack_require__(681);
+	var node_background_pipe_1 = __webpack_require__(682);
+	var WorkspaceModule = (function () {
+	    function WorkspaceModule() {
+	    }
+	    WorkspaceModule = __decorate([
+	        core_1.NgModule({
+	            imports: [
+	                platform_browser_1.BrowserModule,
+	                forms_1.FormsModule,
+	            ],
+	            declarations: [
+	                focus_directive_1.FocusDirective,
+	                my_rect_directive_1.MyRectDirective,
+	                my_circle_directive_1.MyCircleDirective,
+	                access_symbol_pipe_1.AccessSymbol,
+	                node_background_pipe_1.NodeBackground,
+	                workspace_component_1.WorkspaceComponent,
+	                sidebar_component_1.SidebarComponent,
+	                artboard_component_1.ArtboardComponent,
+	                area_component_1.AreaComponent,
+	                box_component_1.BoxComponent,
+	                generic_node_component_1.GenericNodeComponent,
+	                line_segment_component_1.LineSegmentComponent,
+	                resize_handle_component_1.ResizeHandleComponent,
+	                input_box_component_1.InputBoxComponent,
+	                auto_completion_component_1.AutoCompletionComponent,
+	                class_diagram_component_1.ClassDiagramComponent,
+	                class_object_diagram_component_1.ClassObjectComponent,
+	                interface_diagram_component_1.InterfaceDiagramComponent,
+	                interface_object_diagram_component_1.InterfaceObjectDiagramComponent,
+	                linked_segments_component_1.LinkedSegmentsComponent,
+	                linker_component_1.LinkerComponent
+	            ],
+	            schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA],
+	            providers: [transform_service_1.TransformService, interpreter_service_1.InterpreterService, mock_data_service_1.MockDataService]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], WorkspaceModule);
+	    return WorkspaceModule;
+	}());
+	exports.WorkspaceModule = WorkspaceModule;
+
+
+/***/ },
+
+/***/ 654:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var AreaComponent = (function () {
+	    function AreaComponent() {
+	    }
+	    AreaComponent = __decorate([
+	        core_1.Component({
+	            selector: 'area-highlight',
+	            template: __webpack_require__(655),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], AreaComponent);
+	    return AreaComponent;
+	}());
+	exports.AreaComponent = AreaComponent;
+
+
+/***/ },
+
+/***/ 655:
+/***/ function(module, exports) {
+
+	module.exports = "<h1>TODO area</h1>";
+
+/***/ },
+
+/***/ 656:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10386,8 +9682,279 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(3);
 	var core_2 = __webpack_require__(3);
-	var resize_handle_component_1 = __webpack_require__(92);
-	var worksheet_1 = __webpack_require__(77);
+	var geometry_1 = __webpack_require__(73);
+	var resize_handle_component_1 = __webpack_require__(657);
+	var BoxComponent = (function () {
+	    function BoxComponent() {
+	        this.requestDragging = new core_1.EventEmitter();
+	        this.isSelected = false;
+	    }
+	    BoxComponent.prototype.toggleSelection = function () {
+	        this.isSelected = !this.isSelected;
+	    };
+	    BoxComponent.prototype.handleMousePress = function (event) {
+	    };
+	    BoxComponent.prototype.handleMouseDrag = function (event) {
+	    };
+	    BoxComponent.prototype.handleMouseRelease = function (event) {
+	    };
+	    BoxComponent.prototype.registerDragIntention = function (dragProcessor) {
+	        this.requestDragging.emit(dragProcessor);
+	    };
+	    BoxComponent.prototype.updateAllResizeHandlers = function (resizeHandler) {
+	        this.resizeHandlers.forEach(function (item) {
+	            item.updateHandlePosition();
+	        });
+	    };
+	    __decorate([
+	        core_1.Input('rect'), 
+	        __metadata('design:type', (typeof (_a = typeof geometry_1.Rect !== 'undefined' && geometry_1.Rect) === 'function' && _a) || Object)
+	    ], BoxComponent.prototype, "rect", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], BoxComponent.prototype, "requestDragging", void 0);
+	    __decorate([
+	        core_1.ViewChildren(resize_handle_component_1.ResizeHandleComponent), 
+	        __metadata('design:type', (typeof (_b = typeof core_1.QueryList !== 'undefined' && core_1.QueryList) === 'function' && _b) || Object)
+	    ], BoxComponent.prototype, "resizeHandlers", void 0);
+	    BoxComponent = __decorate([
+	        core_1.Component({
+	            selector: 'box',
+	            template: __webpack_require__(659),
+	            animations: [
+	                core_2.trigger('selection', [
+	                    core_2.state('selected', core_2.style({
+	                        borderColor: "#2BA3FC"
+	                    })),
+	                    core_2.state('unselected', core_2.style({
+	                        borderColor: "black"
+	                    })),
+	                    core_2.transition('selected => unselected', core_2.animate('100ms ease-in')),
+	                    core_2.transition('unselected => selected', core_2.animate('100ms ease-out'))
+	                ])
+	            ]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], BoxComponent);
+	    return BoxComponent;
+	    var _a, _b;
+	}());
+	exports.BoxComponent = BoxComponent;
+
+
+/***/ },
+
+/***/ 657:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(73);
+	var common_1 = __webpack_require__(74);
+	var tracking_point_1 = __webpack_require__(76);
+	var ResizeHandleComponent = (function () {
+	    function ResizeHandleComponent() {
+	        this.requestDragging = new core_1.EventEmitter();
+	        this.updateAllResizeHandlers = new core_1.EventEmitter();
+	        //the following private fields are used exclusively to handle the drag event
+	        this.startX = 0;
+	        this.startY = 0;
+	        this.lastX = 0;
+	        this.lastY = 0;
+	    }
+	    ResizeHandleComponent.prototype.ngOnInit = function () {
+	        this.initHandle();
+	        this.updateHandlePosition();
+	    };
+	    ResizeHandleComponent.prototype.initHandle = function () {
+	        //initialize tracking point based on this handles placement
+	        this.pointOnSide = new tracking_point_1.RectTrackingPoint(this.rect);
+	        switch (this.placement) {
+	            case common_1.Direction.Top:
+	                this.pointOnSide.fraction = 0.5;
+	                this.pointOnSide.side = common_1.Direction.Top;
+	                this.cursor = "ns-resize";
+	                break;
+	            case common_1.Direction.TopLeft:
+	                this.pointOnSide.fraction = 0;
+	                this.pointOnSide.side = common_1.Direction.Top;
+	                this.cursor = "nwse-resize";
+	                break;
+	            case common_1.Direction.TopRight:
+	                this.pointOnSide.fraction = 1;
+	                this.pointOnSide.side = common_1.Direction.Top;
+	                this.cursor = "nesw-resize";
+	                break;
+	            case common_1.Direction.Bottom:
+	                this.pointOnSide.fraction = 0.5;
+	                this.pointOnSide.side = common_1.Direction.Bottom;
+	                this.cursor = "ns-resize";
+	                break;
+	            case common_1.Direction.BottomLeft:
+	                this.pointOnSide.fraction = 1; //because fraction of rect with side goes clockwise
+	                this.pointOnSide.side = common_1.Direction.Bottom;
+	                this.cursor = "nesw-resize";
+	                break;
+	            case common_1.Direction.BottomRight:
+	                this.pointOnSide.fraction = 0;
+	                this.pointOnSide.side = common_1.Direction.Bottom;
+	                this.cursor = "nwse-resize";
+	                break;
+	            case common_1.Direction.Left:
+	                this.pointOnSide.fraction = 0.5;
+	                this.pointOnSide.side = common_1.Direction.Left;
+	                this.cursor = "ew-resize";
+	                break;
+	            case common_1.Direction.Right:
+	                this.pointOnSide.fraction = 0.5;
+	                this.pointOnSide.side = common_1.Direction.Right;
+	                this.cursor = "ew-resize";
+	                break;
+	        }
+	        //initialize handle's rect by using the tracking point
+	        var point = this.pointOnSide.pointOnSide(this.pointOnSide.side, this.pointOnSide.fraction);
+	        this.handle = new geometry_1.Rect(point.x - ResizeHandleComponent.HandleWidth / 2, point.y - ResizeHandleComponent.HandleWidth / 2, ResizeHandleComponent.HandleWidth, ResizeHandleComponent.HandleWidth);
+	    };
+	    ResizeHandleComponent.prototype.updateHandlePosition = function () {
+	        var point = this.pointOnSide.pointOnGeometry();
+	        //shift in the x and y relative to handle's width
+	        var xShift = -0.5;
+	        var yShift = -0.5;
+	        //TODO fix minor visual displacement due to border outsets
+	        this.handle.x = point.x + xShift * ResizeHandleComponent.HandleWidth;
+	        this.handle.y = point.y + yShift * ResizeHandleComponent.HandleWidth;
+	    };
+	    ResizeHandleComponent.prototype.handleMousePress = function (event) {
+	        this.startX = event.clientX;
+	        this.startY = event.clientY;
+	        this.lastX = event.clientX;
+	        this.lastY = event.clientY;
+	    };
+	    ResizeHandleComponent.prototype.handleMouseDrag = function (event) {
+	        var dx = event.clientX - this.lastX;
+	        var dy = event.clientY - this.lastY;
+	        if (event.buttons == 1) {
+	            //change the transform of the rect basis this handle's placement
+	            switch (this.placement) {
+	                case common_1.Direction.TopLeft:
+	                    this.rect.x += dx;
+	                    this.rect.y += dy;
+	                    this.rect.width -= dx;
+	                    this.rect.height -= dy;
+	                    break;
+	                case common_1.Direction.Top:
+	                    this.rect.y += dy;
+	                    this.rect.height -= dy;
+	                    break;
+	                case common_1.Direction.TopRight:
+	                    this.rect.y += dy;
+	                    this.rect.width += dx;
+	                    this.rect.height -= dy;
+	                    break;
+	                case common_1.Direction.Right:
+	                    this.rect.width += dx;
+	                    break;
+	                case common_1.Direction.BottomRight:
+	                    this.rect.width += dx;
+	                    this.rect.height += dy;
+	                    break;
+	                case common_1.Direction.Bottom:
+	                    this.rect.height += dy;
+	                    break;
+	                case common_1.Direction.BottomLeft:
+	                    this.rect.x += dx;
+	                    this.rect.width -= dx;
+	                    this.rect.height += dy;
+	                    break;
+	                case common_1.Direction.Left:
+	                    this.rect.x += dx;
+	                    this.rect.width -= dx;
+	                    break;
+	            }
+	            this.updateAllResizeHandlers.emit(this);
+	        }
+	        this.lastX = event.clientX;
+	        this.lastY = event.clientY;
+	    };
+	    ResizeHandleComponent.prototype.handleMouseRelease = function (event) {
+	        //TODO make command
+	    };
+	    ResizeHandleComponent.prototype.modelHasBeenChanged = function () {
+	        console.log("Model has been changed");
+	    };
+	    ResizeHandleComponent.HandleWidth = 8;
+	    __decorate([
+	        core_1.Input('rect'), 
+	        __metadata('design:type', (typeof (_a = typeof geometry_1.Rect !== 'undefined' && geometry_1.Rect) === 'function' && _a) || Object)
+	    ], ResizeHandleComponent.prototype, "rect", void 0);
+	    __decorate([
+	        core_1.Input('placement'), 
+	        __metadata('design:type', (typeof (_b = typeof common_1.Direction !== 'undefined' && common_1.Direction) === 'function' && _b) || Object)
+	    ], ResizeHandleComponent.prototype, "placement", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], ResizeHandleComponent.prototype, "requestDragging", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], ResizeHandleComponent.prototype, "updateAllResizeHandlers", void 0);
+	    ResizeHandleComponent = __decorate([
+	        core_1.Component({
+	            selector: 'resize-handle',
+	            template: __webpack_require__(658)
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], ResizeHandleComponent);
+	    return ResizeHandleComponent;
+	    var _a, _b;
+	}());
+	exports.ResizeHandleComponent = ResizeHandleComponent;
+
+
+/***/ },
+
+/***/ 658:
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"handle-pick\"\n\t[style.left.px]=\"handle.x\"\n\t[style.top.px]=\"handle.y\"\n\t[style.width.px]=\"handle.width\"\n\t[style.height.px]=\"handle.height\"\n\t[style.cursor]=\"cursor\"\n\t(mousedown)=\"requestDragging.emit(this)\"\n\t></div>";
+
+/***/ },
+
+/***/ 659:
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"rect.x\"\n[style.top.px]=\"rect.y\"\n[style.width.px]=\"rect.width\"\n[style.height.px]=\"rect.height\"\n[@selection]=\"isSelected?'selected':'unselected'\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\"></div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
+
+/***/ },
+
+/***/ 660:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var core_2 = __webpack_require__(3);
+	var resize_handle_component_1 = __webpack_require__(657);
+	var worksheet_1 = __webpack_require__(82);
 	var GenericNodeComponent = (function () {
 	    function GenericNodeComponent() {
 	        this.requestDragging = new core_1.EventEmitter();
@@ -10425,7 +9992,7 @@ webpackJsonp([0],{
 	    GenericNodeComponent = __decorate([
 	        core_1.Component({
 	            selector: 'generic-node',
-	            template: __webpack_require__(675),
+	            template: __webpack_require__(661),
 	            animations: [
 	                core_2.trigger('selection', [
 	                    core_2.state('selected', core_2.style({
@@ -10449,10 +10016,362 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 675:
+/***/ 661:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"isSelected?'selected':'unselected'\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\">\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"node.rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
+
+/***/ },
+
+/***/ 662:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(73);
+	var LineSegmentComponent = (function () {
+	    function LineSegmentComponent() {
+	    }
+	    LineSegmentComponent.prototype.transformationMatrix = function () {
+	        var xMid = this.start.distance(this.end) / 2;
+	        var yMid = 1; //TODO purely hardcoded based on the value in the stylesheet for line-segment class
+	        var degree = this.start.angleOfSegment(this.end);
+	        var radians = Math.PI * degree / 180;
+	        return "matrix(" +
+	            Math.cos(radians) + "," + Math.sin(radians) + "," +
+	            -Math.sin(radians) + "," + Math.cos(radians) + "," +
+	            -xMid + "," + -yMid
+	            + ")";
+	    };
+	    __decorate([
+	        core_1.Input('start'), 
+	        __metadata('design:type', (typeof (_a = typeof geometry_1.Point !== 'undefined' && geometry_1.Point) === 'function' && _a) || Object)
+	    ], LineSegmentComponent.prototype, "start", void 0);
+	    __decorate([
+	        core_1.Input('end'), 
+	        __metadata('design:type', (typeof (_b = typeof geometry_1.Point !== 'undefined' && geometry_1.Point) === 'function' && _b) || Object)
+	    ], LineSegmentComponent.prototype, "end", void 0);
+	    LineSegmentComponent = __decorate([
+	        core_1.Component({
+	            selector: 'line-segment',
+	            template: __webpack_require__(663),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], LineSegmentComponent);
+	    return LineSegmentComponent;
+	    var _a, _b;
+	}());
+	exports.LineSegmentComponent = LineSegmentComponent;
+
+
+/***/ },
+
+/***/ 663:
+/***/ function(module, exports) {
+
+	module.exports = "<div \n\tclass=\"line-segment\" \n\t[style.left.px]=\"(start.x+end.x)/2\" \n\t[style.top.px]=\"(start.y+end.y)/2\"\n\t[style.width.px]=\"start.distance(end)\"\n\t[style.-webkit-transform]=\"transformationMatrix()\"\n\t[style.-ms-transform]=\"transformationMatrix()\"\n\t[style.transform]=\"transformationMatrix()\">\n\t<div class=\"line-segment-text\" >\n\t\t<span contenteditable=\"true\">Editable</span>\n\t</div>\n</div>";
+
+/***/ },
+
+/***/ 664:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(73);
+	var LinkerComponent = (function () {
+	    function LinkerComponent() {
+	    }
+	    LinkerComponent.prototype.ngOnInit = function () {
+	        this.trackingPoint = this.geometry.getTrackingPoint();
+	        var point = this.trackingPoint.pointOnGeometry();
+	        this.link = new geometry_1.Circle(point, 7);
+	    };
+	    LinkerComponent.prototype.ngOnDestroy = function () {
+	        //TODO make diagrammatic element an abstract class and then handle this
+	    };
+	    __decorate([
+	        core_1.Input('geometry'), 
+	        __metadata('design:type', (typeof (_a = typeof geometry_1.Geometry !== 'undefined' && geometry_1.Geometry) === 'function' && _a) || Object)
+	    ], LinkerComponent.prototype, "geometry", void 0);
+	    LinkerComponent = __decorate([
+	        core_1.Component({
+	            selector: 'linker',
+	            template: __webpack_require__(665),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], LinkerComponent);
+	    return LinkerComponent;
+	    var _a;
+	}());
+	exports.LinkerComponent = LinkerComponent;
+
+
+/***/ },
+
+/***/ 665:
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"link-circle\" \n\t[style.left.px]=\"link.center.x\"\n\t[style.top.px]=\"link.center.y\"\n\t[style.width.px]=\"link.radius*2\"\n\t[style.height.px]=\"link.radius*2\">\n\n</div>";
+
+/***/ },
+
+/***/ 666:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var InputBoxComponent = (function () {
+	    function InputBoxComponent() {
+	    }
+	    InputBoxComponent = __decorate([
+	        core_1.Component({
+	            selector: 'input-box',
+	            template: __webpack_require__(667),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], InputBoxComponent);
+	    return InputBoxComponent;
+	}());
+	exports.InputBoxComponent = InputBoxComponent;
+
+
+/***/ },
+
+/***/ 667:
+/***/ function(module, exports) {
+
+	module.exports = "TODO";
+
+/***/ },
+
+/***/ 668:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var worksheet_1 = __webpack_require__(82);
+	var ClassDiagramComponent = (function () {
+	    function ClassDiagramComponent() {
+	        this.requestDragging = new core_1.EventEmitter();
+	    }
+	    ClassDiagramComponent.prototype.toggleSelection = function () {
+	        this.classDiagram.selected = !this.classDiagram.selected;
+	    };
+	    ClassDiagramComponent.prototype.registerDragIntention = function (dragProcessor) {
+	        this.requestDragging.emit(dragProcessor);
+	    };
+	    __decorate([
+	        core_1.Input('classDiagram'), 
+	        __metadata('design:type', (typeof (_a = typeof worksheet_1.ClassDiagramNode !== 'undefined' && worksheet_1.ClassDiagramNode) === 'function' && _a) || Object)
+	    ], ClassDiagramComponent.prototype, "classDiagram", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], ClassDiagramComponent.prototype, "requestDragging", void 0);
+	    ClassDiagramComponent = __decorate([
+	        core_1.Component({
+	            selector: 'class-diagram',
+	            template: __webpack_require__(669),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], ClassDiagramComponent);
+	    return ClassDiagramComponent;
+	    var _a;
+	}());
+	exports.ClassDiagramComponent = ClassDiagramComponent;
+
+
+/***/ },
+
+/***/ 669:
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classDiagram.rect.x\"\n[style.top.px]=\"classDiagram.rect.y\"\n[style.width.px]=\"classDiagram.rect.width\"\n[style.height.px]=\"classDiagram.rect.height\"\n[style.selected-block]=\"classDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span [class.italic]=\"classDiagram.classDefinition.isAbstract\">{{classDiagram.classDefinition.name}}</span>\n\t</div>\n\n\t<div \n\t*ngFor=\"let fieldMember of classDiagram.classDefinition.fieldList \" \n\tclass=\"block-cell content-block-cell\"\n\tcontenteditable=\"true\"\n\t>\n\t\t{{fieldMember.accessSpecifier | accessSymbol}} {{fieldMember.variableDefinition.name}} : {{fieldMember.variableDefinition.type.getName()}}\n\t</div>\n\t<div class=\"solid-horizontal-line mini-top-bottom-margin\"> </div>\n\t<div *ngFor=\"let methodMember of classDiagram.classDefinition.methodList; let i=index\" \n\t\tclass=\"block-cell content-block-cell\"\n\t\tcontenteditable=\"true\"\n\t\t>\n\n\t\t{{methodMember.accessSpecifier | accessSymbol}} \n\t\t<span [class.italic]=\"methodMember.isAbstract\">\n\t\t{{methodMember.methodPrototype.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of methodMember.methodPrototype.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{methodMember.methodPrototype.returnType.getName()}}\n\t\t</span>\n\t</div>\n</div>";
+
+/***/ },
+
+/***/ 670:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var worksheet_1 = __webpack_require__(82);
+	var ClassObjectComponent = (function () {
+	    function ClassObjectComponent() {
+	        this.requestDragging = new core_1.EventEmitter();
+	    }
+	    ClassObjectComponent.prototype.toggleSelection = function () {
+	        this.classObjectDiagram.selected = !this.classObjectDiagram.selected;
+	    };
+	    ClassObjectComponent.prototype.registerDragIntention = function (dragProcessor) {
+	        this.requestDragging.emit(dragProcessor);
+	    };
+	    __decorate([
+	        core_1.Input('classObjectDiagram'), 
+	        __metadata('design:type', (typeof (_a = typeof worksheet_1.ClassObjectDiagram !== 'undefined' && worksheet_1.ClassObjectDiagram) === 'function' && _a) || Object)
+	    ], ClassObjectComponent.prototype, "classObjectDiagram", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], ClassObjectComponent.prototype, "requestDragging", void 0);
+	    ClassObjectComponent = __decorate([
+	        core_1.Component({
+	            selector: 'class-object-diagram',
+	            template: __webpack_require__(671),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], ClassObjectComponent);
+	    return ClassObjectComponent;
+	    var _a;
+	}());
+	exports.ClassObjectComponent = ClassObjectComponent;
+
+
+/***/ },
+
+/***/ 671:
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classObjectDiagram.rect.x\"\n[style.top.px]=\"classObjectDiagram.rect.y\"\n[style.width.px]=\"classObjectDiagram.rect.width\"\n[style.height.px]=\"classObjectDiagram.rect.height\"\n[style.selected-block]=\"classObjectDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span>{{classObjectDiagram.classObject.name}}</span>\n\t\t : \n\t\t<span class=\"bold\">{{classObjectDiagram.classObject.classDefinition.getName()}}</span>\n\t</div>\n\n\t<div *ngFor=\"let fieldData of classObjectDiagram.classObject.fieldDataList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{fieldData.variable.name}} \n\t\t=\n\t\t{{fieldData.data.stringRepresentation()}}\n\t</div>\n</div>";
+
+/***/ },
+
+/***/ 672:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var worksheet_1 = __webpack_require__(82);
+	var InterfaceDiagramComponent = (function () {
+	    function InterfaceDiagramComponent() {
+	        this.requestDragging = new core_1.EventEmitter();
+	    }
+	    InterfaceDiagramComponent.prototype.toggleSelection = function () {
+	        this.interfaceDiagram.selected = !this.interfaceDiagram.selected;
+	    };
+	    InterfaceDiagramComponent.prototype.registerDragIntention = function (dragProcessor) {
+	        this.requestDragging.emit(dragProcessor);
+	    };
+	    __decorate([
+	        core_1.Input('interfaceDiagram'), 
+	        __metadata('design:type', (typeof (_a = typeof worksheet_1.InterfaceDiagramNode !== 'undefined' && worksheet_1.InterfaceDiagramNode) === 'function' && _a) || Object)
+	    ], InterfaceDiagramComponent.prototype, "interfaceDiagram", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], InterfaceDiagramComponent.prototype, "requestDragging", void 0);
+	    InterfaceDiagramComponent = __decorate([
+	        core_1.Component({
+	            selector: 'interface-diagram',
+	            template: __webpack_require__(673),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], InterfaceDiagramComponent);
+	    return InterfaceDiagramComponent;
+	    var _a;
+	}());
+	exports.InterfaceDiagramComponent = InterfaceDiagramComponent;
+
+
+/***/ },
+
+/***/ 673:
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"interfaceDiagram.rect.x\"\n[style.top.px]=\"interfaceDiagram.rect.y\"\n[style.width.px]=\"interfaceDiagram.rect.width\"\n[style.height.px]=\"interfaceDiagram.rect.height\"\n[style.selected-block]=\"interfaceDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<div class=\"header-decorater\"> &lt;&lt; Interface &gt;&gt; </div>\n\t\t<span>{{interfaceDiagram.interfaceDefinition.name}}</span>\n\t</div>\n\n\t<div *ngFor=\"let method of interfaceDiagram.interfaceDefinition.methodList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{method.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of method.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{method.returnType.getName()}}\n\t</div>\n</div>";
+
+/***/ },
+
+/***/ 674:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var InterfaceObjectDiagramComponent = (function () {
+	    function InterfaceObjectDiagramComponent() {
+	    }
+	    InterfaceObjectDiagramComponent = __decorate([
+	        core_1.Component({
+	            selector: 'interface-object-diagram',
+	            template: __webpack_require__(675),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], InterfaceObjectDiagramComponent);
+	    return InterfaceObjectDiagramComponent;
+	}());
+	exports.InterfaceObjectDiagramComponent = InterfaceObjectDiagramComponent;
+
+
+/***/ },
+
+/***/ 675:
+/***/ function(module, exports) {
+
+	module.exports = "TODO";
 
 /***/ },
 
@@ -10470,7 +10389,293 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var worksheet_1 = __webpack_require__(77);
+	var LinkedSegmentsComponent = (function () {
+	    function LinkedSegmentsComponent() {
+	    }
+	    LinkedSegmentsComponent = __decorate([
+	        core_1.Component({
+	            selector: 'linked-segments',
+	            template: __webpack_require__(677),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], LinkedSegmentsComponent);
+	    return LinkedSegmentsComponent;
+	}());
+	exports.LinkedSegmentsComponent = LinkedSegmentsComponent;
+
+
+/***/ },
+
+/***/ 677:
+/***/ function(module, exports) {
+
+	module.exports = "TODO";
+
+/***/ },
+
+/***/ 678:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var __param = (this && this.__param) || function (paramIndex, decorator) {
+	    return function (target, key) { decorator(target, key, paramIndex); }
+	};
+	var core_1 = __webpack_require__(3);
+	var FocusDirective = (function () {
+	    function FocusDirective(element) {
+	        this.element = element;
+	    }
+	    FocusDirective.prototype.ngOnChanges = function () {
+	        this.element.nativeElement.focus();
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Boolean)
+	    ], FocusDirective.prototype, "focus", void 0);
+	    FocusDirective = __decorate([
+	        core_1.Directive({
+	            selector: '[focus]'
+	        }),
+	        __param(0, core_1.Inject(core_1.ElementRef)), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
+	    ], FocusDirective);
+	    return FocusDirective;
+	    var _a;
+	}());
+	exports.FocusDirective = FocusDirective;
+
+
+/***/ },
+
+/***/ 679:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var __param = (this && this.__param) || function (paramIndex, decorator) {
+	    return function (target, key) { decorator(target, key, paramIndex); }
+	};
+	var core_1 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(73);
+	var MyRectDirective = (function () {
+	    function MyRectDirective(element) {
+	        this.element = element;
+	        this.background = "white";
+	        this.strokeColor = 'black';
+	        this.strokeWidth = 2;
+	        this.strokeStyle = 'solid';
+	        this.opacity = 1;
+	    }
+	    MyRectDirective.prototype.ngOnChanges = function () {
+	        this.element.nativeElement.style.position = "absolute";
+	        this.element.nativeElement.style.left = this.myRect.x + "px";
+	        this.element.nativeElement.style.top = this.myRect.y + "px";
+	        this.element.nativeElement.style.width = this.myRect.width + "px";
+	        this.element.nativeElement.style.height = this.myRect.height + "px";
+	        this.element.nativeElement.style.background = this.background;
+	        this.element.nativeElement.style.borderColor = this.strokeColor;
+	        this.element.nativeElement.style.borderWidth = this.strokeWidth + "px";
+	        this.element.nativeElement.style.borderStyle = this.strokeStyle;
+	        this.element.nativeElement.style.opacity = this.opacity;
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', (typeof (_a = typeof geometry_1.Rect !== 'undefined' && geometry_1.Rect) === 'function' && _a) || Object)
+	    ], MyRectDirective.prototype, "myRect", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Object)
+	    ], MyRectDirective.prototype, "background", void 0);
+	    __decorate([
+	        core_1.Input('borderColor'), 
+	        __metadata('design:type', Object)
+	    ], MyRectDirective.prototype, "strokeColor", void 0);
+	    __decorate([
+	        core_1.Input('borderWidth'), 
+	        __metadata('design:type', Object)
+	    ], MyRectDirective.prototype, "strokeWidth", void 0);
+	    __decorate([
+	        core_1.Input('borderStyle'), 
+	        __metadata('design:type', Object)
+	    ], MyRectDirective.prototype, "strokeStyle", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Object)
+	    ], MyRectDirective.prototype, "opacity", void 0);
+	    MyRectDirective = __decorate([
+	        core_1.Directive({
+	            selector: '[myRect]'
+	        }),
+	        __param(0, core_1.Inject(core_1.ElementRef)), 
+	        __metadata('design:paramtypes', [(typeof (_b = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _b) || Object])
+	    ], MyRectDirective);
+	    return MyRectDirective;
+	    var _a, _b;
+	}());
+	exports.MyRectDirective = MyRectDirective;
+
+
+/***/ },
+
+/***/ 680:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var __param = (this && this.__param) || function (paramIndex, decorator) {
+	    return function (target, key) { decorator(target, key, paramIndex); }
+	};
+	var core_1 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(73);
+	var MyCircleDirective = (function () {
+	    function MyCircleDirective(element) {
+	        this.element = element;
+	        this.background = "white";
+	        this.strokeColor = 'black';
+	        this.strokeWidth = 2;
+	        this.strokeStyle = 'solid';
+	        this.opacity = 1;
+	    }
+	    MyCircleDirective.prototype.ngOnChanges = function () {
+	        this.element.nativeElement.style.borderRadius = "50%";
+	        this.element.nativeElement.style.position = "absolute";
+	        this.element.nativeElement.style.left = this.myCircle.center.x + "px";
+	        this.element.nativeElement.style.top = this.myCircle.center.y + "px";
+	        this.element.nativeElement.style.width = this.myCircle.radius * 2 + "px";
+	        this.element.nativeElement.style.height = this.myCircle.radius * 2 + "px";
+	        this.element.nativeElement.style.background = this.background;
+	        this.element.nativeElement.style.borderColor = this.strokeColor;
+	        this.element.nativeElement.style.borderWidth = this.strokeWidth + "px";
+	        this.element.nativeElement.style.borderStyle = this.strokeStyle;
+	        this.element.nativeElement.style.opacity = this.opacity;
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', (typeof (_a = typeof geometry_1.Circle !== 'undefined' && geometry_1.Circle) === 'function' && _a) || Object)
+	    ], MyCircleDirective.prototype, "myCircle", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Object)
+	    ], MyCircleDirective.prototype, "background", void 0);
+	    __decorate([
+	        core_1.Input('borderColor'), 
+	        __metadata('design:type', Object)
+	    ], MyCircleDirective.prototype, "strokeColor", void 0);
+	    __decorate([
+	        core_1.Input('borderWidth'), 
+	        __metadata('design:type', Object)
+	    ], MyCircleDirective.prototype, "strokeWidth", void 0);
+	    __decorate([
+	        core_1.Input('borderStyle'), 
+	        __metadata('design:type', Object)
+	    ], MyCircleDirective.prototype, "strokeStyle", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Object)
+	    ], MyCircleDirective.prototype, "opacity", void 0);
+	    MyCircleDirective = __decorate([
+	        core_1.Directive({
+	            selector: '[myCircle]'
+	        }),
+	        __param(0, core_1.Inject(core_1.ElementRef)), 
+	        __metadata('design:paramtypes', [(typeof (_b = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _b) || Object])
+	    ], MyCircleDirective);
+	    return MyCircleDirective;
+	    var _a, _b;
+	}());
+	exports.MyCircleDirective = MyCircleDirective;
+
+
+/***/ },
+
+/***/ 681:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var semantic_model_1 = __webpack_require__(75);
+	/*
+	 * Gives the symbol for an access specifier
+	 *
+	 * Usage:
+	 *   value | accessSymbol
+	*/
+	var AccessSymbol = (function () {
+	    function AccessSymbol() {
+	    }
+	    AccessSymbol.prototype.transform = function (value) {
+	        switch (value) {
+	            case semantic_model_1.AccessSpecifier.Private:
+	                return "-";
+	            case semantic_model_1.AccessSpecifier.Protected:
+	                return "#";
+	            case semantic_model_1.AccessSpecifier.Public:
+	                return "+";
+	            case semantic_model_1.AccessSpecifier.Default:
+	            default:
+	                return " ";
+	        }
+	    };
+	    AccessSymbol = __decorate([
+	        core_1.Pipe({ name: 'accessSymbol' }), 
+	        __metadata('design:paramtypes', [])
+	    ], AccessSymbol);
+	    return AccessSymbol;
+	}());
+	exports.AccessSymbol = AccessSymbol;
+
+
+/***/ },
+
+/***/ 682:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var worksheet_1 = __webpack_require__(82);
 	/*
 	 * Gives the background(mostly svg) for generic type node
 	 * @Deprecated (Using inline svgs now)
@@ -10504,6 +10709,44 @@ webpackJsonp([0],{
 	    return NodeBackground;
 	}());
 	exports.NodeBackground = NodeBackground;
+
+
+/***/ },
+
+/***/ 683:
+/***/ function(module, exports) {
+
+	module.exports = "TODO Account";
+
+/***/ },
+
+/***/ 684:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var AccountComponent = (function () {
+	    function AccountComponent() {
+	    }
+	    AccountComponent = __decorate([
+	        core_1.Component({
+	            selector: 'account',
+	            template: __webpack_require__(683),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], AccountComponent);
+	    return AccountComponent;
+	}());
+	exports.AccountComponent = AccountComponent;
 
 
 /***/ }

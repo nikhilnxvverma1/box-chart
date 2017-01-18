@@ -3,76 +3,29 @@ import { BrowserModule } from '@angular/platform-browser';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { AppComponent }  from './component/app.component';
-import { LoginComponent }  from './component/login.component';
-import { SignupComponent }  from './component/signup.component';
-import { DocumentListComponent }  from './component/document-list.component';
-import { WorkspaceComponent } from './component/workspace.component';
-import { ArtboardComponent } from './component/artboard.component';
-import { SidebarComponent } from './component/sidebar.component';
-import { AreaComponent } from './component/area.component';
-import { BoxComponent } from './component/box.component';
-import { GenericNodeComponent } from './component/generic-node.component';
-import { LineSegmentComponent } from './component/line-segment.component';
-import { ResizeHandleComponent } from './component/resize-handle.component';
-import { LinkerComponent } from './component/linker.component';
-import { InputBoxComponent } from './component/input-box.component';
-import { AutoCompletionComponent } from './component/auto-completion.component';
-import { ClassDiagramComponent } from './component/class-diagram.component';
-import { ClassObjectComponent } from './component/class-object-diagram.component';
-import { InterfaceDiagramComponent } from './component/interface-diagram.component';
-import { InterfaceObjectDiagramComponent } from './component/interface-object-diagram.component';
-import { LinkedSegmentsComponent } from './component/linked-segments.component';
-import { TransformService } from './utility/transform.service';
-import { InterpreterService } from './editor/compiler/interpreter.service';
-import { MockDataService } from './utility/mock-data.service';
-import { FocusDirective } from './helper/focus.directive';
-import { MyRectDirective } from './helper/my-rect.directive';
-import { MyCircleDirective } from './helper/my-circle.directive';
-import { AccessSymbol } from './helper/access-symbol.pipe';
-import { NodeBackground } from './helper/node-background.pipe';
-
-const MyRoutes=RouterModule.forRoot([
-    {path:'',component:LoginComponent},
-    {path:'signup',component:SignupComponent},
-    {path:'all-docs',component:DocumentListComponent},
-    {path:'all-docs/document',component:WorkspaceComponent},
-]);
+import { AppRoutingModule } from './app-routing.module';
+import { HomeComponent } from './component/home.component';
+import { LoginComponent } from './component/login.component';
+import { SignupComponent } from './component/signup.component';
+import { DashboardModule } from './dashboard.module';
+import { WorkspaceModule } from './workspace.module';
+import { AccountComponent } from './component/account.component';
 
 @NgModule({
 	imports:[ 
 		BrowserModule,
 		FormsModule,
-		MyRoutes
+		AppRoutingModule,
+		DashboardModule,
+		WorkspaceModule
 	],
 	declarations: [
-		FocusDirective,
-		MyRectDirective,
-		MyCircleDirective,
-		AccessSymbol,
-		NodeBackground,
 		AppComponent,
+		HomeComponent,
 		LoginComponent,
 		SignupComponent,
-		DocumentListComponent,
-		WorkspaceComponent,
-		SidebarComponent,
-		ArtboardComponent,
-		AreaComponent,
-		BoxComponent,
-		GenericNodeComponent,
-		LineSegmentComponent,
-		ResizeHandleComponent,
-		InputBoxComponent,
-		AutoCompletionComponent,
-		ClassDiagramComponent,
-		ClassObjectComponent,
-		InterfaceDiagramComponent,
-		InterfaceObjectDiagramComponent,
-		LinkedSegmentsComponent,
-		LinkerComponent
+		AccountComponent
 		],
-	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-	providers:[TransformService,InterpreterService,MockDataService],
 	bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

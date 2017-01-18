@@ -19,7 +19,8 @@ export class ServerApp {
     public setRoutes() {        //the order matters here
         
         //static resources (we go two levels out because transpile js is one level deep)
-        this.app.use('/',express.static(path.join(__dirname,'../../','dist')));
+        // this.app.use('/',express.static(path.join(__dirname,'../../','dist')));
+        this.app.use('/',express.static(path.join(__dirname,'../','dist')));//for one level
 
         //all other routes are handled by angular
         this.app.get('/*', this._homePage);//this should be in the end
@@ -37,7 +38,8 @@ export class ServerApp {
 
     private _homePage(req: express.Request, res: express.Response) {
 
-		var pathToIndexPage=path.join(__dirname,'../../','dist/','index.html'); //a static index file from 'dist' folder
+		// var pathToIndexPage=path.join(__dirname,'../../','dist/','index.html'); //a static index file from 'dist' folder
+		var pathToIndexPage=path.join(__dirname,'../','dist/','index.html'); //only one level
 		winston.log('info',"Server refreshed index file: "+pathToIndexPage);
         res.sendFile(pathToIndexPage);
     }
