@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { User } from '../model/user-account';
-import { UserService,SignupAttempt } from '../utility/user.service';
+import { UserService } from '../utility/user.service';
+import { SignupAttempt } from '../shared-codes';
 
 @Component({
   selector: 'signup',
@@ -14,7 +15,7 @@ export class SignupComponent  {
 
 	private createUserAccount(){
 		if(this.validPassword()){
-			console.log("TODO register user: "+this.user.toString());
+			console.log("registering user: "+this.user.toString());
 			this.userService.createUserAccount(this.user).subscribe((attempt:SignupAttempt)=>{
 				console.log("Response from server "+attempt);
 			}, (error:Error)=>{

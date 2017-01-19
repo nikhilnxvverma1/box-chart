@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { User,LoginCredential } from '../model/user-account';
 import { Http,Headers,RequestOptions,Response } from '@angular/http';
+import { SignupAttempt,LoginAttempt } from '../shared-codes';
 
 @Injectable()
 export class UserService{
@@ -18,7 +19,20 @@ export class UserService{
 	}
 
 	toSignupAttempt(response:Response):SignupAttempt{
-		return SignupAttempt.Success;//TODO
+		//get the code from the response
+		let body=response.json();
+
+		switch(body){//response is simply a number
+			case 1:return SignupAttempt.Success;
+			case 2:return SignupAttempt.EmailAlreadyExists;
+			case 3:return SignupAttempt.WeakPassword;
+			case 4:return SignupAttempt.NullPassword;
+			case 5:return SignupAttempt.InternalServerError;
+			default:
+				console.log("Invalid code from server");
+				return null;//error
+				
+		}
 	}
 
 	/** Attempts to login with the credentials.*/
@@ -30,19 +44,4 @@ export class UserService{
 		return LoginAttempt.Success;//TODO
 	}
 
-}
-
-/** A mutually shared code between the client and server that identifies the login attempt. */
-export enum LoginAttempt{
-	Success=1,
-	WrongPassword=2,
-	EmailDoesNotExist=3
-}
-
-/** A mutually shared code between the client and server that identifies the signup attempt. */
-export enum SignupAttempt{
-	Success=1,
-	EmailAlreadyExists=2,
-	WeakPassword=3,
-	NullPassword=4
 }

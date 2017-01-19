@@ -5988,7 +5988,7 @@ webpackJsonp([0],{
 	    }
 	    SignupComponent.prototype.createUserAccount = function () {
 	        if (this.validPassword()) {
-	            console.log("TODO register user: " + this.user.toString());
+	            console.log("registering user: " + this.user.toString());
 	            this.userService.createUserAccount(this.user).subscribe(function (attempt) {
 	                console.log("Response from server " + attempt);
 	            }, function (error) {
@@ -10849,6 +10849,7 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(3);
 	var http_1 = __webpack_require__(359);
+	var shared_codes_1 = __webpack_require__(688);
 	var UserService = (function () {
 	    function UserService(http) {
 	        this.http = http;
@@ -10862,14 +10863,25 @@ webpackJsonp([0],{
 	        return this.http.post(this.createUserAccountUrl, body, options).map(this.toSignupAttempt);
 	    };
 	    UserService.prototype.toSignupAttempt = function (response) {
-	        return SignupAttempt.Success; //TODO
+	        //get the code from the response
+	        var body = response.json();
+	        switch (body) {
+	            case 1: return shared_codes_1.SignupAttempt.Success;
+	            case 2: return shared_codes_1.SignupAttempt.EmailAlreadyExists;
+	            case 3: return shared_codes_1.SignupAttempt.WeakPassword;
+	            case 4: return shared_codes_1.SignupAttempt.NullPassword;
+	            case 5: return shared_codes_1.SignupAttempt.InternalServerError;
+	            default:
+	                console.log("Invalid code from server");
+	                return null; //error
+	        }
 	    };
 	    /** Attempts to login with the credentials.*/
 	    UserService.prototype.login = function (login) {
 	        return null;
 	    };
 	    UserService.prototype.toLoginAttempt = function (response) {
-	        return LoginAttempt.Success; //TODO
+	        return shared_codes_1.LoginAttempt.Success; //TODO
 	    };
 	    UserService = __decorate([
 	        core_1.Injectable(), 
@@ -10879,11 +10891,24 @@ webpackJsonp([0],{
 	    var _a;
 	}());
 	exports.UserService = UserService;
+
+
+/***/ },
+
+/***/ 688:
+/***/ function(module, exports) {
+
+	//IMPORTANT this file is shared between client and server but is duplicated in both places. 
+	//This is because typescript compiler is separete for both client and server.
+	//Make sure both the copies are kept in sync at all times
+	"use strict";
+	//TODO find a way to make this a common file
 	/** A mutually shared code between the client and server that identifies the login attempt. */
 	(function (LoginAttempt) {
 	    LoginAttempt[LoginAttempt["Success"] = 1] = "Success";
 	    LoginAttempt[LoginAttempt["WrongPassword"] = 2] = "WrongPassword";
 	    LoginAttempt[LoginAttempt["EmailDoesNotExist"] = 3] = "EmailDoesNotExist";
+	    LoginAttempt[LoginAttempt["InternalServerError"] = 4] = "InternalServerError";
 	})(exports.LoginAttempt || (exports.LoginAttempt = {}));
 	var LoginAttempt = exports.LoginAttempt;
 	/** A mutually shared code between the client and server that identifies the signup attempt. */
@@ -10892,6 +10917,7 @@ webpackJsonp([0],{
 	    SignupAttempt[SignupAttempt["EmailAlreadyExists"] = 2] = "EmailAlreadyExists";
 	    SignupAttempt[SignupAttempt["WeakPassword"] = 3] = "WeakPassword";
 	    SignupAttempt[SignupAttempt["NullPassword"] = 4] = "NullPassword";
+	    SignupAttempt[SignupAttempt["InternalServerError"] = 5] = "InternalServerError";
 	})(exports.SignupAttempt || (exports.SignupAttempt = {}));
 	var SignupAttempt = exports.SignupAttempt;
 

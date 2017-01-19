@@ -5,17 +5,23 @@ import * as path from 'path'
 import orientjs= require('orientjs');
 import winston=require('winston');
 import { SchemaService } from './schema-service';
+import { AccountService } from './account-service';
+import { LoginAttempt,SignupAttempt } from './shared-codes';
 
 export class ServerApp {
     
 	private app: express.Application;
 	private db:orientjs.Db;
 	private schemaService:SchemaService;
+	private accountService:AccountService;
     
 	constructor(db:orientjs.Db) {
 		this.app = express();
 		this.db=db;
+
+		//TODO make these injectable
 		this.schemaService=new SchemaService(this.db);
+		this.accountService=new AccountService(this.db);
 	}
     
     public setRoutes() {        //the order matters here
@@ -38,8 +44,11 @@ export class ServerApp {
 
 		//create new user
 		this.app.post('/api/create-user', (req:express.Request, res:express.Response) => {
-			winston.debug("Came to process create user");
-			res.send('POST request to Create user');
+			winston.debug("Attempting to create new user");
+			this.accountService.checkAndCreateNewUser((<any>req).body).
+			then((signupAttempt:SignupAttempt)=>{
+				res.send(JSON.stringify(signupAttempt));
+			});
 		})
 	}
 
