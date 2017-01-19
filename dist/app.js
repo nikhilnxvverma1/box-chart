@@ -28,6 +28,7 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var platform_browser_1 = __webpack_require__(21);
 	var forms_1 = __webpack_require__(24);
+	var http_1 = __webpack_require__(359);
 	var app_component_1 = __webpack_require__(28);
 	var app_routing_module_1 = __webpack_require__(30);
 	var home_component_1 = __webpack_require__(61);
@@ -36,6 +37,7 @@ webpackJsonp([0],{
 	var dashboard_module_1 = __webpack_require__(69);
 	var workspace_module_1 = __webpack_require__(653);
 	var account_component_1 = __webpack_require__(684);
+	var user_service_1 = __webpack_require__(686);
 	var AppModule = (function () {
 	    function AppModule() {
 	    }
@@ -44,6 +46,7 @@ webpackJsonp([0],{
 	            imports: [
 	                platform_browser_1.BrowserModule,
 	                forms_1.FormsModule,
+	                http_1.HttpModule,
 	                app_routing_module_1.AppRoutingModule,
 	                dashboard_module_1.DashboardModule,
 	                workspace_module_1.WorkspaceModule
@@ -55,6 +58,7 @@ webpackJsonp([0],{
 	                signup_component_1.SignupComponent,
 	                account_component_1.AccountComponent
 	            ],
+	            providers: [user_service_1.UserService],
 	            bootstrap: [app_component_1.AppComponent]
 	        }), 
 	        __metadata('design:paramtypes', [])
@@ -5976,13 +5980,20 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(3);
 	var user_account_1 = __webpack_require__(685);
+	var user_service_1 = __webpack_require__(686);
 	var SignupComponent = (function () {
-	    function SignupComponent() {
+	    function SignupComponent(userService) {
+	        this.userService = userService;
 	        this.user = new user_account_1.User();
 	    }
 	    SignupComponent.prototype.createUserAccount = function () {
 	        if (this.validPassword()) {
 	            console.log("TODO register user: " + this.user.toString());
+	            this.userService.createUserAccount(this.user).subscribe(function (attempt) {
+	                console.log("Response from server " + attempt);
+	            }, function (error) {
+	                console.log("Error From Server: " + error.message);
+	            });
 	        }
 	        else {
 	            console.log("Passwords not valid");
@@ -5996,9 +6007,10 @@ webpackJsonp([0],{
 	            selector: 'signup',
 	            template: __webpack_require__(64),
 	        }), 
-	        __metadata('design:paramtypes', [])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object])
 	    ], SignupComponent);
 	    return SignupComponent;
+	    var _a;
 	}());
 	exports.SignupComponent = SignupComponent;
 
@@ -6048,6 +6060,9 @@ webpackJsonp([0],{
 	        third.description = "Different type of traversal techniques in binary trees";
 	        this.worksheetList.push(third);
 	    };
+	    DashboardComponent.prototype.createNewWorksheet = function () {
+	        console.log("TODO create new worksheet");
+	    };
 	    DashboardComponent = __decorate([
 	        core_1.Component({
 	            selector: 'dashboard',
@@ -6065,7 +6080,7 @@ webpackJsonp([0],{
 /***/ 66:
 /***/ function(module, exports) {
 
-	module.exports = "<h1>TODO worksheet list</h1>\n\n<div class=\"worksheet-tag\" *ngFor=\"let worksheet of worksheetList\">\n\t<div>{{worksheet.title}}</div>\n\t<div>{{worksheet.description}}</div>\n</div>";
+	module.exports = "<h1>TODO worksheet list</h1>\n\n<div class=\"worksheet-tag\" *ngFor=\"let worksheet of worksheetList\">\n\t<div>{{worksheet.title}}</div>\n\t<div>{{worksheet.description}}</div>\n</div>\n\n<div class=\"worksheet-tag\">\n\t<a (click)=\"createNewWorksheet()\">Create new worksheet</a>\n</div>";
 
 /***/ },
 
@@ -10815,6 +10830,70 @@ webpackJsonp([0],{
 	    return User;
 	}());
 	exports.User = User;
+
+
+/***/ },
+
+/***/ 686:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var http_1 = __webpack_require__(359);
+	var UserService = (function () {
+	    function UserService(http) {
+	        this.http = http;
+	        this.createUserAccountUrl = "api/create-user";
+	    }
+	    /** Creates an account for the supplied model.*/
+	    UserService.prototype.createUserAccount = function (user) {
+	        var body = JSON.stringify(user);
+	        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+	        var options = new http_1.RequestOptions({ headers: headers });
+	        return this.http.post(this.createUserAccountUrl, body, options).map(this.toSignupAttempt);
+	    };
+	    UserService.prototype.toSignupAttempt = function (response) {
+	        return SignupAttempt.Success; //TODO
+	    };
+	    /** Attempts to login with the credentials.*/
+	    UserService.prototype.login = function (login) {
+	        return null;
+	    };
+	    UserService.prototype.toLoginAttempt = function (response) {
+	        return LoginAttempt.Success; //TODO
+	    };
+	    UserService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
+	    ], UserService);
+	    return UserService;
+	    var _a;
+	}());
+	exports.UserService = UserService;
+	/** A mutually shared code between the client and server that identifies the login attempt. */
+	(function (LoginAttempt) {
+	    LoginAttempt[LoginAttempt["Success"] = 1] = "Success";
+	    LoginAttempt[LoginAttempt["WrongPassword"] = 2] = "WrongPassword";
+	    LoginAttempt[LoginAttempt["EmailDoesNotExist"] = 3] = "EmailDoesNotExist";
+	})(exports.LoginAttempt || (exports.LoginAttempt = {}));
+	var LoginAttempt = exports.LoginAttempt;
+	/** A mutually shared code between the client and server that identifies the signup attempt. */
+	(function (SignupAttempt) {
+	    SignupAttempt[SignupAttempt["Success"] = 1] = "Success";
+	    SignupAttempt[SignupAttempt["EmailAlreadyExists"] = 2] = "EmailAlreadyExists";
+	    SignupAttempt[SignupAttempt["WeakPassword"] = 3] = "WeakPassword";
+	    SignupAttempt[SignupAttempt["NullPassword"] = 4] = "NullPassword";
+	})(exports.SignupAttempt || (exports.SignupAttempt = {}));
+	var SignupAttempt = exports.SignupAttempt;
 
 
 /***/ }

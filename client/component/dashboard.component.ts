@@ -30,4 +30,7 @@ export class DashboardComponent implements OnInit {
 		this.worksheetList.push(third);
 	}
 	
+	private createNewWorksheet(){
+		console.log("TODO create new worksheet");
+	}
 }

@@ -1,4 +1,6 @@
 import * as express from 'express'
+import connect=require('connect');
+import bodyParser=require("body-parser");
 import * as path from 'path'
 import orientjs= require('orientjs');
 import winston=require('winston');
@@ -17,14 +19,29 @@ export class ServerApp {
 	}
     
     public setRoutes() {        //the order matters here
-        
-        //static resources (we go two levels out because transpile js is one level deep)
-        // this.app.use('/',express.static(path.join(__dirname,'../../','dist')));
-        this.app.use('/',express.static(path.join(__dirname,'../','dist')));//for one level
 
-        //all other routes are handled by angular
-        this.app.get('/*', this._homePage);//this should be in the end
-    }
+		this.app.use(bodyParser.urlencoded({
+			extended:false
+		}));
+		this.app.use(bodyParser.json());
+		this.configureAPIRoutes();
+		
+		//static resources (we go two levels out because transpile js is one level deep)
+		// this.app.use('/',express.static(path.join(__dirname,'../../','dist')));
+		this.app.use('/', express.static(path.join(__dirname, '../', 'dist')));//for one level
+
+		//all other routes are handled by angular
+		this.app.get('/*', this._homePage);//this should be in the end
+	}
+
+	private configureAPIRoutes(){
+
+		//create new user
+		this.app.post('/api/create-user', (req:express.Request, res:express.Response) => {
+			winston.debug("Came to process create user");
+			res.send('POST request to Create user');
+		})
+	}
 
     public startServer() {//this method is called after setRoutes()
 				

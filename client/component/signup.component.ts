@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { User } from '../model/user-account';
+import { UserService,SignupAttempt } from '../utility/user.service';
 
 @Component({
   selector: 'signup',
@@ -9,9 +10,16 @@ export class SignupComponent  {
 	private user:User=new User();
 	private confirmPassword:string;
 
+	constructor(private userService:UserService){}
+
 	private createUserAccount(){
 		if(this.validPassword()){
 			console.log("TODO register user: "+this.user.toString());
+			this.userService.createUserAccount(this.user).subscribe((attempt:SignupAttempt)=>{
+				console.log("Response from server "+attempt);
+			}, (error:Error)=>{
+				console.log("Error From Server: "+error.message);
+			});
 		}else{
 			console.log("Passwords not valid");
 		}
@@ -21,3 +29,4 @@ export class SignupComponent  {
 		return this.user.password!=null && this.user.password.length>=8 && this.user.password==this.confirmPassword;
 	}
 }
+

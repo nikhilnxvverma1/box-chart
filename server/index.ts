@@ -1,8 +1,11 @@
 import {ServerApp} from './server-app'
 import { DatabaseConnection } from './database-connection';
 import orientjs= require('orientjs');
+import winston=require('winston');
 
-console.log("Initializing Server");
+winston.level='debug';
+
+winston.debug("Initializing Server");
 
 var afterDbIsConnected=function(err:Error,db:orientjs.Db){
 

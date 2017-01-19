@@ -1,6 +1,8 @@
 {
   "dependencies": {
     "bluebird": "registry:npm/bluebird#3.4.1+20160909132857",
+    "body-parser": "registry:dt/body-parser#0.0.0+20160726204056",
+    "connect": "registry:dt/connect#3.4.0+20160510010627",
     "express": "registry:npm/express#4.14.0+20160925001530",
     "winston": "registry:dt/winston#2.2.0+20170106144044"
   },
