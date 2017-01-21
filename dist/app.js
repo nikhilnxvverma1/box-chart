@@ -6099,21 +6099,29 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(3);
 	var user_account_1 = __webpack_require__(685);
+	var user_service_1 = __webpack_require__(686);
 	var LoginComponent = (function () {
-	    function LoginComponent() {
-	        this.login = new user_account_1.LoginCredential();
+	    function LoginComponent(userService) {
+	        this.userService = userService;
+	        this.loginForm = new user_account_1.LoginCredential();
 	    }
 	    LoginComponent.prototype.attemptLogin = function () {
-	        console.log("Attemtping login for " + this.login.toString());
+	        console.log("Attemtping login for " + this.loginForm.toString());
+	        this.userService.login(this.loginForm).subscribe(function (attempt) {
+	            console.log("Response from server " + attempt);
+	        }, function (error) {
+	            console.log("Error From Server: " + error.message);
+	        });
 	    };
 	    LoginComponent = __decorate([
 	        core_1.Component({
 	            selector: 'login',
 	            template: __webpack_require__(68),
 	        }), 
-	        __metadata('design:paramtypes', [])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object])
 	    ], LoginComponent);
 	    return LoginComponent;
+	    var _a;
 	}());
 	exports.LoginComponent = LoginComponent;
 
@@ -6123,7 +6131,7 @@ webpackJsonp([0],{
 /***/ 68:
 /***/ function(module, exports) {
 
-	module.exports = "<input type=\"text\" [(ngModel)]=\"login.username\"/>\n<input type=\"password\" [(ngModel)]=\"login.password\"/>\n<a href=\"#\" (click)=\"attemptLogin()\">Login</a>\n<div><a routerLink=\"/signup\">Sign Up</a></div>";
+	module.exports = "<input type=\"text\" [(ngModel)]=\"loginForm.username\"/>\n<input type=\"password\" [(ngModel)]=\"loginForm.password\"/>\n<a href=\"#\" (click)=\"attemptLogin()\">Login</a>\n<div><a routerLink=\"/signup\">Sign Up</a></div>";
 
 /***/ },
 
@@ -10853,36 +10861,46 @@ webpackJsonp([0],{
 	var UserService = (function () {
 	    function UserService(http) {
 	        this.http = http;
-	        this.createUserAccountUrl = "api/create-user";
 	    }
 	    /** Creates an account for the supplied model.*/
 	    UserService.prototype.createUserAccount = function (user) {
 	        var body = JSON.stringify(user);
 	        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
 	        var options = new http_1.RequestOptions({ headers: headers });
-	        return this.http.post(this.createUserAccountUrl, body, options).map(this.toSignupAttempt);
+	        return this.http.post(UserService.CREATE_USER_ACCOUNT_URL, body, options).map(this.toSignupAttempt);
 	    };
 	    UserService.prototype.toSignupAttempt = function (response) {
 	        //get the code from the response
 	        var body = response.json();
-	        switch (body) {
-	            case 1: return shared_codes_1.SignupAttempt.Success;
-	            case 2: return shared_codes_1.SignupAttempt.EmailAlreadyExists;
-	            case 3: return shared_codes_1.SignupAttempt.WeakPassword;
-	            case 4: return shared_codes_1.SignupAttempt.NullPassword;
-	            case 5: return shared_codes_1.SignupAttempt.InternalServerError;
-	            default:
-	                console.log("Invalid code from server");
-	                return null; //error
+	        if (typeof shared_codes_1.SignupAttempt[body] === 'undefined') {
+	            console.log("Invalid code from server");
+	            return null;
+	        }
+	        else {
+	            return body;
 	        }
 	    };
 	    /** Attempts to login with the credentials.*/
 	    UserService.prototype.login = function (login) {
-	        return null;
+	        var body = JSON.stringify(login);
+	        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+	        var options = new http_1.RequestOptions({ headers: headers });
+	        return this.http.post(UserService.AUTHENTICATE_USER_URL, body, options).map(this.toLoginAttempt);
 	    };
 	    UserService.prototype.toLoginAttempt = function (response) {
-	        return shared_codes_1.LoginAttempt.Success; //TODO
+	        //get the code from the response
+	        var body = response.json();
+	        if (typeof shared_codes_1.LoginAttempt[body] === 'undefined') {
+	            console.log("Invalid code from server");
+	            return null;
+	        }
+	        else {
+	            return body;
+	        }
 	    };
+	    //TODO move these urls in the shared-codes file
+	    UserService.CREATE_USER_ACCOUNT_URL = "api/create-user";
+	    UserService.AUTHENTICATE_USER_URL = "api/authenticate-user";
 	    UserService = __decorate([
 	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
@@ -10906,7 +10924,7 @@ webpackJsonp([0],{
 	/** A mutually shared code between the client and server that identifies the login attempt. */
 	(function (LoginAttempt) {
 	    LoginAttempt[LoginAttempt["Success"] = 1] = "Success";
-	    LoginAttempt[LoginAttempt["WrongPassword"] = 2] = "WrongPassword";
+	    LoginAttempt[LoginAttempt["InvalidUsernameOrPassword"] = 2] = "InvalidUsernameOrPassword";
 	    LoginAttempt[LoginAttempt["EmailDoesNotExist"] = 3] = "EmailDoesNotExist";
 	    LoginAttempt[LoginAttempt["InternalServerError"] = 4] = "InternalServerError";
 	})(exports.LoginAttempt || (exports.LoginAttempt = {}));

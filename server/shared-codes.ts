@@ -7,7 +7,7 @@
 /** A mutually shared code between the client and server that identifies the login attempt. */
 export enum LoginAttempt{
 	Success=1,
-	WrongPassword=2,
+	InvalidUsernameOrPassword=2,
 	EmailDoesNotExist=3,
 	InternalServerError=4
 }

@@ -41,4 +41,20 @@ export class AccountService{
 		})
 	}
 
+	authenticateUser(user:any):Promise<LoginAttempt>{
+		return this.db.select().from('User').where({
+			email: user.username,
+			password:user.password
+		}).all().then((records:any[])=>{
+			if(records.length>0){
+				return LoginAttempt.Success;
+			}else{
+				return LoginAttempt.InvalidUsernameOrPassword;
+			}
+		}).catch((error:Error)=>{
+			winston.error("Users login fail : "+error.message);
+			return LoginAttempt.InternalServerError;
+		})
+	}
+
 }

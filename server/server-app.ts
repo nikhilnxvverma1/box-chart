@@ -49,7 +49,17 @@ export class ServerApp {
 			then((signupAttempt:SignupAttempt)=>{
 				res.send(JSON.stringify(signupAttempt));
 			});
-		})
+		});
+
+		//login authentication
+		this.app.post('/api/authenticate-user', (req:express.Request, res:express.Response) => {
+			winston.debug("Attempting to login user");
+			this.accountService.authenticateUser((<any>req).body).
+			then((loginAttempt:LoginAttempt)=>{
+				res.send(JSON.stringify(loginAttempt));
+			});
+		});
+
 	}
 
     public startServer() {//this method is called after setRoutes()
