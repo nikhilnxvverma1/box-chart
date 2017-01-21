@@ -5941,17 +5941,24 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
+	var router_1 = __webpack_require__(31);
 	var HomeComponent = (function () {
-	    function HomeComponent() {
+	    function HomeComponent(route) {
+	        this.route = route;
 	    }
+	    HomeComponent.prototype.ngOnInit = function () {
+	        this.attemptType = this.route.queryParams.map(function (params) { return params['attemptType'] || 'none'; });
+	        this.attemptCode = this.route.queryParams.map(function (params) { return params['attemptCode'] || 0; });
+	    };
 	    HomeComponent = __decorate([
 	        core_1.Component({
 	            selector: 'home',
 	            template: __webpack_require__(62),
 	        }), 
-	        __metadata('design:paramtypes', [])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _a) || Object])
 	    ], HomeComponent);
 	    return HomeComponent;
+	    var _a;
 	}());
 	exports.HomeComponent = HomeComponent;
 
@@ -5961,7 +5968,7 @@ webpackJsonp([0],{
 /***/ 62:
 /***/ function(module, exports) {
 
-	module.exports = "<h1>homepage</h1> \n<!-- All the design stuff goes here-->\n<login></login>";
+	module.exports = "<h1>homepage</h1>\n<!-- All the design stuff goes here-->\n<login></login>\n\n<!--login attempt-->\n<div *ngIf=\"(attemptType|async)=='login'\">\n\tLogin attempt : <span>{{attemptCode|async}}</span>\n</div>\n\n<!--signup attempt-->\n<div *ngIf=\"(attemptType|async)=='signup'\">\n\tSignup attempt : <span>{{attemptCode|async}}</span>\n</div>";
 
 /***/ },
 
@@ -5981,16 +5988,24 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var user_account_1 = __webpack_require__(685);
 	var user_service_1 = __webpack_require__(686);
+	var router_1 = __webpack_require__(31);
 	var SignupComponent = (function () {
-	    function SignupComponent(userService) {
+	    function SignupComponent(userService, router) {
 	        this.userService = userService;
+	        this.router = router;
 	        this.user = new user_account_1.User();
 	    }
 	    SignupComponent.prototype.createUserAccount = function () {
+	        var _this = this;
 	        if (this.validPassword()) {
 	            console.log("registering user: " + this.user.toString());
 	            this.userService.createUserAccount(this.user).subscribe(function (attempt) {
 	                console.log("Response from server " + attempt);
+	                //redirect back to homepage along with the type of attempt in query params
+	                var navigationExtras = {
+	                    queryParams: { 'attemptType': 'signup', 'attemptCode': attempt },
+	                };
+	                _this.router.navigate([""], navigationExtras);
 	            }, function (error) {
 	                console.log("Error From Server: " + error.message);
 	            });
@@ -6007,10 +6022,10 @@ webpackJsonp([0],{
 	            selector: 'signup',
 	            template: __webpack_require__(64),
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object])
 	    ], SignupComponent);
 	    return SignupComponent;
-	    var _a;
+	    var _a, _b;
 	}());
 	exports.SignupComponent = SignupComponent;
 
@@ -6100,15 +6115,31 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var user_account_1 = __webpack_require__(685);
 	var user_service_1 = __webpack_require__(686);
+	var shared_codes_1 = __webpack_require__(688);
+	var router_1 = __webpack_require__(31);
 	var LoginComponent = (function () {
-	    function LoginComponent(userService) {
+	    function LoginComponent(userService, router) {
 	        this.userService = userService;
+	        this.router = router;
 	        this.loginForm = new user_account_1.LoginCredential();
 	    }
 	    LoginComponent.prototype.attemptLogin = function () {
+	        var _this = this;
 	        console.log("Attemtping login for " + this.loginForm.toString());
 	        this.userService.login(this.loginForm).subscribe(function (attempt) {
 	            console.log("Response from server " + attempt);
+	            if (attempt == shared_codes_1.LoginAttempt.Success) {
+	                //send directly to dashboard 
+	                //TODO manage session
+	                _this.router.navigate(["/dashboard"]);
+	            }
+	            else {
+	                //redirect back to homepage along with the type of error in query params
+	                var navigationExtras = {
+	                    queryParams: { 'attemptType': 'login', 'attemptCode': attempt },
+	                };
+	                _this.router.navigate([""], navigationExtras);
+	            }
 	        }, function (error) {
 	            console.log("Error From Server: " + error.message);
 	        });
@@ -6118,10 +6149,10 @@ webpackJsonp([0],{
 	            selector: 'login',
 	            template: __webpack_require__(68),
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object])
 	    ], LoginComponent);
 	    return LoginComponent;
-	    var _a;
+	    var _a, _b;
 	}());
 	exports.LoginComponent = LoginComponent;
 

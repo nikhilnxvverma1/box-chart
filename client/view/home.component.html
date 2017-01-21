@@ -1,3 +1,13 @@
-<h1>homepage</h1> 
+<h1>homepage</h1>
 <!-- All the design stuff goes here-->
 <login></login>
+
+<!--login attempt-->
+<div *ngIf="(attemptType|async)=='login'">
+	Login attempt : <span>{{attemptCode|async}}</span>
+</div>
+
+<!--signup attempt-->
+<div *ngIf="(attemptType|async)=='signup'">
+	Signup attempt : <span>{{attemptCode|async}}</span>
+</div>
