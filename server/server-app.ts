@@ -1,12 +1,15 @@
-import * as express from 'express'
-import connect=require('connect');
-import bodyParser=require("body-parser");
-import * as path from 'path'
-import orientjs= require('orientjs');
-import winston=require('winston');
-import { SchemaService } from './schema-service';
-import { AccountService } from './account-service';
+import express = require('express');
+import connect = require('connect');
+import bodyParser = require("body-parser");
+import path = require('path');
+import orientjs = require('orientjs');
+import winston = require('winston');
+import session = require('express-session');
+import { SchemaService } from './schema.backend';
+import { AccountService,AuthenticationResult } from './account.backend';
 import { LoginAttempt,SignupAttempt } from './shared-codes';
+import * as statusCode from './status-code';
+
 
 export class ServerApp {
     
@@ -26,10 +29,12 @@ export class ServerApp {
     
     public setRoutes() {        //the order matters here
 
+		this.app.use(bodyParser.json());
 		this.app.use(bodyParser.urlencoded({
 			extended:false
 		}));
-		this.app.use(bodyParser.json());
+		//TODO WARNING: the secret should not be stored in code.(Dev purposes only)
+		this.app.use(session({secret:"fd34regafsd3r45qerafw3r4",saveUninitialized:true,resave:false}));
 		this.configureAPIRoutes();
 		
 		//static resources (we go two levels out because transpile js is one level deep)
@@ -46,8 +51,9 @@ export class ServerApp {
 		this.app.post('/api/create-user', (req:express.Request, res:express.Response) => {
 			winston.debug("Attempting to create new user");
 			this.accountService.checkAndCreateNewUser((<any>req).body).
-			then((signupAttempt:SignupAttempt)=>{
-				res.send(JSON.stringify(signupAttempt));
+			then((attempt:SignupAttempt)=>{
+				//respond back with an appropriate status code
+				res.status(statusCode.forSignup(attempt)).send(JSON.stringify(attempt));
 			});
 		});
 
@@ -55,9 +61,56 @@ export class ServerApp {
 		this.app.post('/api/authenticate-user', (req:express.Request, res:express.Response) => {
 			winston.debug("Attempting to login user");
 			this.accountService.authenticateUser((<any>req).body).
-			then((loginAttempt:LoginAttempt)=>{
-				res.send(JSON.stringify(loginAttempt));
+			then((result:AuthenticationResult)=>{
+				//if authentic, store the user model in the session
+				if(result.attempt==LoginAttempt.Success){
+					(<any>req).session.user=result.user;
+				}
+				//respond back with an appropriate status code
+				res.status(statusCode.forLogin(result.attempt)).send(JSON.stringify(result.attempt));
 			});
+		});
+
+		//dashboard data
+		this.app.get('/api/dashboard', (req:express.Request, res:express.Response) => {
+			winston.debug("Accessing dashboard for user in session");
+			if(!(<any>req).session.user){
+				res.status(401).send("User not found");
+			}else{
+				res.status(200).send("User Ok");
+			}
+		});
+
+		//account data
+		this.app.get('/api/account', (req:express.Request, res:express.Response) => {
+			winston.debug("Returning account details for user in session");
+			//get user in session
+			let loggedInUser=(<any>req).session.user;
+			if(!loggedInUser){
+				res.status(401).send("User not found");
+			}else{
+				//send the entire user as a response(this excludes the confidential stuff)
+				res.status(200).send(loggedInUser);
+			}
+		});
+
+		//logout
+		this.app.get('/api/logout', (req:express.Request, res:express.Response) => {
+			winston.debug("logging out user in session");
+
+			//store user in session to referebce later,
+			let loggedInUser=(<any>req).session.user;
+			
+			//destroy the session for the current user
+			(<any>req).session.destroy();
+
+			//we send a response with a status code back anyway, depending on weather the user was logged in or not
+			if(!loggedInUser){
+				res.status(422).send("User not found");
+			}else{
+				//send the entire user as a response(this excludes the confidential stuff)
+				res.status(200).send(loggedInUser);
+			}
 		});
 
 	}

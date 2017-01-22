@@ -41,20 +41,37 @@ export class AccountService{
 		})
 	}
 
-	authenticateUser(user:any):Promise<LoginAttempt>{
+	authenticateUser(user:any):Promise<AuthenticationResult>{
 		return this.db.select().from('User').where({
 			email: user.username,
 			password:user.password
 		}).all().then((records:any[])=>{
 			if(records.length>0){
-				return LoginAttempt.Success;
+				let authenticated=new AuthenticationResult(LoginAttempt.Success);
+				let user=records[0];
+				delete user.password;
+				authenticated.user=user;
+				return authenticated;
 			}else{
-				return LoginAttempt.InvalidUsernameOrPassword;
+				return new AuthenticationResult(LoginAttempt.InvalidUsernameOrPassword);
 			}
 		}).catch((error:Error)=>{
 			winston.error("Users login fail : "+error.message);
-			return LoginAttempt.InternalServerError;
+			return new AuthenticationResult(LoginAttempt.InternalServerError);
 		})
 	}
 
+}
+
+
+/** Result of the authentication request */
+export class AuthenticationResult{
+	/** If Successful, the resulting user model is stored in the user field */
+	attempt:LoginAttempt;
+	/** User model received from the backend after taking away all the private stuff like password etc. */
+	user:[any];
+
+	constructor(attempt:LoginAttempt){
+		this.attempt=attempt;
+	}
 }
