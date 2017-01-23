@@ -109,10 +109,12 @@ export class MockDataService{
 		var luggageObjectDiagram=new worksheet.ClassObjectDiagram(luggageObject,width/2+100,height/2-300);
 
 		var document=new worksheet.Worksheet();
-		document.semanticModel=softwareDesign;
-		document.classDiagramList.push(vehicleClassDiagram);
-		document.interfaceDiagramList.push(cargoCarrierDiagram);
-		document.classObjectDiagramList.push(luggageObjectDiagram);
+		
+		// the new design does not have these fields
+		// document.semanticModel=softwareDesign;
+		// document.classDiagramList.push(vehicleClassDiagram);
+		// document.interfaceDiagramList.push(cargoCarrierDiagram);
+		// document.classObjectDiagramList.push(luggageObjectDiagram);
 		return document;
 	}
 }

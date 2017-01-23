@@ -6,13 +6,27 @@ import { ObjectModel, ClassObjectData, InterfaceObjectData, Collection } from '.
 //the following constants are used to identify objects of this data model in JSON
 export const WorksheetType="Worksheet";//TODO may not be required
 
+/** Containment of all worksheet related data is maintained in the model. */
 export class Worksheet{
-
+	/**Record ID in DB */
 	rid:string;
 	title:string;
 	description:string;
+	/** Holds the diagram graph of this worksheet. This may need explicit fetching from the server.  */
+	diagramModel:DiagramModel;
+}
 
+/** 
+ * Holds a list of diagram nodes and a list of diagram edges in the worksheet.
+ * This model can also be used to hold any selection of diagram nodes and edges,
+ * even if they are not part of the worksheet.
+ */
+export class DiagramModel{
+	/** Record Id in DB. Only applicable if model belongs to a worksheet.*/
+	rid:string;
+	/** List of nodes in graph */
 	diagramNodeList:DiagramNode[]=[];
+	/** List of edges in graph */
 	diagramEdgeList:DiagramEdge[]=[];
 }
 

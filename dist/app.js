@@ -7518,10 +7518,11 @@ webpackJsonp([0],{
 	        luggageObject.fieldDataList.push(new object.DataHolder(weight.variableDefinition, new object.PrimitiveData(semantic.PrimitiveType.BoolType, "true")));
 	        var luggageObjectDiagram = new worksheet.ClassObjectDiagram(luggageObject, width / 2 + 100, height / 2 - 300);
 	        var document = new worksheet.Worksheet();
-	        document.semanticModel = softwareDesign;
-	        document.classDiagramList.push(vehicleClassDiagram);
-	        document.interfaceDiagramList.push(cargoCarrierDiagram);
-	        document.classObjectDiagramList.push(luggageObjectDiagram);
+	        // the new design does not have these fields
+	        // document.semanticModel=softwareDesign;
+	        // document.classDiagramList.push(vehicleClassDiagram);
+	        // document.interfaceDiagramList.push(cargoCarrierDiagram);
+	        // document.classObjectDiagramList.push(luggageObjectDiagram);
 	        return document;
 	    };
 	    MockDataService = __decorate([
@@ -7548,14 +7549,28 @@ webpackJsonp([0],{
 	var tracking_point_1 = __webpack_require__(76);
 	//the following constants are used to identify objects of this data model in JSON
 	exports.WorksheetType = "Worksheet"; //TODO may not be required
+	/** Containment of all worksheet related data is maintained in the model. */
 	var Worksheet = (function () {
 	    function Worksheet() {
-	        this.diagramNodeList = [];
-	        this.diagramEdgeList = [];
 	    }
 	    return Worksheet;
 	}());
 	exports.Worksheet = Worksheet;
+	/**
+	 * Holds a list of diagram nodes and a list of diagram edges in the worksheet.
+	 * This model can also be used to hold any selection of diagram nodes and edges,
+	 * even if they are not part of the worksheet.
+	 */
+	var DiagramModel = (function () {
+	    function DiagramModel() {
+	        /** List of nodes in graph */
+	        this.diagramNodeList = [];
+	        /** List of edges in graph */
+	        this.diagramEdgeList = [];
+	    }
+	    return DiagramModel;
+	}());
+	exports.DiagramModel = DiagramModel;
 	/** Specifies color in the range 0-255 for four channels. Default is white(255,255,255,255) */
 	var Color = (function () {
 	    function Color(r, g, b, a) {
