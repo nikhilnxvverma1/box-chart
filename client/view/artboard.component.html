@@ -9,19 +9,16 @@
  (dblclick)="doubleClickedArtboard($event)"
  >
 
-	<auto-completion [semanticModel]="worksheet.semanticModel" [objectModel]="worksheet.objectModel"></auto-completion>
 	<h1 id="starter-tip"
 	[style.left.px]="massiveArea.width/2"
 	[style.top.px]="massiveArea.height/2"
 	>Double click anywhere to create a box</h1>
+
+	<creation-drawer [workspace]="workspace" [position]="creationDrawerLocation"></creation-drawer>
+
 	<box *ngFor="let rect of rectList" [rect]="rect" (requestDragging)="setDragInteractionIfEmpty($event)"></box>
 	<generic-node [genericNode]="genericNode1" (requestDragging)="setDragInteractionIfEmpty($event)"></generic-node>
 	<generic-node [genericNode]="genericNode2" (requestDragging)="setDragInteractionIfEmpty($event)"></generic-node>
 	<line-segment [start]="edge.fromPoint.pointOnGeometry()" [end]="edge.toPoint.pointOnGeometry()"></line-segment>
-<!--	
-	<class-diagram *ngFor="let classDiagram of worksheet.classDiagramList" [classDiagram]="classDiagram"></class-diagram>
-	<interface-diagram *ngFor="let interfaceDiagram of worksheet.interfaceDiagramList" [interfaceDiagram]="interfaceDiagram"></interface-diagram>
-	<class-object-diagram *ngFor="let classObject of worksheet.classObjectDiagramList" [classObjectDiagram]="classObject"></class-object-diagram>
-	<line-segment [start]="st" [end]="en"></line-segment>
-	-->
+
 </div>

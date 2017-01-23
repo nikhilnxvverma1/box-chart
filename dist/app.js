@@ -6315,6 +6315,8 @@ webpackJsonp([0],{
 	var geometry_1 = __webpack_require__(73);
 	var sidebar_component_1 = __webpack_require__(77);
 	var artboard_component_1 = __webpack_require__(80);
+	var workspace_1 = __webpack_require__(692);
+	var worksheet_1 = __webpack_require__(82);
 	var SpaceKey = 32;
 	var WorkspaceComponent = (function () {
 	    function WorkspaceComponent(transformService) {
@@ -6331,6 +6333,8 @@ webpackJsonp([0],{
 	        //get the width and height of the 'device' window and get the 
 	        this.movingWindow = new geometry_1.Rect(this.artboard.massiveArea.width / 2 - window.innerWidth / 2, this.artboard.massiveArea.height / 2 - window.innerHeight / 2, window.innerWidth, window.outerHeight);
 	        this.positionArtboardBasis(this.movingWindow);
+	        //get the worksheet for the given rid defined in url params
+	        this.workspace = new workspace_1.Workspace(new worksheet_1.Worksheet());
 	    };
 	    WorkspaceComponent.prototype.toggleSidebar = function () {
 	        this.sidebar.open = !this.sidebar.open;
@@ -7315,6 +7319,7 @@ webpackJsonp([0],{
 	var auto_completion_component_1 = __webpack_require__(84);
 	var interpreter_service_1 = __webpack_require__(87);
 	var worksheet_1 = __webpack_require__(82);
+	var workspace_1 = __webpack_require__(692);
 	exports.ArtboardWidth = 3200;
 	exports.ArtboardHeight = (2 / 3) * exports.ArtboardWidth;
 	var ArtboardComponent = (function () {
@@ -7326,11 +7331,11 @@ webpackJsonp([0],{
 	        this.mousedownEvent = new core_1.EventEmitter();
 	        this.mousemoveEvent = new core_1.EventEmitter();
 	        this.mouseupEvent = new core_1.EventEmitter();
+	        this.creationDrawerLocation = new geometry_2.Point(exports.ArtboardWidth / 2, exports.ArtboardHeight / 2);
 	        //testing stuff
 	        this.st = new geometry_2.Point(1501, 1300);
 	        this.en = new geometry_2.Point(1700, 700);
 	        this.massiveArea = new geometry_1.Rect(0, 0, exports.ArtboardWidth, exports.ArtboardHeight);
-	        this.worksheet = this.mockDataService.vehicleWorksheet();
 	        this.testing();
 	    }
 	    ArtboardComponent.prototype.testing = function () {
@@ -7347,15 +7352,12 @@ webpackJsonp([0],{
 	        this.edge.to = this.genericNode2;
 	    };
 	    ArtboardComponent.prototype.doubleClickedArtboard = function (event) {
-	        var width = 200;
-	        var height = 50;
-	        var rect = new geometry_1.Rect(3200 / 2, 2133 / 2, width, height);
-	        rect.x = event.offsetX - width / 2;
-	        rect.y = event.offsetY - height / 2;
-	        this.rectList.push(rect);
-	        console.log("Added box");
+	        // this.creationDrawerLocation=new Point(event.offsetX-creationDrawer.WIDTH/2,event.offsetY);
+	        this.creationDrawerLocation = new geometry_2.Point(event.offsetX, event.offsetY);
+	        this.workspace.creationDrawerIsOpen = true;
 	    };
 	    ArtboardComponent.prototype.mousedown = function (event) {
+	        this.workspace.creationDrawerIsOpen = false;
 	        this.mousedownEvent.emit(event);
 	        if (this.draggingInteraction != null) {
 	            this.draggingInteraction.handleMousePress(event);
@@ -7390,6 +7392,10 @@ webpackJsonp([0],{
 	        }
 	    };
 	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', (typeof (_a = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _a) || Object)
+	    ], ArtboardComponent.prototype, "workspace", void 0);
+	    __decorate([
 	        core_1.Output(), 
 	        __metadata('design:type', Object)
 	    ], ArtboardComponent.prototype, "mousedownEvent", void 0);
@@ -7403,7 +7409,7 @@ webpackJsonp([0],{
 	    ], ArtboardComponent.prototype, "mouseupEvent", void 0);
 	    __decorate([
 	        core_2.ViewChild(auto_completion_component_1.AutoCompletionComponent), 
-	        __metadata('design:type', (typeof (_a = typeof auto_completion_component_1.AutoCompletionComponent !== 'undefined' && auto_completion_component_1.AutoCompletionComponent) === 'function' && _a) || Object)
+	        __metadata('design:type', (typeof (_b = typeof auto_completion_component_1.AutoCompletionComponent !== 'undefined' && auto_completion_component_1.AutoCompletionComponent) === 'function' && _b) || Object)
 	    ], ArtboardComponent.prototype, "autoCompletion", void 0);
 	    ArtboardComponent = __decorate([
 	        core_1.Component({
@@ -7411,10 +7417,10 @@ webpackJsonp([0],{
 	            styles: [__webpack_require__(91)],
 	            template: __webpack_require__(92),
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_b = typeof mock_data_service_1.MockDataService !== 'undefined' && mock_data_service_1.MockDataService) === 'function' && _b) || Object, (typeof (_c = typeof interpreter_service_1.InterpreterService !== 'undefined' && interpreter_service_1.InterpreterService) === 'function' && _c) || Object])
+	        __metadata('design:paramtypes', [(typeof (_c = typeof mock_data_service_1.MockDataService !== 'undefined' && mock_data_service_1.MockDataService) === 'function' && _c) || Object, (typeof (_d = typeof interpreter_service_1.InterpreterService !== 'undefined' && interpreter_service_1.InterpreterService) === 'function' && _d) || Object])
 	    ], ArtboardComponent);
 	    return ArtboardComponent;
-	    var _a, _b, _c;
+	    var _a, _b, _c, _d;
 	}());
 	exports.ArtboardComponent = ArtboardComponent;
 
@@ -7568,6 +7574,14 @@ webpackJsonp([0],{
 	        /** List of edges in graph */
 	        this.diagramEdgeList = [];
 	    }
+	    /** Checks weather a given node exists in this diagram node or not */
+	    DiagramModel.prototype.containsNode = function (node) {
+	        return this.diagramNodeList.indexOf(node) != -1;
+	    };
+	    /** Checks weather a given edge exists in this diagram node or not */
+	    DiagramModel.prototype.containsEdge = function (edge) {
+	        return this.diagramEdgeList.indexOf(edge) != -1;
+	    };
 	    return DiagramModel;
 	}());
 	exports.DiagramModel = DiagramModel;
@@ -9323,7 +9337,7 @@ webpackJsonp([0],{
 /***/ 92:
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<auto-completion [semanticModel]=\"worksheet.semanticModel\" [objectModel]=\"worksheet.objectModel\"></auto-completion>\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\t<generic-node [genericNode]=\"genericNode1\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n\t<generic-node [genericNode]=\"genericNode2\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n\t<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>\n<!--\t\n\t<class-diagram *ngFor=\"let classDiagram of worksheet.classDiagramList\" [classDiagram]=\"classDiagram\"></class-diagram>\n\t<interface-diagram *ngFor=\"let interfaceDiagram of worksheet.interfaceDiagramList\" [interfaceDiagram]=\"interfaceDiagram\"></interface-diagram>\n\t<class-object-diagram *ngFor=\"let classObject of worksheet.classObjectDiagramList\" [classObjectDiagram]=\"classObject\"></class-object-diagram>\n\t<line-segment [start]=\"st\" [end]=\"en\"></line-segment>\n\t-->\n</div>";
+	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\n\t<creation-drawer [workspace]=\"workspace\" [position]=\"creationDrawerLocation\"></creation-drawer>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\t<generic-node [genericNode]=\"genericNode1\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n\t<generic-node [genericNode]=\"genericNode2\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n\t<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>\n\n</div>";
 
 /***/ },
 
@@ -9337,7 +9351,7 @@ webpackJsonp([0],{
 /***/ 94:
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t<li>Area</li>\n\t\t<li>Overview</li>\n\t</ul>\n</div>\n";
+	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t\t[workspace]=\"workspace\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t<li>Area</li>\n\t\t<li>Overview</li>\n\t</ul>\n</div>\n";
 
 /***/ },
 
@@ -9376,7 +9390,7 @@ webpackJsonp([0],{
 	
 	
 	// module
-	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  text-align: center; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n", ""]);
+	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  text-align: center; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n", ""]);
 	
 	// exports
 
@@ -9725,6 +9739,7 @@ webpackJsonp([0],{
 	var interface_diagram_component_1 = __webpack_require__(672);
 	var interface_object_diagram_component_1 = __webpack_require__(674);
 	var linked_segments_component_1 = __webpack_require__(676);
+	var creation_drawer_component_1 = __webpack_require__(690);
 	var transform_service_1 = __webpack_require__(72);
 	var interpreter_service_1 = __webpack_require__(87);
 	var mock_data_service_1 = __webpack_require__(81);
@@ -9763,7 +9778,8 @@ webpackJsonp([0],{
 	                interface_diagram_component_1.InterfaceDiagramComponent,
 	                interface_object_diagram_component_1.InterfaceObjectDiagramComponent,
 	                linked_segments_component_1.LinkedSegmentsComponent,
-	                linker_component_1.LinkerComponent
+	                linker_component_1.LinkerComponent,
+	                creation_drawer_component_1.CreationDrawerComponent
 	            ],
 	            schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA],
 	            providers: [transform_service_1.TransformService, interpreter_service_1.InterpreterService, mock_data_service_1.MockDataService]
@@ -11142,6 +11158,167 @@ webpackJsonp([0],{
 	    var _a;
 	}());
 	exports.DashboardService = DashboardService;
+
+
+/***/ },
+
+/***/ 690:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var core_2 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(73);
+	var workspace_1 = __webpack_require__(692);
+	exports.WIDTH = 200;
+	exports.HEIGHT = 250;
+	var CreationDrawerComponent = (function () {
+	    function CreationDrawerComponent() {
+	        this.requestDragging = new core_1.EventEmitter();
+	    }
+	    CreationDrawerComponent.prototype.handleMousePress = function (event) {
+	    };
+	    CreationDrawerComponent.prototype.handleMouseDrag = function (event) {
+	    };
+	    CreationDrawerComponent.prototype.handleMouseRelease = function (event) {
+	    };
+	    CreationDrawerComponent.prototype.registerDragIntention = function (dragProcessor) {
+	        this.requestDragging.emit(dragProcessor);
+	    };
+	    __decorate([
+	        core_1.Input('workspace'), 
+	        __metadata('design:type', (typeof (_a = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _a) || Object)
+	    ], CreationDrawerComponent.prototype, "workspace", void 0);
+	    __decorate([
+	        core_1.Input('position'), 
+	        __metadata('design:type', (typeof (_b = typeof geometry_1.Point !== 'undefined' && geometry_1.Point) === 'function' && _b) || Object)
+	    ], CreationDrawerComponent.prototype, "position", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], CreationDrawerComponent.prototype, "requestDragging", void 0);
+	    CreationDrawerComponent = __decorate([
+	        core_1.Component({
+	            selector: 'creation-drawer',
+	            template: __webpack_require__(691),
+	            animations: [
+	                core_2.trigger('isDrawerOpen', [
+	                    core_2.state('open', core_2.style({
+	                        width: exports.WIDTH + "px",
+	                        height: exports.HEIGHT + "px"
+	                    })),
+	                    core_2.state('closed', core_2.style({
+	                        width: "0px",
+	                        height: "0px"
+	                    })),
+	                    core_2.transition('open => closed', core_2.animate('100ms ease-in')),
+	                    core_2.transition('closed => open', core_2.animate('100ms ease-out'))
+	                ])
+	            ]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], CreationDrawerComponent);
+	    return CreationDrawerComponent;
+	    var _a, _b;
+	}());
+	exports.CreationDrawerComponent = CreationDrawerComponent;
+
+
+/***/ },
+
+/***/ 691:
+/***/ function(module, exports) {
+
+	module.exports = "<div \n\tclass=\"drop-shadowed-pop-up\"\n\tid=\"creation-pop-up\"\n\t[style.left.px]=\"position.x\"\n\t[style.top.px]=\"position.y\"\n\t[@isDrawerOpen]=\"workspace.creationDrawerIsOpen?'open':'closed'\" >\n\n</div>";
+
+/***/ },
+
+/***/ 692:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var worksheet_1 = __webpack_require__(82);
+	/** Current configuration of the workspace on account of user actions so far. */
+	var Workspace = (function () {
+	    function Workspace(worksheet) {
+	        this.history = [];
+	        this.future = [];
+	        this._selection = new worksheet_1.DiagramModel();
+	        this.creationDrawerIsOpen = false;
+	        this._worksheet = worksheet;
+	    }
+	    Workspace.prototype.commit = function (command) {
+	        this.history.push(command);
+	        this.future.splice(0, this.future.length);
+	    };
+	    Workspace.prototype.undo = function () {
+	        if (this.history.length) {
+	            console.debug("history stack is empty");
+	            return;
+	        }
+	        var latestCommand = this.history.pop();
+	        latestCommand.unExecute(); //undo it
+	        this.future.push(latestCommand);
+	    };
+	    Workspace.prototype.redo = function () {
+	        if (this.future.length) {
+	            console.debug("future stack is empty");
+	            return;
+	        }
+	        var undoneCommand = this.history.pop();
+	        undoneCommand.execute(); //redo it back
+	        this.history.push(undoneCommand);
+	    };
+	    Object.defineProperty(Workspace.prototype, "worksheet", {
+	        get: function () {
+	            return this._worksheet;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Workspace.prototype, "selection", {
+	        get: function () {
+	            return this._selection;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Workspace.prototype.addNodeToSelection = function (node) {
+	        if (this._selection.containsNode(node)) {
+	            return;
+	        }
+	        this._selection.diagramNodeList.push(node);
+	    };
+	    Workspace.prototype.removeNodeToSelection = function (node) {
+	        var index = this._selection.diagramNodeList.indexOf(node);
+	        if (index != -1) {
+	            this._selection.diagramNodeList.splice(index, 1);
+	        }
+	    };
+	    Workspace.prototype.addEdgeToSelection = function (edge) {
+	        if (this._selection.containsEdge(edge)) {
+	            return;
+	        }
+	        this._selection.diagramEdgeList.push(edge);
+	    };
+	    Workspace.prototype.removeEdgeToSelection = function (edge) {
+	        var index = this._selection.diagramEdgeList.indexOf(edge);
+	        if (index != -1) {
+	            this._selection.diagramEdgeList.splice(index, 1);
+	        }
+	    };
+	    return Workspace;
+	}());
+	exports.Workspace = Workspace;
 
 
 /***/ }

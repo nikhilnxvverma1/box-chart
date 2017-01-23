@@ -1,4 +1,4 @@
-import { Component,Output,EventEmitter } from '@angular/core';
+import { Component,Input,Output,EventEmitter } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { animate,trigger,state,transition,style } from '@angular/core';
 import { Rect } from '../model/geometry';
@@ -8,8 +8,10 @@ import { DiagramaticComponent } from '../editor/diagramatic-element';
 import { Worksheet } from '../model/worksheet';
 import { MockDataService } from '../utility/mock-data.service';
 import { AutoCompletionComponent } from './auto-completion.component';
+import * as creationDrawer from './creation-drawer.component';
 import { InterpreterService } from '../editor/compiler/interpreter.service';
 import { GenericDiagramNode,GenericDiagramNodeType,DiagramEdge } from '../model/worksheet';
+import { Workspace } from '../editor/workspace';
 
 export const ArtboardWidth=3200;
 export const ArtboardHeight=(2/3)*ArtboardWidth;
@@ -24,19 +26,19 @@ export class ArtboardComponent  {
     massiveArea:Rect;
     rectList:Rect[]=[];
 	diagramticComponentList:DiagramaticComponent[]=[]
-	worksheet:Worksheet;
 
+	@Input() workspace:Workspace;
     @Output() mousedownEvent=new EventEmitter<MouseEvent>();
     @Output() mousemoveEvent=new EventEmitter<MouseEvent>();
     @Output() mouseupEvent=new EventEmitter<MouseEvent>();
 
 	@ViewChild(AutoCompletionComponent) autoCompletion:AutoCompletionComponent;
 
+	private creationDrawerLocation:Point=new Point(ArtboardWidth/2,ArtboardHeight/2);
 	private draggingInteraction:PressDragReleaseProcessor;
 
 	constructor(private mockDataService:MockDataService,private interpreter:InterpreterService ){
 		this.massiveArea=new Rect(0,0,ArtboardWidth,ArtboardHeight);
-		this.worksheet=this.mockDataService.vehicleWorksheet();
 		this.testing();
 		
 	}
@@ -59,17 +61,15 @@ export class ArtboardComponent  {
 		
 	}
 
-    doubleClickedArtboard(event:MouseEvent){
-        var width=200;
-        var height=50;
-        var rect=new Rect(3200/2,2133/2,width,height);
-        rect.x=event.offsetX-width/2;
-        rect.y=event.offsetY-height/2;
-        this.rectList.push(rect);
-		console.log("Added box");
-    }
+	doubleClickedArtboard(event:MouseEvent){
+		// this.creationDrawerLocation=new Point(event.offsetX-creationDrawer.WIDTH/2,event.offsetY);
+		this.creationDrawerLocation=new Point(event.offsetX,event.offsetY);
+		this.workspace.creationDrawerIsOpen=true;
+	}
 
 	mousedown(event:MouseEvent){
+		this.workspace.creationDrawerIsOpen=false;
+
 		this.mousedownEvent.emit(event);
 		if(this.draggingInteraction!=null){
 			this.draggingInteraction.handleMousePress(event);

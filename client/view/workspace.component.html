@@ -9,6 +9,7 @@
 		(mousedownEvent)="mousedown($event)"
 		(mousemoveEvent)="mousemove($event)"
 		(mouseupEvent)="mouseup($event)"
+		[workspace]="workspace"
 	></artboard>
 	<sidebar></sidebar>
 	<ul id="menu-controls" [@shiftMenuControls]="sidebar.open?'shifted':'unshifted'">

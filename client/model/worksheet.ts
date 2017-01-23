@@ -28,6 +28,16 @@ export class DiagramModel{
 	diagramNodeList:DiagramNode[]=[];
 	/** List of edges in graph */
 	diagramEdgeList:DiagramEdge[]=[];
+
+	/** Checks weather a given node exists in this diagram node or not */
+	containsNode(node:DiagramNode):boolean{
+		return this.diagramNodeList.indexOf(node)!=-1;
+	}
+
+	/** Checks weather a given edge exists in this diagram node or not */
+	containsEdge(edge:DiagramEdge):boolean{
+		return this.diagramEdgeList.indexOf(edge)!=-1;
+	}
 }
 
 /** Specifies color in the range 0-255 for four channels. Default is white(255,255,255,255) */

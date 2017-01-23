@@ -4,6 +4,8 @@ import { TransformService } from '../utility/transform.service';
 import { Point,Rect } from '../model/geometry';
 import { SidebarComponent } from './sidebar.component';
 import { ArtboardComponent } from './artboard.component';
+import { Workspace } from '../editor/workspace';
+import { Worksheet } from '../model/worksheet';
 
 const SpaceKey=32;
 
@@ -29,6 +31,7 @@ export class WorkspaceComponent implements OnInit{
     //moving window is a virtual rect that moves across the massive area of the artboard
     private movingWindow:Rect;
     private windowMovementAllowed=false;//allowed only when space is held
+	private workspace:Workspace;
     private dragEntered=false;
     private startX=0;
     private startY=0;
@@ -53,6 +56,9 @@ export class WorkspaceComponent implements OnInit{
           window.innerWidth,
           window.outerHeight);
         this.positionArtboardBasis(this.movingWindow);
+
+		//get the worksheet for the given rid defined in url params
+		this.workspace=new Workspace(new Worksheet());
     }
 
     toggleSidebar(){

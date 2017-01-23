@@ -19,6 +19,7 @@ import { ClassObjectComponent } from './component/class-object-diagram.component
 import { InterfaceDiagramComponent } from './component/interface-diagram.component';
 import { InterfaceObjectDiagramComponent } from './component/interface-object-diagram.component';
 import { LinkedSegmentsComponent } from './component/linked-segments.component';
+import { CreationDrawerComponent } from './component/creation-drawer.component';
 import { TransformService } from './utility/transform.service';
 import { InterpreterService } from './editor/compiler/interpreter.service';
 import { MockDataService } from './utility/mock-data.service';
@@ -54,7 +55,8 @@ import { NodeBackground } from './helper/node-background.pipe';
 		InterfaceDiagramComponent,
 		InterfaceObjectDiagramComponent,
 		LinkedSegmentsComponent,
-		LinkerComponent
+		LinkerComponent,
+		CreationDrawerComponent
 		],
 	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 	providers:[TransformService,InterpreterService,MockDataService]
