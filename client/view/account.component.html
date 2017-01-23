@@ -1,18 +1,28 @@
-Account
+<a style="background: blue;color: white" (click)="router.navigate(['/dashboard'])">Dashboard</a>
 
-<div>
-	<span>firstName:</span>
-	<input type="text" [(ngModel)]="user.firstName"/>
-</div>
+<div>Account</div>
 
-<div>
-	<span>lastName:</span>
-	<input type="text" [(ngModel)]="user.lastName"/>
-</div>
+<div *ngIf="user!=null">
 
-<div>
-	<span>email:</span>
-	<input type="text" [(ngModel)]="user.email"/>
+	<div>
+		<span>firstName:</span>
+		<input type="text" [(ngModel)]="user.firstName"/>
+	</div>
+
+	<div>
+		<span>lastName:</span>
+		<input type="text" [(ngModel)]="user.lastName"/>
+	</div>
+
+	<div>
+		<span>email:</span>
+		<input type="text" [(ngModel)]="user.email"/>
+	</div>
+
+	<div>
+		<span>gender:</span>
+		<input type="text" [(ngModel)]="user.gender"/>
+	</div>
 </div>
 
 <!--TODO allow changing password-->

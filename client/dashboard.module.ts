@@ -5,6 +5,7 @@ import { RouterModule } from '@angular/router';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './component/dashboard.component';
 import { WorkspaceModule } from './workspace.module';
+import { DashboardService } from './utility/dashboard.service';
 
 @NgModule({
 	imports:[ 
@@ -15,5 +16,6 @@ import { WorkspaceModule } from './workspace.module';
 	declarations: [
 			DashboardComponent
 		],
+	providers:[DashboardService],
 })
 export class DashboardModule { }

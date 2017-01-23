@@ -8,6 +8,7 @@ export const WorksheetType="Worksheet";//TODO may not be required
 
 export class Worksheet{
 
+	rid:string;
 	title:string;
 	description:string;
 

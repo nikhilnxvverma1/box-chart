@@ -6054,12 +6054,23 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(3);
 	var worksheet_1 = __webpack_require__(82);
+	var dashboard_service_1 = __webpack_require__(689);
+	var user_service_1 = __webpack_require__(686);
+	var router_1 = __webpack_require__(31);
 	var DashboardComponent = (function () {
-	    function DashboardComponent() {
+	    function DashboardComponent(dashboardService, userService, router) {
+	        this.dashboardService = dashboardService;
+	        this.userService = userService;
+	        this.router = router;
 	        this.worksheetList = [];
 	    }
 	    DashboardComponent.prototype.ngOnInit = function () {
-	        this.fillWithDummyData(); //TODO  this will come from server
+	        var _this = this;
+	        this.dashboardService.worksheetListForLoggedInUser().subscribe(function (worksheetList) {
+	            _this.worksheetList = worksheetList;
+	        }, function (error) {
+	            console.error("Worksheet retrieval: " + error.message); //TODO show some friendly message to user
+	        });
 	    };
 	    DashboardComponent.prototype.fillWithDummyData = function () {
 	        var first = new worksheet_1.Worksheet();
@@ -6076,16 +6087,51 @@ webpackJsonp([0],{
 	        this.worksheetList.push(third);
 	    };
 	    DashboardComponent.prototype.createNewWorksheet = function () {
-	        console.log("TODO create new worksheet");
+	        var _this = this;
+	        var title = Math.random().toString(36).slice(2);
+	        var description = "made from frontend";
+	        this.dashboardService.createWorksheet(title, description).subscribe(function (worksheet) {
+	            _this.worksheetList.push(worksheet);
+	        }, function (error) {
+	            console.error("Worksheet retrieval: " + error.message); //TODO show some friendly message to user
+	        });
+	    };
+	    DashboardComponent.prototype.removeWorksheet = function (worksheet) {
+	        var _this = this;
+	        this.dashboardService.removeWorksheet(worksheet).subscribe(function (deleted) {
+	            if (deleted) {
+	                var index = _this.worksheetList.indexOf(worksheet);
+	                if (index != -1) {
+	                    _this.worksheetList.splice(index, 1);
+	                }
+	                else {
+	                    console.error("Worksheet not found in frontend list but did exist in db(and is deleted now)");
+	                }
+	            }
+	            else {
+	                console.error("Did not delete worksheet from db. Is it actually associated with the user? ");
+	            }
+	        }, function (error) {
+	            console.error("Worksheet deletion: " + error.message); //TODO show some friendly message to user
+	        });
+	    };
+	    DashboardComponent.prototype.logout = function () {
+	        var _this = this;
+	        this.userService.logout().subscribe(function (user) {
+	            _this.router.navigate(["/"]);
+	        }, function (error) {
+	            console.error("Logging out user"); //TODO show some friendly message to user
+	        });
 	    };
 	    DashboardComponent = __decorate([
 	        core_1.Component({
 	            selector: 'dashboard',
 	            template: __webpack_require__(66),
 	        }), 
-	        __metadata('design:paramtypes', [])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof dashboard_service_1.DashboardService !== 'undefined' && dashboard_service_1.DashboardService) === 'function' && _a) || Object, (typeof (_b = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _b) || Object, (typeof (_c = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _c) || Object])
 	    ], DashboardComponent);
 	    return DashboardComponent;
+	    var _a, _b, _c;
 	}());
 	exports.DashboardComponent = DashboardComponent;
 
@@ -6095,7 +6141,7 @@ webpackJsonp([0],{
 /***/ 66:
 /***/ function(module, exports) {
 
-	module.exports = "<h1>TODO worksheet list</h1>\n\n<div class=\"worksheet-tag\" *ngFor=\"let worksheet of worksheetList\">\n\t<div>{{worksheet.title}}</div>\n\t<div>{{worksheet.description}}</div>\n</div>\n\n<div class=\"worksheet-tag\">\n\t<a (click)=\"createNewWorksheet()\">Create new worksheet</a>\n</div>";
+	module.exports = "<a style=\"background: blue;color: white\" (click)=\"router.navigate(['/account'])\">Account</a>\n<a style=\"background: pink;color: white\" (click)=\"logout()\">Logout</a>\n\n<h1>Worksheet list</h1>\n\n<div class=\"worksheet-tag\" *ngFor=\"let worksheet of worksheetList\">\n\t<span>{{worksheet.title}}</span> : \n\t<span>{{worksheet.description}}</span> \n\t<a style=\"background: red;color: white\" (click)=\"removeWorksheet(worksheet)\">Remove</a>\n</div>\n\n<div class=\"worksheet-tag\">\n\t<a style=\"background: green;color: white\" (click)=\"createNewWorksheet()\">Create new worksheet</a>\n</div>";
 
 /***/ },
 
@@ -6130,7 +6176,6 @@ webpackJsonp([0],{
 	            console.log("Response from server " + attempt);
 	            if (attempt == shared_codes_1.LoginAttempt.Success) {
 	                //send directly to dashboard 
-	                //TODO manage session
 	                _this.router.navigate(["/dashboard"]);
 	            }
 	            else {
@@ -6184,6 +6229,7 @@ webpackJsonp([0],{
 	var forms_1 = __webpack_require__(24);
 	var dashboard_routing_module_1 = __webpack_require__(70);
 	var dashboard_component_1 = __webpack_require__(65);
+	var dashboard_service_1 = __webpack_require__(689);
 	var DashboardModule = (function () {
 	    function DashboardModule() {
 	    }
@@ -6197,6 +6243,7 @@ webpackJsonp([0],{
 	            declarations: [
 	                dashboard_component_1.DashboardComponent
 	            ],
+	            providers: [dashboard_service_1.DashboardService],
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], DashboardModule);
@@ -10802,7 +10849,7 @@ webpackJsonp([0],{
 /***/ 683:
 /***/ function(module, exports) {
 
-	module.exports = "Account\n\n<div>\n\t<span>firstName:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.firstName\"/>\n</div>\n\n<div>\n\t<span>lastName:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.lastName\"/>\n</div>\n\n<div>\n\t<span>email:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.email\"/>\n</div>\n\n<!--TODO allow changing password-->\n\n<a (click)=\"saveAccountDetails()\">Save details</a>";
+	module.exports = "<a style=\"background: blue;color: white\" (click)=\"router.navigate(['/dashboard'])\">Dashboard</a>\n\n<div>Account</div>\n\n<div *ngIf=\"user!=null\">\n\n\t<div>\n\t\t<span>firstName:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.firstName\"/>\n\t</div>\n\n\t<div>\n\t\t<span>lastName:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.lastName\"/>\n\t</div>\n\n\t<div>\n\t\t<span>email:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.email\"/>\n\t</div>\n\n\t<div>\n\t\t<span>gender:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.gender\"/>\n\t</div>\n</div>\n\n<!--TODO allow changing password-->\n\n<a (click)=\"saveAccountDetails()\">Save details</a>";
 
 /***/ },
 
@@ -10820,15 +10867,20 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var user_account_1 = __webpack_require__(685);
+	var user_service_1 = __webpack_require__(686);
+	var router_1 = __webpack_require__(31);
 	var AccountComponent = (function () {
-	    function AccountComponent() {
+	    function AccountComponent(userService, router) {
+	        this.userService = userService;
+	        this.router = router;
 	    }
 	    AccountComponent.prototype.ngOnInit = function () {
-	        this.user = new user_account_1.User(); //TODO get from session
-	        this.user.firstName = "Nikhil";
-	        this.user.lastName = "Verma";
-	        this.user.email = "nikhilnxvverma1@gmail.com";
+	        var _this = this;
+	        this.userService.accountInfo().subscribe(function (user) {
+	            _this.user = user;
+	        }, function (error) {
+	            console.error("Retrieving account info"); //TODO show user friendly message
+	        });
 	    };
 	    AccountComponent.prototype.saveAccountDetails = function () {
 	        console.log("TODO Saving account Details");
@@ -10838,9 +10890,10 @@ webpackJsonp([0],{
 	            selector: 'account',
 	            template: __webpack_require__(683),
 	        }), 
-	        __metadata('design:paramtypes', [])
+	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object])
 	    ], AccountComponent);
 	    return AccountComponent;
+	    var _a, _b;
 	}());
 	exports.AccountComponent = AccountComponent;
 
@@ -10887,6 +10940,7 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
+	var user_account_1 = __webpack_require__(685);
 	var http_1 = __webpack_require__(359);
 	var shared_codes_1 = __webpack_require__(688);
 	var UserService = (function () {
@@ -10929,9 +10983,28 @@ webpackJsonp([0],{
 	            return body;
 	        }
 	    };
+	    /** Gets the user object for the logged in user. Will return null(Observable) if the user is not in session. */
+	    UserService.prototype.accountInfo = function () {
+	        return this.http.get(UserService.ACCOUNT_URL).map(this.toUserObject);
+	    };
+	    UserService.prototype.toUserObject = function (response) {
+	        var body = response.json();
+	        var user = new user_account_1.User();
+	        user.firstName = body['firstName'];
+	        user.lastName = body['lastName'];
+	        user.email = body['email'];
+	        user.gender = body['gender'];
+	        user.rid = body['@rid'];
+	        return user;
+	    };
+	    UserService.prototype.logout = function () {
+	        return this.http.get(UserService.LOGOUT_URL).map(this.toUserObject);
+	    };
 	    //TODO move these urls in the shared-codes file
 	    UserService.CREATE_USER_ACCOUNT_URL = "api/create-user";
 	    UserService.AUTHENTICATE_USER_URL = "api/authenticate-user";
+	    UserService.ACCOUNT_URL = "api/account";
+	    UserService.LOGOUT_URL = "api/logout";
 	    UserService = __decorate([
 	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
@@ -10969,6 +11042,91 @@ webpackJsonp([0],{
 	    SignupAttempt[SignupAttempt["InternalServerError"] = 5] = "InternalServerError";
 	})(exports.SignupAttempt || (exports.SignupAttempt = {}));
 	var SignupAttempt = exports.SignupAttempt;
+
+
+/***/ },
+
+/***/ 689:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var worksheet_1 = __webpack_require__(82);
+	var http_1 = __webpack_require__(359);
+	var DashboardService = (function () {
+	    function DashboardService(http) {
+	        this.http = http;
+	    }
+	    /**
+	     * Gets the list of worksheets associated with the logged in user.
+	     * Will return null(Observable) if the user is not in session.
+	     */
+	    DashboardService.prototype.worksheetListForLoggedInUser = function () {
+	        var _this = this;
+	        return this.http.get(DashboardService.DASHBOARD_URL).map(function (response) { return _this.toWorksheetList(response); });
+	    };
+	    DashboardService.prototype.toWorksheetList = function (response) {
+	        var worksheetList = [];
+	        var arrayBody = response.json();
+	        for (var i = 0; i < arrayBody.length; i++) {
+	            worksheetList[i] = this.worksheetFromJson(arrayBody[i]);
+	        }
+	        return worksheetList;
+	    };
+	    DashboardService.prototype.worksheetFromJson = function (json) {
+	        var worksheet = new worksheet_1.Worksheet();
+	        worksheet.title = json.title;
+	        worksheet.description = json.description;
+	        worksheet.rid = json['@rid'];
+	        return worksheet;
+	    };
+	    /** Creates a worksheet for the logged in user. */
+	    DashboardService.prototype.createWorksheet = function (title, description) {
+	        var _this = this;
+	        var body = {
+	            "title": title,
+	            "description": description
+	        };
+	        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+	        var options = new http_1.RequestOptions({ headers: headers });
+	        return this.http.post(DashboardService.CREATE_WORKSHEET_URL, body, options).map(function (res) { return _this.worksheetFromJson(res.json()); });
+	    };
+	    /**
+	     * Removes the specified worksheet from the logged in user.
+	     * Returns false in case the worksheet is not associated with the user.
+	     */
+	    DashboardService.prototype.removeWorksheet = function (worksheet) {
+	        var body = {
+	            "worksheetRid": worksheet.rid
+	        };
+	        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+	        var options = new http_1.RequestOptions({
+	            headers: headers,
+	            body: body
+	        });
+	        return this.http.delete(DashboardService.REMOVE_WORKSHEET_URL, options).map(function (res) { return (res.json()); });
+	    };
+	    //TODO move these urls in the shared-codes file
+	    DashboardService.DASHBOARD_URL = "api/dashboard";
+	    DashboardService.CREATE_WORKSHEET_URL = "api/create-worksheet";
+	    DashboardService.REMOVE_WORKSHEET_URL = "api/remove-worksheet";
+	    DashboardService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
+	    ], DashboardService);
+	    return DashboardService;
+	    var _a;
+	}());
+	exports.DashboardService = DashboardService;
 
 
 /***/ }

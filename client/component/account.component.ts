@@ -1,5 +1,7 @@
 import { Component,OnInit } from '@angular/core';
 import { User } from '../model/user-account';
+import { UserService } from '../utility/user.service';
+import { Router,NavigationExtras } from '@angular/router';
 
 @Component({
   selector: 'account',
@@ -8,11 +10,16 @@ import { User } from '../model/user-account';
 export class AccountComponent implements OnInit{
 	private user:User;
 
+	constructor(
+		private userService:UserService,
+		private router:Router){}
+
 	ngOnInit(){
-		this.user=new User();//TODO get from session
-		this.user.firstName="Nikhil";
-		this.user.lastName="Verma";
-		this.user.email="nikhilnxvverma1@gmail.com";
+		this.userService.accountInfo().subscribe((user:User)=>{
+			this.user=user;
+		},(error:Error)=>{
+			console.error("Retrieving account info");//TODO show user friendly message
+		});
 	}
 
 	saveAccountDetails(){

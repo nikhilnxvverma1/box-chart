@@ -22,7 +22,6 @@ export class LoginComponent {
 			console.log("Response from server "+attempt);
 			if(attempt==LoginAttempt.Success){
 				//send directly to dashboard 
-				//TODO manage session
 				this.router.navigate(["/dashboard"]);
 			}else{
 				//redirect back to homepage along with the type of error in query params

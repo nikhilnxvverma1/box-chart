@@ -1,10 +1,14 @@
-<h1>TODO worksheet list</h1>
+<a style="background: blue;color: white" (click)="router.navigate(['/account'])">Account</a>
+<a style="background: pink;color: white" (click)="logout()">Logout</a>
+
+<h1>Worksheet list</h1>
 
 <div class="worksheet-tag" *ngFor="let worksheet of worksheetList">
-	<div>{{worksheet.title}}</div>
-	<div>{{worksheet.description}}</div>
+	<span>{{worksheet.title}}</span> : 
+	<span>{{worksheet.description}}</span> 
+	<a style="background: red;color: white" (click)="removeWorksheet(worksheet)">Remove</a>
 </div>
 
 <div class="worksheet-tag">
-	<a (click)="createNewWorksheet()">Create new worksheet</a>
+	<a style="background: green;color: white" (click)="createNewWorksheet()">Create new worksheet</a>
 </div>

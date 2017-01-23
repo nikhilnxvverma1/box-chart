@@ -13,6 +13,7 @@ export class LoginCredential{
 }
 
 export class User{
+	rid:string;
 	firstName:string;
 	lastName:string;
 	email:string;

@@ -154,7 +154,7 @@ export class ServerApp {
 				then((deleted:boolean)=>{
 					jsonHeader(res).status(200).send(JSON.stringify(deleted));
 				}).catch((error:Error)=>{
-					res.status(500).send('Something went wrong while deleting worksheet');
+					res.status(500).send('Something went wrong while deleting worksheet');//TODO make these json responses too
 				})
 			}
 		});
