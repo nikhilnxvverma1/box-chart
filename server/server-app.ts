@@ -9,7 +9,7 @@ import { SchemaService } from './schema.backend';
 import { AccountService,AuthenticationResult } from './account.backend';
 import { LoginAttempt,SignupAttempt } from './shared-codes';
 import * as statusCode from './status-code';
-
+import { WorksheetBackend } from './worksheet.backend';
 
 export class ServerApp {
     
@@ -17,6 +17,7 @@ export class ServerApp {
 	private db:orientjs.Db;
 	private schemaService:SchemaService;
 	private accountService:AccountService;
+	private worksheetBackend:WorksheetBackend;
     
 	constructor(db:orientjs.Db) {
 		this.app = express();
@@ -25,6 +26,7 @@ export class ServerApp {
 		//TODO make these injectable
 		this.schemaService=new SchemaService(this.db);
 		this.accountService=new AccountService(this.db);
+		this.worksheetBackend=new WorksheetBackend(this.db);
 	}
     
     public setRoutes() {        //the order matters here
@@ -53,7 +55,7 @@ export class ServerApp {
 			this.accountService.checkAndCreateNewUser((<any>req).body).
 			then((attempt:SignupAttempt)=>{
 				//respond back with an appropriate status code
-				res.status(statusCode.forSignup(attempt)).send(JSON.stringify(attempt));
+				jsonHeader(res).status(statusCode.forSignup(attempt)).send(JSON.stringify(attempt));
 			});
 		});
 
@@ -67,17 +69,21 @@ export class ServerApp {
 					(<any>req).session.user=result.user;
 				}
 				//respond back with an appropriate status code
-				res.status(statusCode.forLogin(result.attempt)).send(JSON.stringify(result.attempt));
+				jsonHeader(res).status(statusCode.forLogin(result.attempt)).send(JSON.stringify(result.attempt));
 			});
 		});
 
 		//dashboard data
 		this.app.get('/api/dashboard', (req:express.Request, res:express.Response) => {
 			winston.debug("Accessing dashboard for user in session");
-			if(!(<any>req).session.user){
+			let loggedInUser=(<any>req).session.user;
+			if(!loggedInUser){
 				res.status(401).send("User not found");
 			}else{
-				res.status(200).send("User Ok");
+				this.worksheetBackend.getWorksheetsForUser(loggedInUser).then((records:any[])=>{
+					jsonHeader(res).status(200).send(JSON.stringify(records));
+				});
+				
 			}
 		});
 
@@ -100,7 +106,7 @@ export class ServerApp {
 
 			//store user in session to referebce later,
 			let loggedInUser=(<any>req).session.user;
-			
+
 			//destroy the session for the current user
 			(<any>req).session.destroy();
 
@@ -110,6 +116,46 @@ export class ServerApp {
 			}else{
 				//send the entire user as a response(this excludes the confidential stuff)
 				res.status(200).send(loggedInUser);
+			}
+		});
+
+		//create new worksheet and associate with user
+		this.app.post('/api/create-worksheet', (req:express.Request, res:express.Response) => {
+			winston.debug("Creating new worksheet for logged in user");
+			//get user in session
+			let loggedInUser=(<any>req).session.user;
+			if(!loggedInUser){
+				res.status(401).send("User not found");
+			}else{
+				//get the params for the worksheet and create it for the logged in user
+				let title=(<any>req).body.title;
+				let description=(<any>req).body.description;
+				this.worksheetBackend.createWorksheetForUser(loggedInUser,title,description).
+				then((newWorksheet:any)=>{
+					jsonHeader(res).status(200).send(newWorksheet);
+				}).catch((error:Error)=>{
+					winston.error("Error During worksheet creation "+error.message);
+					res.status(500).send('Something went wrong while creating worksheet');
+				})
+			}
+		});
+
+		//remove new worksheet and associate with user
+		this.app.delete('/api/remove-worksheet', (req:express.Request, res:express.Response) => {
+			winston.debug("Removing existing worksheet from logged in user");
+			//get user in session
+			let loggedInUser=(<any>req).session.user;
+			if(!loggedInUser){
+				res.status(401).send("User not found");
+			}else{
+				//get the params for the worksheet and remove it for the logged in user
+				let worksheetRid=(<any>req).body.worksheetRid;
+				this.worksheetBackend.removeWorksheetFromUser(loggedInUser,worksheetRid).
+				then((deleted:boolean)=>{
+					jsonHeader(res).status(200).send(JSON.stringify(deleted));
+				}).catch((error:Error)=>{
+					res.status(500).send('Something went wrong while deleting worksheet');
+				})
 			}
 		});
 
@@ -132,4 +178,13 @@ export class ServerApp {
 		winston.log('info',"Server refreshed index file: "+pathToIndexPage);
         res.sendFile(pathToIndexPage);
     }
+}
+
+/**
+ * Simple method that set the content header to be json. 
+ * Returns the same response to allow chaining. 
+ */
+export function jsonHeader(response:express.Response):express.Response{
+	response.setHeader('Content-Type', 'application/json');
+	return response;
 }

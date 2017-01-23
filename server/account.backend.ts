@@ -48,9 +48,7 @@ export class AccountService{
 		}).all().then((records:any[])=>{
 			if(records.length>0){
 				let authenticated=new AuthenticationResult(LoginAttempt.Success);
-				let user=records[0];
-				delete user.password;
-				authenticated.user=user;
+				authenticated.user=records[0];
 				return authenticated;
 			}else{
 				return new AuthenticationResult(LoginAttempt.InvalidUsernameOrPassword);
@@ -68,10 +66,21 @@ export class AccountService{
 export class AuthenticationResult{
 	/** If Successful, the resulting user model is stored in the user field */
 	attempt:LoginAttempt;
-	/** User model received from the backend after taking away all the private stuff like password etc. */
-	user:[any];
+	private _user:[any];
 
 	constructor(attempt:LoginAttempt){
 		this.attempt=attempt;
+	}
+
+	/** On setting the user property, confidential and heavy stuff gets removed. */
+	set user(user:any){
+		delete user.password;
+		delete user.worksheetList;
+		this._user=user;
+	}
+
+	/** User model received from the backend after taking away all the confidential(like password) and heavy stuff etc. */
+	get user():any{
+		return this._user;
 	}
 }
