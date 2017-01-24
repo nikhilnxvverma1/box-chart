@@ -24,6 +24,11 @@ $linker-color:#344353;
 	z-index:11;
 }
 
+.selected{
+	border-color:$selection-color;
+	color:$selection-color;
+}
+
 .node-background{
 	z-index: -1;
 	position: absolute;

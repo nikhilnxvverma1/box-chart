@@ -7,7 +7,7 @@ export class Workspace{
 	private _worksheet:Worksheet;
 	private history:Command[]=[];
 	private future:Command[]=[];
-	private _selection:DiagramModel=new DiagramModel();
+	private _selection:DiagramModel;
 	creationDrawerIsOpen:boolean=false;
 
 	constructor(worksheet:Worksheet){
@@ -45,50 +45,95 @@ export class Workspace{
 		return this._worksheet;
 	}
 
+	/** Gets a diagram model that contains items in selection. Can be null if selection is empty*/
 	get selection():DiagramModel{
 		return this._selection;
 	}
 
 	addNodeToSelection(node:DiagramNode){
+		if(this._selection==null){
+			this._selection=new DiagramModel();
+		}
 		if(this._selection.containsNode(node)){
 			return;
 		}
-		this._selection.diagramNodeList.push(node);
+		this._selection.nodeList.push(node);
 		node.selected=true;
 	}
 
-	removeNodeToSelection(node:DiagramNode){
-		let index=this._selection.diagramNodeList.indexOf(node);
+	removeNodeFromSelection(node:DiagramNode){
+		if(this._selection==null) return;
+
+		let index=this._selection.nodeList.indexOf(node);
 		if(index!=-1){
-			this._selection.diagramNodeList.splice(index,1);
+			this._selection.nodeList.splice(index,1);
 			node.selected=false;
 		}
 	}
 
 	addEdgeToSelection(edge:DiagramEdge){
+		if(this._selection==null){
+			this._selection=new DiagramModel();
+		}
 		if(this._selection.containsEdge(edge)){
 			return;
 		}
-		this._selection.diagramEdgeList.push(edge);
+		this._selection.edgeList.push(edge);
 		edge.selected=true;
 	}
 
-	removeEdgeToSelection(edge:DiagramEdge){
-		let index=this._selection.diagramEdgeList.indexOf(edge);
+	removeEdgeFromSelection(edge:DiagramEdge){
+		if(this._selection==null) return;
+
+		let index=this._selection.edgeList.indexOf(edge);
 		if(index!=-1){
-			this._selection.diagramEdgeList.splice(index,1);
+			this._selection.edgeList.splice(index,1);
 			edge.selected=false;
 		}
 	}
 
-	/** Clears the selection and resets the selected flag for each node and edeg*/
+	/** Resets the selected flag for each node and edge in selection and nullifies the selection diagram model. */
 	clearSelection(){
-		for(let edge of this._selection.diagramEdgeList ){
-			this.removeEdgeToSelection(edge);
+		if(this._selection==null) return;
+		
+		//reset selected flag of all edges
+		for(let edge of this._selection.edgeList ){
+			edge.selected=false;
 		}
 
-		for(let node of this._selection.diagramNodeList ){
-			this.removeNodeToSelection(node);
+		//reset selected flag of all nodes
+		for(let node of this._selection.nodeList ){
+			node.selected=false;
 		}
+
+		//nullify selection, this ensures that any references to an old selection stay intact.
+		this._selection=null;
+	}
+
+	/** Makes a copy of the selection diagram model that stays unchanged when the selection changes */
+	copySelection():DiagramModel{
+		let copy=new DiagramModel();
+
+		//add off all edges to new copy's list
+		for(let edge of this._selection.edgeList ){
+			copy.edgeList.push(edge);
+		}
+
+		//add off all nodes to new copy's list
+		for(let node of this._selection.nodeList ){
+			copy.nodeList.push(node);
+		}
+
+		return copy;
+	}
+
+	/** Tells if the selection contains the specified node or not */
+	selectionContainsNode(node:DiagramNode):boolean{
+		return this._selection!=null && this._selection.containsNode(node);
+	}
+
+	/** Tells if the selection contains the specified Edge or not */
+	selectionContainsEdge(edge:DiagramEdge):boolean{
+		return this._selection!=null && this._selection.containsEdge(edge);
 	}
 }

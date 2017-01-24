@@ -42,25 +42,26 @@ export class WorkspaceComponent implements OnInit{
     private sidebar:SidebarComponent;
 
     @ViewChild(ArtboardComponent)
-    private artboard:ArtboardComponent;    
+    private artboard:ArtboardComponent;
 
-    constructor(private transformService:TransformService){}
 
-    ngOnInit(){
-        //'window' here refers to the window object
+	ngOnInit(){
 
-        //get the width and height of the 'device' window and get the 
-        this.movingWindow=new Rect(
-          this.artboard.massiveArea.width/2-window.innerWidth/2,
-          this.artboard.massiveArea.height/2-window.innerHeight/2,
-          window.innerWidth,
-          window.outerHeight);
-        this.positionArtboardBasis(this.movingWindow);
-
-		//TODO get the worksheet for the given rid defined in url params
+		//TODO get the worksheet for the given rid defined in url params in OnInit method
 		this.workspace=new Workspace(new Worksheet());
 		this.workspace.worksheet.diagramModel=new DiagramModel();
-    }
+
+		//'window' here refers to the window object
+		//get the width and height of the 'device' window and get the 
+		this.movingWindow=new Rect(
+			this.artboard.massiveArea.width/2-window.innerWidth/2,
+			this.artboard.massiveArea.height/2-window.innerHeight/2,
+			window.innerWidth,
+			window.outerHeight);
+		this.positionArtboardBasis(this.movingWindow);
+
+		
+	}
 
     toggleSidebar(){
         this.sidebar.open=!this.sidebar.open;

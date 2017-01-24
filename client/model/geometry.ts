@@ -113,6 +113,8 @@ export interface Geometry{
 	getTrackingPoint():TrackingPoint;
 	/** Returns a rect that tells about this geometry's top left position and dimensions */
 	getBoundingBox():Rect;
+	/** Overlap check with a rectangle */
+	overlapsWithRect(rect:Rect):boolean;
 }
 
 export class Rect implements Geometry{
@@ -165,6 +167,23 @@ export class Rect implements Geometry{
 	getBoundingBox():Rect{
 		return new Rect(this.x,this.y,this.width,this.height);
 	}
+
+	overlapsWithRect(rect:Rect):boolean{
+		//check which rect is top left
+		if(rect.x<this.x){
+			if(rect.y<this.y){//rect is top left to this
+				return rect.contains(this.topLeft());
+			}else{//rect is left and below this 
+				return rect.contains(this.bottomLeft());
+			}
+		}else{
+			if(rect.y>this.y){//this is top left to rect
+				return rect.contains(this.bottomRight());
+			}else{//this is left and below to rect
+				return rect.contains(this.topRight());
+			}
+		}
+	}
 }
 
 export class Circle implements Geometry{
@@ -190,6 +209,11 @@ export class Circle implements Geometry{
 
 	getBoundingBox():Rect{
 		return new Rect(this.center.x-this.radius,this.center.y-this.radius,this.radius*2,this.radius*2);
+	}
+
+	overlapsWithRect(rect:Rect):boolean{
+		//TODO line circle overlap check
+		return false;
 	}
 }
 
@@ -226,5 +250,10 @@ export class LineSegment implements Geometry{
 		var hx=this.start.x>this.end.x?this.start.x:this.end.x;
 		var hy=this.start.y>this.end.y?this.start.y:this.end.y;
 		return new Rect(lx,ly,hx-lx,hy-ly);
+	}
+
+	overlapsWithRect(rect:Rect):boolean{
+		//TODO line rect overlap check
+		return false;
 	}
 }

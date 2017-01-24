@@ -1,5 +1,6 @@
-webpackJsonp([0],[
-/* 0 */
+webpackJsonp([0],{
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10,29 +11,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */
+
+/***/ 23:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -89,7 +69,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 24 */
+
+/***/ 24:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -5859,11 +5840,8 @@ webpackJsonp([0],[
 	}));
 
 /***/ },
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */
+
+/***/ 29:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5894,13 +5872,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 30 */
+
+/***/ 30:
 /***/ function(module, exports) {
 
 	module.exports = "<router-outlet></router-outlet>\n\n";
 
 /***/ },
-/* 31 */
+
+/***/ 31:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5946,37 +5926,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */
+
+/***/ 62:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6013,13 +5964,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 63 */
+
+/***/ 63:
 /***/ function(module, exports) {
 
 	module.exports = "<h1>homepage</h1>\n<!-- All the design stuff goes here-->\n<login></login>\n\n<!--login attempt-->\n<div *ngIf=\"(attemptType|async)=='login'\">\n\tLogin attempt : <span>{{attemptCode|async}}</span>\n</div>\n\n<!--signup attempt-->\n<div *ngIf=\"(attemptType|async)=='signup'\">\n\tSignup attempt : <span>{{attemptCode|async}}</span>\n</div>";
 
 /***/ },
-/* 64 */
+
+/***/ 64:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6078,7 +6031,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 65 */
+
+/***/ 65:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6103,7 +6057,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 66 */
+
+/***/ 66:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6193,7 +6148,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 67 */
+
+/***/ 67:
 /***/ function(module, exports) {
 
 	//IMPORTANT this file is shared between client and server but is duplicated in both places. 
@@ -6221,13 +6177,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 68 */
+
+/***/ 68:
 /***/ function(module, exports) {
 
 	module.exports = "<h1>signup</h1>\n\n\n<div>\n\t<span>firstName:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.firstName\"/>\n</div>\n\n<div>\n\t<span>lastName:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.lastName\"/>\n</div>\n\n<div>\n\t<span>email:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.email\"/>\n</div>\n\n<div>\n\t<span>password:</span>\n\t<input type=\"password\" [(ngModel)]=\"user.password\"/>\n</div>\n\n<div>\n\t<span>confirmPassword:</span>\n\t<input type=\"password\" [(ngModel)]=\"confirmPassword\"/>\n</div>\n\n<a (click)=\"createUserAccount()\">Sign Up</a>";
 
 /***/ },
-/* 69 */
+
+/***/ 69:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6325,7 +6283,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 70 */
+
+/***/ 70:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6353,17 +6312,17 @@ webpackJsonp([0],[
 	var DiagramModel = (function () {
 	    function DiagramModel() {
 	        /** List of nodes in graph */
-	        this.diagramNodeList = [];
+	        this.nodeList = [];
 	        /** List of edges in graph */
-	        this.diagramEdgeList = [];
+	        this.edgeList = [];
 	    }
 	    /** Checks weather a given node exists in this diagram node or not */
 	    DiagramModel.prototype.containsNode = function (node) {
-	        return this.diagramNodeList.indexOf(node) != -1;
+	        return this.nodeList.indexOf(node) != -1;
 	    };
 	    /** Checks weather a given edge exists in this diagram node or not */
 	    DiagramModel.prototype.containsEdge = function (edge) {
-	        return this.diagramEdgeList.indexOf(edge) != -1;
+	        return this.edgeList.indexOf(edge) != -1;
 	    };
 	    return DiagramModel;
 	}());
@@ -6393,7 +6352,7 @@ webpackJsonp([0],[
 	 */
 	var DiagramNode = (function () {
 	    function DiagramNode() {
-	        /** Used exclusively as a flag to tell weather this block is selected in the editor or not */
+	        /** Used exclusively as a flag to tell weather this node is selected or not. IMPORTANT only 'Workspace' class should toggle this. */
 	        this.selected = false;
 	        /** Color of the background */
 	        this.background = new Color(); //white by default
@@ -6413,7 +6372,7 @@ webpackJsonp([0],[
 	 */
 	var DiagramEdge = (function () {
 	    function DiagramEdge() {
-	        /** Used exclusively as a flag to tell weather this edge is selected in the editor or not */
+	        /** Used exclusively as a flag to tell weather this node is selected or not. IMPORTANT only 'Workspace' class should toggle this. */
 	        this.selected = false;
 	    }
 	    Object.defineProperty(DiagramEdge.prototype, "from", {
@@ -6665,7 +6624,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 71 */
+
+/***/ 71:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6806,6 +6766,25 @@ webpackJsonp([0],[
 	    Rect.prototype.getBoundingBox = function () {
 	        return new Rect(this.x, this.y, this.width, this.height);
 	    };
+	    Rect.prototype.overlapsWithRect = function (rect) {
+	        //check which rect is top left
+	        if (rect.x < this.x) {
+	            if (rect.y < this.y) {
+	                return rect.contains(this.topLeft());
+	            }
+	            else {
+	                return rect.contains(this.bottomLeft());
+	            }
+	        }
+	        else {
+	            if (rect.y > this.y) {
+	                return rect.contains(this.bottomRight());
+	            }
+	            else {
+	                return rect.contains(this.topRight());
+	            }
+	        }
+	    };
 	    return Rect;
 	}());
 	exports.Rect = Rect;
@@ -6825,6 +6804,10 @@ webpackJsonp([0],[
 	    };
 	    Circle.prototype.getBoundingBox = function () {
 	        return new Rect(this.center.x - this.radius, this.center.y - this.radius, this.radius * 2, this.radius * 2);
+	    };
+	    Circle.prototype.overlapsWithRect = function (rect) {
+	        //TODO line circle overlap check
+	        return false;
 	    };
 	    return Circle;
 	}());
@@ -6854,6 +6837,10 @@ webpackJsonp([0],[
 	        var hy = this.start.y > this.end.y ? this.start.y : this.end.y;
 	        return new Rect(lx, ly, hx - lx, hy - ly);
 	    };
+	    LineSegment.prototype.overlapsWithRect = function (rect) {
+	        //TODO line rect overlap check
+	        return false;
+	    };
 	    LineSegment.closeEnoughDistance = 10;
 	    return LineSegment;
 	}());
@@ -6861,7 +6848,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 72 */
+
+/***/ 72:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7006,7 +6994,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 73 */
+
+/***/ 73:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7268,7 +7257,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 74 */
+
+/***/ 74:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7432,7 +7422,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 75 */
+
+/***/ 75:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7516,13 +7507,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 76 */
+
+/***/ 76:
 /***/ function(module, exports) {
 
 	module.exports = "<a style=\"background: blue;color: white\" (click)=\"router.navigate(['/account'])\">Account</a>\n<a style=\"background: pink;color: white\" (click)=\"logout()\">Logout</a>\n\n<h1>Worksheet list</h1>\n\n<div class=\"worksheet-tag\" *ngFor=\"let worksheet of worksheetList\">\n\t<span>{{worksheet.title}}</span> : \n\t<span>{{worksheet.description}}</span> \n\t<a style=\"background: red;color: white\" (click)=\"removeWorksheet(worksheet)\">Remove</a>\n</div>\n\n<div class=\"worksheet-tag\">\n\t<a style=\"background: green;color: white\" (click)=\"createNewWorksheet()\">Create new worksheet</a>\n</div>";
 
 /***/ },
-/* 77 */
+
+/***/ 77:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7537,7 +7530,6 @@ webpackJsonp([0],[
 	};
 	var core_1 = __webpack_require__(3);
 	var core_2 = __webpack_require__(3);
-	var transform_service_1 = __webpack_require__(78);
 	var geometry_1 = __webpack_require__(71);
 	var sidebar_component_1 = __webpack_require__(79);
 	var artboard_component_1 = __webpack_require__(82);
@@ -7545,8 +7537,7 @@ webpackJsonp([0],[
 	var worksheet_1 = __webpack_require__(70);
 	var SpaceKey = 32;
 	var WorkspaceComponent = (function () {
-	    function WorkspaceComponent(transformService) {
-	        this.transformService = transformService;
+	    function WorkspaceComponent() {
 	        this.windowMovementAllowed = false; //allowed only when space is held
 	        this.dragEntered = false;
 	        this.startX = 0;
@@ -7555,13 +7546,13 @@ webpackJsonp([0],[
 	        this.lastY = 0;
 	    }
 	    WorkspaceComponent.prototype.ngOnInit = function () {
+	        //TODO get the worksheet for the given rid defined in url params in OnInit method
+	        this.workspace = new workspace_1.Workspace(new worksheet_1.Worksheet());
+	        this.workspace.worksheet.diagramModel = new worksheet_1.DiagramModel();
 	        //'window' here refers to the window object
 	        //get the width and height of the 'device' window and get the 
 	        this.movingWindow = new geometry_1.Rect(this.artboard.massiveArea.width / 2 - window.innerWidth / 2, this.artboard.massiveArea.height / 2 - window.innerHeight / 2, window.innerWidth, window.outerHeight);
 	        this.positionArtboardBasis(this.movingWindow);
-	        //TODO get the worksheet for the given rid defined in url params
-	        this.workspace = new workspace_1.Workspace(new worksheet_1.Worksheet());
-	        this.workspace.worksheet.diagramModel = new worksheet_1.DiagramModel();
 	    };
 	    WorkspaceComponent.prototype.toggleSidebar = function () {
 	        this.sidebar.open = !this.sidebar.open;
@@ -7643,16 +7634,17 @@ webpackJsonp([0],[
 	                ])
 	            ]
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_c = typeof transform_service_1.TransformService !== 'undefined' && transform_service_1.TransformService) === 'function' && _c) || Object])
+	        __metadata('design:paramtypes', [])
 	    ], WorkspaceComponent);
 	    return WorkspaceComponent;
-	    var _a, _b, _c;
+	    var _a, _b;
 	}());
 	exports.WorkspaceComponent = WorkspaceComponent;
 
 
 /***/ },
-/* 78 */
+
+/***/ 78:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7692,7 +7684,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 79 */
+
+/***/ 79:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7737,19 +7730,22 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 80 */
+
+/***/ 80:
 /***/ function(module, exports) {
 
 	module.exports = "#sidebar {\n  background: #8f42de;\n  color: whitesmoke;\n  width: 280px;\n  height: 100%;\n  position: absolute;\n  top: 0px; }\n"
 
 /***/ },
-/* 81 */
+
+/***/ 81:
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"sidebar\" [@sidebarOpen]=\"open?'open':'close'\">\n\t<h2>sidebar</h2>\n\t<i class=\"ms-Icon ms-Icon--Cancel\" aria-hidden=\"true\" (click)=\"open=false\"></i>\n\t\n</div>";
 
 /***/ },
-/* 82 */
+
+/***/ 82:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7773,6 +7769,7 @@ webpackJsonp([0],[
 	var worksheet_1 = __webpack_require__(70);
 	var workspace_1 = __webpack_require__(89);
 	var selection_box_component_1 = __webpack_require__(130);
+	var move_1 = __webpack_require__(694);
 	exports.ArtboardWidth = 3200;
 	exports.ArtboardHeight = (2 / 3) * exports.ArtboardWidth;
 	var ArtboardComponent = (function () {
@@ -7789,26 +7786,32 @@ webpackJsonp([0],[
 	        this.st = new geometry_2.Point(1501, 1300);
 	        this.en = new geometry_2.Point(1700, 700);
 	        this.massiveArea = new geometry_1.Rect(0, 0, exports.ArtboardWidth, exports.ArtboardHeight);
-	        this.testing();
 	    }
+	    ArtboardComponent.prototype.ngOnInit = function () {
+	        this.testing();
+	    };
 	    ArtboardComponent.prototype.testing = function () {
 	        this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
 	        this.rectList.push(new geometry_1.Rect(1300, 1000, 200, 50));
-	        this.genericNode1 = new worksheet_1.GenericDiagramNode(worksheet_1.GenericDiagramNodeType.Rectangle);
-	        this.genericNode1.rect.x = 1500;
-	        this.genericNode1.rect.y = 1200;
-	        this.genericNode2 = new worksheet_1.GenericDiagramNode(worksheet_1.GenericDiagramNodeType.RoundedRectangle);
-	        this.genericNode2.rect.x = 1800;
-	        this.genericNode2.rect.y = 1000;
-	        this.edge = new worksheet_1.DiagramEdge();
-	        this.edge.from = this.genericNode1;
-	        this.edge.to = this.genericNode2;
+	        var genericNode1 = new worksheet_1.GenericDiagramNode(worksheet_1.GenericDiagramNodeType.Rectangle);
+	        genericNode1.rect.x = 1500;
+	        genericNode1.rect.y = 1200;
+	        var genericNode2 = new worksheet_1.GenericDiagramNode(worksheet_1.GenericDiagramNodeType.RoundedRectangle);
+	        genericNode2.rect.x = 1800;
+	        genericNode2.rect.y = 1000;
+	        var edge = new worksheet_1.DiagramEdge();
+	        edge.from = genericNode1;
+	        edge.to = genericNode2;
+	        this.workspace.worksheet.diagramModel.nodeList.push(genericNode1);
+	        this.workspace.worksheet.diagramModel.nodeList.push(genericNode2);
+	        this.workspace.worksheet.diagramModel.edgeList.push(edge);
 	    };
 	    ArtboardComponent.prototype.doubleClickedArtboard = function (event) {
 	        this.creationDrawerLocation = new geometry_2.Point(event.offsetX - creationDrawer.WIDTH / 2, event.offsetY - creationDrawer.HEIGHT / 2);
 	        this.workspace.creationDrawerIsOpen = true;
 	    };
 	    ArtboardComponent.prototype.mousedown = function (event) {
+	        //toggle creation drawer to false to close it (done using bindings)
 	        this.workspace.creationDrawerIsOpen = false;
 	        this.mousedownEvent.emit(event);
 	        if (this.draggingInteraction != null) {
@@ -7841,6 +7844,19 @@ webpackJsonp([0],[
 	        if (this.draggingInteraction == null) {
 	            console.log("Setting new drag processor");
 	            this.draggingInteraction = dragProcessor;
+	        }
+	    };
+	    ArtboardComponent.prototype.moveNodes = function (pressedNode) {
+	        if (this.draggingInteraction == null) {
+	            console.debug("Creating move command for possible movement");
+	            //if the workspace did not already contain the pressed node, then
+	            //behavioraly, only that node gets selected and moved, and all other node loose selection
+	            if (!this.workspace.selectionContainsNode(pressedNode)) {
+	                this.workspace.clearSelection();
+	                this.workspace.addNodeToSelection(pressedNode);
+	            }
+	            //issue a press drag release based command which will work on the current selection
+	            this.draggingInteraction = new move_1.MoveCommand(this.workspace);
 	        }
 	    };
 	    ArtboardComponent.prototype.register = function (listener) {
@@ -7891,7 +7907,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 83 */
+
+/***/ 83:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8005,7 +8022,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 84 */
+
+/***/ 84:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8209,7 +8227,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 85 */
+
+/***/ 85:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8253,19 +8272,22 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 86 */
+
+/***/ 86:
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"auto-completion-box\"\n\t[style.left.px]=\"position.x\"\n\t[style.top.px]=\"position.y\"\n\t>\n\tSomeClassName\n</div>";
 
 /***/ },
-/* 87 */
+
+/***/ 87:
 /***/ function(module, exports) {
 
 	module.exports = "#auto-completion-box {\n  position: absolute;\n  background: #6f6f6f;\n  color: white;\n  width: 250px;\n  height: 200px;\n  overflow-x: hidden;\n  overflow-y: scroll; }\n"
 
 /***/ },
-/* 88 */
+
+/***/ 88:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8339,7 +8361,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 89 */
+
+/***/ 89:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8349,7 +8372,6 @@ webpackJsonp([0],[
 	    function Workspace(worksheet) {
 	        this.history = [];
 	        this.future = [];
-	        this._selection = new worksheet_1.DiagramModel();
 	        this.creationDrawerIsOpen = false;
 	        this._worksheet = worksheet;
 	    }
@@ -8383,6 +8405,7 @@ webpackJsonp([0],[
 	        configurable: true
 	    });
 	    Object.defineProperty(Workspace.prototype, "selection", {
+	        /** Gets a diagram model that contains items in selection. Can be null if selection is empty*/
 	        get: function () {
 	            return this._selection;
 	        },
@@ -8390,43 +8413,82 @@ webpackJsonp([0],[
 	        configurable: true
 	    });
 	    Workspace.prototype.addNodeToSelection = function (node) {
+	        if (this._selection == null) {
+	            this._selection = new worksheet_1.DiagramModel();
+	        }
 	        if (this._selection.containsNode(node)) {
 	            return;
 	        }
-	        this._selection.diagramNodeList.push(node);
+	        this._selection.nodeList.push(node);
 	        node.selected = true;
 	    };
-	    Workspace.prototype.removeNodeToSelection = function (node) {
-	        var index = this._selection.diagramNodeList.indexOf(node);
+	    Workspace.prototype.removeNodeFromSelection = function (node) {
+	        if (this._selection == null)
+	            return;
+	        var index = this._selection.nodeList.indexOf(node);
 	        if (index != -1) {
-	            this._selection.diagramNodeList.splice(index, 1);
+	            this._selection.nodeList.splice(index, 1);
 	            node.selected = false;
 	        }
 	    };
 	    Workspace.prototype.addEdgeToSelection = function (edge) {
+	        if (this._selection == null) {
+	            this._selection = new worksheet_1.DiagramModel();
+	        }
 	        if (this._selection.containsEdge(edge)) {
 	            return;
 	        }
-	        this._selection.diagramEdgeList.push(edge);
+	        this._selection.edgeList.push(edge);
 	        edge.selected = true;
 	    };
-	    Workspace.prototype.removeEdgeToSelection = function (edge) {
-	        var index = this._selection.diagramEdgeList.indexOf(edge);
+	    Workspace.prototype.removeEdgeFromSelection = function (edge) {
+	        if (this._selection == null)
+	            return;
+	        var index = this._selection.edgeList.indexOf(edge);
 	        if (index != -1) {
-	            this._selection.diagramEdgeList.splice(index, 1);
+	            this._selection.edgeList.splice(index, 1);
 	            edge.selected = false;
 	        }
 	    };
-	    /** Clears the selection and resets the selected flag for each node and edeg*/
+	    /** Resets the selected flag for each node and edge in selection and nullifies the selection diagram model. */
 	    Workspace.prototype.clearSelection = function () {
-	        for (var _i = 0, _a = this._selection.diagramEdgeList; _i < _a.length; _i++) {
+	        if (this._selection == null)
+	            return;
+	        //reset selected flag of all edges
+	        for (var _i = 0, _a = this._selection.edgeList; _i < _a.length; _i++) {
 	            var edge = _a[_i];
-	            this.removeEdgeToSelection(edge);
+	            edge.selected = false;
 	        }
-	        for (var _b = 0, _c = this._selection.diagramNodeList; _b < _c.length; _b++) {
+	        //reset selected flag of all nodes
+	        for (var _b = 0, _c = this._selection.nodeList; _b < _c.length; _b++) {
 	            var node = _c[_b];
-	            this.removeNodeToSelection(node);
+	            node.selected = false;
 	        }
+	        //nullify selection, this ensures that any references to an old selection stay intact.
+	        this._selection = null;
+	    };
+	    /** Makes a copy of the selection diagram model that stays unchanged when the selection changes */
+	    Workspace.prototype.copySelection = function () {
+	        var copy = new worksheet_1.DiagramModel();
+	        //add off all edges to new copy's list
+	        for (var _i = 0, _a = this._selection.edgeList; _i < _a.length; _i++) {
+	            var edge = _a[_i];
+	            copy.edgeList.push(edge);
+	        }
+	        //add off all nodes to new copy's list
+	        for (var _b = 0, _c = this._selection.nodeList; _b < _c.length; _b++) {
+	            var node = _c[_b];
+	            copy.nodeList.push(node);
+	        }
+	        return copy;
+	    };
+	    /** Tells if the selection contains the specified node or not */
+	    Workspace.prototype.selectionContainsNode = function (node) {
+	        return this._selection != null && this._selection.containsNode(node);
+	    };
+	    /** Tells if the selection contains the specified Edge or not */
+	    Workspace.prototype.selectionContainsEdge = function (edge) {
+	        return this._selection != null && this._selection.containsEdge(edge);
 	    };
 	    return Workspace;
 	}());
@@ -8434,13 +8496,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 90 */
+
+/***/ 90:
 /***/ function(module, exports) {
 
 	module.exports = "<div \n\tclass=\"drop-shadowed-pop-up\"\n\tid=\"creation-pop-up\"\n\t[style.left.px]=\"position.x\"\n\t[style.top.px]=\"position.y\"\n\t[@isDrawerOpen]=\"workspace.creationDrawerIsOpen?'open':'closed'\" >\n\n</div>";
 
 /***/ },
-/* 91 */
+
+/***/ 91:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8495,7 +8559,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 92 */
+
+/***/ 92:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8743,7 +8808,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 93 */
+
+/***/ 93:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9197,7 +9263,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 94 */
+
+/***/ 94:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9618,31 +9685,36 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 95 */
+
+/***/ 95:
 /***/ function(module, exports) {
 
 	module.exports = "#massive-area {\n  position: absolute; }\n\n#starter-tip {\n  position: absolute;\n  color: gray; }\n"
 
 /***/ },
-/* 96 */
+
+/***/ 96:
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\n\t<creation-drawer [workspace]=\"workspace\" [position]=\"creationDrawerLocation\"></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\t<generic-node [genericNode]=\"genericNode1\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n\t<generic-node [genericNode]=\"genericNode2\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n\t<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>\n\n</div>";
+	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\n\t<creation-drawer [workspace]=\"workspace\" [position]=\"creationDrawerLocation\"></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node [genericNode]=\"node\" (requestDragging)=\"moveNodes($event)\"></generic-node>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>\n\t</ng-container>\n\t\n</div>";
 
 /***/ },
-/* 97 */
+
+/***/ 97:
 /***/ function(module, exports) {
 
 	module.exports = "#menu-controls {\n  position: absolute;\n  padding: 0px;\n  top: 10px; }\n  #menu-controls li {\n    color: blue;\n    cursor: pointer;\n    display: inline;\n    list-style: none; }\n  #menu-controls li:hover {\n    color: darkblue; }\n\n#container {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n"
 
 /***/ },
-/* 98 */
+
+/***/ 98:
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t\t[workspace]=\"workspace\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t<li>Area</li>\n\t\t<li>Overview</li>\n\t</ul>\n</div>\n";
 
 /***/ },
-/* 99 */
+
+/***/ 99:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9688,13 +9760,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 100 */
+
+/***/ 100:
 /***/ function(module, exports) {
 
 	module.exports = "<a style=\"background: blue;color: white\" (click)=\"router.navigate(['/dashboard'])\">Dashboard</a>\n\n<div>Account</div>\n\n<div *ngIf=\"user!=null\">\n\n\t<div>\n\t\t<span>firstName:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.firstName\"/>\n\t</div>\n\n\t<div>\n\t\t<span>lastName:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.lastName\"/>\n\t</div>\n\n\t<div>\n\t\t<span>email:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.email\"/>\n\t</div>\n\n\t<div>\n\t\t<span>gender:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.gender\"/>\n\t</div>\n</div>\n\n<!--TODO allow changing password-->\n\n<a (click)=\"saveAccountDetails()\">Save details</a>";
 
 /***/ },
-/* 101 */
+
+/***/ 101:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9752,13 +9826,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 102 */
+
+/***/ 102:
 /***/ function(module, exports) {
 
 	module.exports = "<input type=\"text\" [(ngModel)]=\"loginForm.username\"/>\n<input type=\"password\" [(ngModel)]=\"loginForm.password\"/>\n<a href=\"#\" (click)=\"attemptLogin()\">Login</a>\n<div><a routerLink=\"/signup\">Sign Up</a></div>";
 
 /***/ },
-/* 103 */
+
+/***/ 103:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9800,7 +9876,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 104 */
+
+/***/ 104:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9841,7 +9918,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 105 */
+
+/***/ 105:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9928,7 +10006,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 106 */
+
+/***/ 106:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9958,13 +10037,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 107 */
+
+/***/ 107:
 /***/ function(module, exports) {
 
 	module.exports = "<h1>TODO area</h1>";
 
 /***/ },
-/* 108 */
+
+/***/ 108:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10041,7 +10122,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 109 */
+
+/***/ 109:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10220,19 +10302,22 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 110 */
+
+/***/ 110:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"handle-pick\"\n\t[style.left.px]=\"handle.x\"\n\t[style.top.px]=\"handle.y\"\n\t[style.width.px]=\"handle.width\"\n\t[style.height.px]=\"handle.height\"\n\t[style.cursor]=\"cursor\"\n\t(mousedown)=\"requestDragging.emit(this)\"\n\t></div>";
 
 /***/ },
-/* 111 */
+
+/***/ 111:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"rect.x\"\n[style.top.px]=\"rect.y\"\n[style.width.px]=\"rect.width\"\n[style.height.px]=\"rect.height\"\n[@selection]=\"isSelected?'selected':'unselected'\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\"></div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
 
 /***/ },
-/* 112 */
+
+/***/ 112:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10249,27 +10334,26 @@ webpackJsonp([0],[
 	var core_2 = __webpack_require__(3);
 	var resize_handle_component_1 = __webpack_require__(109);
 	var worksheet_1 = __webpack_require__(70);
+	//TODO move outside to a special 'variables' file 
+	var SELECTION_COLOR = '#2BA3FC';
 	var GenericNodeComponent = (function () {
 	    function GenericNodeComponent() {
 	        this.requestDragging = new core_1.EventEmitter();
-	        this.isSelected = false;
 	    }
-	    GenericNodeComponent.prototype.toggleSelection = function () {
-	        this.isSelected = !this.isSelected;
-	    };
-	    GenericNodeComponent.prototype.handleMousePress = function (event) {
-	    };
-	    GenericNodeComponent.prototype.handleMouseDrag = function (event) {
-	    };
-	    GenericNodeComponent.prototype.handleMouseRelease = function (event) {
-	    };
-	    GenericNodeComponent.prototype.registerDragIntention = function (dragProcessor) {
-	        this.requestDragging.emit(dragProcessor);
+	    GenericNodeComponent.prototype.registerDragIntention = function () {
+	        console.debug("Registering for drag");
+	        this.requestDragging.emit(this.node);
 	    };
 	    GenericNodeComponent.prototype.updateAllResizeHandlers = function (resizeHandler) {
 	        this.resizeHandlers.forEach(function (item) {
 	            item.updateHandlePosition();
 	        });
+	    };
+	    GenericNodeComponent.prototype.editContent = function (event) {
+	        console.debug("Double clicked to edit content");
+	    };
+	    GenericNodeComponent.prototype.strokeColor = function () {
+	        return this.node.selected ? SELECTION_COLOR : this.node.stroke.hashCode();
 	    };
 	    __decorate([
 	        core_1.Input('genericNode'), 
@@ -10309,13 +10393,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 113 */
+
+/***/ 113:
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"isSelected?'selected':'unselected'\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\">\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"node.rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"node.rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
 
 /***/ },
-/* 114 */
+
+/***/ 114:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10366,13 +10452,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 115 */
+
+/***/ 115:
 /***/ function(module, exports) {
 
 	module.exports = "<div \n\tclass=\"line-segment\" \n\t[style.left.px]=\"(start.x+end.x)/2\" \n\t[style.top.px]=\"(start.y+end.y)/2\"\n\t[style.width.px]=\"start.distance(end)\"\n\t[style.-webkit-transform]=\"transformationMatrix()\"\n\t[style.-ms-transform]=\"transformationMatrix()\"\n\t[style.transform]=\"transformationMatrix()\">\n\t<div class=\"line-segment-text\" >\n\t\t<span contenteditable=\"true\">Editable</span>\n\t</div>\n</div>";
 
 /***/ },
-/* 116 */
+
+/***/ 116:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10416,13 +10504,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 117 */
+
+/***/ 117:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"link-circle\" \n\t[style.left.px]=\"link.center.x\"\n\t[style.top.px]=\"link.center.y\"\n\t[style.width.px]=\"link.radius*2\"\n\t[style.height.px]=\"link.radius*2\">\n\n</div>";
 
 /***/ },
-/* 118 */
+
+/***/ 118:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10452,13 +10542,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 119 */
+
+/***/ 119:
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
-/* 120 */
+
+/***/ 120:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10505,13 +10597,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 121 */
+
+/***/ 121:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classDiagram.rect.x\"\n[style.top.px]=\"classDiagram.rect.y\"\n[style.width.px]=\"classDiagram.rect.width\"\n[style.height.px]=\"classDiagram.rect.height\"\n[style.selected-block]=\"classDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span [class.italic]=\"classDiagram.classDefinition.isAbstract\">{{classDiagram.classDefinition.name}}</span>\n\t</div>\n\n\t<div \n\t*ngFor=\"let fieldMember of classDiagram.classDefinition.fieldList \" \n\tclass=\"block-cell content-block-cell\"\n\tcontenteditable=\"true\"\n\t>\n\t\t{{fieldMember.accessSpecifier | accessSymbol}} {{fieldMember.variableDefinition.name}} : {{fieldMember.variableDefinition.type.getName()}}\n\t</div>\n\t<div class=\"solid-horizontal-line mini-top-bottom-margin\"> </div>\n\t<div *ngFor=\"let methodMember of classDiagram.classDefinition.methodList; let i=index\" \n\t\tclass=\"block-cell content-block-cell\"\n\t\tcontenteditable=\"true\"\n\t\t>\n\n\t\t{{methodMember.accessSpecifier | accessSymbol}} \n\t\t<span [class.italic]=\"methodMember.isAbstract\">\n\t\t{{methodMember.methodPrototype.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of methodMember.methodPrototype.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{methodMember.methodPrototype.returnType.getName()}}\n\t\t</span>\n\t</div>\n</div>";
 
 /***/ },
-/* 122 */
+
+/***/ 122:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10558,13 +10652,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 123 */
+
+/***/ 123:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classObjectDiagram.rect.x\"\n[style.top.px]=\"classObjectDiagram.rect.y\"\n[style.width.px]=\"classObjectDiagram.rect.width\"\n[style.height.px]=\"classObjectDiagram.rect.height\"\n[style.selected-block]=\"classObjectDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span>{{classObjectDiagram.classObject.name}}</span>\n\t\t : \n\t\t<span class=\"bold\">{{classObjectDiagram.classObject.classDefinition.getName()}}</span>\n\t</div>\n\n\t<div *ngFor=\"let fieldData of classObjectDiagram.classObject.fieldDataList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{fieldData.variable.name}} \n\t\t=\n\t\t{{fieldData.data.stringRepresentation()}}\n\t</div>\n</div>";
 
 /***/ },
-/* 124 */
+
+/***/ 124:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10611,13 +10707,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 125 */
+
+/***/ 125:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"interfaceDiagram.rect.x\"\n[style.top.px]=\"interfaceDiagram.rect.y\"\n[style.width.px]=\"interfaceDiagram.rect.width\"\n[style.height.px]=\"interfaceDiagram.rect.height\"\n[style.selected-block]=\"interfaceDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<div class=\"header-decorater\"> &lt;&lt; Interface &gt;&gt; </div>\n\t\t<span>{{interfaceDiagram.interfaceDefinition.name}}</span>\n\t</div>\n\n\t<div *ngFor=\"let method of interfaceDiagram.interfaceDefinition.methodList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{method.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of method.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{method.returnType.getName()}}\n\t</div>\n</div>";
 
 /***/ },
-/* 126 */
+
+/***/ 126:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10647,13 +10745,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 127 */
+
+/***/ 127:
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
-/* 128 */
+
+/***/ 128:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10683,13 +10783,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 129 */
+
+/***/ 129:
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
-/* 130 */
+
+/***/ 130:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10712,7 +10814,7 @@ webpackJsonp([0],[
 	        this.active = false;
 	    }
 	    SelectionBoxComponent.prototype.mousePressed = function (event) {
-	        console.debug("Selection box pressed " + event.target.id);
+	        this.workspace.clearSelection();
 	        this.active = true;
 	        this.rect.x = event.offsetX;
 	        this.rect.y = event.offsetY;
@@ -10723,7 +10825,6 @@ webpackJsonp([0],[
 	    };
 	    SelectionBoxComponent.prototype.mouseMoved = function (event) {
 	        if (this.active) {
-	            console.debug("Selection box dragged " + event.target.id + " : " + event.movementX);
 	            this.difference.x += event.movementX;
 	            this.difference.y += event.movementY;
 	            if (this.difference.x < 0) {
@@ -10742,11 +10843,25 @@ webpackJsonp([0],[
 	                this.rect.y = this.originalPress.y;
 	                this.rect.height = this.difference.y;
 	            }
+	            this.selectOverlappingNodes();
 	        }
 	    };
 	    SelectionBoxComponent.prototype.mouseReleased = function (event) {
-	        console.debug("Selection box released");
 	        this.active = false;
+	    };
+	    SelectionBoxComponent.prototype.selectOverlappingNodes = function () {
+	        //start afresh
+	        this.workspace.clearSelection();
+	        var count = 0;
+	        //select all overlapping nodes
+	        for (var _i = 0, _a = this.workspace.worksheet.diagramModel.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            if (node.getGeometry().overlapsWithRect(this.rect)) {
+	                this.workspace.addNodeToSelection(node);
+	                count++;
+	            }
+	        }
+	        return count;
 	    };
 	    __decorate([
 	        core_1.Input('workspace'), 
@@ -10766,13 +10881,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 131 */
+
+/***/ 131:
 /***/ function(module, exports) {
 
 	module.exports = "<div \n\tid=\"selection-box\"\n\t[style.left.px]=\"rect.x\"\n\t[style.top.px]=\"rect.y\"\n\t[style.width.px]=\"rect.width\"\n\t[style.height.px]=\"rect.height\"\n\t[style.display]=\"active?'block':'none'\">\n\n</div>";
 
 /***/ },
-/* 132 */
+
+/***/ 132:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10814,7 +10931,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 133 */
+
+/***/ 133:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10891,7 +11009,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 134 */
+
+/***/ 134:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10969,7 +11088,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 135 */
+
+/***/ 135:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11016,7 +11136,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 136 */
+
+/***/ 136:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11067,7 +11188,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 137 */
+
+/***/ 137:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
@@ -11093,7 +11215,8 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 138 */
+
+/***/ 138:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(139)();
@@ -11101,13 +11224,14 @@ webpackJsonp([0],[
 	
 	
 	// module
-	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.3);\n  position: absolute;\n  z-index: 11; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  text-align: center; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n", ""]);
+	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.3);\n  position: absolute;\n  z-index: 11; }\n\n.selected {\n  border-color: #2BA3FC;\n  color: #2BA3FC; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  text-align: center; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 139 */
+
+/***/ 139:
 /***/ function(module, exports) {
 
 	/*
@@ -11163,7 +11287,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 140 */
+
+/***/ 140:
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -11414,6 +11539,98 @@ webpackJsonp([0],[
 	}
 
 
+/***/ },
+
+/***/ 694:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var command_1 = __webpack_require__(695);
+	var MoveCommand = (function (_super) {
+	    __extends(MoveCommand, _super);
+	    function MoveCommand(workspace) {
+	        _super.call(this);
+	        this.dragMade = false;
+	        this.workspace = workspace;
+	        this.target = this.workspace.copySelection();
+	    }
+	    MoveCommand.prototype.handleMousePress = function (event) {
+	        console.debug("Move command presed");
+	    };
+	    MoveCommand.prototype.handleMouseDrag = function (event) {
+	        console.debug("Move command dragged");
+	        this.dragMade = true;
+	    };
+	    MoveCommand.prototype.handleMouseRelease = function (event) {
+	        console.debug("Move command released");
+	        if (this.dragMade) {
+	            this.workspace.commit(this);
+	        }
+	    };
+	    MoveCommand.prototype.execute = function () {
+	    };
+	    MoveCommand.prototype.unExecute = function () {
+	    };
+	    MoveCommand.prototype.getName = function () {
+	        return "Move Items";
+	    };
+	    return MoveCommand;
+	}(command_1.Command));
+	exports.MoveCommand = MoveCommand;
+
+
+/***/ },
+
+/***/ 695:
+/***/ function(module, exports) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	/** Any actionable change in the editor that results in a change to the model is handled by a command.*/
+	var Command = (function () {
+	    function Command() {
+	    }
+	    return Command;
+	}());
+	exports.Command = Command;
+	/** Holds several commands that will run in one go. */
+	var CompositeCommand = (function (_super) {
+	    __extends(CompositeCommand, _super);
+	    function CompositeCommand() {
+	        _super.apply(this, arguments);
+	        this.commandList = [];
+	    }
+	    CompositeCommand.prototype.execute = function () {
+	        for (var _i = 0, _a = this.commandList; _i < _a.length; _i++) {
+	            var command = _a[_i];
+	            command.execute();
+	        }
+	    };
+	    CompositeCommand.prototype.unExecute = function () {
+	        for (var _i = 0, _a = this.commandList; _i < _a.length; _i++) {
+	            var command = _a[_i];
+	            command.unExecute();
+	        }
+	    };
+	    /** Subclasses should override to return a more descriptive user friendly name*/
+	    CompositeCommand.prototype.getName = function () {
+	        return "Composite Command";
+	    };
+	    return CompositeCommand;
+	}(Command));
+	exports.CompositeCommand = CompositeCommand;
+
+
 /***/ }
-]);
+
+});
 //# sourceMappingURL=app.js.map

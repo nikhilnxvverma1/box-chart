@@ -25,18 +25,18 @@ export class DiagramModel{
 	/** Record Id in DB. Only applicable if model belongs to a worksheet.*/
 	rid:string;
 	/** List of nodes in graph */
-	diagramNodeList:DiagramNode[]=[];
+	nodeList:DiagramNode[]=[];
 	/** List of edges in graph */
-	diagramEdgeList:DiagramEdge[]=[];
+	edgeList:DiagramEdge[]=[];
 
 	/** Checks weather a given node exists in this diagram node or not */
 	containsNode(node:DiagramNode):boolean{
-		return this.diagramNodeList.indexOf(node)!=-1;
+		return this.nodeList.indexOf(node)!=-1;
 	}
 
 	/** Checks weather a given edge exists in this diagram node or not */
 	containsEdge(edge:DiagramEdge):boolean{
-		return this.diagramEdgeList.indexOf(edge)!=-1;
+		return this.edgeList.indexOf(edge)!=-1;
 	}
 }
 
@@ -65,7 +65,7 @@ export class Color{
  * A diagram node is also a visual block to display and additionally also holds geometry.
  */
 export abstract class DiagramNode{
-	/** Used exclusively as a flag to tell weather this block is selected in the editor or not */
+	/** Used exclusively as a flag to tell weather this node is selected or not. IMPORTANT only 'Workspace' class should toggle this. */
 	selected:boolean=false;
 	/** A unique identifier for this node */
 	id:string;
@@ -92,7 +92,7 @@ export abstract class DiagramNode{
  */
 export class DiagramEdge{
 
-	/** Used exclusively as a flag to tell weather this edge is selected in the editor or not */
+	/** Used exclusively as a flag to tell weather this node is selected or not. IMPORTANT only 'Workspace' class should toggle this. */
 	selected:boolean=false;
 
 	private _from:DiagramNode;

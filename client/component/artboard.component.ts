@@ -1,4 +1,4 @@
-import { Component,Input,Output,EventEmitter } from '@angular/core';
+import { Component,Input,Output,EventEmitter,OnInit } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { animate,trigger,state,transition,style } from '@angular/core';
 import { Rect } from '../model/geometry';
@@ -10,9 +10,10 @@ import { MockDataService } from '../utility/mock-data.service';
 import { AutoCompletionComponent } from './auto-completion.component';
 import * as creationDrawer from './creation-drawer.component';
 import { InterpreterService } from '../editor/compiler/interpreter.service';
-import { GenericDiagramNode,GenericDiagramNodeType,DiagramEdge } from '../model/worksheet';
+import { DiagramNode,GenericDiagramNode,GenericDiagramNodeType,DiagramEdge } from '../model/worksheet';
 import { Workspace } from '../editor/workspace';
 import { SelectionBoxComponent } from './selection-box.component';
+import { MoveCommand } from '../editor/command/move';
 
 export const ArtboardWidth=3200;
 export const ArtboardHeight=(2/3)*ArtboardWidth;
@@ -23,7 +24,7 @@ export const ArtboardHeight=(2/3)*ArtboardWidth;
   templateUrl: '../view/artboard.component.html',
   
 })
-export class ArtboardComponent  {
+export class ArtboardComponent implements OnInit{
     massiveArea:Rect;
     rectList:Rect[]=[];
 
@@ -45,26 +46,32 @@ export class ArtboardComponent  {
 
 	constructor(private mockDataService:MockDataService,private interpreter:InterpreterService ){
 		this.massiveArea=new Rect(0,0,ArtboardWidth,ArtboardHeight);
+	}
+
+	ngOnInit(){
 		this.testing();
-		
 	}
 
 	testing(){
 		this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
 		this.rectList.push(new Rect(1300,1000,200,50));
 
-		this.genericNode1=new GenericDiagramNode(GenericDiagramNodeType.Rectangle);
-		this.genericNode1.rect.x=1500;
-		this.genericNode1.rect.y=1200;
+		let genericNode1=new GenericDiagramNode(GenericDiagramNodeType.Rectangle);
+		genericNode1.rect.x=1500;
+		genericNode1.rect.y=1200;
 
-		this.genericNode2=new GenericDiagramNode(GenericDiagramNodeType.RoundedRectangle);
-		this.genericNode2.rect.x=1800;
-		this.genericNode2.rect.y=1000;
+		let genericNode2=new GenericDiagramNode(GenericDiagramNodeType.RoundedRectangle);
+		genericNode2.rect.x=1800;
+		genericNode2.rect.y=1000;
 
-		this.edge=new DiagramEdge();
-		this.edge.from=this.genericNode1;
-		this.edge.to=this.genericNode2;
+		let edge=new DiagramEdge();
+		edge.from=genericNode1;
+		edge.to=genericNode2;
 		
+		this.workspace.worksheet.diagramModel.nodeList.push(genericNode1);
+		this.workspace.worksheet.diagramModel.nodeList.push(genericNode2);
+
+		this.workspace.worksheet.diagramModel.edgeList.push(edge);
 	}
 
 	doubleClickedArtboard(event:MouseEvent){
@@ -73,6 +80,7 @@ export class ArtboardComponent  {
 	}
   
 	mousedown(event:MouseEvent){
+		//toggle creation drawer to false to close it (done using bindings)
 		this.workspace.creationDrawerIsOpen=false;
 
 		this.mousedownEvent.emit(event);
@@ -106,6 +114,22 @@ export class ArtboardComponent  {
 		if(this.draggingInteraction==null){
 			console.log("Setting new drag processor");
 			this.draggingInteraction=dragProcessor;
+		}
+	}
+
+	moveNodes(pressedNode:DiagramNode){
+		if(this.draggingInteraction==null){
+			console.debug("Creating move command for possible movement");
+
+			//if the workspace did not already contain the pressed node, then
+			//behavioraly, only that node gets selected and moved, and all other node loose selection
+			if(!this.workspace.selectionContainsNode(pressedNode)){
+				this.workspace.clearSelection();
+				this.workspace.addNodeToSelection(pressedNode);
+			}
+
+			//issue a press drag release based command which will work on the current selection
+			this.draggingInteraction=new MoveCommand(this.workspace);
 		}
 	}
 

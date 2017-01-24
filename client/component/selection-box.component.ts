@@ -19,7 +19,9 @@ export class SelectionBoxComponent {
 	private difference: Point;
 
 	mousePressed(event: MouseEvent): void {
-		console.debug("Selection box pressed " + (<HTMLDivElement>event.target).id);
+
+		this.workspace.clearSelection();
+
 		this.active = true;
 		this.rect.x = event.offsetX;
 		this.rect.y = event.offsetY;
@@ -31,7 +33,6 @@ export class SelectionBoxComponent {
 
 	mouseMoved(event: MouseEvent): void {
 		if (this.active) {
-			console.debug("Selection box dragged " + (<HTMLDivElement>event.target).id + " : " + event.movementX);
 
 			this.difference.x += event.movementX;
 			this.difference.y += event.movementY;
@@ -51,11 +52,28 @@ export class SelectionBoxComponent {
 				this.rect.y = this.originalPress.y;
 				this.rect.height = this.difference.y;
 			}
+
+			this.selectOverlappingNodes();
 		}
 	}
 
 	mouseReleased(event: MouseEvent): void {
-		console.debug("Selection box released");
 		this.active = false;
+	}
+
+	private selectOverlappingNodes():number{
+		//start afresh
+		this.workspace.clearSelection();
+		var count=0;
+
+		//select all overlapping nodes
+		for(let node of this.workspace.worksheet.diagramModel.nodeList){
+			if(node.getGeometry().overlapsWithRect(this.rect)){
+				this.workspace.addNodeToSelection(node);
+				count++;
+			}
+		}
+
+		return count;
 	}
 }
