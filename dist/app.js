@@ -1,18 +1,38 @@
-webpackJsonp([0],{
-
-/***/ 0:
+webpackJsonp([0],[
+/* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var platform_browser_dynamic_1 = __webpack_require__(1);
 	var app_module_1 = __webpack_require__(23);
-	__webpack_require__(95);
+	__webpack_require__(137);
 	platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
 
 
 /***/ },
-
-/***/ 23:
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -28,16 +48,16 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var platform_browser_1 = __webpack_require__(21);
 	var forms_1 = __webpack_require__(24);
-	var http_1 = __webpack_require__(359);
-	var app_component_1 = __webpack_require__(28);
-	var app_routing_module_1 = __webpack_require__(30);
-	var home_component_1 = __webpack_require__(61);
-	var login_component_1 = __webpack_require__(67);
-	var signup_component_1 = __webpack_require__(63);
-	var dashboard_module_1 = __webpack_require__(69);
-	var workspace_module_1 = __webpack_require__(653);
-	var account_component_1 = __webpack_require__(684);
-	var user_service_1 = __webpack_require__(686);
+	var http_1 = __webpack_require__(28);
+	var app_component_1 = __webpack_require__(29);
+	var app_routing_module_1 = __webpack_require__(31);
+	var home_component_1 = __webpack_require__(62);
+	var login_component_1 = __webpack_require__(101);
+	var signup_component_1 = __webpack_require__(64);
+	var dashboard_module_1 = __webpack_require__(103);
+	var workspace_module_1 = __webpack_require__(105);
+	var account_component_1 = __webpack_require__(99);
+	var user_service_1 = __webpack_require__(66);
 	var AppModule = (function () {
 	    function AppModule() {
 	    }
@@ -69,8 +89,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 24:
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -5840,8 +5859,11 @@ webpackJsonp([0],{
 	}));
 
 /***/ },
-
-/***/ 28:
+/* 25 */,
+/* 26 */,
+/* 27 */,
+/* 28 */,
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5862,7 +5884,7 @@ webpackJsonp([0],{
 	    AppComponent = __decorate([
 	        core_1.Component({
 	            selector: 'my-app',
-	            template: __webpack_require__(29),
+	            template: __webpack_require__(30),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], AppComponent);
@@ -5872,15 +5894,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 29:
+/* 30 */
 /***/ function(module, exports) {
 
 	module.exports = "<router-outlet></router-outlet>\n\n";
 
 /***/ },
-
-/***/ 30:
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5894,12 +5914,12 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var router_1 = __webpack_require__(31);
-	var home_component_1 = __webpack_require__(61);
-	var signup_component_1 = __webpack_require__(63);
-	var dashboard_component_1 = __webpack_require__(65);
-	var workspace_component_1 = __webpack_require__(71);
-	var account_component_1 = __webpack_require__(684);
+	var router_1 = __webpack_require__(32);
+	var home_component_1 = __webpack_require__(62);
+	var signup_component_1 = __webpack_require__(64);
+	var dashboard_component_1 = __webpack_require__(69);
+	var workspace_component_1 = __webpack_require__(77);
+	var account_component_1 = __webpack_require__(99);
 	var AppRoutingModule = (function () {
 	    function AppRoutingModule() {
 	    }
@@ -5926,8 +5946,37 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 61:
+/* 32 */,
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */,
+/* 38 */,
+/* 39 */,
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5941,7 +5990,7 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var router_1 = __webpack_require__(31);
+	var router_1 = __webpack_require__(32);
 	var HomeComponent = (function () {
 	    function HomeComponent(route) {
 	        this.route = route;
@@ -5953,7 +6002,7 @@ webpackJsonp([0],{
 	    HomeComponent = __decorate([
 	        core_1.Component({
 	            selector: 'home',
-	            template: __webpack_require__(62),
+	            template: __webpack_require__(63),
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _a) || Object])
 	    ], HomeComponent);
@@ -5964,15 +6013,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 62:
+/* 63 */
 /***/ function(module, exports) {
 
 	module.exports = "<h1>homepage</h1>\n<!-- All the design stuff goes here-->\n<login></login>\n\n<!--login attempt-->\n<div *ngIf=\"(attemptType|async)=='login'\">\n\tLogin attempt : <span>{{attemptCode|async}}</span>\n</div>\n\n<!--signup attempt-->\n<div *ngIf=\"(attemptType|async)=='signup'\">\n\tSignup attempt : <span>{{attemptCode|async}}</span>\n</div>";
 
 /***/ },
-
-/***/ 63:
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5986,9 +6033,9 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var user_account_1 = __webpack_require__(685);
-	var user_service_1 = __webpack_require__(686);
-	var router_1 = __webpack_require__(31);
+	var user_account_1 = __webpack_require__(65);
+	var user_service_1 = __webpack_require__(66);
+	var router_1 = __webpack_require__(32);
 	var SignupComponent = (function () {
 	    function SignupComponent(userService, router) {
 	        this.userService = userService;
@@ -6020,7 +6067,7 @@ webpackJsonp([0],{
 	    SignupComponent = __decorate([
 	        core_1.Component({
 	            selector: 'signup',
-	            template: __webpack_require__(64),
+	            template: __webpack_require__(68),
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object])
 	    ], SignupComponent);
@@ -6031,15 +6078,32 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 64:
+/* 65 */
 /***/ function(module, exports) {
 
-	module.exports = "<h1>signup</h1>\n\n\n<div>\n\t<span>firstName:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.firstName\"/>\n</div>\n\n<div>\n\t<span>lastName:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.lastName\"/>\n</div>\n\n<div>\n\t<span>email:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.email\"/>\n</div>\n\n<div>\n\t<span>password:</span>\n\t<input type=\"password\" [(ngModel)]=\"user.password\"/>\n</div>\n\n<div>\n\t<span>confirmPassword:</span>\n\t<input type=\"password\" [(ngModel)]=\"confirmPassword\"/>\n</div>\n\n<a (click)=\"createUserAccount()\">Sign Up</a>";
+	"use strict";
+	var LoginCredential = (function () {
+	    function LoginCredential() {
+	    }
+	    LoginCredential.prototype.toString = function () {
+	        return this.username;
+	    };
+	    return LoginCredential;
+	}());
+	exports.LoginCredential = LoginCredential;
+	var User = (function () {
+	    function User() {
+	    }
+	    User.prototype.toString = function () {
+	        return this.firstName + " " + this.lastName;
+	    };
+	    return User;
+	}());
+	exports.User = User;
+
 
 /***/ },
-
-/***/ 65:
+/* 66 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6053,10 +6117,134 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var worksheet_1 = __webpack_require__(82);
-	var dashboard_service_1 = __webpack_require__(689);
-	var user_service_1 = __webpack_require__(686);
-	var router_1 = __webpack_require__(31);
+	var user_account_1 = __webpack_require__(65);
+	var http_1 = __webpack_require__(28);
+	var shared_codes_1 = __webpack_require__(67);
+	var UserService = (function () {
+	    function UserService(http) {
+	        this.http = http;
+	    }
+	    /** Creates an account for the supplied model.*/
+	    UserService.prototype.createUserAccount = function (user) {
+	        var body = JSON.stringify(user);
+	        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+	        var options = new http_1.RequestOptions({ headers: headers });
+	        return this.http.post(UserService.CREATE_USER_ACCOUNT_URL, body, options).map(this.toSignupAttempt);
+	    };
+	    UserService.prototype.toSignupAttempt = function (response) {
+	        //get the code from the response
+	        var body = response.json();
+	        if (typeof shared_codes_1.SignupAttempt[body] === 'undefined') {
+	            console.log("Invalid code from server");
+	            return null;
+	        }
+	        else {
+	            return body;
+	        }
+	    };
+	    /** Attempts to login with the credentials.*/
+	    UserService.prototype.login = function (login) {
+	        var body = JSON.stringify(login);
+	        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+	        var options = new http_1.RequestOptions({ headers: headers });
+	        return this.http.post(UserService.AUTHENTICATE_USER_URL, body, options).map(this.toLoginAttempt);
+	    };
+	    UserService.prototype.toLoginAttempt = function (response) {
+	        //get the code from the response
+	        var body = response.json();
+	        if (typeof shared_codes_1.LoginAttempt[body] === 'undefined') {
+	            console.log("Invalid code from server");
+	            return null;
+	        }
+	        else {
+	            return body;
+	        }
+	    };
+	    /** Gets the user object for the logged in user. Will return null(Observable) if the user is not in session. */
+	    UserService.prototype.accountInfo = function () {
+	        return this.http.get(UserService.ACCOUNT_URL).map(this.toUserObject);
+	    };
+	    UserService.prototype.toUserObject = function (response) {
+	        var body = response.json();
+	        var user = new user_account_1.User();
+	        user.firstName = body['firstName'];
+	        user.lastName = body['lastName'];
+	        user.email = body['email'];
+	        user.gender = body['gender'];
+	        user.rid = body['@rid'];
+	        return user;
+	    };
+	    UserService.prototype.logout = function () {
+	        return this.http.get(UserService.LOGOUT_URL).map(this.toUserObject);
+	    };
+	    //TODO move these urls in the shared-codes file
+	    UserService.CREATE_USER_ACCOUNT_URL = "api/create-user";
+	    UserService.AUTHENTICATE_USER_URL = "api/authenticate-user";
+	    UserService.ACCOUNT_URL = "api/account";
+	    UserService.LOGOUT_URL = "api/logout";
+	    UserService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
+	    ], UserService);
+	    return UserService;
+	    var _a;
+	}());
+	exports.UserService = UserService;
+
+
+/***/ },
+/* 67 */
+/***/ function(module, exports) {
+
+	//IMPORTANT this file is shared between client and server but is duplicated in both places. 
+	//This is because typescript compiler is separete for both client and server.
+	//Make sure both the copies are kept in sync at all times
+	"use strict";
+	//TODO find a way to make this a common file
+	/** A mutually shared code between the client and server that identifies the login attempt. */
+	(function (LoginAttempt) {
+	    LoginAttempt[LoginAttempt["Success"] = 1] = "Success";
+	    LoginAttempt[LoginAttempt["InvalidUsernameOrPassword"] = 2] = "InvalidUsernameOrPassword";
+	    LoginAttempt[LoginAttempt["EmailDoesNotExist"] = 3] = "EmailDoesNotExist";
+	    LoginAttempt[LoginAttempt["InternalServerError"] = 4] = "InternalServerError";
+	})(exports.LoginAttempt || (exports.LoginAttempt = {}));
+	var LoginAttempt = exports.LoginAttempt;
+	/** A mutually shared code between the client and server that identifies the signup attempt. */
+	(function (SignupAttempt) {
+	    SignupAttempt[SignupAttempt["Success"] = 1] = "Success";
+	    SignupAttempt[SignupAttempt["EmailAlreadyExists"] = 2] = "EmailAlreadyExists";
+	    SignupAttempt[SignupAttempt["WeakPassword"] = 3] = "WeakPassword";
+	    SignupAttempt[SignupAttempt["NullPassword"] = 4] = "NullPassword";
+	    SignupAttempt[SignupAttempt["InternalServerError"] = 5] = "InternalServerError";
+	})(exports.SignupAttempt || (exports.SignupAttempt = {}));
+	var SignupAttempt = exports.SignupAttempt;
+
+
+/***/ },
+/* 68 */
+/***/ function(module, exports) {
+
+	module.exports = "<h1>signup</h1>\n\n\n<div>\n\t<span>firstName:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.firstName\"/>\n</div>\n\n<div>\n\t<span>lastName:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.lastName\"/>\n</div>\n\n<div>\n\t<span>email:</span>\n\t<input type=\"text\" [(ngModel)]=\"user.email\"/>\n</div>\n\n<div>\n\t<span>password:</span>\n\t<input type=\"password\" [(ngModel)]=\"user.password\"/>\n</div>\n\n<div>\n\t<span>confirmPassword:</span>\n\t<input type=\"password\" [(ngModel)]=\"confirmPassword\"/>\n</div>\n\n<a (click)=\"createUserAccount()\">Sign Up</a>";
+
+/***/ },
+/* 69 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var worksheet_1 = __webpack_require__(70);
+	var dashboard_service_1 = __webpack_require__(75);
+	var user_service_1 = __webpack_require__(66);
+	var router_1 = __webpack_require__(32);
 	var DashboardComponent = (function () {
 	    function DashboardComponent(dashboardService, userService, router) {
 	        this.dashboardService = dashboardService;
@@ -6126,7 +6314,7 @@ webpackJsonp([0],{
 	    DashboardComponent = __decorate([
 	        core_1.Component({
 	            selector: 'dashboard',
-	            template: __webpack_require__(66),
+	            template: __webpack_require__(76),
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof dashboard_service_1.DashboardService !== 'undefined' && dashboard_service_1.DashboardService) === 'function' && _a) || Object, (typeof (_b = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _b) || Object, (typeof (_c = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _c) || Object])
 	    ], DashboardComponent);
@@ -6137,338 +6325,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 66:
-/***/ function(module, exports) {
-
-	module.exports = "<a style=\"background: blue;color: white\" (click)=\"router.navigate(['/account'])\">Account</a>\n<a style=\"background: pink;color: white\" (click)=\"logout()\">Logout</a>\n\n<h1>Worksheet list</h1>\n\n<div class=\"worksheet-tag\" *ngFor=\"let worksheet of worksheetList\">\n\t<span>{{worksheet.title}}</span> : \n\t<span>{{worksheet.description}}</span> \n\t<a style=\"background: red;color: white\" (click)=\"removeWorksheet(worksheet)\">Remove</a>\n</div>\n\n<div class=\"worksheet-tag\">\n\t<a style=\"background: green;color: white\" (click)=\"createNewWorksheet()\">Create new worksheet</a>\n</div>";
-
-/***/ },
-
-/***/ 67:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var user_account_1 = __webpack_require__(685);
-	var user_service_1 = __webpack_require__(686);
-	var shared_codes_1 = __webpack_require__(688);
-	var router_1 = __webpack_require__(31);
-	var LoginComponent = (function () {
-	    function LoginComponent(userService, router) {
-	        this.userService = userService;
-	        this.router = router;
-	        this.loginForm = new user_account_1.LoginCredential();
-	    }
-	    LoginComponent.prototype.attemptLogin = function () {
-	        var _this = this;
-	        console.log("Attemtping login for " + this.loginForm.toString());
-	        this.userService.login(this.loginForm).subscribe(function (attempt) {
-	            console.log("Response from server " + attempt);
-	            if (attempt == shared_codes_1.LoginAttempt.Success) {
-	                //send directly to dashboard 
-	                _this.router.navigate(["/dashboard"]);
-	            }
-	            else {
-	                //redirect back to homepage along with the type of error in query params
-	                var navigationExtras = {
-	                    queryParams: { 'attemptType': 'login', 'attemptCode': attempt },
-	                };
-	                _this.router.navigate([""], navigationExtras);
-	            }
-	        }, function (error) {
-	            console.log("Error From Server: " + error.message);
-	        });
-	    };
-	    LoginComponent = __decorate([
-	        core_1.Component({
-	            selector: 'login',
-	            template: __webpack_require__(68),
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object])
-	    ], LoginComponent);
-	    return LoginComponent;
-	    var _a, _b;
-	}());
-	exports.LoginComponent = LoginComponent;
-
-
-/***/ },
-
-/***/ 68:
-/***/ function(module, exports) {
-
-	module.exports = "<input type=\"text\" [(ngModel)]=\"loginForm.username\"/>\n<input type=\"password\" [(ngModel)]=\"loginForm.password\"/>\n<a href=\"#\" (click)=\"attemptLogin()\">Login</a>\n<div><a routerLink=\"/signup\">Sign Up</a></div>";
-
-/***/ },
-
-/***/ 69:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var platform_browser_1 = __webpack_require__(21);
-	var forms_1 = __webpack_require__(24);
-	var dashboard_routing_module_1 = __webpack_require__(70);
-	var dashboard_component_1 = __webpack_require__(65);
-	var dashboard_service_1 = __webpack_require__(689);
-	var DashboardModule = (function () {
-	    function DashboardModule() {
-	    }
-	    DashboardModule = __decorate([
-	        core_1.NgModule({
-	            imports: [
-	                platform_browser_1.BrowserModule,
-	                forms_1.FormsModule,
-	                dashboard_routing_module_1.DashboardRoutingModule
-	            ],
-	            declarations: [
-	                dashboard_component_1.DashboardComponent
-	            ],
-	            providers: [dashboard_service_1.DashboardService],
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], DashboardModule);
-	    return DashboardModule;
-	}());
-	exports.DashboardModule = DashboardModule;
-
-
-/***/ },
-
-/***/ 70:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var router_1 = __webpack_require__(31);
-	var dashboard_component_1 = __webpack_require__(65);
-	var DashboardRoutingModule = (function () {
-	    function DashboardRoutingModule() {
-	    }
-	    DashboardRoutingModule = __decorate([
-	        core_1.NgModule({
-	            imports: [
-	                router_1.RouterModule.forChild([
-	                    {
-	                        path: 'dashboard',
-	                        component: dashboard_component_1.DashboardComponent
-	                    },
-	                ])
-	            ],
-	            exports: [
-	                router_1.RouterModule
-	            ]
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], DashboardRoutingModule);
-	    return DashboardRoutingModule;
-	}());
-	exports.DashboardRoutingModule = DashboardRoutingModule;
-
-
-/***/ },
-
-/***/ 71:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var core_2 = __webpack_require__(3);
-	var transform_service_1 = __webpack_require__(72);
-	var geometry_1 = __webpack_require__(73);
-	var sidebar_component_1 = __webpack_require__(77);
-	var artboard_component_1 = __webpack_require__(80);
-	var workspace_1 = __webpack_require__(692);
-	var worksheet_1 = __webpack_require__(82);
-	var SpaceKey = 32;
-	var WorkspaceComponent = (function () {
-	    function WorkspaceComponent(transformService) {
-	        this.transformService = transformService;
-	        this.windowMovementAllowed = false; //allowed only when space is held
-	        this.dragEntered = false;
-	        this.startX = 0;
-	        this.startY = 0;
-	        this.lastX = 0;
-	        this.lastY = 0;
-	    }
-	    WorkspaceComponent.prototype.ngOnInit = function () {
-	        //'window' here refers to the window object
-	        //get the width and height of the 'device' window and get the 
-	        this.movingWindow = new geometry_1.Rect(this.artboard.massiveArea.width / 2 - window.innerWidth / 2, this.artboard.massiveArea.height / 2 - window.innerHeight / 2, window.innerWidth, window.outerHeight);
-	        this.positionArtboardBasis(this.movingWindow);
-	        //TODO get the worksheet for the given rid defined in url params
-	        this.workspace = new workspace_1.Workspace(new worksheet_1.Worksheet());
-	        this.workspace.worksheet.diagramModel = new worksheet_1.DiagramModel();
-	    };
-	    WorkspaceComponent.prototype.toggleSidebar = function () {
-	        this.sidebar.open = !this.sidebar.open;
-	    };
-	    WorkspaceComponent.prototype.positionArtboardBasis = function (frame) {
-	        this.artboard.massiveArea.x = -frame.x;
-	        this.artboard.massiveArea.y = -frame.y;
-	        this.movingWindow.x = frame.x;
-	        this.movingWindow.y = frame.y;
-	    };
-	    WorkspaceComponent.prototype.keydown = function (event) {
-	        if (event.keyCode == SpaceKey) {
-	            this.windowMovementAllowed = true;
-	        }
-	    };
-	    WorkspaceComponent.prototype.keyup = function (event) {
-	        if (event.keyCode == SpaceKey) {
-	            this.windowMovementAllowed = false;
-	        }
-	    };
-	    WorkspaceComponent.prototype.mousedown = function (event) {
-	        this.dragEntered = true;
-	        this.startX = event.clientX;
-	        this.startY = event.clientY;
-	        this.lastX = event.clientX;
-	        this.lastY = event.clientY;
-	    };
-	    WorkspaceComponent.prototype.mousemove = function (event) {
-	        var dx = event.clientX - this.lastX;
-	        var dy = event.clientY - this.lastY;
-	        if (this.dragEntered && this.windowMovementAllowed) {
-	            //we inverse the differences because the gesture 'grabs' and pulls the artboard in the other direction
-	            dx *= -1;
-	            dy *= -1;
-	            if (this.movingWindow.x + dx >= this.artboard.massiveArea.x &&
-	                this.movingWindow.x + dx <= this.artboard.massiveArea.x + this.artboard.massiveArea.width) {
-	                this.movingWindow.x += dx;
-	            }
-	            if (this.movingWindow.y + dy >= this.artboard.massiveArea.y &&
-	                this.movingWindow.y + dy <= this.artboard.massiveArea.y + this.artboard.massiveArea.height) {
-	                this.movingWindow.y += dy;
-	            }
-	            this.positionArtboardBasis(this.movingWindow);
-	        }
-	        this.lastX = event.clientX;
-	        this.lastY = event.clientY;
-	    };
-	    WorkspaceComponent.prototype.mouseup = function (event) {
-	        this.dragEntered = false;
-	    };
-	    WorkspaceComponent.prototype.resize = function (event) {
-	        console.log("Window resize changing moving window size");
-	        this.movingWindow.width = window.innerWidth; //TODO what if the scale is different?
-	        this.movingWindow.height = window.innerHeight;
-	    };
-	    __decorate([
-	        core_1.ViewChild(sidebar_component_1.SidebarComponent), 
-	        __metadata('design:type', (typeof (_a = typeof sidebar_component_1.SidebarComponent !== 'undefined' && sidebar_component_1.SidebarComponent) === 'function' && _a) || Object)
-	    ], WorkspaceComponent.prototype, "sidebar", void 0);
-	    __decorate([
-	        core_1.ViewChild(artboard_component_1.ArtboardComponent), 
-	        __metadata('design:type', (typeof (_b = typeof artboard_component_1.ArtboardComponent !== 'undefined' && artboard_component_1.ArtboardComponent) === 'function' && _b) || Object)
-	    ], WorkspaceComponent.prototype, "artboard", void 0);
-	    WorkspaceComponent = __decorate([
-	        core_1.Component({
-	            selector: 'workspace',
-	            styles: [__webpack_require__(93)],
-	            template: __webpack_require__(94),
-	            animations: [
-	                core_2.trigger('shiftMenuControls', [
-	                    core_2.state('unshifted', core_2.style({
-	                        left: '20px'
-	                    })),
-	                    core_2.state('shifted', core_2.style({
-	                        left: '300px'
-	                    })),
-	                    core_2.transition('unshifted => shifted', core_2.animate('100ms ease-in')),
-	                    core_2.transition('shifted => unshifted', core_2.animate('100ms ease-out'))
-	                ])
-	            ]
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_c = typeof transform_service_1.TransformService !== 'undefined' && transform_service_1.TransformService) === 'function' && _c) || Object])
-	    ], WorkspaceComponent);
-	    return WorkspaceComponent;
-	    var _a, _b, _c;
-	}());
-	exports.WorkspaceComponent = WorkspaceComponent;
-
-
-/***/ },
-
-/***/ 72:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(73);
-	var TransformService = (function () {
-	    function TransformService() {
-	    }
-	    TransformService.prototype.toModelSpace = function (p) {
-	        return new geometry_1.Point(p.x, p.y); //TODO
-	    };
-	    TransformService.prototype.lengthInModelSpace = function (l) {
-	        return l; //TODO
-	    };
-	    TransformService.prototype.toViewSpace = function (p) {
-	        return new geometry_1.Point(p.x, p.y); //TODO
-	    };
-	    TransformService.prototype.lengthInViewSpace = function (l) {
-	        return l; //TODO
-	    };
-	    TransformService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [])
-	    ], TransformService);
-	    return TransformService;
-	}());
-	exports.TransformService = TransformService;
-
-
-/***/ },
-
-/***/ 73:
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6477,1083 +6334,8 @@ webpackJsonp([0],{
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var common_1 = __webpack_require__(74);
-	var tracking_point_1 = __webpack_require__(76);
-	/** Generic model for storing 2d coordinates */
-	var Point = (function () {
-	    function Point(x, y) {
-	        this.x = x;
-	        this.y = y;
-	    }
-	    Point.prototype.toString = function () {
-	        return "P(" + this.x + "," + this.y + ")";
-	    };
-	    /** Finds the distance from another point */
-	    Point.prototype.distance = function (p) {
-	        return Math.sqrt((this.x - p.x) * (this.x - p.x) + (this.y - p.y) * (this.y - p.y));
-	    };
-	    /** Finds the angle (b/w 0-360) that gets made b/w the x axis and line segment comprised of this point and another point */
-	    Point.prototype.angleOfSegment = function (to) {
-	        var inDegrees = 0;
-	        if (to.x - this.x == 0) {
-	            inDegrees = 90;
-	            if (to.y < this.y) {
-	                inDegrees += 180;
-	            }
-	        }
-	        else {
-	            var slope = (to.y - this.y) / (to.x - this.x);
-	            inDegrees = Math.atan(slope) * common_1.RadiansToDegrees;
-	            //angle is between +90 and -90
-	            if (to.y > this.y) {
-	                if (to.x > this.x) {
-	                }
-	                else {
-	                    inDegrees += 180;
-	                }
-	            }
-	            else {
-	                if (to.x < this.x) {
-	                    inDegrees += 180;
-	                }
-	                else {
-	                    inDegrees += 360;
-	                }
-	            }
-	        }
-	        return inDegrees;
-	    };
-	    /** Finds the point situated at some distance in a given direction(angle) */
-	    Point.prototype.pointAtLength = function (angleInDegrees, length) {
-	        return new Point(this.x + length * Math.cos(common_1.DegreesToRadians * angleInDegrees), this.y + length * Math.sin(common_1.DegreesToRadians * angleInDegrees));
-	    };
-	    /**
-	    * Checks if this point is within the bounding box defined by the endpoints of a diagonal.
-	    * Interchanging order of points is safe and does not affect result.
-	    */
-	    Point.prototype.withinBounds = function (start, end) {
-	        var lx = start.x < end.x ? start.x : end.x;
-	        var ly = start.y < end.y ? start.y : end.y;
-	        var mx = start.x >= end.x ? start.x : end.x;
-	        var my = start.y >= end.y ? start.y : end.y;
-	        return this.x >= lx && this.x <= mx &&
-	            this.y >= ly && this.y <= my;
-	    };
-	    /**
-	     * Checks if the point is within infinite horizontal section defined by two vertical axis.
-	     * Interchanging order of points is safe and does not affect result.
-	     */
-	    Point.prototype.withinYSpan = function (y1, y2) {
-	        var ly = y1 < y2 ? y1 : y2;
-	        var my = y1 >= y2 ? y2 : y1;
-	        return this.y >= ly && this.y <= my;
-	    };
-	    /**
-	     * Checks if the point is within infinite vertical section defined by two horizontal axis.
-	     * Interchanging order of points is safe and does not affect result.
-	     */
-	    Point.prototype.withinXSpan = function (x1, x2) {
-	        var lx = x1 < x2 ? x1 : x2;
-	        var mx = x1 >= x2 ? x2 : x1;
-	        return this.x >= lx && this.x <= mx;
-	    };
-	    return Point;
-	}());
-	exports.Point = Point;
-	/** Stores 2D position and holds links to previous and next point in series */
-	var LinkedPoint = (function (_super) {
-	    __extends(LinkedPoint, _super);
-	    function LinkedPoint() {
-	        _super.apply(this, arguments);
-	    }
-	    LinkedPoint.prototype.toString = function () {
-	        var prevString = this.previous == null ? "NULL" : "<-";
-	        var nextString = this.next == null ? "NULL" : "->";
-	        return "<-" + _super.prototype.toString.call(this) + "->";
-	    };
-	    return LinkedPoint;
-	}(Point));
-	exports.LinkedPoint = LinkedPoint;
-	var Rect = (function () {
-	    function Rect(x, y, width, height) {
-	        this.x = x;
-	        this.y = y;
-	        this.width = width;
-	        this.height = height;
-	    }
-	    Rect.prototype.toString = function () {
-	        return "R(" + this.x + "," + this.y + "," + this.width + "," + this.height + ")";
-	    };
-	    Rect.prototype.contains = function (p) {
-	        return p.x >= this.x && p.x <= (this.x + this.width) &&
-	            p.y >= this.y && p.y <= (this.y + this.height);
-	    };
-	    Rect.prototype.getTrackingPoint = function () {
-	        return new tracking_point_1.RectTrackingPoint(this);
-	    };
-	    Rect.prototype.topLeft = function () {
-	        return new Point(this.x, this.y);
-	    };
-	    Rect.prototype.topRight = function () {
-	        return new Point(this.x + this.width, this.y);
-	    };
-	    Rect.prototype.bottomRight = function () {
-	        return new Point(this.x + this.width, this.y + this.height);
-	    };
-	    Rect.prototype.bottomLeft = function () {
-	        return new Point(this.x, this.y + this.height);
-	    };
-	    Rect.prototype.center = function () {
-	        return new Point(this.x + this.width / 2, this.y + this.height / 2);
-	    };
-	    Rect.prototype.getBoundingBox = function () {
-	        return new Rect(this.x, this.y, this.width, this.height);
-	    };
-	    return Rect;
-	}());
-	exports.Rect = Rect;
-	var Circle = (function () {
-	    function Circle(center, radius) {
-	        this.center = center;
-	        this.radius = radius;
-	    }
-	    Circle.prototype.toString = function () {
-	        return "C(" + this.center.x + "," + this.center.y + "," + this.radius + ")";
-	    };
-	    Circle.prototype.contains = function (p) {
-	        return new Point(this.center.x, this.center.y).distance(p) <= this.radius;
-	    };
-	    Circle.prototype.getTrackingPoint = function () {
-	        return new tracking_point_1.CircleTrackingPoint(this);
-	    };
-	    Circle.prototype.getBoundingBox = function () {
-	        return new Rect(this.center.x - this.radius, this.center.y - this.radius, this.radius * 2, this.radius * 2);
-	    };
-	    return Circle;
-	}());
-	exports.Circle = Circle;
-	var LineSegment = (function () {
-	    function LineSegment(start, end) {
-	        this.start = start;
-	        this.end = end;
-	    }
-	    LineSegment.prototype.toString = function () {
-	        return "LS: " + this.start + "," + this.end + ")";
-	    };
-	    LineSegment.prototype.contains = function (p) {
-	        return p.withinBounds(this.start, this.end) && this.distanceFromLine(p) <= LineSegment.closeEnoughDistance;
-	    };
-	    /** Finds the perpendicular distance of a point from the line when this segment is extended in both directions */
-	    LineSegment.prototype.distanceFromLine = function (p) {
-	        return new common_1.LineEquation(this.start, this.end).perpendicularDistanceFrom(p);
-	    };
-	    LineSegment.prototype.getTrackingPoint = function () {
-	        return new tracking_point_1.LineSegmentTrackingPoint();
-	    };
-	    LineSegment.prototype.getBoundingBox = function () {
-	        var lx = this.start.x < this.end.x ? this.start.x : this.end.x;
-	        var ly = this.start.y < this.end.y ? this.start.y : this.end.y;
-	        var hx = this.start.x > this.end.x ? this.start.x : this.end.x;
-	        var hy = this.start.y > this.end.y ? this.start.y : this.end.y;
-	        return new Rect(lx, ly, hx - lx, hy - ly);
-	    };
-	    LineSegment.closeEnoughDistance = 10;
-	    return LineSegment;
-	}());
-	exports.LineSegment = LineSegment;
-
-
-/***/ },
-
-/***/ 74:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var geometry_1 = __webpack_require__(73);
-	var semantic_model_1 = __webpack_require__(75);
-	/** Gives radians when multiplied by an angle in degrees */
-	exports.DegreesToRadians = Math.PI / 180;
-	/** Gives degrees when multiplied by an angle in radians */
-	exports.RadiansToDegrees = 180 / Math.PI;
-	/** Represents direction in all 8 corners */
-	(function (Direction) {
-	    Direction[Direction["Top"] = 1] = "Top";
-	    Direction[Direction["TopRight"] = 2] = "TopRight";
-	    Direction[Direction["Right"] = 3] = "Right";
-	    Direction[Direction["BottomRight"] = 4] = "BottomRight";
-	    Direction[Direction["Bottom"] = 5] = "Bottom";
-	    Direction[Direction["BottomLeft"] = 6] = "BottomLeft";
-	    Direction[Direction["Left"] = 7] = "Left";
-	    Direction[Direction["TopLeft"] = 8] = "TopLeft";
-	})(exports.Direction || (exports.Direction = {}));
-	var Direction = exports.Direction;
-	/** Computes a point between two points based on fraction between 0 to 1 */
-	function linearInterpolation(start, end, fraction) {
-	    var interpolated = new geometry_1.Point(start.x, start.y);
-	    interpolated.x += fraction * (end.x - start.x);
-	    interpolated.y += fraction * (end.y - start.y);
-	    return interpolated;
-	}
-	exports.linearInterpolation = linearInterpolation;
-	/** Holds the equation of the line in the form ax + bx + c = 0 */
-	var LineEquation = (function () {
-	    /**
-	     * Constructs the equation of the line from two endpoints.
-	     * Order doesn't matter, interchanging endpoints will not make any differene
-	     */
-	    function LineEquation(start, end) {
-	        if (start.x == end.x) {
-	            this.a = 1;
-	            this.b = 0;
-	            this.c = -start.x;
-	        }
-	        else if (start.y == end.y) {
-	            this.a = 0;
-	            this.b = 1;
-	            this.c = -start.y;
-	        }
-	        else {
-	            var m = (end.y - start.y) / (end.x - start.x);
-	            this.a = m;
-	            this.b = -1;
-	            this.c = end.y - m * end.x;
-	        }
-	    }
-	    /** Finds the perpendicular distance of a point from this line */
-	    LineEquation.prototype.perpendicularDistanceFrom = function (p) {
-	        //find the perpendicular distance using equation
-	        return Math.abs(this.a * p.x + this.b * p.y + this.c) / Math.sqrt(this.a * this.a + this.b * this.b);
-	    };
-	    /** Finds the intersection point with given line equation. Returns null if the lines are parallel */
-	    LineEquation.prototype.intersectionWith = function (line) {
-	        //using determinant formula (adjusted for the form ax + by + c = 0)
-	        var delta = this.a * line.b - line.a * this.b;
-	        if (delta == 0) {
-	            return null;
-	        }
-	        var x = (line.b * this.c * (-1) - this.b * line.c * (-1)) / delta;
-	        var y = (this.a * line.c * (-1) - line.a * this.c * (-1)) / delta;
-	        return new geometry_1.Point(x, y);
-	    };
-	    return LineEquation;
-	}());
-	exports.LineEquation = LineEquation;
-	/** Returns string representation for the access specifier like + for public, - for private, # for protected etc. */
-	function stringForAccessSpecifier(accessSpecifier) {
-	    switch (accessSpecifier) {
-	        case semantic_model_1.AccessSpecifier.Private:
-	            return "-";
-	        case semantic_model_1.AccessSpecifier.Protected:
-	            return "#";
-	        case semantic_model_1.AccessSpecifier.Public:
-	            return "+";
-	        case semantic_model_1.AccessSpecifier.Default:
-	        default:
-	            return "";
-	    }
-	}
-	exports.stringForAccessSpecifier = stringForAccessSpecifier;
-	/** Returns a matching element if present in list, null otherwise */
-	function existsInList(item, list) {
-	    for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
-	        var inList = list_1[_i];
-	        if (item == inList) {
-	            return true;
-	        }
-	    }
-	    return false;
-	}
-	exports.existsInList = existsInList;
-	/**
-	 * Merges two lists together ensuring no two elements are repeated. Returns duplicates count.
-	 * The result list should not be either of the two lists.
-	 */
-	function merge(list1, list2, result) {
-	    var duplicatesFound = 0;
-	    //add all items of first list
-	    for (var _i = 0, list1_1 = list1; _i < list1_1.length; _i++) {
-	        var fromList1 = list1_1[_i];
-	        result.push(fromList1);
-	    }
-	    //only add those items of second list that don't exist already
-	    for (var _a = 0, list2_1 = list2; _a < list2_1.length; _a++) {
-	        var fromList2 = list2_1[_a];
-	        if (!existsInList(fromList2, result)) {
-	            result.push(fromList2);
-	        }
-	        else {
-	            duplicatesFound++;
-	        }
-	    }
-	    return duplicatesFound;
-	}
-	exports.merge = merge;
-	/** Returns a delimeter separated string for a supplied list */
-	function csv(list, delimeter) {
-	    if (delimeter === void 0) { delimeter = ","; }
-	    var csv = "";
-	    for (var _i = 0, list_2 = list; _i < list_2.length; _i++) {
-	        var item = list_2[_i];
-	        csv += item.toString();
-	    }
-	    return csv;
-	}
-	exports.csv = csv;
-	/** Outputs the supplied list by calling its toString for each element */
-	function printList(list) {
-	    for (var _i = 0, list_3 = list; _i < list_3.length; _i++) {
-	        var item = list_3[_i];
-	        console.log(item.toString());
-	    }
-	}
-	exports.printList = printList;
-
-
-/***/ },
-
-/***/ 75:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var util = __webpack_require__(74);
-	var SemanticModel = (function () {
-	    function SemanticModel() {
-	        this.classDefinitionList = [];
-	        this.interfaceDefinitionList = [];
-	    }
-	    /** Finds the class for the given name in the class definition list */
-	    SemanticModel.prototype.getClassByName = function (name) {
-	        for (var _i = 0, _a = this.classDefinitionList; _i < _a.length; _i++) {
-	            var classDefinition = _a[_i];
-	            if (classDefinition.getName() == name) {
-	                return classDefinition;
-	            }
-	        }
-	        return null;
-	    };
-	    /** Finds the interface for the given name in the interface definition list */
-	    SemanticModel.prototype.getInterfaceByName = function (name) {
-	        for (var _i = 0, _a = this.interfaceDefinitionList; _i < _a.length; _i++) {
-	            var interfaceDefinition = _a[_i];
-	            if (interfaceDefinition.getName() == name) {
-	                return interfaceDefinition;
-	            }
-	        }
-	        return null;
-	    };
-	    return SemanticModel;
-	}());
-	exports.SemanticModel = SemanticModel;
-	(function (PrimitiveType) {
-	    PrimitiveType[PrimitiveType["IntType"] = 1] = "IntType";
-	    PrimitiveType[PrimitiveType["FloatType"] = 2] = "FloatType";
-	    PrimitiveType[PrimitiveType["CharType"] = 3] = "CharType";
-	    PrimitiveType[PrimitiveType["BoolType"] = 4] = "BoolType";
-	    PrimitiveType[PrimitiveType["StringType"] = 5] = "StringType";
-	})(exports.PrimitiveType || (exports.PrimitiveType = {}));
-	var PrimitiveType = exports.PrimitiveType;
-	/**
-	 * Type fpr holdind primitive data like int,char,bool and also(exceptionally) string.
-	 * Refrain from creating new ones as these type are predefined and already exist as
-	 * static variable in the SemanticModel class
-	 */
-	var PrimitiveWrapper = (function () {
-	    function PrimitiveWrapper(type) {
-	        this.type = type;
-	    }
-	    PrimitiveWrapper.getPrimtiveName = function (type) {
-	        switch (type) {
-	            case PrimitiveType.IntType:
-	                return "int";
-	            case PrimitiveType.FloatType:
-	                return "float";
-	            case PrimitiveType.CharType:
-	                return "char";
-	            case PrimitiveType.BoolType:
-	                return "bool";
-	            case PrimitiveType.StringType:
-	                return "string";
-	            default:
-	                return "unknown primitive";
-	        }
-	    };
-	    PrimitiveWrapper.prototype.getName = function () {
-	        return PrimitiveWrapper.getPrimtiveName(this.type);
-	    };
-	    return PrimitiveWrapper;
-	}());
-	exports.PrimitiveWrapper = PrimitiveWrapper;
-	(function (AccessSpecifier) {
-	    AccessSpecifier[AccessSpecifier["Private"] = 1] = "Private";
-	    AccessSpecifier[AccessSpecifier["Protected"] = 2] = "Protected";
-	    AccessSpecifier[AccessSpecifier["Public"] = 3] = "Public";
-	    AccessSpecifier[AccessSpecifier["Default"] = 4] = "Default";
-	})(exports.AccessSpecifier || (exports.AccessSpecifier = {}));
-	var AccessSpecifier = exports.AccessSpecifier;
-	var MethodMember = (function () {
-	    function MethodMember(identifier, returnType, accessSpecifier) {
-	        if (accessSpecifier === void 0) { accessSpecifier = AccessSpecifier.Public; }
-	        this.isStatic = false;
-	        this.isFinal = false;
-	        this.isAbstract = false;
-	        this.methodPrototype = new MethodPrototype(identifier, returnType);
-	        this.accessSpecifier = accessSpecifier;
-	    }
-	    MethodMember.prototype.toString = function () {
-	        var staticPart = this.isStatic ? " static" : " ";
-	        var finalPart = this.isFinal ? " final" : " ";
-	        return util.stringForAccessSpecifier(this.accessSpecifier)
-	            + staticPart
-	            + finalPart
-	            + this.methodPrototype.toString();
-	    };
-	    return MethodMember;
-	}());
-	exports.MethodMember = MethodMember;
-	var MethodPrototype = (function () {
-	    function MethodPrototype(identifier, returnType) {
-	        this.argumentList = [];
-	        this.identifier = identifier;
-	        this.returnType = returnType;
-	    }
-	    MethodPrototype.prototype.toString = function () {
-	        var returnTypePart = this.returnType != null ? ":" + this.returnType.getName() : "";
-	        var argumentInString = "";
-	        var commaNeeded = false;
-	        for (var _i = 0, _a = this.argumentList; _i < _a.length; _i++) {
-	            var argument = _a[_i];
-	            if (commaNeeded) {
-	                argumentInString += ",";
-	            }
-	            argumentInString += argument.toString();
-	            commaNeeded = true;
-	        }
-	        return this.identifier + "("
-	            + argumentInString
-	            + ")"
-	            + returnTypePart;
-	    };
-	    return MethodPrototype;
-	}());
-	exports.MethodPrototype = MethodPrototype;
-	var FieldMember = (function () {
-	    function FieldMember(name, type, accessSpecifier) {
-	        if (accessSpecifier === void 0) { accessSpecifier = AccessSpecifier.Public; }
-	        this.accessSpecifier = accessSpecifier;
-	        this.variableDefinition = new VariableDefinition(name, type);
-	    }
-	    FieldMember.prototype.toString = function () {
-	        var staticPart = this.isStatic ? " static" : " ";
-	        var finalPart = this.isFinal ? " final" : " ";
-	        return util.stringForAccessSpecifier(this.accessSpecifier)
-	            + staticPart
-	            + finalPart
-	            + this.variableDefinition.toString();
-	    };
-	    return FieldMember;
-	}());
-	exports.FieldMember = FieldMember;
-	var VariableDefinition = (function () {
-	    function VariableDefinition(name, type) {
-	        this.name = name;
-	        this.type = type;
-	    }
-	    VariableDefinition.prototype.toString = function () {
-	        return this.name + ":" + this.type.getName();
-	    };
-	    return VariableDefinition;
-	}());
-	exports.VariableDefinition = VariableDefinition;
-	var ClassDefinition = (function () {
-	    function ClassDefinition(name, parentClass) {
-	        if (parentClass === void 0) { parentClass = null; }
-	        this.fieldList = [];
-	        this.methodList = [];
-	        this.subClasses = [];
-	        this.interfacesImplemented = [];
-	        this.name = name;
-	        this.parentClass = parentClass;
-	    }
-	    ClassDefinition.prototype.getName = function () {
-	        return this.name;
-	    };
-	    ClassDefinition.prototype.addSubClasses = function () {
-	        var subClasses = [];
-	        for (var _i = 0; _i < arguments.length; _i++) {
-	            subClasses[_i - 0] = arguments[_i];
-	        }
-	        for (var i = 0; i < subClasses.length; i++) {
-	            this.subClasses.push(subClasses[i]);
-	        }
-	    };
-	    ClassDefinition.prototype.getFieldByName = function (fieldName) {
-	        for (var _i = 0, _a = this.fieldList; _i < _a.length; _i++) {
-	            var field = _a[_i];
-	            if (field.variableDefinition.name == fieldName) {
-	                return field;
-	            }
-	        }
-	        return null;
-	    };
-	    ClassDefinition.prototype.toString = function () {
-	        return "class " + this.name;
-	    };
-	    return ClassDefinition;
-	}());
-	exports.ClassDefinition = ClassDefinition;
-	var InterfaceDefinition = (function () {
-	    function InterfaceDefinition(name) {
-	        this.methodList = []; //it can be assumed that all the methods are non static public
-	        this.subInterfaces = [];
-	        this.implementingClasses = [];
-	        this.name = name;
-	    }
-	    InterfaceDefinition.prototype.getName = function () {
-	        return this.name;
-	    };
-	    InterfaceDefinition.prototype.addImplementingClasses = function () {
-	        var implementations = [];
-	        for (var _i = 0; _i < arguments.length; _i++) {
-	            implementations[_i - 0] = arguments[_i];
-	        }
-	        for (var i = 0; i < implementations.length; i++) {
-	            this.implementingClasses.push(implementations[i]);
-	        }
-	    };
-	    InterfaceDefinition.prototype.toString = function () {
-	        return "interface " + this.name;
-	    };
-	    return InterfaceDefinition;
-	}());
-	exports.InterfaceDefinition = InterfaceDefinition;
-	(function (CollectionType) {
-	    CollectionType[CollectionType["Array"] = 1] = "Array";
-	    CollectionType[CollectionType["LinkedList"] = 2] = "LinkedList";
-	    CollectionType[CollectionType["Stack"] = 3] = "Stack";
-	    CollectionType[CollectionType["Queue"] = 4] = "Queue";
-	    CollectionType[CollectionType["Graph"] = 5] = "Graph";
-	})(exports.CollectionType || (exports.CollectionType = {}));
-	var CollectionType = exports.CollectionType;
-	var GenericCollection = (function () {
-	    function GenericCollection() {
-	    }
-	    GenericCollection.getCollectionName = function (type, generic) {
-	        var genericTypeName = "object";
-	        if (generic != null) {
-	            genericTypeName = generic.getName();
-	        }
-	        var collectionName;
-	        switch (type) {
-	            case CollectionType.Array:
-	                collectionName = "Array";
-	            case CollectionType.LinkedList:
-	                collectionName = "LinkedList";
-	            case CollectionType.Stack:
-	                collectionName = "Stack";
-	            case CollectionType.Queue:
-	                collectionName = "Queue";
-	            case CollectionType.Graph:
-	                collectionName = "Graph";
-	            default:
-	                collectionName = "Unknown Collection";
-	        }
-	        return collectionName + "<" + genericTypeName + ">";
-	    };
-	    GenericCollection.prototype.getName = function () {
-	        return GenericCollection.getCollectionName(this.type, this.generic);
-	    };
-	    return GenericCollection;
-	}());
-	exports.GenericCollection = GenericCollection;
-	exports.IntWrapper = new PrimitiveWrapper(PrimitiveType.IntType);
-	exports.CharWrapper = new PrimitiveWrapper(PrimitiveType.CharType);
-	exports.BoolWrapper = new PrimitiveWrapper(PrimitiveType.BoolType);
-	exports.FloatWrapper = new PrimitiveWrapper(PrimitiveType.FloatType);
-	exports.StringWrapper = new PrimitiveWrapper(PrimitiveType.StringType);
-
-
-/***/ },
-
-/***/ 76:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var common_1 = __webpack_require__(74);
-	var geometry_1 = __webpack_require__(73);
-	/** A simple point. Empty suggests that this tracking point is not tracking anything(geometry) */
-	var EmptyTrackingPoint = (function () {
-	    function EmptyTrackingPoint() {
-	    }
-	    EmptyTrackingPoint.prototype.pointOnGeometry = function () {
-	        return this.point;
-	    };
-	    EmptyTrackingPoint.prototype.gravitateTowards = function (p) {
-	        return this.point;
-	    };
-	    return EmptyTrackingPoint;
-	}());
-	exports.EmptyTrackingPoint = EmptyTrackingPoint;
-	/** Tracks the center point of a given geometry */
-	var CenterTrackingPoint = (function () {
-	    function CenterTrackingPoint(geometry) {
-	        this.geometry = geometry;
-	    }
-	    CenterTrackingPoint.prototype.pointOnGeometry = function () {
-	        return this.geometry.getBoundingBox().center();
-	    };
-	    CenterTrackingPoint.prototype.gravitateTowards = function (p) {
-	        return this.geometry.getBoundingBox().center();
-	    };
-	    return CenterTrackingPoint;
-	}());
-	exports.CenterTrackingPoint = CenterTrackingPoint;
-	var RectTrackingPoint = (function () {
-	    /**
-	     * Creates a new tracking point for a given side of a rect with a
-	     * fraction that is linearly interpolated to get the tracked point
-	     */
-	    function RectTrackingPoint(rect, direction, fraction) {
-	        if (direction === void 0) { direction = common_1.Direction.Top; }
-	        if (fraction === void 0) { fraction = 0; }
-	        this.rect = rect;
-	        this.side = direction;
-	        this.fraction = fraction;
-	        this.trackedPoint = this.pointOnSide(this.side, this.fraction);
-	    }
-	    RectTrackingPoint.prototype.pointOnGeometry = function () {
-	        return this.pointOnSide(this.side, this.fraction);
-	    };
-	    /** Returns the point defined by a side and a fraction between 0 and 1 */
-	    RectTrackingPoint.prototype.pointOnSide = function (side, fraction) {
-	        if (fraction === void 0) { fraction = this.fraction; }
-	        var startPoint;
-	        var endPoint;
-	        switch (side) {
-	            case common_1.Direction.Top:
-	                startPoint = new geometry_1.Point(this.rect.x, this.rect.y);
-	                endPoint = new geometry_1.Point(this.rect.x + this.rect.width, this.rect.y);
-	                break;
-	            case common_1.Direction.Right:
-	                startPoint = new geometry_1.Point(this.rect.x + this.rect.width, this.rect.y);
-	                endPoint = new geometry_1.Point(this.rect.x + this.rect.width, this.rect.y + this.rect.height);
-	                break;
-	            case common_1.Direction.Bottom:
-	                startPoint = new geometry_1.Point(this.rect.x + this.rect.width, this.rect.y + this.rect.height);
-	                endPoint = new geometry_1.Point(this.rect.x, this.rect.y + this.rect.height);
-	                break;
-	            case common_1.Direction.Left:
-	                startPoint = new geometry_1.Point(this.rect.x, this.rect.y + this.rect.height);
-	                endPoint = new geometry_1.Point(this.rect.x, this.rect.y);
-	                break;
-	            default:
-	                console.log("Wrong side on rect tracking point");
-	                break;
-	        }
-	        return common_1.linearInterpolation(startPoint, endPoint, fraction);
-	    };
-	    RectTrackingPoint.prototype.gravitateTowards = function (p) {
-	        //find the center of the rectangle
-	        var cx = (this.rect.x + this.rect.x + this.rect.width) / 2;
-	        var cy = (this.rect.y + this.rect.y + this.rect.height) / 2;
-	        var centerToPoint = new common_1.LineEquation(new geometry_1.Point(cx, cy), p);
-	        var topLeft = this.rect.topLeft();
-	        var topRight = this.rect.topRight();
-	        var bottomLeft = this.rect.bottomLeft();
-	        var bottomRight = this.rect.bottomRight();
-	        var verticalSideEquation;
-	        var horizontalSideEquation;
-	        var verticalSideDirection;
-	        var horizontalSideDirection;
-	        //choose the side on which this point should get close to
-	        if (p.y > cy) {
-	            if (p.x > cx) {
-	                var verticalSideEquation = new common_1.LineEquation(topRight, bottomRight);
-	                verticalSideDirection = common_1.Direction.Right;
-	                var horizontalSideEquation = new common_1.LineEquation(topLeft, topRight);
-	                horizontalSideDirection = common_1.Direction.Top;
-	            }
-	            else {
-	                var verticalSideEquation = new common_1.LineEquation(topLeft, bottomLeft);
-	                verticalSideDirection = common_1.Direction.Left;
-	                var horizontalSideEquation = new common_1.LineEquation(topLeft, topRight);
-	                horizontalSideDirection = common_1.Direction.Top;
-	            }
-	        }
-	        else {
-	            if (p.x > cx) {
-	                var verticalSideEquation = new common_1.LineEquation(topRight, bottomRight);
-	                verticalSideDirection = common_1.Direction.Right;
-	                var horizontalSideEquation = new common_1.LineEquation(bottomLeft, bottomRight);
-	                horizontalSideDirection = common_1.Direction.Bottom;
-	            }
-	            else {
-	                var verticalSideEquation = new common_1.LineEquation(topLeft, bottomLeft);
-	                verticalSideDirection = common_1.Direction.Left;
-	                var horizontalSideEquation = new common_1.LineEquation(bottomLeft, bottomRight);
-	                horizontalSideDirection = common_1.Direction.Bottom;
-	            }
-	        }
-	        var verticalSidePoint = verticalSideEquation.intersectionWith(centerToPoint);
-	        var horizontalSidePoint = horizontalSideEquation.intersectionWith(centerToPoint);
-	        if (verticalSidePoint != null && verticalSidePoint.withinYSpan(topRight.y, bottomRight.y)) {
-	            this.side = verticalSideDirection;
-	            this.trackedPoint = verticalSidePoint;
-	        }
-	        else {
-	            this.side = horizontalSideDirection;
-	            this.trackedPoint = horizontalSidePoint;
-	        }
-	        return this.trackedPoint;
-	    };
-	    return RectTrackingPoint;
-	}());
-	exports.RectTrackingPoint = RectTrackingPoint;
-	var CircleTrackingPoint = (function () {
-	    function CircleTrackingPoint(circle) {
-	        this.circle = circle;
-	    }
-	    CircleTrackingPoint.prototype.pointOnGeometry = function () {
-	        return this.trackedPoint;
-	    };
-	    CircleTrackingPoint.prototype.gravitateTowards = function (p) {
-	        var angleOfSegment = this.circle.center.angleOfSegment(p);
-	        this.trackedPoint = this.circle.center.pointAtLength(angleOfSegment, this.circle.radius);
-	        return this.trackedPoint;
-	    };
-	    return CircleTrackingPoint;
-	}());
-	exports.CircleTrackingPoint = CircleTrackingPoint;
-	var LineSegmentTrackingPoint = (function () {
-	    function LineSegmentTrackingPoint() {
-	    }
-	    LineSegmentTrackingPoint.prototype.pointOnGeometry = function () {
-	        return common_1.linearInterpolation(this.lineSegment.start, this.lineSegment.end, this.fraction);
-	    };
-	    LineSegmentTrackingPoint.prototype.gravitateTowards = function (p) {
-	        return null; //TODO
-	    };
-	    return LineSegmentTrackingPoint;
-	}());
-	exports.LineSegmentTrackingPoint = LineSegmentTrackingPoint;
-
-
-/***/ },
-
-/***/ 77:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var core_2 = __webpack_require__(3);
-	var SidebarComponent = (function () {
-	    function SidebarComponent() {
-	        this.open = false;
-	    }
-	    SidebarComponent = __decorate([
-	        core_1.Component({
-	            selector: 'sidebar',
-	            styles: [__webpack_require__(78)],
-	            template: __webpack_require__(79),
-	            animations: [
-	                core_2.trigger('sidebarOpen', [
-	                    core_2.state('close', core_2.style({
-	                        left: '-300px'
-	                    })),
-	                    core_2.state('open', core_2.style({
-	                        left: '0px'
-	                    })),
-	                    core_2.transition('close => open', core_2.animate('100ms ease-in')),
-	                    core_2.transition('open => close', core_2.animate('100ms ease-out'))
-	                ])
-	            ]
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], SidebarComponent);
-	    return SidebarComponent;
-	}());
-	exports.SidebarComponent = SidebarComponent;
-
-
-/***/ },
-
-/***/ 78:
-/***/ function(module, exports) {
-
-	module.exports = "#sidebar {\n  background: #8f42de;\n  color: whitesmoke;\n  width: 280px;\n  height: 100%;\n  position: absolute;\n  top: 0px; }\n"
-
-/***/ },
-
-/***/ 79:
-/***/ function(module, exports) {
-
-	module.exports = "<div id=\"sidebar\" [@sidebarOpen]=\"open?'open':'close'\">\n\t<h2>sidebar</h2>\n\t<i class=\"ms-Icon ms-Icon--Cancel\" aria-hidden=\"true\" (click)=\"open=false\"></i>\n\t\n</div>";
-
-/***/ },
-
-/***/ 80:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var core_2 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(73);
-	var geometry_2 = __webpack_require__(73);
-	var mock_data_service_1 = __webpack_require__(81);
-	var auto_completion_component_1 = __webpack_require__(84);
-	var creationDrawer = __webpack_require__(690);
-	var interpreter_service_1 = __webpack_require__(87);
-	var worksheet_1 = __webpack_require__(82);
-	var workspace_1 = __webpack_require__(692);
-	exports.ArtboardWidth = 3200;
-	exports.ArtboardHeight = (2 / 3) * exports.ArtboardWidth;
-	var ArtboardComponent = (function () {
-	    function ArtboardComponent(mockDataService, interpreter) {
-	        this.mockDataService = mockDataService;
-	        this.interpreter = interpreter;
-	        this.rectList = [];
-	        this.diagramticComponentList = [];
-	        this.mousedownEvent = new core_1.EventEmitter();
-	        this.mousemoveEvent = new core_1.EventEmitter();
-	        this.mouseupEvent = new core_1.EventEmitter();
-	        this.creationDrawerLocation = new geometry_2.Point(exports.ArtboardWidth / 2, exports.ArtboardHeight / 2);
-	        //testing stuff
-	        this.st = new geometry_2.Point(1501, 1300);
-	        this.en = new geometry_2.Point(1700, 700);
-	        this.massiveArea = new geometry_1.Rect(0, 0, exports.ArtboardWidth, exports.ArtboardHeight);
-	        this.testing();
-	    }
-	    ArtboardComponent.prototype.testing = function () {
-	        this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
-	        this.rectList.push(new geometry_1.Rect(1300, 1000, 200, 50));
-	        this.genericNode1 = new worksheet_1.GenericDiagramNode(worksheet_1.GenericDiagramNodeType.Rectangle);
-	        this.genericNode1.rect.x = 1500;
-	        this.genericNode1.rect.y = 1200;
-	        this.genericNode2 = new worksheet_1.GenericDiagramNode(worksheet_1.GenericDiagramNodeType.RoundedRectangle);
-	        this.genericNode2.rect.x = 1800;
-	        this.genericNode2.rect.y = 1000;
-	        this.edge = new worksheet_1.DiagramEdge();
-	        this.edge.from = this.genericNode1;
-	        this.edge.to = this.genericNode2;
-	    };
-	    ArtboardComponent.prototype.doubleClickedArtboard = function (event) {
-	        this.creationDrawerLocation = new geometry_2.Point(event.offsetX - creationDrawer.WIDTH / 2, event.offsetY - creationDrawer.HEIGHT / 2);
-	        this.workspace.creationDrawerIsOpen = true;
-	    };
-	    ArtboardComponent.prototype.mousedown = function (event) {
-	        this.workspace.creationDrawerIsOpen = false;
-	        this.mousedownEvent.emit(event);
-	        if (this.draggingInteraction != null) {
-	            this.draggingInteraction.handleMousePress(event);
-	        }
-	    };
-	    ArtboardComponent.prototype.mousemove = function (event) {
-	        this.mousemoveEvent.emit(event);
-	        if (this.draggingInteraction != null) {
-	            this.draggingInteraction.handleMouseDrag(event);
-	        }
-	    };
-	    ArtboardComponent.prototype.mouseup = function (event) {
-	        this.mouseupEvent.emit(event);
-	        if (this.draggingInteraction != null) {
-	            this.draggingInteraction.handleMouseRelease(event);
-	        }
-	        this.draggingInteraction = null;
-	    };
-	    ArtboardComponent.prototype.setDragInteractionIfEmpty = function (dragProcessor) {
-	        if (this.draggingInteraction == null) {
-	            console.log("Setting new drag processor");
-	            this.draggingInteraction = dragProcessor;
-	        }
-	    };
-	    ArtboardComponent.prototype.register = function (listener) {
-	        this.diagramticComponentList.push(listener);
-	    };
-	    ArtboardComponent.prototype.unregister = function (listener) {
-	        var index = this.diagramticComponentList.indexOf(listener, 0);
-	        if (index > -1) {
-	            this.diagramticComponentList.splice(index, 1);
-	        }
-	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', (typeof (_a = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _a) || Object)
-	    ], ArtboardComponent.prototype, "workspace", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], ArtboardComponent.prototype, "mousedownEvent", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], ArtboardComponent.prototype, "mousemoveEvent", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], ArtboardComponent.prototype, "mouseupEvent", void 0);
-	    __decorate([
-	        core_2.ViewChild(auto_completion_component_1.AutoCompletionComponent), 
-	        __metadata('design:type', (typeof (_b = typeof auto_completion_component_1.AutoCompletionComponent !== 'undefined' && auto_completion_component_1.AutoCompletionComponent) === 'function' && _b) || Object)
-	    ], ArtboardComponent.prototype, "autoCompletion", void 0);
-	    ArtboardComponent = __decorate([
-	        core_1.Component({
-	            selector: 'artboard',
-	            styles: [__webpack_require__(91)],
-	            template: __webpack_require__(92),
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_c = typeof mock_data_service_1.MockDataService !== 'undefined' && mock_data_service_1.MockDataService) === 'function' && _c) || Object, (typeof (_d = typeof interpreter_service_1.InterpreterService !== 'undefined' && interpreter_service_1.InterpreterService) === 'function' && _d) || Object])
-	    ], ArtboardComponent);
-	    return ArtboardComponent;
-	    var _a, _b, _c, _d;
-	}());
-	exports.ArtboardComponent = ArtboardComponent;
-
-
-/***/ },
-
-/***/ 81:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var semantic = __webpack_require__(75);
-	var worksheet = __webpack_require__(82);
-	var object = __webpack_require__(83);
-	var artboard_component_1 = __webpack_require__(80);
-	var MockDataService = (function () {
-	    function MockDataService() {
-	    }
-	    MockDataService.prototype.vehicleUml = function () {
-	        //Vehicle abstract class
-	        var vehicle = new semantic.ClassDefinition("Vehicle");
-	        vehicle.isAbstract = true;
-	        vehicle.fieldList.push(new semantic.FieldMember("weight", semantic.FloatWrapper));
-	        vehicle.fieldList.push(new semantic.FieldMember("passengerCapacity", semantic.IntWrapper));
-	        vehicle.methodList.push(new semantic.MethodMember("estimatedTotalWeight", semantic.FloatWrapper));
-	        var getOwnerName = new semantic.MethodMember("getOwnerName", semantic.StringWrapper);
-	        getOwnerName.isAbstract = true;
-	        vehicle.methodList.push(getOwnerName);
-	        //Land, Water, Air sub abstract classes
-	        var land = new semantic.ClassDefinition("Land", vehicle);
-	        land.isAbstract = true;
-	        land.fieldList.push(new semantic.FieldMember("numberOfWheels", semantic.IntWrapper));
-	        var water = new semantic.ClassDefinition("Water", vehicle);
-	        water.isAbstract = true;
-	        water.methodList.push(new semantic.MethodMember("getDockingInformation", semantic.StringWrapper));
-	        var air = new semantic.ClassDefinition("Air", vehicle);
-	        air.isAbstract = true;
-	        land.fieldList.push(new semantic.FieldMember("takeOffDistance", semantic.FloatWrapper));
-	        vehicle.subClasses.push(land, water, air);
-	        //concrete classes
-	        var truck = new semantic.ClassDefinition("Truck", land);
-	        var car = new semantic.ClassDefinition("Car", land);
-	        vehicle.addSubClasses(truck, car);
-	        var boat = new semantic.ClassDefinition("Boat", water);
-	        var ship = new semantic.ClassDefinition("Ship", water);
-	        water.addSubClasses(boat, ship);
-	        var plane = new semantic.ClassDefinition("Plane", air);
-	        var helicopter = new semantic.ClassDefinition("Helicopter", air);
-	        air.addSubClasses(plane, helicopter);
-	        //cargo interface
-	        var cargo = new semantic.InterfaceDefinition("Cargo");
-	        cargo.methodList.push(new semantic.MethodPrototype("weightRequirement", semantic.FloatWrapper));
-	        cargo.methodList.push(new semantic.MethodPrototype("areaRequirement", semantic.FloatWrapper));
-	        // Simple luggage concrete class
-	        var luggage = new semantic.ClassDefinition("Luggage");
-	        luggage.fieldList.push(new semantic.FieldMember("weight", semantic.FloatWrapper));
-	        luggage.fieldList.push(new semantic.FieldMember("area", semantic.FloatWrapper));
-	        luggage.fieldList.push(new semantic.FieldMember("fragile", semantic.BoolWrapper));
-	        luggage.interfacesImplemented.push(cargo);
-	        cargo.addImplementingClasses(luggage);
-	        //CargoCarier interface
-	        var cargoCarrier = new semantic.InterfaceDefinition("CargoCarier");
-	        cargoCarrier.methodList.push(new semantic.MethodPrototype("maximumAllowedWeight", semantic.FloatWrapper));
-	        cargoCarrier.methodList.push(new semantic.MethodPrototype("carryCargo", cargo));
-	        // Vehicle also implements cargo
-	        vehicle.interfacesImplemented.push(cargo);
-	        cargo.addImplementingClasses(vehicle);
-	        truck.interfacesImplemented.push(cargoCarrier);
-	        plane.interfacesImplemented.push(cargoCarrier);
-	        ship.interfacesImplemented.push(cargoCarrier);
-	        cargoCarrier.addImplementingClasses(truck, plane, ship);
-	        var semanticModel = new semantic.SemanticModel();
-	        semanticModel.classDefinitionList.push(vehicle, land, water, air, truck, car, ship, boat, plane, helicopter, luggage);
-	        semanticModel.interfaceDefinitionList.push(cargo, cargoCarrier);
-	        return semanticModel;
-	    };
-	    MockDataService.prototype.vehicleWorksheet = function () {
-	        var width = artboard_component_1.ArtboardWidth;
-	        var height = artboard_component_1.ArtboardHeight;
-	        var softwareDesign = this.vehicleUml();
-	        var vehicle = softwareDesign.getClassByName("Vehicle");
-	        var vehicleClassDiagram = new worksheet.ClassDiagramNode(vehicle, width / 2, height / 2);
-	        var cargoCarrier = softwareDesign.getInterfaceByName("CargoCarier");
-	        var cargoCarrierDiagram = new worksheet.InterfaceDiagramNode(cargoCarrier, width / 2 + 250, height / 2 + 200);
-	        var luggage = softwareDesign.getClassByName("Luggage");
-	        var weight = luggage.getFieldByName("weight");
-	        var area = luggage.getFieldByName("area");
-	        var fragile = luggage.getFieldByName("fragile");
-	        var luggageObject = new object.ClassObjectData("luggage", luggage);
-	        luggageObject.fieldDataList.push(new object.DataHolder(weight.variableDefinition, new object.PrimitiveData(semantic.PrimitiveType.FloatType, "23.4")));
-	        luggageObject.fieldDataList.push(new object.DataHolder(area.variableDefinition, new object.PrimitiveData(semantic.PrimitiveType.FloatType, "13.4")));
-	        luggageObject.fieldDataList.push(new object.DataHolder(weight.variableDefinition, new object.PrimitiveData(semantic.PrimitiveType.BoolType, "true")));
-	        var luggageObjectDiagram = new worksheet.ClassObjectDiagram(luggageObject, width / 2 + 100, height / 2 - 300);
-	        var document = new worksheet.Worksheet();
-	        // the new design does not have these fields
-	        // document.semanticModel=softwareDesign;
-	        // document.classDiagramList.push(vehicleClassDiagram);
-	        // document.interfaceDiagramList.push(cargoCarrierDiagram);
-	        // document.classObjectDiagramList.push(luggageObjectDiagram);
-	        return document;
-	    };
-	    MockDataService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [])
-	    ], MockDataService);
-	    return MockDataService;
-	}());
-	exports.MockDataService = MockDataService;
-
-
-/***/ },
-
-/***/ 82:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var geometry_1 = __webpack_require__(73);
-	var tracking_point_1 = __webpack_require__(76);
+	var geometry_1 = __webpack_require__(71);
+	var tracking_point_1 = __webpack_require__(74);
 	//the following constants are used to identify objects of this data model in JSON
 	exports.WorksheetType = "Worksheet"; //TODO may not be required
 	/** Containment of all worksheet related data is maintained in the model. */
@@ -7883,8 +6665,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 83:
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7893,7 +6674,1347 @@ webpackJsonp([0],{
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var semantic_model_1 = __webpack_require__(75);
+	var common_1 = __webpack_require__(72);
+	var tracking_point_1 = __webpack_require__(74);
+	/** Generic model for storing 2d coordinates */
+	var Point = (function () {
+	    function Point(x, y) {
+	        this.x = x;
+	        this.y = y;
+	    }
+	    Point.prototype.toString = function () {
+	        return "P(" + this.x + "," + this.y + ")";
+	    };
+	    /** Finds the distance from another point */
+	    Point.prototype.distance = function (p) {
+	        return Math.sqrt((this.x - p.x) * (this.x - p.x) + (this.y - p.y) * (this.y - p.y));
+	    };
+	    /** Finds the angle (b/w 0-360) that gets made b/w the x axis and line segment comprised of this point and another point */
+	    Point.prototype.angleOfSegment = function (to) {
+	        var inDegrees = 0;
+	        if (to.x - this.x == 0) {
+	            inDegrees = 90;
+	            if (to.y < this.y) {
+	                inDegrees += 180;
+	            }
+	        }
+	        else {
+	            var slope = (to.y - this.y) / (to.x - this.x);
+	            inDegrees = Math.atan(slope) * common_1.RadiansToDegrees;
+	            //angle is between +90 and -90
+	            if (to.y > this.y) {
+	                if (to.x > this.x) {
+	                }
+	                else {
+	                    inDegrees += 180;
+	                }
+	            }
+	            else {
+	                if (to.x < this.x) {
+	                    inDegrees += 180;
+	                }
+	                else {
+	                    inDegrees += 360;
+	                }
+	            }
+	        }
+	        return inDegrees;
+	    };
+	    /** Finds the point situated at some distance in a given direction(angle) */
+	    Point.prototype.pointAtLength = function (angleInDegrees, length) {
+	        return new Point(this.x + length * Math.cos(common_1.DegreesToRadians * angleInDegrees), this.y + length * Math.sin(common_1.DegreesToRadians * angleInDegrees));
+	    };
+	    /**
+	    * Checks if this point is within the bounding box defined by the endpoints of a diagonal.
+	    * Interchanging order of points is safe and does not affect result.
+	    */
+	    Point.prototype.withinBounds = function (start, end) {
+	        var lx = start.x < end.x ? start.x : end.x;
+	        var ly = start.y < end.y ? start.y : end.y;
+	        var mx = start.x >= end.x ? start.x : end.x;
+	        var my = start.y >= end.y ? start.y : end.y;
+	        return this.x >= lx && this.x <= mx &&
+	            this.y >= ly && this.y <= my;
+	    };
+	    /**
+	     * Checks if the point is within infinite horizontal section defined by two vertical axis.
+	     * Interchanging order of points is safe and does not affect result.
+	     */
+	    Point.prototype.withinYSpan = function (y1, y2) {
+	        var ly = y1 < y2 ? y1 : y2;
+	        var my = y1 >= y2 ? y2 : y1;
+	        return this.y >= ly && this.y <= my;
+	    };
+	    /**
+	     * Checks if the point is within infinite vertical section defined by two horizontal axis.
+	     * Interchanging order of points is safe and does not affect result.
+	     */
+	    Point.prototype.withinXSpan = function (x1, x2) {
+	        var lx = x1 < x2 ? x1 : x2;
+	        var mx = x1 >= x2 ? x2 : x1;
+	        return this.x >= lx && this.x <= mx;
+	    };
+	    return Point;
+	}());
+	exports.Point = Point;
+	/** Stores 2D position and holds links to previous and next point in series */
+	var LinkedPoint = (function (_super) {
+	    __extends(LinkedPoint, _super);
+	    function LinkedPoint() {
+	        _super.apply(this, arguments);
+	    }
+	    LinkedPoint.prototype.toString = function () {
+	        var prevString = this.previous == null ? "NULL" : "<-";
+	        var nextString = this.next == null ? "NULL" : "->";
+	        return "<-" + _super.prototype.toString.call(this) + "->";
+	    };
+	    return LinkedPoint;
+	}(Point));
+	exports.LinkedPoint = LinkedPoint;
+	var Rect = (function () {
+	    function Rect(x, y, width, height) {
+	        this.x = x;
+	        this.y = y;
+	        this.width = width;
+	        this.height = height;
+	    }
+	    Rect.prototype.toString = function () {
+	        return "R(" + this.x + "," + this.y + "," + this.width + "," + this.height + ")";
+	    };
+	    Rect.prototype.contains = function (p) {
+	        return p.x >= this.x && p.x <= (this.x + this.width) &&
+	            p.y >= this.y && p.y <= (this.y + this.height);
+	    };
+	    Rect.prototype.getTrackingPoint = function () {
+	        return new tracking_point_1.RectTrackingPoint(this);
+	    };
+	    Rect.prototype.topLeft = function () {
+	        return new Point(this.x, this.y);
+	    };
+	    Rect.prototype.topRight = function () {
+	        return new Point(this.x + this.width, this.y);
+	    };
+	    Rect.prototype.bottomRight = function () {
+	        return new Point(this.x + this.width, this.y + this.height);
+	    };
+	    Rect.prototype.bottomLeft = function () {
+	        return new Point(this.x, this.y + this.height);
+	    };
+	    Rect.prototype.center = function () {
+	        return new Point(this.x + this.width / 2, this.y + this.height / 2);
+	    };
+	    Rect.prototype.getBoundingBox = function () {
+	        return new Rect(this.x, this.y, this.width, this.height);
+	    };
+	    return Rect;
+	}());
+	exports.Rect = Rect;
+	var Circle = (function () {
+	    function Circle(center, radius) {
+	        this.center = center;
+	        this.radius = radius;
+	    }
+	    Circle.prototype.toString = function () {
+	        return "C(" + this.center.x + "," + this.center.y + "," + this.radius + ")";
+	    };
+	    Circle.prototype.contains = function (p) {
+	        return new Point(this.center.x, this.center.y).distance(p) <= this.radius;
+	    };
+	    Circle.prototype.getTrackingPoint = function () {
+	        return new tracking_point_1.CircleTrackingPoint(this);
+	    };
+	    Circle.prototype.getBoundingBox = function () {
+	        return new Rect(this.center.x - this.radius, this.center.y - this.radius, this.radius * 2, this.radius * 2);
+	    };
+	    return Circle;
+	}());
+	exports.Circle = Circle;
+	var LineSegment = (function () {
+	    function LineSegment(start, end) {
+	        this.start = start;
+	        this.end = end;
+	    }
+	    LineSegment.prototype.toString = function () {
+	        return "LS: " + this.start + "," + this.end + ")";
+	    };
+	    LineSegment.prototype.contains = function (p) {
+	        return p.withinBounds(this.start, this.end) && this.distanceFromLine(p) <= LineSegment.closeEnoughDistance;
+	    };
+	    /** Finds the perpendicular distance of a point from the line when this segment is extended in both directions */
+	    LineSegment.prototype.distanceFromLine = function (p) {
+	        return new common_1.LineEquation(this.start, this.end).perpendicularDistanceFrom(p);
+	    };
+	    LineSegment.prototype.getTrackingPoint = function () {
+	        return new tracking_point_1.LineSegmentTrackingPoint();
+	    };
+	    LineSegment.prototype.getBoundingBox = function () {
+	        var lx = this.start.x < this.end.x ? this.start.x : this.end.x;
+	        var ly = this.start.y < this.end.y ? this.start.y : this.end.y;
+	        var hx = this.start.x > this.end.x ? this.start.x : this.end.x;
+	        var hy = this.start.y > this.end.y ? this.start.y : this.end.y;
+	        return new Rect(lx, ly, hx - lx, hy - ly);
+	    };
+	    LineSegment.closeEnoughDistance = 10;
+	    return LineSegment;
+	}());
+	exports.LineSegment = LineSegment;
+
+
+/***/ },
+/* 72 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var geometry_1 = __webpack_require__(71);
+	var semantic_model_1 = __webpack_require__(73);
+	/** Gives radians when multiplied by an angle in degrees */
+	exports.DegreesToRadians = Math.PI / 180;
+	/** Gives degrees when multiplied by an angle in radians */
+	exports.RadiansToDegrees = 180 / Math.PI;
+	/** Represents direction in all 8 corners */
+	(function (Direction) {
+	    Direction[Direction["Top"] = 1] = "Top";
+	    Direction[Direction["TopRight"] = 2] = "TopRight";
+	    Direction[Direction["Right"] = 3] = "Right";
+	    Direction[Direction["BottomRight"] = 4] = "BottomRight";
+	    Direction[Direction["Bottom"] = 5] = "Bottom";
+	    Direction[Direction["BottomLeft"] = 6] = "BottomLeft";
+	    Direction[Direction["Left"] = 7] = "Left";
+	    Direction[Direction["TopLeft"] = 8] = "TopLeft";
+	})(exports.Direction || (exports.Direction = {}));
+	var Direction = exports.Direction;
+	/** Computes a point between two points based on fraction between 0 to 1 */
+	function linearInterpolation(start, end, fraction) {
+	    var interpolated = new geometry_1.Point(start.x, start.y);
+	    interpolated.x += fraction * (end.x - start.x);
+	    interpolated.y += fraction * (end.y - start.y);
+	    return interpolated;
+	}
+	exports.linearInterpolation = linearInterpolation;
+	/** Holds the equation of the line in the form ax + bx + c = 0 */
+	var LineEquation = (function () {
+	    /**
+	     * Constructs the equation of the line from two endpoints.
+	     * Order doesn't matter, interchanging endpoints will not make any differene
+	     */
+	    function LineEquation(start, end) {
+	        if (start.x == end.x) {
+	            this.a = 1;
+	            this.b = 0;
+	            this.c = -start.x;
+	        }
+	        else if (start.y == end.y) {
+	            this.a = 0;
+	            this.b = 1;
+	            this.c = -start.y;
+	        }
+	        else {
+	            var m = (end.y - start.y) / (end.x - start.x);
+	            this.a = m;
+	            this.b = -1;
+	            this.c = end.y - m * end.x;
+	        }
+	    }
+	    /** Finds the perpendicular distance of a point from this line */
+	    LineEquation.prototype.perpendicularDistanceFrom = function (p) {
+	        //find the perpendicular distance using equation
+	        return Math.abs(this.a * p.x + this.b * p.y + this.c) / Math.sqrt(this.a * this.a + this.b * this.b);
+	    };
+	    /** Finds the intersection point with given line equation. Returns null if the lines are parallel */
+	    LineEquation.prototype.intersectionWith = function (line) {
+	        //using determinant formula (adjusted for the form ax + by + c = 0)
+	        var delta = this.a * line.b - line.a * this.b;
+	        if (delta == 0) {
+	            return null;
+	        }
+	        var x = (line.b * this.c * (-1) - this.b * line.c * (-1)) / delta;
+	        var y = (this.a * line.c * (-1) - line.a * this.c * (-1)) / delta;
+	        return new geometry_1.Point(x, y);
+	    };
+	    return LineEquation;
+	}());
+	exports.LineEquation = LineEquation;
+	/** Returns string representation for the access specifier like + for public, - for private, # for protected etc. */
+	function stringForAccessSpecifier(accessSpecifier) {
+	    switch (accessSpecifier) {
+	        case semantic_model_1.AccessSpecifier.Private:
+	            return "-";
+	        case semantic_model_1.AccessSpecifier.Protected:
+	            return "#";
+	        case semantic_model_1.AccessSpecifier.Public:
+	            return "+";
+	        case semantic_model_1.AccessSpecifier.Default:
+	        default:
+	            return "";
+	    }
+	}
+	exports.stringForAccessSpecifier = stringForAccessSpecifier;
+	/** Returns a matching element if present in list, null otherwise */
+	function existsInList(item, list) {
+	    for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
+	        var inList = list_1[_i];
+	        if (item == inList) {
+	            return true;
+	        }
+	    }
+	    return false;
+	}
+	exports.existsInList = existsInList;
+	/**
+	 * Merges two lists together ensuring no two elements are repeated. Returns duplicates count.
+	 * The result list should not be either of the two lists.
+	 */
+	function merge(list1, list2, result) {
+	    var duplicatesFound = 0;
+	    //add all items of first list
+	    for (var _i = 0, list1_1 = list1; _i < list1_1.length; _i++) {
+	        var fromList1 = list1_1[_i];
+	        result.push(fromList1);
+	    }
+	    //only add those items of second list that don't exist already
+	    for (var _a = 0, list2_1 = list2; _a < list2_1.length; _a++) {
+	        var fromList2 = list2_1[_a];
+	        if (!existsInList(fromList2, result)) {
+	            result.push(fromList2);
+	        }
+	        else {
+	            duplicatesFound++;
+	        }
+	    }
+	    return duplicatesFound;
+	}
+	exports.merge = merge;
+	/** Returns a delimeter separated string for a supplied list */
+	function csv(list, delimeter) {
+	    if (delimeter === void 0) { delimeter = ","; }
+	    var csv = "";
+	    for (var _i = 0, list_2 = list; _i < list_2.length; _i++) {
+	        var item = list_2[_i];
+	        csv += item.toString();
+	    }
+	    return csv;
+	}
+	exports.csv = csv;
+	/** Outputs the supplied list by calling its toString for each element */
+	function printList(list) {
+	    for (var _i = 0, list_3 = list; _i < list_3.length; _i++) {
+	        var item = list_3[_i];
+	        console.log(item.toString());
+	    }
+	}
+	exports.printList = printList;
+
+
+/***/ },
+/* 73 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var util = __webpack_require__(72);
+	var SemanticModel = (function () {
+	    function SemanticModel() {
+	        this.classDefinitionList = [];
+	        this.interfaceDefinitionList = [];
+	    }
+	    /** Finds the class for the given name in the class definition list */
+	    SemanticModel.prototype.getClassByName = function (name) {
+	        for (var _i = 0, _a = this.classDefinitionList; _i < _a.length; _i++) {
+	            var classDefinition = _a[_i];
+	            if (classDefinition.getName() == name) {
+	                return classDefinition;
+	            }
+	        }
+	        return null;
+	    };
+	    /** Finds the interface for the given name in the interface definition list */
+	    SemanticModel.prototype.getInterfaceByName = function (name) {
+	        for (var _i = 0, _a = this.interfaceDefinitionList; _i < _a.length; _i++) {
+	            var interfaceDefinition = _a[_i];
+	            if (interfaceDefinition.getName() == name) {
+	                return interfaceDefinition;
+	            }
+	        }
+	        return null;
+	    };
+	    return SemanticModel;
+	}());
+	exports.SemanticModel = SemanticModel;
+	(function (PrimitiveType) {
+	    PrimitiveType[PrimitiveType["IntType"] = 1] = "IntType";
+	    PrimitiveType[PrimitiveType["FloatType"] = 2] = "FloatType";
+	    PrimitiveType[PrimitiveType["CharType"] = 3] = "CharType";
+	    PrimitiveType[PrimitiveType["BoolType"] = 4] = "BoolType";
+	    PrimitiveType[PrimitiveType["StringType"] = 5] = "StringType";
+	})(exports.PrimitiveType || (exports.PrimitiveType = {}));
+	var PrimitiveType = exports.PrimitiveType;
+	/**
+	 * Type fpr holdind primitive data like int,char,bool and also(exceptionally) string.
+	 * Refrain from creating new ones as these type are predefined and already exist as
+	 * static variable in the SemanticModel class
+	 */
+	var PrimitiveWrapper = (function () {
+	    function PrimitiveWrapper(type) {
+	        this.type = type;
+	    }
+	    PrimitiveWrapper.getPrimtiveName = function (type) {
+	        switch (type) {
+	            case PrimitiveType.IntType:
+	                return "int";
+	            case PrimitiveType.FloatType:
+	                return "float";
+	            case PrimitiveType.CharType:
+	                return "char";
+	            case PrimitiveType.BoolType:
+	                return "bool";
+	            case PrimitiveType.StringType:
+	                return "string";
+	            default:
+	                return "unknown primitive";
+	        }
+	    };
+	    PrimitiveWrapper.prototype.getName = function () {
+	        return PrimitiveWrapper.getPrimtiveName(this.type);
+	    };
+	    return PrimitiveWrapper;
+	}());
+	exports.PrimitiveWrapper = PrimitiveWrapper;
+	(function (AccessSpecifier) {
+	    AccessSpecifier[AccessSpecifier["Private"] = 1] = "Private";
+	    AccessSpecifier[AccessSpecifier["Protected"] = 2] = "Protected";
+	    AccessSpecifier[AccessSpecifier["Public"] = 3] = "Public";
+	    AccessSpecifier[AccessSpecifier["Default"] = 4] = "Default";
+	})(exports.AccessSpecifier || (exports.AccessSpecifier = {}));
+	var AccessSpecifier = exports.AccessSpecifier;
+	var MethodMember = (function () {
+	    function MethodMember(identifier, returnType, accessSpecifier) {
+	        if (accessSpecifier === void 0) { accessSpecifier = AccessSpecifier.Public; }
+	        this.isStatic = false;
+	        this.isFinal = false;
+	        this.isAbstract = false;
+	        this.methodPrototype = new MethodPrototype(identifier, returnType);
+	        this.accessSpecifier = accessSpecifier;
+	    }
+	    MethodMember.prototype.toString = function () {
+	        var staticPart = this.isStatic ? " static" : " ";
+	        var finalPart = this.isFinal ? " final" : " ";
+	        return util.stringForAccessSpecifier(this.accessSpecifier)
+	            + staticPart
+	            + finalPart
+	            + this.methodPrototype.toString();
+	    };
+	    return MethodMember;
+	}());
+	exports.MethodMember = MethodMember;
+	var MethodPrototype = (function () {
+	    function MethodPrototype(identifier, returnType) {
+	        this.argumentList = [];
+	        this.identifier = identifier;
+	        this.returnType = returnType;
+	    }
+	    MethodPrototype.prototype.toString = function () {
+	        var returnTypePart = this.returnType != null ? ":" + this.returnType.getName() : "";
+	        var argumentInString = "";
+	        var commaNeeded = false;
+	        for (var _i = 0, _a = this.argumentList; _i < _a.length; _i++) {
+	            var argument = _a[_i];
+	            if (commaNeeded) {
+	                argumentInString += ",";
+	            }
+	            argumentInString += argument.toString();
+	            commaNeeded = true;
+	        }
+	        return this.identifier + "("
+	            + argumentInString
+	            + ")"
+	            + returnTypePart;
+	    };
+	    return MethodPrototype;
+	}());
+	exports.MethodPrototype = MethodPrototype;
+	var FieldMember = (function () {
+	    function FieldMember(name, type, accessSpecifier) {
+	        if (accessSpecifier === void 0) { accessSpecifier = AccessSpecifier.Public; }
+	        this.accessSpecifier = accessSpecifier;
+	        this.variableDefinition = new VariableDefinition(name, type);
+	    }
+	    FieldMember.prototype.toString = function () {
+	        var staticPart = this.isStatic ? " static" : " ";
+	        var finalPart = this.isFinal ? " final" : " ";
+	        return util.stringForAccessSpecifier(this.accessSpecifier)
+	            + staticPart
+	            + finalPart
+	            + this.variableDefinition.toString();
+	    };
+	    return FieldMember;
+	}());
+	exports.FieldMember = FieldMember;
+	var VariableDefinition = (function () {
+	    function VariableDefinition(name, type) {
+	        this.name = name;
+	        this.type = type;
+	    }
+	    VariableDefinition.prototype.toString = function () {
+	        return this.name + ":" + this.type.getName();
+	    };
+	    return VariableDefinition;
+	}());
+	exports.VariableDefinition = VariableDefinition;
+	var ClassDefinition = (function () {
+	    function ClassDefinition(name, parentClass) {
+	        if (parentClass === void 0) { parentClass = null; }
+	        this.fieldList = [];
+	        this.methodList = [];
+	        this.subClasses = [];
+	        this.interfacesImplemented = [];
+	        this.name = name;
+	        this.parentClass = parentClass;
+	    }
+	    ClassDefinition.prototype.getName = function () {
+	        return this.name;
+	    };
+	    ClassDefinition.prototype.addSubClasses = function () {
+	        var subClasses = [];
+	        for (var _i = 0; _i < arguments.length; _i++) {
+	            subClasses[_i - 0] = arguments[_i];
+	        }
+	        for (var i = 0; i < subClasses.length; i++) {
+	            this.subClasses.push(subClasses[i]);
+	        }
+	    };
+	    ClassDefinition.prototype.getFieldByName = function (fieldName) {
+	        for (var _i = 0, _a = this.fieldList; _i < _a.length; _i++) {
+	            var field = _a[_i];
+	            if (field.variableDefinition.name == fieldName) {
+	                return field;
+	            }
+	        }
+	        return null;
+	    };
+	    ClassDefinition.prototype.toString = function () {
+	        return "class " + this.name;
+	    };
+	    return ClassDefinition;
+	}());
+	exports.ClassDefinition = ClassDefinition;
+	var InterfaceDefinition = (function () {
+	    function InterfaceDefinition(name) {
+	        this.methodList = []; //it can be assumed that all the methods are non static public
+	        this.subInterfaces = [];
+	        this.implementingClasses = [];
+	        this.name = name;
+	    }
+	    InterfaceDefinition.prototype.getName = function () {
+	        return this.name;
+	    };
+	    InterfaceDefinition.prototype.addImplementingClasses = function () {
+	        var implementations = [];
+	        for (var _i = 0; _i < arguments.length; _i++) {
+	            implementations[_i - 0] = arguments[_i];
+	        }
+	        for (var i = 0; i < implementations.length; i++) {
+	            this.implementingClasses.push(implementations[i]);
+	        }
+	    };
+	    InterfaceDefinition.prototype.toString = function () {
+	        return "interface " + this.name;
+	    };
+	    return InterfaceDefinition;
+	}());
+	exports.InterfaceDefinition = InterfaceDefinition;
+	(function (CollectionType) {
+	    CollectionType[CollectionType["Array"] = 1] = "Array";
+	    CollectionType[CollectionType["LinkedList"] = 2] = "LinkedList";
+	    CollectionType[CollectionType["Stack"] = 3] = "Stack";
+	    CollectionType[CollectionType["Queue"] = 4] = "Queue";
+	    CollectionType[CollectionType["Graph"] = 5] = "Graph";
+	})(exports.CollectionType || (exports.CollectionType = {}));
+	var CollectionType = exports.CollectionType;
+	var GenericCollection = (function () {
+	    function GenericCollection() {
+	    }
+	    GenericCollection.getCollectionName = function (type, generic) {
+	        var genericTypeName = "object";
+	        if (generic != null) {
+	            genericTypeName = generic.getName();
+	        }
+	        var collectionName;
+	        switch (type) {
+	            case CollectionType.Array:
+	                collectionName = "Array";
+	            case CollectionType.LinkedList:
+	                collectionName = "LinkedList";
+	            case CollectionType.Stack:
+	                collectionName = "Stack";
+	            case CollectionType.Queue:
+	                collectionName = "Queue";
+	            case CollectionType.Graph:
+	                collectionName = "Graph";
+	            default:
+	                collectionName = "Unknown Collection";
+	        }
+	        return collectionName + "<" + genericTypeName + ">";
+	    };
+	    GenericCollection.prototype.getName = function () {
+	        return GenericCollection.getCollectionName(this.type, this.generic);
+	    };
+	    return GenericCollection;
+	}());
+	exports.GenericCollection = GenericCollection;
+	exports.IntWrapper = new PrimitiveWrapper(PrimitiveType.IntType);
+	exports.CharWrapper = new PrimitiveWrapper(PrimitiveType.CharType);
+	exports.BoolWrapper = new PrimitiveWrapper(PrimitiveType.BoolType);
+	exports.FloatWrapper = new PrimitiveWrapper(PrimitiveType.FloatType);
+	exports.StringWrapper = new PrimitiveWrapper(PrimitiveType.StringType);
+
+
+/***/ },
+/* 74 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var common_1 = __webpack_require__(72);
+	var geometry_1 = __webpack_require__(71);
+	/** A simple point. Empty suggests that this tracking point is not tracking anything(geometry) */
+	var EmptyTrackingPoint = (function () {
+	    function EmptyTrackingPoint() {
+	    }
+	    EmptyTrackingPoint.prototype.pointOnGeometry = function () {
+	        return this.point;
+	    };
+	    EmptyTrackingPoint.prototype.gravitateTowards = function (p) {
+	        return this.point;
+	    };
+	    return EmptyTrackingPoint;
+	}());
+	exports.EmptyTrackingPoint = EmptyTrackingPoint;
+	/** Tracks the center point of a given geometry */
+	var CenterTrackingPoint = (function () {
+	    function CenterTrackingPoint(geometry) {
+	        this.geometry = geometry;
+	    }
+	    CenterTrackingPoint.prototype.pointOnGeometry = function () {
+	        return this.geometry.getBoundingBox().center();
+	    };
+	    CenterTrackingPoint.prototype.gravitateTowards = function (p) {
+	        return this.geometry.getBoundingBox().center();
+	    };
+	    return CenterTrackingPoint;
+	}());
+	exports.CenterTrackingPoint = CenterTrackingPoint;
+	var RectTrackingPoint = (function () {
+	    /**
+	     * Creates a new tracking point for a given side of a rect with a
+	     * fraction that is linearly interpolated to get the tracked point
+	     */
+	    function RectTrackingPoint(rect, direction, fraction) {
+	        if (direction === void 0) { direction = common_1.Direction.Top; }
+	        if (fraction === void 0) { fraction = 0; }
+	        this.rect = rect;
+	        this.side = direction;
+	        this.fraction = fraction;
+	        this.trackedPoint = this.pointOnSide(this.side, this.fraction);
+	    }
+	    RectTrackingPoint.prototype.pointOnGeometry = function () {
+	        return this.pointOnSide(this.side, this.fraction);
+	    };
+	    /** Returns the point defined by a side and a fraction between 0 and 1 */
+	    RectTrackingPoint.prototype.pointOnSide = function (side, fraction) {
+	        if (fraction === void 0) { fraction = this.fraction; }
+	        var startPoint;
+	        var endPoint;
+	        switch (side) {
+	            case common_1.Direction.Top:
+	                startPoint = new geometry_1.Point(this.rect.x, this.rect.y);
+	                endPoint = new geometry_1.Point(this.rect.x + this.rect.width, this.rect.y);
+	                break;
+	            case common_1.Direction.Right:
+	                startPoint = new geometry_1.Point(this.rect.x + this.rect.width, this.rect.y);
+	                endPoint = new geometry_1.Point(this.rect.x + this.rect.width, this.rect.y + this.rect.height);
+	                break;
+	            case common_1.Direction.Bottom:
+	                startPoint = new geometry_1.Point(this.rect.x + this.rect.width, this.rect.y + this.rect.height);
+	                endPoint = new geometry_1.Point(this.rect.x, this.rect.y + this.rect.height);
+	                break;
+	            case common_1.Direction.Left:
+	                startPoint = new geometry_1.Point(this.rect.x, this.rect.y + this.rect.height);
+	                endPoint = new geometry_1.Point(this.rect.x, this.rect.y);
+	                break;
+	            default:
+	                console.log("Wrong side on rect tracking point");
+	                break;
+	        }
+	        return common_1.linearInterpolation(startPoint, endPoint, fraction);
+	    };
+	    RectTrackingPoint.prototype.gravitateTowards = function (p) {
+	        //find the center of the rectangle
+	        var cx = (this.rect.x + this.rect.x + this.rect.width) / 2;
+	        var cy = (this.rect.y + this.rect.y + this.rect.height) / 2;
+	        var centerToPoint = new common_1.LineEquation(new geometry_1.Point(cx, cy), p);
+	        var topLeft = this.rect.topLeft();
+	        var topRight = this.rect.topRight();
+	        var bottomLeft = this.rect.bottomLeft();
+	        var bottomRight = this.rect.bottomRight();
+	        var verticalSideEquation;
+	        var horizontalSideEquation;
+	        var verticalSideDirection;
+	        var horizontalSideDirection;
+	        //choose the side on which this point should get close to
+	        if (p.y > cy) {
+	            if (p.x > cx) {
+	                var verticalSideEquation = new common_1.LineEquation(topRight, bottomRight);
+	                verticalSideDirection = common_1.Direction.Right;
+	                var horizontalSideEquation = new common_1.LineEquation(topLeft, topRight);
+	                horizontalSideDirection = common_1.Direction.Top;
+	            }
+	            else {
+	                var verticalSideEquation = new common_1.LineEquation(topLeft, bottomLeft);
+	                verticalSideDirection = common_1.Direction.Left;
+	                var horizontalSideEquation = new common_1.LineEquation(topLeft, topRight);
+	                horizontalSideDirection = common_1.Direction.Top;
+	            }
+	        }
+	        else {
+	            if (p.x > cx) {
+	                var verticalSideEquation = new common_1.LineEquation(topRight, bottomRight);
+	                verticalSideDirection = common_1.Direction.Right;
+	                var horizontalSideEquation = new common_1.LineEquation(bottomLeft, bottomRight);
+	                horizontalSideDirection = common_1.Direction.Bottom;
+	            }
+	            else {
+	                var verticalSideEquation = new common_1.LineEquation(topLeft, bottomLeft);
+	                verticalSideDirection = common_1.Direction.Left;
+	                var horizontalSideEquation = new common_1.LineEquation(bottomLeft, bottomRight);
+	                horizontalSideDirection = common_1.Direction.Bottom;
+	            }
+	        }
+	        var verticalSidePoint = verticalSideEquation.intersectionWith(centerToPoint);
+	        var horizontalSidePoint = horizontalSideEquation.intersectionWith(centerToPoint);
+	        if (verticalSidePoint != null && verticalSidePoint.withinYSpan(topRight.y, bottomRight.y)) {
+	            this.side = verticalSideDirection;
+	            this.trackedPoint = verticalSidePoint;
+	        }
+	        else {
+	            this.side = horizontalSideDirection;
+	            this.trackedPoint = horizontalSidePoint;
+	        }
+	        return this.trackedPoint;
+	    };
+	    return RectTrackingPoint;
+	}());
+	exports.RectTrackingPoint = RectTrackingPoint;
+	var CircleTrackingPoint = (function () {
+	    function CircleTrackingPoint(circle) {
+	        this.circle = circle;
+	    }
+	    CircleTrackingPoint.prototype.pointOnGeometry = function () {
+	        return this.trackedPoint;
+	    };
+	    CircleTrackingPoint.prototype.gravitateTowards = function (p) {
+	        var angleOfSegment = this.circle.center.angleOfSegment(p);
+	        this.trackedPoint = this.circle.center.pointAtLength(angleOfSegment, this.circle.radius);
+	        return this.trackedPoint;
+	    };
+	    return CircleTrackingPoint;
+	}());
+	exports.CircleTrackingPoint = CircleTrackingPoint;
+	var LineSegmentTrackingPoint = (function () {
+	    function LineSegmentTrackingPoint() {
+	    }
+	    LineSegmentTrackingPoint.prototype.pointOnGeometry = function () {
+	        return common_1.linearInterpolation(this.lineSegment.start, this.lineSegment.end, this.fraction);
+	    };
+	    LineSegmentTrackingPoint.prototype.gravitateTowards = function (p) {
+	        return null; //TODO
+	    };
+	    return LineSegmentTrackingPoint;
+	}());
+	exports.LineSegmentTrackingPoint = LineSegmentTrackingPoint;
+
+
+/***/ },
+/* 75 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var worksheet_1 = __webpack_require__(70);
+	var http_1 = __webpack_require__(28);
+	var DashboardService = (function () {
+	    function DashboardService(http) {
+	        this.http = http;
+	    }
+	    /**
+	     * Gets the list of worksheets associated with the logged in user.
+	     * Will return null(Observable) if the user is not in session.
+	     */
+	    DashboardService.prototype.worksheetListForLoggedInUser = function () {
+	        var _this = this;
+	        return this.http.get(DashboardService.DASHBOARD_URL).map(function (response) { return _this.toWorksheetList(response); });
+	    };
+	    DashboardService.prototype.toWorksheetList = function (response) {
+	        var worksheetList = [];
+	        var arrayBody = response.json();
+	        for (var i = 0; i < arrayBody.length; i++) {
+	            worksheetList[i] = this.worksheetFromJson(arrayBody[i]);
+	        }
+	        return worksheetList;
+	    };
+	    DashboardService.prototype.worksheetFromJson = function (json) {
+	        var worksheet = new worksheet_1.Worksheet();
+	        worksheet.title = json.title;
+	        worksheet.description = json.description;
+	        worksheet.rid = json['@rid'];
+	        return worksheet;
+	    };
+	    /** Creates a worksheet for the logged in user. */
+	    DashboardService.prototype.createWorksheet = function (title, description) {
+	        var _this = this;
+	        var body = {
+	            "title": title,
+	            "description": description
+	        };
+	        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+	        var options = new http_1.RequestOptions({ headers: headers });
+	        return this.http.post(DashboardService.CREATE_WORKSHEET_URL, body, options).map(function (res) { return _this.worksheetFromJson(res.json()); });
+	    };
+	    /**
+	     * Removes the specified worksheet from the logged in user.
+	     * Returns false in case the worksheet is not associated with the user.
+	     */
+	    DashboardService.prototype.removeWorksheet = function (worksheet) {
+	        var body = {
+	            "worksheetRid": worksheet.rid
+	        };
+	        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+	        var options = new http_1.RequestOptions({
+	            headers: headers,
+	            body: body
+	        });
+	        return this.http.delete(DashboardService.REMOVE_WORKSHEET_URL, options).map(function (res) { return (res.json()); });
+	    };
+	    //TODO move these urls in the shared-codes file
+	    DashboardService.DASHBOARD_URL = "api/dashboard";
+	    DashboardService.CREATE_WORKSHEET_URL = "api/create-worksheet";
+	    DashboardService.REMOVE_WORKSHEET_URL = "api/remove-worksheet";
+	    DashboardService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
+	    ], DashboardService);
+	    return DashboardService;
+	    var _a;
+	}());
+	exports.DashboardService = DashboardService;
+
+
+/***/ },
+/* 76 */
+/***/ function(module, exports) {
+
+	module.exports = "<a style=\"background: blue;color: white\" (click)=\"router.navigate(['/account'])\">Account</a>\n<a style=\"background: pink;color: white\" (click)=\"logout()\">Logout</a>\n\n<h1>Worksheet list</h1>\n\n<div class=\"worksheet-tag\" *ngFor=\"let worksheet of worksheetList\">\n\t<span>{{worksheet.title}}</span> : \n\t<span>{{worksheet.description}}</span> \n\t<a style=\"background: red;color: white\" (click)=\"removeWorksheet(worksheet)\">Remove</a>\n</div>\n\n<div class=\"worksheet-tag\">\n\t<a style=\"background: green;color: white\" (click)=\"createNewWorksheet()\">Create new worksheet</a>\n</div>";
+
+/***/ },
+/* 77 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var core_2 = __webpack_require__(3);
+	var transform_service_1 = __webpack_require__(78);
+	var geometry_1 = __webpack_require__(71);
+	var sidebar_component_1 = __webpack_require__(79);
+	var artboard_component_1 = __webpack_require__(82);
+	var workspace_1 = __webpack_require__(89);
+	var worksheet_1 = __webpack_require__(70);
+	var SpaceKey = 32;
+	var WorkspaceComponent = (function () {
+	    function WorkspaceComponent(transformService) {
+	        this.transformService = transformService;
+	        this.windowMovementAllowed = false; //allowed only when space is held
+	        this.dragEntered = false;
+	        this.startX = 0;
+	        this.startY = 0;
+	        this.lastX = 0;
+	        this.lastY = 0;
+	    }
+	    WorkspaceComponent.prototype.ngOnInit = function () {
+	        //'window' here refers to the window object
+	        //get the width and height of the 'device' window and get the 
+	        this.movingWindow = new geometry_1.Rect(this.artboard.massiveArea.width / 2 - window.innerWidth / 2, this.artboard.massiveArea.height / 2 - window.innerHeight / 2, window.innerWidth, window.outerHeight);
+	        this.positionArtboardBasis(this.movingWindow);
+	        //TODO get the worksheet for the given rid defined in url params
+	        this.workspace = new workspace_1.Workspace(new worksheet_1.Worksheet());
+	        this.workspace.worksheet.diagramModel = new worksheet_1.DiagramModel();
+	    };
+	    WorkspaceComponent.prototype.toggleSidebar = function () {
+	        this.sidebar.open = !this.sidebar.open;
+	    };
+	    WorkspaceComponent.prototype.positionArtboardBasis = function (frame) {
+	        this.artboard.massiveArea.x = -frame.x;
+	        this.artboard.massiveArea.y = -frame.y;
+	        this.movingWindow.x = frame.x;
+	        this.movingWindow.y = frame.y;
+	    };
+	    WorkspaceComponent.prototype.keydown = function (event) {
+	        if (event.keyCode == SpaceKey) {
+	            this.windowMovementAllowed = true;
+	        }
+	    };
+	    WorkspaceComponent.prototype.keyup = function (event) {
+	        if (event.keyCode == SpaceKey) {
+	            this.windowMovementAllowed = false;
+	        }
+	    };
+	    WorkspaceComponent.prototype.mousedown = function (event) {
+	        this.dragEntered = true;
+	        this.startX = event.clientX;
+	        this.startY = event.clientY;
+	        this.lastX = event.clientX;
+	        this.lastY = event.clientY;
+	    };
+	    WorkspaceComponent.prototype.mousemove = function (event) {
+	        var dx = event.clientX - this.lastX;
+	        var dy = event.clientY - this.lastY;
+	        if (this.dragEntered && this.windowMovementAllowed) {
+	            //we inverse the differences because the gesture 'grabs' and pulls the artboard in the other direction
+	            dx *= -1;
+	            dy *= -1;
+	            if (this.movingWindow.x + dx >= this.artboard.massiveArea.x &&
+	                this.movingWindow.x + dx <= this.artboard.massiveArea.x + this.artboard.massiveArea.width) {
+	                this.movingWindow.x += dx;
+	            }
+	            if (this.movingWindow.y + dy >= this.artboard.massiveArea.y &&
+	                this.movingWindow.y + dy <= this.artboard.massiveArea.y + this.artboard.massiveArea.height) {
+	                this.movingWindow.y += dy;
+	            }
+	            this.positionArtboardBasis(this.movingWindow);
+	        }
+	        this.lastX = event.clientX;
+	        this.lastY = event.clientY;
+	    };
+	    WorkspaceComponent.prototype.mouseup = function (event) {
+	        this.dragEntered = false;
+	    };
+	    WorkspaceComponent.prototype.resize = function (event) {
+	        console.log("Window resize changing moving window size");
+	        this.movingWindow.width = window.innerWidth; //TODO what if the scale is different?
+	        this.movingWindow.height = window.innerHeight;
+	    };
+	    __decorate([
+	        core_1.ViewChild(sidebar_component_1.SidebarComponent), 
+	        __metadata('design:type', (typeof (_a = typeof sidebar_component_1.SidebarComponent !== 'undefined' && sidebar_component_1.SidebarComponent) === 'function' && _a) || Object)
+	    ], WorkspaceComponent.prototype, "sidebar", void 0);
+	    __decorate([
+	        core_1.ViewChild(artboard_component_1.ArtboardComponent), 
+	        __metadata('design:type', (typeof (_b = typeof artboard_component_1.ArtboardComponent !== 'undefined' && artboard_component_1.ArtboardComponent) === 'function' && _b) || Object)
+	    ], WorkspaceComponent.prototype, "artboard", void 0);
+	    WorkspaceComponent = __decorate([
+	        core_1.Component({
+	            selector: 'workspace',
+	            styles: [__webpack_require__(97)],
+	            template: __webpack_require__(98),
+	            animations: [
+	                core_2.trigger('shiftMenuControls', [
+	                    core_2.state('unshifted', core_2.style({
+	                        left: '20px'
+	                    })),
+	                    core_2.state('shifted', core_2.style({
+	                        left: '300px'
+	                    })),
+	                    core_2.transition('unshifted => shifted', core_2.animate('100ms ease-in')),
+	                    core_2.transition('shifted => unshifted', core_2.animate('100ms ease-out'))
+	                ])
+	            ]
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_c = typeof transform_service_1.TransformService !== 'undefined' && transform_service_1.TransformService) === 'function' && _c) || Object])
+	    ], WorkspaceComponent);
+	    return WorkspaceComponent;
+	    var _a, _b, _c;
+	}());
+	exports.WorkspaceComponent = WorkspaceComponent;
+
+
+/***/ },
+/* 78 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(71);
+	var TransformService = (function () {
+	    function TransformService() {
+	    }
+	    TransformService.prototype.toModelSpace = function (p) {
+	        return new geometry_1.Point(p.x, p.y); //TODO
+	    };
+	    TransformService.prototype.lengthInModelSpace = function (l) {
+	        return l; //TODO
+	    };
+	    TransformService.prototype.toViewSpace = function (p) {
+	        return new geometry_1.Point(p.x, p.y); //TODO
+	    };
+	    TransformService.prototype.lengthInViewSpace = function (l) {
+	        return l; //TODO
+	    };
+	    TransformService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [])
+	    ], TransformService);
+	    return TransformService;
+	}());
+	exports.TransformService = TransformService;
+
+
+/***/ },
+/* 79 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var core_2 = __webpack_require__(3);
+	var SidebarComponent = (function () {
+	    function SidebarComponent() {
+	        this.open = false;
+	    }
+	    SidebarComponent = __decorate([
+	        core_1.Component({
+	            selector: 'sidebar',
+	            styles: [__webpack_require__(80)],
+	            template: __webpack_require__(81),
+	            animations: [
+	                core_2.trigger('sidebarOpen', [
+	                    core_2.state('close', core_2.style({
+	                        left: '-300px'
+	                    })),
+	                    core_2.state('open', core_2.style({
+	                        left: '0px'
+	                    })),
+	                    core_2.transition('close => open', core_2.animate('100ms ease-in')),
+	                    core_2.transition('open => close', core_2.animate('100ms ease-out'))
+	                ])
+	            ]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], SidebarComponent);
+	    return SidebarComponent;
+	}());
+	exports.SidebarComponent = SidebarComponent;
+
+
+/***/ },
+/* 80 */
+/***/ function(module, exports) {
+
+	module.exports = "#sidebar {\n  background: #8f42de;\n  color: whitesmoke;\n  width: 280px;\n  height: 100%;\n  position: absolute;\n  top: 0px; }\n"
+
+/***/ },
+/* 81 */
+/***/ function(module, exports) {
+
+	module.exports = "<div id=\"sidebar\" [@sidebarOpen]=\"open?'open':'close'\">\n\t<h2>sidebar</h2>\n\t<i class=\"ms-Icon ms-Icon--Cancel\" aria-hidden=\"true\" (click)=\"open=false\"></i>\n\t\n</div>";
+
+/***/ },
+/* 82 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var core_2 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(71);
+	var geometry_2 = __webpack_require__(71);
+	var mock_data_service_1 = __webpack_require__(83);
+	var auto_completion_component_1 = __webpack_require__(85);
+	var creationDrawer = __webpack_require__(88);
+	var interpreter_service_1 = __webpack_require__(91);
+	var worksheet_1 = __webpack_require__(70);
+	var workspace_1 = __webpack_require__(89);
+	var selection_box_component_1 = __webpack_require__(130);
+	exports.ArtboardWidth = 3200;
+	exports.ArtboardHeight = (2 / 3) * exports.ArtboardWidth;
+	var ArtboardComponent = (function () {
+	    function ArtboardComponent(mockDataService, interpreter) {
+	        this.mockDataService = mockDataService;
+	        this.interpreter = interpreter;
+	        this.rectList = [];
+	        this.diagramticComponentList = [];
+	        this.mousedownEvent = new core_1.EventEmitter();
+	        this.mousemoveEvent = new core_1.EventEmitter();
+	        this.mouseupEvent = new core_1.EventEmitter();
+	        this.creationDrawerLocation = new geometry_2.Point(exports.ArtboardWidth / 2, exports.ArtboardHeight / 2);
+	        //testing stuff
+	        this.st = new geometry_2.Point(1501, 1300);
+	        this.en = new geometry_2.Point(1700, 700);
+	        this.massiveArea = new geometry_1.Rect(0, 0, exports.ArtboardWidth, exports.ArtboardHeight);
+	        this.testing();
+	    }
+	    ArtboardComponent.prototype.testing = function () {
+	        this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
+	        this.rectList.push(new geometry_1.Rect(1300, 1000, 200, 50));
+	        this.genericNode1 = new worksheet_1.GenericDiagramNode(worksheet_1.GenericDiagramNodeType.Rectangle);
+	        this.genericNode1.rect.x = 1500;
+	        this.genericNode1.rect.y = 1200;
+	        this.genericNode2 = new worksheet_1.GenericDiagramNode(worksheet_1.GenericDiagramNodeType.RoundedRectangle);
+	        this.genericNode2.rect.x = 1800;
+	        this.genericNode2.rect.y = 1000;
+	        this.edge = new worksheet_1.DiagramEdge();
+	        this.edge.from = this.genericNode1;
+	        this.edge.to = this.genericNode2;
+	    };
+	    ArtboardComponent.prototype.doubleClickedArtboard = function (event) {
+	        this.creationDrawerLocation = new geometry_2.Point(event.offsetX - creationDrawer.WIDTH / 2, event.offsetY - creationDrawer.HEIGHT / 2);
+	        this.workspace.creationDrawerIsOpen = true;
+	    };
+	    ArtboardComponent.prototype.mousedown = function (event) {
+	        this.workspace.creationDrawerIsOpen = false;
+	        this.mousedownEvent.emit(event);
+	        if (this.draggingInteraction != null) {
+	            this.draggingInteraction.handleMousePress(event);
+	        }
+	        else {
+	            this.selectionBox.mousePressed(event);
+	        }
+	    };
+	    ArtboardComponent.prototype.mousemove = function (event) {
+	        this.mousemoveEvent.emit(event);
+	        if (this.draggingInteraction != null) {
+	            this.draggingInteraction.handleMouseDrag(event);
+	        }
+	        else {
+	            this.selectionBox.mouseMoved(event);
+	        }
+	    };
+	    ArtboardComponent.prototype.mouseup = function (event) {
+	        this.mouseupEvent.emit(event);
+	        if (this.draggingInteraction != null) {
+	            this.draggingInteraction.handleMouseRelease(event);
+	        }
+	        else {
+	            this.selectionBox.mouseReleased(event);
+	        }
+	        this.draggingInteraction = null;
+	    };
+	    ArtboardComponent.prototype.setDragInteractionIfEmpty = function (dragProcessor) {
+	        if (this.draggingInteraction == null) {
+	            console.log("Setting new drag processor");
+	            this.draggingInteraction = dragProcessor;
+	        }
+	    };
+	    ArtboardComponent.prototype.register = function (listener) {
+	        this.diagramticComponentList.push(listener);
+	    };
+	    ArtboardComponent.prototype.unregister = function (listener) {
+	        var index = this.diagramticComponentList.indexOf(listener, 0);
+	        if (index > -1) {
+	            this.diagramticComponentList.splice(index, 1);
+	        }
+	    };
+	    __decorate([
+	        core_2.ViewChild(selection_box_component_1.SelectionBoxComponent), 
+	        __metadata('design:type', (typeof (_a = typeof selection_box_component_1.SelectionBoxComponent !== 'undefined' && selection_box_component_1.SelectionBoxComponent) === 'function' && _a) || Object)
+	    ], ArtboardComponent.prototype, "selectionBox", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', (typeof (_b = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _b) || Object)
+	    ], ArtboardComponent.prototype, "workspace", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], ArtboardComponent.prototype, "mousedownEvent", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], ArtboardComponent.prototype, "mousemoveEvent", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], ArtboardComponent.prototype, "mouseupEvent", void 0);
+	    __decorate([
+	        core_2.ViewChild(auto_completion_component_1.AutoCompletionComponent), 
+	        __metadata('design:type', (typeof (_c = typeof auto_completion_component_1.AutoCompletionComponent !== 'undefined' && auto_completion_component_1.AutoCompletionComponent) === 'function' && _c) || Object)
+	    ], ArtboardComponent.prototype, "autoCompletion", void 0);
+	    ArtboardComponent = __decorate([
+	        core_1.Component({
+	            selector: 'artboard',
+	            styles: [__webpack_require__(95)],
+	            template: __webpack_require__(96),
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_d = typeof mock_data_service_1.MockDataService !== 'undefined' && mock_data_service_1.MockDataService) === 'function' && _d) || Object, (typeof (_e = typeof interpreter_service_1.InterpreterService !== 'undefined' && interpreter_service_1.InterpreterService) === 'function' && _e) || Object])
+	    ], ArtboardComponent);
+	    return ArtboardComponent;
+	    var _a, _b, _c, _d, _e;
+	}());
+	exports.ArtboardComponent = ArtboardComponent;
+
+
+/***/ },
+/* 83 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var semantic = __webpack_require__(73);
+	var worksheet = __webpack_require__(70);
+	var object = __webpack_require__(84);
+	var artboard_component_1 = __webpack_require__(82);
+	var MockDataService = (function () {
+	    function MockDataService() {
+	    }
+	    MockDataService.prototype.vehicleUml = function () {
+	        //Vehicle abstract class
+	        var vehicle = new semantic.ClassDefinition("Vehicle");
+	        vehicle.isAbstract = true;
+	        vehicle.fieldList.push(new semantic.FieldMember("weight", semantic.FloatWrapper));
+	        vehicle.fieldList.push(new semantic.FieldMember("passengerCapacity", semantic.IntWrapper));
+	        vehicle.methodList.push(new semantic.MethodMember("estimatedTotalWeight", semantic.FloatWrapper));
+	        var getOwnerName = new semantic.MethodMember("getOwnerName", semantic.StringWrapper);
+	        getOwnerName.isAbstract = true;
+	        vehicle.methodList.push(getOwnerName);
+	        //Land, Water, Air sub abstract classes
+	        var land = new semantic.ClassDefinition("Land", vehicle);
+	        land.isAbstract = true;
+	        land.fieldList.push(new semantic.FieldMember("numberOfWheels", semantic.IntWrapper));
+	        var water = new semantic.ClassDefinition("Water", vehicle);
+	        water.isAbstract = true;
+	        water.methodList.push(new semantic.MethodMember("getDockingInformation", semantic.StringWrapper));
+	        var air = new semantic.ClassDefinition("Air", vehicle);
+	        air.isAbstract = true;
+	        land.fieldList.push(new semantic.FieldMember("takeOffDistance", semantic.FloatWrapper));
+	        vehicle.subClasses.push(land, water, air);
+	        //concrete classes
+	        var truck = new semantic.ClassDefinition("Truck", land);
+	        var car = new semantic.ClassDefinition("Car", land);
+	        vehicle.addSubClasses(truck, car);
+	        var boat = new semantic.ClassDefinition("Boat", water);
+	        var ship = new semantic.ClassDefinition("Ship", water);
+	        water.addSubClasses(boat, ship);
+	        var plane = new semantic.ClassDefinition("Plane", air);
+	        var helicopter = new semantic.ClassDefinition("Helicopter", air);
+	        air.addSubClasses(plane, helicopter);
+	        //cargo interface
+	        var cargo = new semantic.InterfaceDefinition("Cargo");
+	        cargo.methodList.push(new semantic.MethodPrototype("weightRequirement", semantic.FloatWrapper));
+	        cargo.methodList.push(new semantic.MethodPrototype("areaRequirement", semantic.FloatWrapper));
+	        // Simple luggage concrete class
+	        var luggage = new semantic.ClassDefinition("Luggage");
+	        luggage.fieldList.push(new semantic.FieldMember("weight", semantic.FloatWrapper));
+	        luggage.fieldList.push(new semantic.FieldMember("area", semantic.FloatWrapper));
+	        luggage.fieldList.push(new semantic.FieldMember("fragile", semantic.BoolWrapper));
+	        luggage.interfacesImplemented.push(cargo);
+	        cargo.addImplementingClasses(luggage);
+	        //CargoCarier interface
+	        var cargoCarrier = new semantic.InterfaceDefinition("CargoCarier");
+	        cargoCarrier.methodList.push(new semantic.MethodPrototype("maximumAllowedWeight", semantic.FloatWrapper));
+	        cargoCarrier.methodList.push(new semantic.MethodPrototype("carryCargo", cargo));
+	        // Vehicle also implements cargo
+	        vehicle.interfacesImplemented.push(cargo);
+	        cargo.addImplementingClasses(vehicle);
+	        truck.interfacesImplemented.push(cargoCarrier);
+	        plane.interfacesImplemented.push(cargoCarrier);
+	        ship.interfacesImplemented.push(cargoCarrier);
+	        cargoCarrier.addImplementingClasses(truck, plane, ship);
+	        var semanticModel = new semantic.SemanticModel();
+	        semanticModel.classDefinitionList.push(vehicle, land, water, air, truck, car, ship, boat, plane, helicopter, luggage);
+	        semanticModel.interfaceDefinitionList.push(cargo, cargoCarrier);
+	        return semanticModel;
+	    };
+	    MockDataService.prototype.vehicleWorksheet = function () {
+	        var width = artboard_component_1.ArtboardWidth;
+	        var height = artboard_component_1.ArtboardHeight;
+	        var softwareDesign = this.vehicleUml();
+	        var vehicle = softwareDesign.getClassByName("Vehicle");
+	        var vehicleClassDiagram = new worksheet.ClassDiagramNode(vehicle, width / 2, height / 2);
+	        var cargoCarrier = softwareDesign.getInterfaceByName("CargoCarier");
+	        var cargoCarrierDiagram = new worksheet.InterfaceDiagramNode(cargoCarrier, width / 2 + 250, height / 2 + 200);
+	        var luggage = softwareDesign.getClassByName("Luggage");
+	        var weight = luggage.getFieldByName("weight");
+	        var area = luggage.getFieldByName("area");
+	        var fragile = luggage.getFieldByName("fragile");
+	        var luggageObject = new object.ClassObjectData("luggage", luggage);
+	        luggageObject.fieldDataList.push(new object.DataHolder(weight.variableDefinition, new object.PrimitiveData(semantic.PrimitiveType.FloatType, "23.4")));
+	        luggageObject.fieldDataList.push(new object.DataHolder(area.variableDefinition, new object.PrimitiveData(semantic.PrimitiveType.FloatType, "13.4")));
+	        luggageObject.fieldDataList.push(new object.DataHolder(weight.variableDefinition, new object.PrimitiveData(semantic.PrimitiveType.BoolType, "true")));
+	        var luggageObjectDiagram = new worksheet.ClassObjectDiagram(luggageObject, width / 2 + 100, height / 2 - 300);
+	        var document = new worksheet.Worksheet();
+	        // the new design does not have these fields
+	        // document.semanticModel=softwareDesign;
+	        // document.classDiagramList.push(vehicleClassDiagram);
+	        // document.interfaceDiagramList.push(cargoCarrierDiagram);
+	        // document.classObjectDiagramList.push(luggageObjectDiagram);
+	        return document;
+	    };
+	    MockDataService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [])
+	    ], MockDataService);
+	    return MockDataService;
+	}());
+	exports.MockDataService = MockDataService;
+
+
+/***/ },
+/* 84 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var semantic_model_1 = __webpack_require__(73);
 	/** Root class that holds all data objects entries in one place */
 	var ObjectModel = (function () {
 	    function ObjectModel() {
@@ -8088,8 +8209,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 84:
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8103,9 +8223,9 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(73);
-	var semantic_model_1 = __webpack_require__(75);
-	var object_model_1 = __webpack_require__(83);
+	var geometry_1 = __webpack_require__(71);
+	var semantic_model_1 = __webpack_require__(73);
+	var object_model_1 = __webpack_require__(84);
 	var AutoCompletionComponent = (function () {
 	    function AutoCompletionComponent() {
 	        this.position = new geometry_1.Point(1200, 900);
@@ -8121,8 +8241,8 @@ webpackJsonp([0],{
 	    AutoCompletionComponent = __decorate([
 	        core_1.Component({
 	            selector: 'auto-completion',
-	            template: __webpack_require__(85),
-	            styles: [__webpack_require__(86)]
+	            template: __webpack_require__(86),
+	            styles: [__webpack_require__(87)]
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], AutoCompletionComponent);
@@ -8133,22 +8253,19 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 85:
+/* 86 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"auto-completion-box\"\n\t[style.left.px]=\"position.x\"\n\t[style.top.px]=\"position.y\"\n\t>\n\tSomeClassName\n</div>";
 
 /***/ },
-
-/***/ 86:
+/* 87 */
 /***/ function(module, exports) {
 
 	module.exports = "#auto-completion-box {\n  position: absolute;\n  background: #6f6f6f;\n  color: white;\n  width: 250px;\n  height: 200px;\n  overflow-x: hidden;\n  overflow-y: scroll; }\n"
 
 /***/ },
-
-/***/ 87:
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8162,8 +8279,183 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var lexer = __webpack_require__(88);
-	var parser = __webpack_require__(89);
+	var core_2 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(71);
+	var workspace_1 = __webpack_require__(89);
+	exports.WIDTH = 200;
+	exports.HEIGHT = 250;
+	var CreationDrawerComponent = (function () {
+	    function CreationDrawerComponent() {
+	        this.requestDragging = new core_1.EventEmitter();
+	    }
+	    CreationDrawerComponent.prototype.handleMousePress = function (event) {
+	    };
+	    CreationDrawerComponent.prototype.handleMouseDrag = function (event) {
+	    };
+	    CreationDrawerComponent.prototype.handleMouseRelease = function (event) {
+	    };
+	    CreationDrawerComponent.prototype.registerDragIntention = function (dragProcessor) {
+	        this.requestDragging.emit(dragProcessor);
+	    };
+	    __decorate([
+	        core_1.Input('workspace'), 
+	        __metadata('design:type', (typeof (_a = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _a) || Object)
+	    ], CreationDrawerComponent.prototype, "workspace", void 0);
+	    __decorate([
+	        core_1.Input('position'), 
+	        __metadata('design:type', (typeof (_b = typeof geometry_1.Point !== 'undefined' && geometry_1.Point) === 'function' && _b) || Object)
+	    ], CreationDrawerComponent.prototype, "position", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], CreationDrawerComponent.prototype, "requestDragging", void 0);
+	    CreationDrawerComponent = __decorate([
+	        core_1.Component({
+	            selector: 'creation-drawer',
+	            template: __webpack_require__(90),
+	            animations: [
+	                core_2.trigger('isDrawerOpen', [
+	                    core_2.state('open', core_2.style({
+	                        width: exports.WIDTH + "px",
+	                        height: exports.HEIGHT + "px",
+	                        transform: "scale(1,1)"
+	                    })),
+	                    core_2.state('closed', core_2.style({
+	                        width: exports.WIDTH + "px",
+	                        height: exports.HEIGHT + "px",
+	                        transform: "scale(0,0)"
+	                    })),
+	                    core_2.transition('open => closed', core_2.animate('100ms ease-in')),
+	                    core_2.transition('closed => open', core_2.animate('200ms ease-out'))
+	                ])
+	            ]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], CreationDrawerComponent);
+	    return CreationDrawerComponent;
+	    var _a, _b;
+	}());
+	exports.CreationDrawerComponent = CreationDrawerComponent;
+
+
+/***/ },
+/* 89 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var worksheet_1 = __webpack_require__(70);
+	/** Current configuration of the workspace on account of user actions so far. */
+	var Workspace = (function () {
+	    function Workspace(worksheet) {
+	        this.history = [];
+	        this.future = [];
+	        this._selection = new worksheet_1.DiagramModel();
+	        this.creationDrawerIsOpen = false;
+	        this._worksheet = worksheet;
+	    }
+	    Workspace.prototype.commit = function (command) {
+	        this.history.push(command);
+	        this.future.splice(0, this.future.length);
+	    };
+	    Workspace.prototype.undo = function () {
+	        if (this.history.length) {
+	            console.debug("history stack is empty");
+	            return;
+	        }
+	        var latestCommand = this.history.pop();
+	        latestCommand.unExecute(); //undo it
+	        this.future.push(latestCommand);
+	    };
+	    Workspace.prototype.redo = function () {
+	        if (this.future.length) {
+	            console.debug("future stack is empty");
+	            return;
+	        }
+	        var undoneCommand = this.history.pop();
+	        undoneCommand.execute(); //redo it back
+	        this.history.push(undoneCommand);
+	    };
+	    Object.defineProperty(Workspace.prototype, "worksheet", {
+	        get: function () {
+	            return this._worksheet;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Workspace.prototype, "selection", {
+	        get: function () {
+	            return this._selection;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Workspace.prototype.addNodeToSelection = function (node) {
+	        if (this._selection.containsNode(node)) {
+	            return;
+	        }
+	        this._selection.diagramNodeList.push(node);
+	        node.selected = true;
+	    };
+	    Workspace.prototype.removeNodeToSelection = function (node) {
+	        var index = this._selection.diagramNodeList.indexOf(node);
+	        if (index != -1) {
+	            this._selection.diagramNodeList.splice(index, 1);
+	            node.selected = false;
+	        }
+	    };
+	    Workspace.prototype.addEdgeToSelection = function (edge) {
+	        if (this._selection.containsEdge(edge)) {
+	            return;
+	        }
+	        this._selection.diagramEdgeList.push(edge);
+	        edge.selected = true;
+	    };
+	    Workspace.prototype.removeEdgeToSelection = function (edge) {
+	        var index = this._selection.diagramEdgeList.indexOf(edge);
+	        if (index != -1) {
+	            this._selection.diagramEdgeList.splice(index, 1);
+	            edge.selected = false;
+	        }
+	    };
+	    /** Clears the selection and resets the selected flag for each node and edeg*/
+	    Workspace.prototype.clearSelection = function () {
+	        for (var _i = 0, _a = this._selection.diagramEdgeList; _i < _a.length; _i++) {
+	            var edge = _a[_i];
+	            this.removeEdgeToSelection(edge);
+	        }
+	        for (var _b = 0, _c = this._selection.diagramNodeList; _b < _c.length; _b++) {
+	            var node = _c[_b];
+	            this.removeNodeToSelection(node);
+	        }
+	    };
+	    return Workspace;
+	}());
+	exports.Workspace = Workspace;
+
+
+/***/ },
+/* 90 */
+/***/ function(module, exports) {
+
+	module.exports = "<div \n\tclass=\"drop-shadowed-pop-up\"\n\tid=\"creation-pop-up\"\n\t[style.left.px]=\"position.x\"\n\t[style.top.px]=\"position.y\"\n\t[@isDrawerOpen]=\"workspace.creationDrawerIsOpen?'open':'closed'\" >\n\n</div>";
+
+/***/ },
+/* 91 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var lexer = __webpack_require__(92);
+	var parser = __webpack_require__(93);
 	var InterpreterService = (function () {
 	    function InterpreterService() {
 	    }
@@ -8203,8 +8495,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 88:
+/* 92 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8452,14 +8743,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 89:
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var lexical_analyzer_1 = __webpack_require__(88);
-	var parser_table_1 = __webpack_require__(90);
-	var util = __webpack_require__(74);
+	var lexical_analyzer_1 = __webpack_require__(92);
+	var parser_table_1 = __webpack_require__(94);
+	var util = __webpack_require__(72);
 	/** Different types of syntax elements that can exists in a CFG */
 	(function (SyntaxElementType) {
 	    SyntaxElementType[SyntaxElementType["NonTerminal"] = 0] = "NonTerminal";
@@ -8907,13 +9197,12 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 90:
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var syntax_parser_1 = __webpack_require__(89);
-	var util = __webpack_require__(74);
+	var syntax_parser_1 = __webpack_require__(93);
+	var util = __webpack_require__(72);
 	/** Type of action in the parser table */
 	(function (ParserTableValueType) {
 	    ParserTableValueType[ParserTableValueType["Blank"] = 1] = "Blank";
@@ -9329,45 +9618,1465 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 91:
+/* 95 */
 /***/ function(module, exports) {
 
 	module.exports = "#massive-area {\n  position: absolute; }\n\n#starter-tip {\n  position: absolute;\n  color: gray; }\n"
 
 /***/ },
-
-/***/ 92:
+/* 96 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\n\t<creation-drawer [workspace]=\"workspace\" [position]=\"creationDrawerLocation\"></creation-drawer>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\t<generic-node [genericNode]=\"genericNode1\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n\t<generic-node [genericNode]=\"genericNode2\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n\t<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>\n\n</div>";
+	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\n\t<creation-drawer [workspace]=\"workspace\" [position]=\"creationDrawerLocation\"></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\t<generic-node [genericNode]=\"genericNode1\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n\t<generic-node [genericNode]=\"genericNode2\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></generic-node>\n\t<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>\n\n</div>";
 
 /***/ },
-
-/***/ 93:
+/* 97 */
 /***/ function(module, exports) {
 
 	module.exports = "#menu-controls {\n  position: absolute;\n  padding: 0px;\n  top: 10px; }\n  #menu-controls li {\n    color: blue;\n    cursor: pointer;\n    display: inline;\n    list-style: none; }\n  #menu-controls li:hover {\n    color: darkblue; }\n\n#container {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n"
 
 /***/ },
-
-/***/ 94:
+/* 98 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t\t[workspace]=\"workspace\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t<li>Area</li>\n\t\t<li>Overview</li>\n\t</ul>\n</div>\n";
 
 /***/ },
+/* 99 */
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ 95:
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var user_service_1 = __webpack_require__(66);
+	var router_1 = __webpack_require__(32);
+	var AccountComponent = (function () {
+	    function AccountComponent(userService, router) {
+	        this.userService = userService;
+	        this.router = router;
+	    }
+	    AccountComponent.prototype.ngOnInit = function () {
+	        var _this = this;
+	        this.userService.accountInfo().subscribe(function (user) {
+	            _this.user = user;
+	        }, function (error) {
+	            console.error("Retrieving account info"); //TODO show user friendly message
+	        });
+	    };
+	    AccountComponent.prototype.saveAccountDetails = function () {
+	        console.log("TODO Saving account Details");
+	    };
+	    AccountComponent = __decorate([
+	        core_1.Component({
+	            selector: 'account',
+	            template: __webpack_require__(100),
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object])
+	    ], AccountComponent);
+	    return AccountComponent;
+	    var _a, _b;
+	}());
+	exports.AccountComponent = AccountComponent;
+
+
+/***/ },
+/* 100 */
+/***/ function(module, exports) {
+
+	module.exports = "<a style=\"background: blue;color: white\" (click)=\"router.navigate(['/dashboard'])\">Dashboard</a>\n\n<div>Account</div>\n\n<div *ngIf=\"user!=null\">\n\n\t<div>\n\t\t<span>firstName:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.firstName\"/>\n\t</div>\n\n\t<div>\n\t\t<span>lastName:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.lastName\"/>\n\t</div>\n\n\t<div>\n\t\t<span>email:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.email\"/>\n\t</div>\n\n\t<div>\n\t\t<span>gender:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.gender\"/>\n\t</div>\n</div>\n\n<!--TODO allow changing password-->\n\n<a (click)=\"saveAccountDetails()\">Save details</a>";
+
+/***/ },
+/* 101 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var user_account_1 = __webpack_require__(65);
+	var user_service_1 = __webpack_require__(66);
+	var shared_codes_1 = __webpack_require__(67);
+	var router_1 = __webpack_require__(32);
+	var LoginComponent = (function () {
+	    function LoginComponent(userService, router) {
+	        this.userService = userService;
+	        this.router = router;
+	        this.loginForm = new user_account_1.LoginCredential();
+	    }
+	    LoginComponent.prototype.attemptLogin = function () {
+	        var _this = this;
+	        console.log("Attemtping login for " + this.loginForm.toString());
+	        this.userService.login(this.loginForm).subscribe(function (attempt) {
+	            console.log("Response from server " + attempt);
+	            if (attempt == shared_codes_1.LoginAttempt.Success) {
+	                //send directly to dashboard 
+	                _this.router.navigate(["/dashboard"]);
+	            }
+	            else {
+	                //redirect back to homepage along with the type of error in query params
+	                var navigationExtras = {
+	                    queryParams: { 'attemptType': 'login', 'attemptCode': attempt },
+	                };
+	                _this.router.navigate([""], navigationExtras);
+	            }
+	        }, function (error) {
+	            console.log("Error From Server: " + error.message);
+	        });
+	    };
+	    LoginComponent = __decorate([
+	        core_1.Component({
+	            selector: 'login',
+	            template: __webpack_require__(102),
+	        }), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object])
+	    ], LoginComponent);
+	    return LoginComponent;
+	    var _a, _b;
+	}());
+	exports.LoginComponent = LoginComponent;
+
+
+/***/ },
+/* 102 */
+/***/ function(module, exports) {
+
+	module.exports = "<input type=\"text\" [(ngModel)]=\"loginForm.username\"/>\n<input type=\"password\" [(ngModel)]=\"loginForm.password\"/>\n<a href=\"#\" (click)=\"attemptLogin()\">Login</a>\n<div><a routerLink=\"/signup\">Sign Up</a></div>";
+
+/***/ },
+/* 103 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var platform_browser_1 = __webpack_require__(21);
+	var forms_1 = __webpack_require__(24);
+	var dashboard_routing_module_1 = __webpack_require__(104);
+	var dashboard_component_1 = __webpack_require__(69);
+	var dashboard_service_1 = __webpack_require__(75);
+	var DashboardModule = (function () {
+	    function DashboardModule() {
+	    }
+	    DashboardModule = __decorate([
+	        core_1.NgModule({
+	            imports: [
+	                platform_browser_1.BrowserModule,
+	                forms_1.FormsModule,
+	                dashboard_routing_module_1.DashboardRoutingModule
+	            ],
+	            declarations: [
+	                dashboard_component_1.DashboardComponent
+	            ],
+	            providers: [dashboard_service_1.DashboardService],
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], DashboardModule);
+	    return DashboardModule;
+	}());
+	exports.DashboardModule = DashboardModule;
+
+
+/***/ },
+/* 104 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var router_1 = __webpack_require__(32);
+	var dashboard_component_1 = __webpack_require__(69);
+	var DashboardRoutingModule = (function () {
+	    function DashboardRoutingModule() {
+	    }
+	    DashboardRoutingModule = __decorate([
+	        core_1.NgModule({
+	            imports: [
+	                router_1.RouterModule.forChild([
+	                    {
+	                        path: 'dashboard',
+	                        component: dashboard_component_1.DashboardComponent
+	                    },
+	                ])
+	            ],
+	            exports: [
+	                router_1.RouterModule
+	            ]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], DashboardRoutingModule);
+	    return DashboardRoutingModule;
+	}());
+	exports.DashboardRoutingModule = DashboardRoutingModule;
+
+
+/***/ },
+/* 105 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var platform_browser_1 = __webpack_require__(21);
+	var forms_1 = __webpack_require__(24);
+	var workspace_component_1 = __webpack_require__(77);
+	var artboard_component_1 = __webpack_require__(82);
+	var sidebar_component_1 = __webpack_require__(79);
+	var area_component_1 = __webpack_require__(106);
+	var box_component_1 = __webpack_require__(108);
+	var generic_node_component_1 = __webpack_require__(112);
+	var line_segment_component_1 = __webpack_require__(114);
+	var resize_handle_component_1 = __webpack_require__(109);
+	var linker_component_1 = __webpack_require__(116);
+	var input_box_component_1 = __webpack_require__(118);
+	var auto_completion_component_1 = __webpack_require__(85);
+	var class_diagram_component_1 = __webpack_require__(120);
+	var class_object_diagram_component_1 = __webpack_require__(122);
+	var interface_diagram_component_1 = __webpack_require__(124);
+	var interface_object_diagram_component_1 = __webpack_require__(126);
+	var linked_segments_component_1 = __webpack_require__(128);
+	var creation_drawer_component_1 = __webpack_require__(88);
+	var selection_box_component_1 = __webpack_require__(130);
+	var transform_service_1 = __webpack_require__(78);
+	var interpreter_service_1 = __webpack_require__(91);
+	var mock_data_service_1 = __webpack_require__(83);
+	var focus_directive_1 = __webpack_require__(132);
+	var my_rect_directive_1 = __webpack_require__(133);
+	var my_circle_directive_1 = __webpack_require__(134);
+	var access_symbol_pipe_1 = __webpack_require__(135);
+	var node_background_pipe_1 = __webpack_require__(136);
+	var WorkspaceModule = (function () {
+	    function WorkspaceModule() {
+	    }
+	    WorkspaceModule = __decorate([
+	        core_1.NgModule({
+	            imports: [
+	                platform_browser_1.BrowserModule,
+	                forms_1.FormsModule,
+	            ],
+	            declarations: [
+	                focus_directive_1.FocusDirective,
+	                my_rect_directive_1.MyRectDirective,
+	                my_circle_directive_1.MyCircleDirective,
+	                access_symbol_pipe_1.AccessSymbol,
+	                node_background_pipe_1.NodeBackground,
+	                workspace_component_1.WorkspaceComponent,
+	                sidebar_component_1.SidebarComponent,
+	                artboard_component_1.ArtboardComponent,
+	                area_component_1.AreaComponent,
+	                box_component_1.BoxComponent,
+	                generic_node_component_1.GenericNodeComponent,
+	                line_segment_component_1.LineSegmentComponent,
+	                resize_handle_component_1.ResizeHandleComponent,
+	                input_box_component_1.InputBoxComponent,
+	                auto_completion_component_1.AutoCompletionComponent,
+	                class_diagram_component_1.ClassDiagramComponent,
+	                class_object_diagram_component_1.ClassObjectComponent,
+	                interface_diagram_component_1.InterfaceDiagramComponent,
+	                interface_object_diagram_component_1.InterfaceObjectDiagramComponent,
+	                linked_segments_component_1.LinkedSegmentsComponent,
+	                linker_component_1.LinkerComponent,
+	                creation_drawer_component_1.CreationDrawerComponent,
+	                selection_box_component_1.SelectionBoxComponent
+	            ],
+	            schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA],
+	            providers: [transform_service_1.TransformService, interpreter_service_1.InterpreterService, mock_data_service_1.MockDataService]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], WorkspaceModule);
+	    return WorkspaceModule;
+	}());
+	exports.WorkspaceModule = WorkspaceModule;
+
+
+/***/ },
+/* 106 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var AreaComponent = (function () {
+	    function AreaComponent() {
+	    }
+	    AreaComponent = __decorate([
+	        core_1.Component({
+	            selector: 'area-highlight',
+	            template: __webpack_require__(107),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], AreaComponent);
+	    return AreaComponent;
+	}());
+	exports.AreaComponent = AreaComponent;
+
+
+/***/ },
+/* 107 */
+/***/ function(module, exports) {
+
+	module.exports = "<h1>TODO area</h1>";
+
+/***/ },
+/* 108 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var core_2 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(71);
+	var resize_handle_component_1 = __webpack_require__(109);
+	var BoxComponent = (function () {
+	    function BoxComponent() {
+	        this.requestDragging = new core_1.EventEmitter();
+	        this.isSelected = false;
+	    }
+	    BoxComponent.prototype.toggleSelection = function () {
+	        this.isSelected = !this.isSelected;
+	    };
+	    BoxComponent.prototype.handleMousePress = function (event) {
+	    };
+	    BoxComponent.prototype.handleMouseDrag = function (event) {
+	    };
+	    BoxComponent.prototype.handleMouseRelease = function (event) {
+	    };
+	    BoxComponent.prototype.registerDragIntention = function (dragProcessor) {
+	        this.requestDragging.emit(dragProcessor);
+	    };
+	    BoxComponent.prototype.updateAllResizeHandlers = function (resizeHandler) {
+	        this.resizeHandlers.forEach(function (item) {
+	            item.updateHandlePosition();
+	        });
+	    };
+	    __decorate([
+	        core_1.Input('rect'), 
+	        __metadata('design:type', (typeof (_a = typeof geometry_1.Rect !== 'undefined' && geometry_1.Rect) === 'function' && _a) || Object)
+	    ], BoxComponent.prototype, "rect", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], BoxComponent.prototype, "requestDragging", void 0);
+	    __decorate([
+	        core_1.ViewChildren(resize_handle_component_1.ResizeHandleComponent), 
+	        __metadata('design:type', (typeof (_b = typeof core_1.QueryList !== 'undefined' && core_1.QueryList) === 'function' && _b) || Object)
+	    ], BoxComponent.prototype, "resizeHandlers", void 0);
+	    BoxComponent = __decorate([
+	        core_1.Component({
+	            selector: 'box',
+	            template: __webpack_require__(111),
+	            animations: [
+	                core_2.trigger('selection', [
+	                    core_2.state('selected', core_2.style({
+	                        borderColor: "#2BA3FC"
+	                    })),
+	                    core_2.state('unselected', core_2.style({
+	                        borderColor: "black"
+	                    })),
+	                    core_2.transition('selected => unselected', core_2.animate('100ms ease-in')),
+	                    core_2.transition('unselected => selected', core_2.animate('100ms ease-out'))
+	                ])
+	            ]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], BoxComponent);
+	    return BoxComponent;
+	    var _a, _b;
+	}());
+	exports.BoxComponent = BoxComponent;
+
+
+/***/ },
+/* 109 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(71);
+	var common_1 = __webpack_require__(72);
+	var tracking_point_1 = __webpack_require__(74);
+	var ResizeHandleComponent = (function () {
+	    function ResizeHandleComponent() {
+	        this.requestDragging = new core_1.EventEmitter();
+	        this.updateAllResizeHandlers = new core_1.EventEmitter();
+	        //the following private fields are used exclusively to handle the drag event
+	        this.startX = 0;
+	        this.startY = 0;
+	        this.lastX = 0;
+	        this.lastY = 0;
+	    }
+	    ResizeHandleComponent.prototype.ngOnInit = function () {
+	        this.initHandle();
+	        this.updateHandlePosition();
+	    };
+	    ResizeHandleComponent.prototype.initHandle = function () {
+	        //initialize tracking point based on this handles placement
+	        this.pointOnSide = new tracking_point_1.RectTrackingPoint(this.rect);
+	        switch (this.placement) {
+	            case common_1.Direction.Top:
+	                this.pointOnSide.fraction = 0.5;
+	                this.pointOnSide.side = common_1.Direction.Top;
+	                this.cursor = "ns-resize";
+	                break;
+	            case common_1.Direction.TopLeft:
+	                this.pointOnSide.fraction = 0;
+	                this.pointOnSide.side = common_1.Direction.Top;
+	                this.cursor = "nwse-resize";
+	                break;
+	            case common_1.Direction.TopRight:
+	                this.pointOnSide.fraction = 1;
+	                this.pointOnSide.side = common_1.Direction.Top;
+	                this.cursor = "nesw-resize";
+	                break;
+	            case common_1.Direction.Bottom:
+	                this.pointOnSide.fraction = 0.5;
+	                this.pointOnSide.side = common_1.Direction.Bottom;
+	                this.cursor = "ns-resize";
+	                break;
+	            case common_1.Direction.BottomLeft:
+	                this.pointOnSide.fraction = 1; //because fraction of rect with side goes clockwise
+	                this.pointOnSide.side = common_1.Direction.Bottom;
+	                this.cursor = "nesw-resize";
+	                break;
+	            case common_1.Direction.BottomRight:
+	                this.pointOnSide.fraction = 0;
+	                this.pointOnSide.side = common_1.Direction.Bottom;
+	                this.cursor = "nwse-resize";
+	                break;
+	            case common_1.Direction.Left:
+	                this.pointOnSide.fraction = 0.5;
+	                this.pointOnSide.side = common_1.Direction.Left;
+	                this.cursor = "ew-resize";
+	                break;
+	            case common_1.Direction.Right:
+	                this.pointOnSide.fraction = 0.5;
+	                this.pointOnSide.side = common_1.Direction.Right;
+	                this.cursor = "ew-resize";
+	                break;
+	        }
+	        //initialize handle's rect by using the tracking point
+	        var point = this.pointOnSide.pointOnSide(this.pointOnSide.side, this.pointOnSide.fraction);
+	        this.handle = new geometry_1.Rect(point.x - ResizeHandleComponent.HandleWidth / 2, point.y - ResizeHandleComponent.HandleWidth / 2, ResizeHandleComponent.HandleWidth, ResizeHandleComponent.HandleWidth);
+	    };
+	    ResizeHandleComponent.prototype.updateHandlePosition = function () {
+	        var point = this.pointOnSide.pointOnGeometry();
+	        //shift in the x and y relative to handle's width
+	        var xShift = -0.5;
+	        var yShift = -0.5;
+	        //TODO fix minor visual displacement due to border outsets
+	        this.handle.x = point.x + xShift * ResizeHandleComponent.HandleWidth;
+	        this.handle.y = point.y + yShift * ResizeHandleComponent.HandleWidth;
+	    };
+	    ResizeHandleComponent.prototype.handleMousePress = function (event) {
+	        this.startX = event.clientX;
+	        this.startY = event.clientY;
+	        this.lastX = event.clientX;
+	        this.lastY = event.clientY;
+	    };
+	    ResizeHandleComponent.prototype.handleMouseDrag = function (event) {
+	        console.debug("resize handle dragged " + event.target.id);
+	        var dx = event.clientX - this.lastX;
+	        var dy = event.clientY - this.lastY;
+	        if (event.buttons == 1) {
+	            //change the transform of the rect basis this handle's placement
+	            switch (this.placement) {
+	                case common_1.Direction.TopLeft:
+	                    this.rect.x += dx;
+	                    this.rect.y += dy;
+	                    this.rect.width -= dx;
+	                    this.rect.height -= dy;
+	                    break;
+	                case common_1.Direction.Top:
+	                    this.rect.y += dy;
+	                    this.rect.height -= dy;
+	                    break;
+	                case common_1.Direction.TopRight:
+	                    this.rect.y += dy;
+	                    this.rect.width += dx;
+	                    this.rect.height -= dy;
+	                    break;
+	                case common_1.Direction.Right:
+	                    this.rect.width += dx;
+	                    break;
+	                case common_1.Direction.BottomRight:
+	                    this.rect.width += dx;
+	                    this.rect.height += dy;
+	                    break;
+	                case common_1.Direction.Bottom:
+	                    this.rect.height += dy;
+	                    break;
+	                case common_1.Direction.BottomLeft:
+	                    this.rect.x += dx;
+	                    this.rect.width -= dx;
+	                    this.rect.height += dy;
+	                    break;
+	                case common_1.Direction.Left:
+	                    this.rect.x += dx;
+	                    this.rect.width -= dx;
+	                    break;
+	            }
+	            this.updateAllResizeHandlers.emit(this);
+	        }
+	        this.lastX = event.clientX;
+	        this.lastY = event.clientY;
+	    };
+	    ResizeHandleComponent.prototype.handleMouseRelease = function (event) {
+	        //TODO make command
+	    };
+	    ResizeHandleComponent.prototype.modelHasBeenChanged = function () {
+	        console.log("Model has been changed");
+	    };
+	    ResizeHandleComponent.HandleWidth = 8;
+	    __decorate([
+	        core_1.Input('rect'), 
+	        __metadata('design:type', (typeof (_a = typeof geometry_1.Rect !== 'undefined' && geometry_1.Rect) === 'function' && _a) || Object)
+	    ], ResizeHandleComponent.prototype, "rect", void 0);
+	    __decorate([
+	        core_1.Input('placement'), 
+	        __metadata('design:type', (typeof (_b = typeof common_1.Direction !== 'undefined' && common_1.Direction) === 'function' && _b) || Object)
+	    ], ResizeHandleComponent.prototype, "placement", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], ResizeHandleComponent.prototype, "requestDragging", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], ResizeHandleComponent.prototype, "updateAllResizeHandlers", void 0);
+	    ResizeHandleComponent = __decorate([
+	        core_1.Component({
+	            selector: 'resize-handle',
+	            template: __webpack_require__(110)
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], ResizeHandleComponent);
+	    return ResizeHandleComponent;
+	    var _a, _b;
+	}());
+	exports.ResizeHandleComponent = ResizeHandleComponent;
+
+
+/***/ },
+/* 110 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"handle-pick\"\n\t[style.left.px]=\"handle.x\"\n\t[style.top.px]=\"handle.y\"\n\t[style.width.px]=\"handle.width\"\n\t[style.height.px]=\"handle.height\"\n\t[style.cursor]=\"cursor\"\n\t(mousedown)=\"requestDragging.emit(this)\"\n\t></div>";
+
+/***/ },
+/* 111 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"rect.x\"\n[style.top.px]=\"rect.y\"\n[style.width.px]=\"rect.width\"\n[style.height.px]=\"rect.height\"\n[@selection]=\"isSelected?'selected':'unselected'\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\"></div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
+
+/***/ },
+/* 112 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var core_2 = __webpack_require__(3);
+	var resize_handle_component_1 = __webpack_require__(109);
+	var worksheet_1 = __webpack_require__(70);
+	var GenericNodeComponent = (function () {
+	    function GenericNodeComponent() {
+	        this.requestDragging = new core_1.EventEmitter();
+	        this.isSelected = false;
+	    }
+	    GenericNodeComponent.prototype.toggleSelection = function () {
+	        this.isSelected = !this.isSelected;
+	    };
+	    GenericNodeComponent.prototype.handleMousePress = function (event) {
+	    };
+	    GenericNodeComponent.prototype.handleMouseDrag = function (event) {
+	    };
+	    GenericNodeComponent.prototype.handleMouseRelease = function (event) {
+	    };
+	    GenericNodeComponent.prototype.registerDragIntention = function (dragProcessor) {
+	        this.requestDragging.emit(dragProcessor);
+	    };
+	    GenericNodeComponent.prototype.updateAllResizeHandlers = function (resizeHandler) {
+	        this.resizeHandlers.forEach(function (item) {
+	            item.updateHandlePosition();
+	        });
+	    };
+	    __decorate([
+	        core_1.Input('genericNode'), 
+	        __metadata('design:type', (typeof (_a = typeof worksheet_1.GenericDiagramNode !== 'undefined' && worksheet_1.GenericDiagramNode) === 'function' && _a) || Object)
+	    ], GenericNodeComponent.prototype, "node", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], GenericNodeComponent.prototype, "requestDragging", void 0);
+	    __decorate([
+	        core_1.ViewChildren(resize_handle_component_1.ResizeHandleComponent), 
+	        __metadata('design:type', (typeof (_b = typeof core_1.QueryList !== 'undefined' && core_1.QueryList) === 'function' && _b) || Object)
+	    ], GenericNodeComponent.prototype, "resizeHandlers", void 0);
+	    GenericNodeComponent = __decorate([
+	        core_1.Component({
+	            selector: 'generic-node',
+	            template: __webpack_require__(113),
+	            animations: [
+	                core_2.trigger('selection', [
+	                    core_2.state('selected', core_2.style({
+	                        borderColor: "#2BA3FC"
+	                    })),
+	                    core_2.state('unselected', core_2.style({
+	                        borderColor: "black"
+	                    })),
+	                    core_2.transition('selected => unselected', core_2.animate('100ms ease-in')),
+	                    core_2.transition('unselected => selected', core_2.animate('100ms ease-out'))
+	                ])
+	            ]
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], GenericNodeComponent);
+	    return GenericNodeComponent;
+	    var _a, _b;
+	}());
+	exports.GenericNodeComponent = GenericNodeComponent;
+
+
+/***/ },
+/* 113 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"isSelected?'selected':'unselected'\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\">\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"node.rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
+
+/***/ },
+/* 114 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(71);
+	var LineSegmentComponent = (function () {
+	    function LineSegmentComponent() {
+	    }
+	    LineSegmentComponent.prototype.transformationMatrix = function () {
+	        var xMid = this.start.distance(this.end) / 2;
+	        var yMid = 1; //TODO purely hardcoded based on the value in the stylesheet for line-segment class
+	        var degree = this.start.angleOfSegment(this.end);
+	        var radians = Math.PI * degree / 180;
+	        return "matrix(" +
+	            Math.cos(radians) + "," + Math.sin(radians) + "," +
+	            -Math.sin(radians) + "," + Math.cos(radians) + "," +
+	            -xMid + "," + -yMid
+	            + ")";
+	    };
+	    __decorate([
+	        core_1.Input('start'), 
+	        __metadata('design:type', (typeof (_a = typeof geometry_1.Point !== 'undefined' && geometry_1.Point) === 'function' && _a) || Object)
+	    ], LineSegmentComponent.prototype, "start", void 0);
+	    __decorate([
+	        core_1.Input('end'), 
+	        __metadata('design:type', (typeof (_b = typeof geometry_1.Point !== 'undefined' && geometry_1.Point) === 'function' && _b) || Object)
+	    ], LineSegmentComponent.prototype, "end", void 0);
+	    LineSegmentComponent = __decorate([
+	        core_1.Component({
+	            selector: 'line-segment',
+	            template: __webpack_require__(115),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], LineSegmentComponent);
+	    return LineSegmentComponent;
+	    var _a, _b;
+	}());
+	exports.LineSegmentComponent = LineSegmentComponent;
+
+
+/***/ },
+/* 115 */
+/***/ function(module, exports) {
+
+	module.exports = "<div \n\tclass=\"line-segment\" \n\t[style.left.px]=\"(start.x+end.x)/2\" \n\t[style.top.px]=\"(start.y+end.y)/2\"\n\t[style.width.px]=\"start.distance(end)\"\n\t[style.-webkit-transform]=\"transformationMatrix()\"\n\t[style.-ms-transform]=\"transformationMatrix()\"\n\t[style.transform]=\"transformationMatrix()\">\n\t<div class=\"line-segment-text\" >\n\t\t<span contenteditable=\"true\">Editable</span>\n\t</div>\n</div>";
+
+/***/ },
+/* 116 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(71);
+	var LinkerComponent = (function () {
+	    function LinkerComponent() {
+	    }
+	    LinkerComponent.prototype.ngOnInit = function () {
+	        this.trackingPoint = this.geometry.getTrackingPoint();
+	        var point = this.trackingPoint.pointOnGeometry();
+	        this.link = new geometry_1.Circle(point, 7);
+	    };
+	    LinkerComponent.prototype.ngOnDestroy = function () {
+	        //TODO make diagrammatic element an abstract class and then handle this
+	    };
+	    __decorate([
+	        core_1.Input('geometry'), 
+	        __metadata('design:type', (typeof (_a = typeof geometry_1.Geometry !== 'undefined' && geometry_1.Geometry) === 'function' && _a) || Object)
+	    ], LinkerComponent.prototype, "geometry", void 0);
+	    LinkerComponent = __decorate([
+	        core_1.Component({
+	            selector: 'linker',
+	            template: __webpack_require__(117),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], LinkerComponent);
+	    return LinkerComponent;
+	    var _a;
+	}());
+	exports.LinkerComponent = LinkerComponent;
+
+
+/***/ },
+/* 117 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"link-circle\" \n\t[style.left.px]=\"link.center.x\"\n\t[style.top.px]=\"link.center.y\"\n\t[style.width.px]=\"link.radius*2\"\n\t[style.height.px]=\"link.radius*2\">\n\n</div>";
+
+/***/ },
+/* 118 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var InputBoxComponent = (function () {
+	    function InputBoxComponent() {
+	    }
+	    InputBoxComponent = __decorate([
+	        core_1.Component({
+	            selector: 'input-box',
+	            template: __webpack_require__(119),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], InputBoxComponent);
+	    return InputBoxComponent;
+	}());
+	exports.InputBoxComponent = InputBoxComponent;
+
+
+/***/ },
+/* 119 */
+/***/ function(module, exports) {
+
+	module.exports = "TODO";
+
+/***/ },
+/* 120 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var worksheet_1 = __webpack_require__(70);
+	var ClassDiagramComponent = (function () {
+	    function ClassDiagramComponent() {
+	        this.requestDragging = new core_1.EventEmitter();
+	    }
+	    ClassDiagramComponent.prototype.toggleSelection = function () {
+	        this.classDiagram.selected = !this.classDiagram.selected;
+	    };
+	    ClassDiagramComponent.prototype.registerDragIntention = function (dragProcessor) {
+	        this.requestDragging.emit(dragProcessor);
+	    };
+	    __decorate([
+	        core_1.Input('classDiagram'), 
+	        __metadata('design:type', (typeof (_a = typeof worksheet_1.ClassDiagramNode !== 'undefined' && worksheet_1.ClassDiagramNode) === 'function' && _a) || Object)
+	    ], ClassDiagramComponent.prototype, "classDiagram", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], ClassDiagramComponent.prototype, "requestDragging", void 0);
+	    ClassDiagramComponent = __decorate([
+	        core_1.Component({
+	            selector: 'class-diagram',
+	            template: __webpack_require__(121),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], ClassDiagramComponent);
+	    return ClassDiagramComponent;
+	    var _a;
+	}());
+	exports.ClassDiagramComponent = ClassDiagramComponent;
+
+
+/***/ },
+/* 121 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classDiagram.rect.x\"\n[style.top.px]=\"classDiagram.rect.y\"\n[style.width.px]=\"classDiagram.rect.width\"\n[style.height.px]=\"classDiagram.rect.height\"\n[style.selected-block]=\"classDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span [class.italic]=\"classDiagram.classDefinition.isAbstract\">{{classDiagram.classDefinition.name}}</span>\n\t</div>\n\n\t<div \n\t*ngFor=\"let fieldMember of classDiagram.classDefinition.fieldList \" \n\tclass=\"block-cell content-block-cell\"\n\tcontenteditable=\"true\"\n\t>\n\t\t{{fieldMember.accessSpecifier | accessSymbol}} {{fieldMember.variableDefinition.name}} : {{fieldMember.variableDefinition.type.getName()}}\n\t</div>\n\t<div class=\"solid-horizontal-line mini-top-bottom-margin\"> </div>\n\t<div *ngFor=\"let methodMember of classDiagram.classDefinition.methodList; let i=index\" \n\t\tclass=\"block-cell content-block-cell\"\n\t\tcontenteditable=\"true\"\n\t\t>\n\n\t\t{{methodMember.accessSpecifier | accessSymbol}} \n\t\t<span [class.italic]=\"methodMember.isAbstract\">\n\t\t{{methodMember.methodPrototype.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of methodMember.methodPrototype.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{methodMember.methodPrototype.returnType.getName()}}\n\t\t</span>\n\t</div>\n</div>";
+
+/***/ },
+/* 122 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var worksheet_1 = __webpack_require__(70);
+	var ClassObjectComponent = (function () {
+	    function ClassObjectComponent() {
+	        this.requestDragging = new core_1.EventEmitter();
+	    }
+	    ClassObjectComponent.prototype.toggleSelection = function () {
+	        this.classObjectDiagram.selected = !this.classObjectDiagram.selected;
+	    };
+	    ClassObjectComponent.prototype.registerDragIntention = function (dragProcessor) {
+	        this.requestDragging.emit(dragProcessor);
+	    };
+	    __decorate([
+	        core_1.Input('classObjectDiagram'), 
+	        __metadata('design:type', (typeof (_a = typeof worksheet_1.ClassObjectDiagram !== 'undefined' && worksheet_1.ClassObjectDiagram) === 'function' && _a) || Object)
+	    ], ClassObjectComponent.prototype, "classObjectDiagram", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], ClassObjectComponent.prototype, "requestDragging", void 0);
+	    ClassObjectComponent = __decorate([
+	        core_1.Component({
+	            selector: 'class-object-diagram',
+	            template: __webpack_require__(123),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], ClassObjectComponent);
+	    return ClassObjectComponent;
+	    var _a;
+	}());
+	exports.ClassObjectComponent = ClassObjectComponent;
+
+
+/***/ },
+/* 123 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classObjectDiagram.rect.x\"\n[style.top.px]=\"classObjectDiagram.rect.y\"\n[style.width.px]=\"classObjectDiagram.rect.width\"\n[style.height.px]=\"classObjectDiagram.rect.height\"\n[style.selected-block]=\"classObjectDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span>{{classObjectDiagram.classObject.name}}</span>\n\t\t : \n\t\t<span class=\"bold\">{{classObjectDiagram.classObject.classDefinition.getName()}}</span>\n\t</div>\n\n\t<div *ngFor=\"let fieldData of classObjectDiagram.classObject.fieldDataList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{fieldData.variable.name}} \n\t\t=\n\t\t{{fieldData.data.stringRepresentation()}}\n\t</div>\n</div>";
+
+/***/ },
+/* 124 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var worksheet_1 = __webpack_require__(70);
+	var InterfaceDiagramComponent = (function () {
+	    function InterfaceDiagramComponent() {
+	        this.requestDragging = new core_1.EventEmitter();
+	    }
+	    InterfaceDiagramComponent.prototype.toggleSelection = function () {
+	        this.interfaceDiagram.selected = !this.interfaceDiagram.selected;
+	    };
+	    InterfaceDiagramComponent.prototype.registerDragIntention = function (dragProcessor) {
+	        this.requestDragging.emit(dragProcessor);
+	    };
+	    __decorate([
+	        core_1.Input('interfaceDiagram'), 
+	        __metadata('design:type', (typeof (_a = typeof worksheet_1.InterfaceDiagramNode !== 'undefined' && worksheet_1.InterfaceDiagramNode) === 'function' && _a) || Object)
+	    ], InterfaceDiagramComponent.prototype, "interfaceDiagram", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], InterfaceDiagramComponent.prototype, "requestDragging", void 0);
+	    InterfaceDiagramComponent = __decorate([
+	        core_1.Component({
+	            selector: 'interface-diagram',
+	            template: __webpack_require__(125),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], InterfaceDiagramComponent);
+	    return InterfaceDiagramComponent;
+	    var _a;
+	}());
+	exports.InterfaceDiagramComponent = InterfaceDiagramComponent;
+
+
+/***/ },
+/* 125 */
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"interfaceDiagram.rect.x\"\n[style.top.px]=\"interfaceDiagram.rect.y\"\n[style.width.px]=\"interfaceDiagram.rect.width\"\n[style.height.px]=\"interfaceDiagram.rect.height\"\n[style.selected-block]=\"interfaceDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<div class=\"header-decorater\"> &lt;&lt; Interface &gt;&gt; </div>\n\t\t<span>{{interfaceDiagram.interfaceDefinition.name}}</span>\n\t</div>\n\n\t<div *ngFor=\"let method of interfaceDiagram.interfaceDefinition.methodList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{method.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of method.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{method.returnType.getName()}}\n\t</div>\n</div>";
+
+/***/ },
+/* 126 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var InterfaceObjectDiagramComponent = (function () {
+	    function InterfaceObjectDiagramComponent() {
+	    }
+	    InterfaceObjectDiagramComponent = __decorate([
+	        core_1.Component({
+	            selector: 'interface-object-diagram',
+	            template: __webpack_require__(127),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], InterfaceObjectDiagramComponent);
+	    return InterfaceObjectDiagramComponent;
+	}());
+	exports.InterfaceObjectDiagramComponent = InterfaceObjectDiagramComponent;
+
+
+/***/ },
+/* 127 */
+/***/ function(module, exports) {
+
+	module.exports = "TODO";
+
+/***/ },
+/* 128 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var LinkedSegmentsComponent = (function () {
+	    function LinkedSegmentsComponent() {
+	    }
+	    LinkedSegmentsComponent = __decorate([
+	        core_1.Component({
+	            selector: 'linked-segments',
+	            template: __webpack_require__(129),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], LinkedSegmentsComponent);
+	    return LinkedSegmentsComponent;
+	}());
+	exports.LinkedSegmentsComponent = LinkedSegmentsComponent;
+
+
+/***/ },
+/* 129 */
+/***/ function(module, exports) {
+
+	module.exports = "TODO";
+
+/***/ },
+/* 130 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(71);
+	var workspace_1 = __webpack_require__(89);
+	var SelectionBoxComponent = (function () {
+	    function SelectionBoxComponent() {
+	        this.rect = new geometry_1.Rect(1500, 900, 200, 300);
+	        //for controlling selection box positioning
+	        this.active = false;
+	    }
+	    SelectionBoxComponent.prototype.mousePressed = function (event) {
+	        console.debug("Selection box pressed " + event.target.id);
+	        this.active = true;
+	        this.rect.x = event.offsetX;
+	        this.rect.y = event.offsetY;
+	        this.rect.width = 0;
+	        this.rect.height = 0;
+	        this.difference = new geometry_1.Point(0, 0);
+	        this.originalPress = new geometry_1.Point(this.rect.x, this.rect.y);
+	    };
+	    SelectionBoxComponent.prototype.mouseMoved = function (event) {
+	        if (this.active) {
+	            console.debug("Selection box dragged " + event.target.id + " : " + event.movementX);
+	            this.difference.x += event.movementX;
+	            this.difference.y += event.movementY;
+	            if (this.difference.x < 0) {
+	                this.rect.x = this.originalPress.x + this.difference.x;
+	                this.rect.width = this.difference.x * -1;
+	            }
+	            else {
+	                this.rect.x = this.originalPress.x;
+	                this.rect.width = this.difference.x;
+	            }
+	            if (this.difference.y < 0) {
+	                this.rect.y = this.originalPress.y + this.difference.y;
+	                this.rect.height = this.difference.y * -1;
+	            }
+	            else {
+	                this.rect.y = this.originalPress.y;
+	                this.rect.height = this.difference.y;
+	            }
+	        }
+	    };
+	    SelectionBoxComponent.prototype.mouseReleased = function (event) {
+	        console.debug("Selection box released");
+	        this.active = false;
+	    };
+	    __decorate([
+	        core_1.Input('workspace'), 
+	        __metadata('design:type', (typeof (_a = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _a) || Object)
+	    ], SelectionBoxComponent.prototype, "workspace", void 0);
+	    SelectionBoxComponent = __decorate([
+	        core_1.Component({
+	            selector: 'selection-box',
+	            template: __webpack_require__(131),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], SelectionBoxComponent);
+	    return SelectionBoxComponent;
+	    var _a;
+	}());
+	exports.SelectionBoxComponent = SelectionBoxComponent;
+
+
+/***/ },
+/* 131 */
+/***/ function(module, exports) {
+
+	module.exports = "<div \n\tid=\"selection-box\"\n\t[style.left.px]=\"rect.x\"\n\t[style.top.px]=\"rect.y\"\n\t[style.width.px]=\"rect.width\"\n\t[style.height.px]=\"rect.height\"\n\t[style.display]=\"active?'block':'none'\">\n\n</div>";
+
+/***/ },
+/* 132 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var __param = (this && this.__param) || function (paramIndex, decorator) {
+	    return function (target, key) { decorator(target, key, paramIndex); }
+	};
+	var core_1 = __webpack_require__(3);
+	var FocusDirective = (function () {
+	    function FocusDirective(element) {
+	        this.element = element;
+	    }
+	    FocusDirective.prototype.ngOnChanges = function () {
+	        this.element.nativeElement.focus();
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Boolean)
+	    ], FocusDirective.prototype, "focus", void 0);
+	    FocusDirective = __decorate([
+	        core_1.Directive({
+	            selector: '[focus]'
+	        }),
+	        __param(0, core_1.Inject(core_1.ElementRef)), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
+	    ], FocusDirective);
+	    return FocusDirective;
+	    var _a;
+	}());
+	exports.FocusDirective = FocusDirective;
+
+
+/***/ },
+/* 133 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var __param = (this && this.__param) || function (paramIndex, decorator) {
+	    return function (target, key) { decorator(target, key, paramIndex); }
+	};
+	var core_1 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(71);
+	var MyRectDirective = (function () {
+	    function MyRectDirective(element) {
+	        this.element = element;
+	        this.background = "white";
+	        this.strokeColor = 'black';
+	        this.strokeWidth = 2;
+	        this.strokeStyle = 'solid';
+	        this.opacity = 1;
+	    }
+	    MyRectDirective.prototype.ngOnChanges = function () {
+	        this.element.nativeElement.style.position = "absolute";
+	        this.element.nativeElement.style.left = this.myRect.x + "px";
+	        this.element.nativeElement.style.top = this.myRect.y + "px";
+	        this.element.nativeElement.style.width = this.myRect.width + "px";
+	        this.element.nativeElement.style.height = this.myRect.height + "px";
+	        this.element.nativeElement.style.background = this.background;
+	        this.element.nativeElement.style.borderColor = this.strokeColor;
+	        this.element.nativeElement.style.borderWidth = this.strokeWidth + "px";
+	        this.element.nativeElement.style.borderStyle = this.strokeStyle;
+	        this.element.nativeElement.style.opacity = this.opacity;
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', (typeof (_a = typeof geometry_1.Rect !== 'undefined' && geometry_1.Rect) === 'function' && _a) || Object)
+	    ], MyRectDirective.prototype, "myRect", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Object)
+	    ], MyRectDirective.prototype, "background", void 0);
+	    __decorate([
+	        core_1.Input('borderColor'), 
+	        __metadata('design:type', Object)
+	    ], MyRectDirective.prototype, "strokeColor", void 0);
+	    __decorate([
+	        core_1.Input('borderWidth'), 
+	        __metadata('design:type', Object)
+	    ], MyRectDirective.prototype, "strokeWidth", void 0);
+	    __decorate([
+	        core_1.Input('borderStyle'), 
+	        __metadata('design:type', Object)
+	    ], MyRectDirective.prototype, "strokeStyle", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Object)
+	    ], MyRectDirective.prototype, "opacity", void 0);
+	    MyRectDirective = __decorate([
+	        core_1.Directive({
+	            selector: '[myRect]'
+	        }),
+	        __param(0, core_1.Inject(core_1.ElementRef)), 
+	        __metadata('design:paramtypes', [(typeof (_b = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _b) || Object])
+	    ], MyRectDirective);
+	    return MyRectDirective;
+	    var _a, _b;
+	}());
+	exports.MyRectDirective = MyRectDirective;
+
+
+/***/ },
+/* 134 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var __param = (this && this.__param) || function (paramIndex, decorator) {
+	    return function (target, key) { decorator(target, key, paramIndex); }
+	};
+	var core_1 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(71);
+	var MyCircleDirective = (function () {
+	    function MyCircleDirective(element) {
+	        this.element = element;
+	        this.background = "white";
+	        this.strokeColor = 'black';
+	        this.strokeWidth = 2;
+	        this.strokeStyle = 'solid';
+	        this.opacity = 1;
+	    }
+	    MyCircleDirective.prototype.ngOnChanges = function () {
+	        this.element.nativeElement.style.borderRadius = "50%";
+	        this.element.nativeElement.style.position = "absolute";
+	        this.element.nativeElement.style.left = this.myCircle.center.x + "px";
+	        this.element.nativeElement.style.top = this.myCircle.center.y + "px";
+	        this.element.nativeElement.style.width = this.myCircle.radius * 2 + "px";
+	        this.element.nativeElement.style.height = this.myCircle.radius * 2 + "px";
+	        this.element.nativeElement.style.background = this.background;
+	        this.element.nativeElement.style.borderColor = this.strokeColor;
+	        this.element.nativeElement.style.borderWidth = this.strokeWidth + "px";
+	        this.element.nativeElement.style.borderStyle = this.strokeStyle;
+	        this.element.nativeElement.style.opacity = this.opacity;
+	    };
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', (typeof (_a = typeof geometry_1.Circle !== 'undefined' && geometry_1.Circle) === 'function' && _a) || Object)
+	    ], MyCircleDirective.prototype, "myCircle", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Object)
+	    ], MyCircleDirective.prototype, "background", void 0);
+	    __decorate([
+	        core_1.Input('borderColor'), 
+	        __metadata('design:type', Object)
+	    ], MyCircleDirective.prototype, "strokeColor", void 0);
+	    __decorate([
+	        core_1.Input('borderWidth'), 
+	        __metadata('design:type', Object)
+	    ], MyCircleDirective.prototype, "strokeWidth", void 0);
+	    __decorate([
+	        core_1.Input('borderStyle'), 
+	        __metadata('design:type', Object)
+	    ], MyCircleDirective.prototype, "strokeStyle", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Object)
+	    ], MyCircleDirective.prototype, "opacity", void 0);
+	    MyCircleDirective = __decorate([
+	        core_1.Directive({
+	            selector: '[myCircle]'
+	        }),
+	        __param(0, core_1.Inject(core_1.ElementRef)), 
+	        __metadata('design:paramtypes', [(typeof (_b = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _b) || Object])
+	    ], MyCircleDirective);
+	    return MyCircleDirective;
+	    var _a, _b;
+	}());
+	exports.MyCircleDirective = MyCircleDirective;
+
+
+/***/ },
+/* 135 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var semantic_model_1 = __webpack_require__(73);
+	/*
+	 * Gives the symbol for an access specifier
+	 *
+	 * Usage:
+	 *   value | accessSymbol
+	*/
+	var AccessSymbol = (function () {
+	    function AccessSymbol() {
+	    }
+	    AccessSymbol.prototype.transform = function (value) {
+	        switch (value) {
+	            case semantic_model_1.AccessSpecifier.Private:
+	                return "-";
+	            case semantic_model_1.AccessSpecifier.Protected:
+	                return "#";
+	            case semantic_model_1.AccessSpecifier.Public:
+	                return "+";
+	            case semantic_model_1.AccessSpecifier.Default:
+	            default:
+	                return " ";
+	        }
+	    };
+	    AccessSymbol = __decorate([
+	        core_1.Pipe({ name: 'accessSymbol' }), 
+	        __metadata('design:paramtypes', [])
+	    ], AccessSymbol);
+	    return AccessSymbol;
+	}());
+	exports.AccessSymbol = AccessSymbol;
+
+
+/***/ },
+/* 136 */
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var worksheet_1 = __webpack_require__(70);
+	/*
+	 * Gives the background(mostly svg) for generic type node
+	 * @Deprecated (Using inline svgs now)
+	 * Usage:
+	 *   value | nodeBg
+	*/
+	var NodeBackground = (function () {
+	    function NodeBackground() {
+	    }
+	    NodeBackground.prototype.transform = function (value) {
+	        var pathToBg = "";
+	        switch (value) {
+	            case worksheet_1.GenericDiagramNodeType.Rectangle:
+	                break;
+	            case worksheet_1.GenericDiagramNodeType.Circle:
+	                break;
+	            case worksheet_1.GenericDiagramNodeType.Diamond:
+	                break;
+	            case worksheet_1.GenericDiagramNodeType.Ellipse:
+	                break;
+	            case worksheet_1.GenericDiagramNodeType.StickFigure:
+	                break;
+	            case worksheet_1.GenericDiagramNodeType.Database:
+	        }
+	        return pathToBg;
+	    };
+	    NodeBackground = __decorate([
+	        core_1.Pipe({ name: 'nodeBg' }), 
+	        __metadata('design:paramtypes', [])
+	    ], NodeBackground);
+	    return NodeBackground;
+	}());
+	exports.NodeBackground = NodeBackground;
+
+
+/***/ },
+/* 137 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(96);
+	var content = __webpack_require__(138);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(98)(content, {});
+	var update = __webpack_require__(140)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -9384,23 +11093,21 @@ webpackJsonp([0],{
 	}
 
 /***/ },
-
-/***/ 96:
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(97)();
+	exports = module.exports = __webpack_require__(139)();
 	// imports
 	
 	
 	// module
-	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.628);\n  position: absolute;\n  z-index: 11; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  text-align: center; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n", ""]);
+	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.3);\n  position: absolute;\n  z-index: 11; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  text-align: center; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n", ""]);
 	
 	// exports
 
 
 /***/ },
-
-/***/ 97:
+/* 139 */
 /***/ function(module, exports) {
 
 	/*
@@ -9456,8 +11163,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 98:
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -9708,1700 +11414,6 @@ webpackJsonp([0],{
 	}
 
 
-/***/ },
-
-/***/ 653:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var platform_browser_1 = __webpack_require__(21);
-	var forms_1 = __webpack_require__(24);
-	var workspace_component_1 = __webpack_require__(71);
-	var artboard_component_1 = __webpack_require__(80);
-	var sidebar_component_1 = __webpack_require__(77);
-	var area_component_1 = __webpack_require__(654);
-	var box_component_1 = __webpack_require__(656);
-	var generic_node_component_1 = __webpack_require__(660);
-	var line_segment_component_1 = __webpack_require__(662);
-	var resize_handle_component_1 = __webpack_require__(657);
-	var linker_component_1 = __webpack_require__(664);
-	var input_box_component_1 = __webpack_require__(666);
-	var auto_completion_component_1 = __webpack_require__(84);
-	var class_diagram_component_1 = __webpack_require__(668);
-	var class_object_diagram_component_1 = __webpack_require__(670);
-	var interface_diagram_component_1 = __webpack_require__(672);
-	var interface_object_diagram_component_1 = __webpack_require__(674);
-	var linked_segments_component_1 = __webpack_require__(676);
-	var creation_drawer_component_1 = __webpack_require__(690);
-	var selection_box_component_1 = __webpack_require__(693);
-	var transform_service_1 = __webpack_require__(72);
-	var interpreter_service_1 = __webpack_require__(87);
-	var mock_data_service_1 = __webpack_require__(81);
-	var focus_directive_1 = __webpack_require__(678);
-	var my_rect_directive_1 = __webpack_require__(679);
-	var my_circle_directive_1 = __webpack_require__(680);
-	var access_symbol_pipe_1 = __webpack_require__(681);
-	var node_background_pipe_1 = __webpack_require__(682);
-	var WorkspaceModule = (function () {
-	    function WorkspaceModule() {
-	    }
-	    WorkspaceModule = __decorate([
-	        core_1.NgModule({
-	            imports: [
-	                platform_browser_1.BrowserModule,
-	                forms_1.FormsModule,
-	            ],
-	            declarations: [
-	                focus_directive_1.FocusDirective,
-	                my_rect_directive_1.MyRectDirective,
-	                my_circle_directive_1.MyCircleDirective,
-	                access_symbol_pipe_1.AccessSymbol,
-	                node_background_pipe_1.NodeBackground,
-	                workspace_component_1.WorkspaceComponent,
-	                sidebar_component_1.SidebarComponent,
-	                artboard_component_1.ArtboardComponent,
-	                area_component_1.AreaComponent,
-	                box_component_1.BoxComponent,
-	                generic_node_component_1.GenericNodeComponent,
-	                line_segment_component_1.LineSegmentComponent,
-	                resize_handle_component_1.ResizeHandleComponent,
-	                input_box_component_1.InputBoxComponent,
-	                auto_completion_component_1.AutoCompletionComponent,
-	                class_diagram_component_1.ClassDiagramComponent,
-	                class_object_diagram_component_1.ClassObjectComponent,
-	                interface_diagram_component_1.InterfaceDiagramComponent,
-	                interface_object_diagram_component_1.InterfaceObjectDiagramComponent,
-	                linked_segments_component_1.LinkedSegmentsComponent,
-	                linker_component_1.LinkerComponent,
-	                creation_drawer_component_1.CreationDrawerComponent,
-	                selection_box_component_1.SelectionBoxComponent
-	            ],
-	            schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA],
-	            providers: [transform_service_1.TransformService, interpreter_service_1.InterpreterService, mock_data_service_1.MockDataService]
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], WorkspaceModule);
-	    return WorkspaceModule;
-	}());
-	exports.WorkspaceModule = WorkspaceModule;
-
-
-/***/ },
-
-/***/ 654:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var AreaComponent = (function () {
-	    function AreaComponent() {
-	    }
-	    AreaComponent = __decorate([
-	        core_1.Component({
-	            selector: 'area-highlight',
-	            template: __webpack_require__(655),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], AreaComponent);
-	    return AreaComponent;
-	}());
-	exports.AreaComponent = AreaComponent;
-
-
-/***/ },
-
-/***/ 655:
-/***/ function(module, exports) {
-
-	module.exports = "<h1>TODO area</h1>";
-
-/***/ },
-
-/***/ 656:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var core_2 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(73);
-	var resize_handle_component_1 = __webpack_require__(657);
-	var BoxComponent = (function () {
-	    function BoxComponent() {
-	        this.requestDragging = new core_1.EventEmitter();
-	        this.isSelected = false;
-	    }
-	    BoxComponent.prototype.toggleSelection = function () {
-	        this.isSelected = !this.isSelected;
-	    };
-	    BoxComponent.prototype.handleMousePress = function (event) {
-	    };
-	    BoxComponent.prototype.handleMouseDrag = function (event) {
-	    };
-	    BoxComponent.prototype.handleMouseRelease = function (event) {
-	    };
-	    BoxComponent.prototype.registerDragIntention = function (dragProcessor) {
-	        this.requestDragging.emit(dragProcessor);
-	    };
-	    BoxComponent.prototype.updateAllResizeHandlers = function (resizeHandler) {
-	        this.resizeHandlers.forEach(function (item) {
-	            item.updateHandlePosition();
-	        });
-	    };
-	    __decorate([
-	        core_1.Input('rect'), 
-	        __metadata('design:type', (typeof (_a = typeof geometry_1.Rect !== 'undefined' && geometry_1.Rect) === 'function' && _a) || Object)
-	    ], BoxComponent.prototype, "rect", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], BoxComponent.prototype, "requestDragging", void 0);
-	    __decorate([
-	        core_1.ViewChildren(resize_handle_component_1.ResizeHandleComponent), 
-	        __metadata('design:type', (typeof (_b = typeof core_1.QueryList !== 'undefined' && core_1.QueryList) === 'function' && _b) || Object)
-	    ], BoxComponent.prototype, "resizeHandlers", void 0);
-	    BoxComponent = __decorate([
-	        core_1.Component({
-	            selector: 'box',
-	            template: __webpack_require__(659),
-	            animations: [
-	                core_2.trigger('selection', [
-	                    core_2.state('selected', core_2.style({
-	                        borderColor: "#2BA3FC"
-	                    })),
-	                    core_2.state('unselected', core_2.style({
-	                        borderColor: "black"
-	                    })),
-	                    core_2.transition('selected => unselected', core_2.animate('100ms ease-in')),
-	                    core_2.transition('unselected => selected', core_2.animate('100ms ease-out'))
-	                ])
-	            ]
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], BoxComponent);
-	    return BoxComponent;
-	    var _a, _b;
-	}());
-	exports.BoxComponent = BoxComponent;
-
-
-/***/ },
-
-/***/ 657:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(73);
-	var common_1 = __webpack_require__(74);
-	var tracking_point_1 = __webpack_require__(76);
-	var ResizeHandleComponent = (function () {
-	    function ResizeHandleComponent() {
-	        this.requestDragging = new core_1.EventEmitter();
-	        this.updateAllResizeHandlers = new core_1.EventEmitter();
-	        //the following private fields are used exclusively to handle the drag event
-	        this.startX = 0;
-	        this.startY = 0;
-	        this.lastX = 0;
-	        this.lastY = 0;
-	    }
-	    ResizeHandleComponent.prototype.ngOnInit = function () {
-	        this.initHandle();
-	        this.updateHandlePosition();
-	    };
-	    ResizeHandleComponent.prototype.initHandle = function () {
-	        //initialize tracking point based on this handles placement
-	        this.pointOnSide = new tracking_point_1.RectTrackingPoint(this.rect);
-	        switch (this.placement) {
-	            case common_1.Direction.Top:
-	                this.pointOnSide.fraction = 0.5;
-	                this.pointOnSide.side = common_1.Direction.Top;
-	                this.cursor = "ns-resize";
-	                break;
-	            case common_1.Direction.TopLeft:
-	                this.pointOnSide.fraction = 0;
-	                this.pointOnSide.side = common_1.Direction.Top;
-	                this.cursor = "nwse-resize";
-	                break;
-	            case common_1.Direction.TopRight:
-	                this.pointOnSide.fraction = 1;
-	                this.pointOnSide.side = common_1.Direction.Top;
-	                this.cursor = "nesw-resize";
-	                break;
-	            case common_1.Direction.Bottom:
-	                this.pointOnSide.fraction = 0.5;
-	                this.pointOnSide.side = common_1.Direction.Bottom;
-	                this.cursor = "ns-resize";
-	                break;
-	            case common_1.Direction.BottomLeft:
-	                this.pointOnSide.fraction = 1; //because fraction of rect with side goes clockwise
-	                this.pointOnSide.side = common_1.Direction.Bottom;
-	                this.cursor = "nesw-resize";
-	                break;
-	            case common_1.Direction.BottomRight:
-	                this.pointOnSide.fraction = 0;
-	                this.pointOnSide.side = common_1.Direction.Bottom;
-	                this.cursor = "nwse-resize";
-	                break;
-	            case common_1.Direction.Left:
-	                this.pointOnSide.fraction = 0.5;
-	                this.pointOnSide.side = common_1.Direction.Left;
-	                this.cursor = "ew-resize";
-	                break;
-	            case common_1.Direction.Right:
-	                this.pointOnSide.fraction = 0.5;
-	                this.pointOnSide.side = common_1.Direction.Right;
-	                this.cursor = "ew-resize";
-	                break;
-	        }
-	        //initialize handle's rect by using the tracking point
-	        var point = this.pointOnSide.pointOnSide(this.pointOnSide.side, this.pointOnSide.fraction);
-	        this.handle = new geometry_1.Rect(point.x - ResizeHandleComponent.HandleWidth / 2, point.y - ResizeHandleComponent.HandleWidth / 2, ResizeHandleComponent.HandleWidth, ResizeHandleComponent.HandleWidth);
-	    };
-	    ResizeHandleComponent.prototype.updateHandlePosition = function () {
-	        var point = this.pointOnSide.pointOnGeometry();
-	        //shift in the x and y relative to handle's width
-	        var xShift = -0.5;
-	        var yShift = -0.5;
-	        //TODO fix minor visual displacement due to border outsets
-	        this.handle.x = point.x + xShift * ResizeHandleComponent.HandleWidth;
-	        this.handle.y = point.y + yShift * ResizeHandleComponent.HandleWidth;
-	    };
-	    ResizeHandleComponent.prototype.handleMousePress = function (event) {
-	        this.startX = event.clientX;
-	        this.startY = event.clientY;
-	        this.lastX = event.clientX;
-	        this.lastY = event.clientY;
-	    };
-	    ResizeHandleComponent.prototype.handleMouseDrag = function (event) {
-	        var dx = event.clientX - this.lastX;
-	        var dy = event.clientY - this.lastY;
-	        if (event.buttons == 1) {
-	            //change the transform of the rect basis this handle's placement
-	            switch (this.placement) {
-	                case common_1.Direction.TopLeft:
-	                    this.rect.x += dx;
-	                    this.rect.y += dy;
-	                    this.rect.width -= dx;
-	                    this.rect.height -= dy;
-	                    break;
-	                case common_1.Direction.Top:
-	                    this.rect.y += dy;
-	                    this.rect.height -= dy;
-	                    break;
-	                case common_1.Direction.TopRight:
-	                    this.rect.y += dy;
-	                    this.rect.width += dx;
-	                    this.rect.height -= dy;
-	                    break;
-	                case common_1.Direction.Right:
-	                    this.rect.width += dx;
-	                    break;
-	                case common_1.Direction.BottomRight:
-	                    this.rect.width += dx;
-	                    this.rect.height += dy;
-	                    break;
-	                case common_1.Direction.Bottom:
-	                    this.rect.height += dy;
-	                    break;
-	                case common_1.Direction.BottomLeft:
-	                    this.rect.x += dx;
-	                    this.rect.width -= dx;
-	                    this.rect.height += dy;
-	                    break;
-	                case common_1.Direction.Left:
-	                    this.rect.x += dx;
-	                    this.rect.width -= dx;
-	                    break;
-	            }
-	            this.updateAllResizeHandlers.emit(this);
-	        }
-	        this.lastX = event.clientX;
-	        this.lastY = event.clientY;
-	    };
-	    ResizeHandleComponent.prototype.handleMouseRelease = function (event) {
-	        //TODO make command
-	    };
-	    ResizeHandleComponent.prototype.modelHasBeenChanged = function () {
-	        console.log("Model has been changed");
-	    };
-	    ResizeHandleComponent.HandleWidth = 8;
-	    __decorate([
-	        core_1.Input('rect'), 
-	        __metadata('design:type', (typeof (_a = typeof geometry_1.Rect !== 'undefined' && geometry_1.Rect) === 'function' && _a) || Object)
-	    ], ResizeHandleComponent.prototype, "rect", void 0);
-	    __decorate([
-	        core_1.Input('placement'), 
-	        __metadata('design:type', (typeof (_b = typeof common_1.Direction !== 'undefined' && common_1.Direction) === 'function' && _b) || Object)
-	    ], ResizeHandleComponent.prototype, "placement", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], ResizeHandleComponent.prototype, "requestDragging", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], ResizeHandleComponent.prototype, "updateAllResizeHandlers", void 0);
-	    ResizeHandleComponent = __decorate([
-	        core_1.Component({
-	            selector: 'resize-handle',
-	            template: __webpack_require__(658)
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], ResizeHandleComponent);
-	    return ResizeHandleComponent;
-	    var _a, _b;
-	}());
-	exports.ResizeHandleComponent = ResizeHandleComponent;
-
-
-/***/ },
-
-/***/ 658:
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"handle-pick\"\n\t[style.left.px]=\"handle.x\"\n\t[style.top.px]=\"handle.y\"\n\t[style.width.px]=\"handle.width\"\n\t[style.height.px]=\"handle.height\"\n\t[style.cursor]=\"cursor\"\n\t(mousedown)=\"requestDragging.emit(this)\"\n\t></div>";
-
-/***/ },
-
-/***/ 659:
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"rect.x\"\n[style.top.px]=\"rect.y\"\n[style.width.px]=\"rect.width\"\n[style.height.px]=\"rect.height\"\n[@selection]=\"isSelected?'selected':'unselected'\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\"></div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
-
-/***/ },
-
-/***/ 660:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var core_2 = __webpack_require__(3);
-	var resize_handle_component_1 = __webpack_require__(657);
-	var worksheet_1 = __webpack_require__(82);
-	var GenericNodeComponent = (function () {
-	    function GenericNodeComponent() {
-	        this.requestDragging = new core_1.EventEmitter();
-	        this.isSelected = false;
-	    }
-	    GenericNodeComponent.prototype.toggleSelection = function () {
-	        this.isSelected = !this.isSelected;
-	    };
-	    GenericNodeComponent.prototype.handleMousePress = function (event) {
-	    };
-	    GenericNodeComponent.prototype.handleMouseDrag = function (event) {
-	    };
-	    GenericNodeComponent.prototype.handleMouseRelease = function (event) {
-	    };
-	    GenericNodeComponent.prototype.registerDragIntention = function (dragProcessor) {
-	        this.requestDragging.emit(dragProcessor);
-	    };
-	    GenericNodeComponent.prototype.updateAllResizeHandlers = function (resizeHandler) {
-	        this.resizeHandlers.forEach(function (item) {
-	            item.updateHandlePosition();
-	        });
-	    };
-	    __decorate([
-	        core_1.Input('genericNode'), 
-	        __metadata('design:type', (typeof (_a = typeof worksheet_1.GenericDiagramNode !== 'undefined' && worksheet_1.GenericDiagramNode) === 'function' && _a) || Object)
-	    ], GenericNodeComponent.prototype, "node", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], GenericNodeComponent.prototype, "requestDragging", void 0);
-	    __decorate([
-	        core_1.ViewChildren(resize_handle_component_1.ResizeHandleComponent), 
-	        __metadata('design:type', (typeof (_b = typeof core_1.QueryList !== 'undefined' && core_1.QueryList) === 'function' && _b) || Object)
-	    ], GenericNodeComponent.prototype, "resizeHandlers", void 0);
-	    GenericNodeComponent = __decorate([
-	        core_1.Component({
-	            selector: 'generic-node',
-	            template: __webpack_require__(661),
-	            animations: [
-	                core_2.trigger('selection', [
-	                    core_2.state('selected', core_2.style({
-	                        borderColor: "#2BA3FC"
-	                    })),
-	                    core_2.state('unselected', core_2.style({
-	                        borderColor: "black"
-	                    })),
-	                    core_2.transition('selected => unselected', core_2.animate('100ms ease-in')),
-	                    core_2.transition('unselected => selected', core_2.animate('100ms ease-out'))
-	                ])
-	            ]
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], GenericNodeComponent);
-	    return GenericNodeComponent;
-	    var _a, _b;
-	}());
-	exports.GenericNodeComponent = GenericNodeComponent;
-
-
-/***/ },
-
-/***/ 661:
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"isSelected?'selected':'unselected'\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\">\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"node.stroke.hashCode()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"node.rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
-
-/***/ },
-
-/***/ 662:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(73);
-	var LineSegmentComponent = (function () {
-	    function LineSegmentComponent() {
-	    }
-	    LineSegmentComponent.prototype.transformationMatrix = function () {
-	        var xMid = this.start.distance(this.end) / 2;
-	        var yMid = 1; //TODO purely hardcoded based on the value in the stylesheet for line-segment class
-	        var degree = this.start.angleOfSegment(this.end);
-	        var radians = Math.PI * degree / 180;
-	        return "matrix(" +
-	            Math.cos(radians) + "," + Math.sin(radians) + "," +
-	            -Math.sin(radians) + "," + Math.cos(radians) + "," +
-	            -xMid + "," + -yMid
-	            + ")";
-	    };
-	    __decorate([
-	        core_1.Input('start'), 
-	        __metadata('design:type', (typeof (_a = typeof geometry_1.Point !== 'undefined' && geometry_1.Point) === 'function' && _a) || Object)
-	    ], LineSegmentComponent.prototype, "start", void 0);
-	    __decorate([
-	        core_1.Input('end'), 
-	        __metadata('design:type', (typeof (_b = typeof geometry_1.Point !== 'undefined' && geometry_1.Point) === 'function' && _b) || Object)
-	    ], LineSegmentComponent.prototype, "end", void 0);
-	    LineSegmentComponent = __decorate([
-	        core_1.Component({
-	            selector: 'line-segment',
-	            template: __webpack_require__(663),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], LineSegmentComponent);
-	    return LineSegmentComponent;
-	    var _a, _b;
-	}());
-	exports.LineSegmentComponent = LineSegmentComponent;
-
-
-/***/ },
-
-/***/ 663:
-/***/ function(module, exports) {
-
-	module.exports = "<div \n\tclass=\"line-segment\" \n\t[style.left.px]=\"(start.x+end.x)/2\" \n\t[style.top.px]=\"(start.y+end.y)/2\"\n\t[style.width.px]=\"start.distance(end)\"\n\t[style.-webkit-transform]=\"transformationMatrix()\"\n\t[style.-ms-transform]=\"transformationMatrix()\"\n\t[style.transform]=\"transformationMatrix()\">\n\t<div class=\"line-segment-text\" >\n\t\t<span contenteditable=\"true\">Editable</span>\n\t</div>\n</div>";
-
-/***/ },
-
-/***/ 664:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(73);
-	var LinkerComponent = (function () {
-	    function LinkerComponent() {
-	    }
-	    LinkerComponent.prototype.ngOnInit = function () {
-	        this.trackingPoint = this.geometry.getTrackingPoint();
-	        var point = this.trackingPoint.pointOnGeometry();
-	        this.link = new geometry_1.Circle(point, 7);
-	    };
-	    LinkerComponent.prototype.ngOnDestroy = function () {
-	        //TODO make diagrammatic element an abstract class and then handle this
-	    };
-	    __decorate([
-	        core_1.Input('geometry'), 
-	        __metadata('design:type', (typeof (_a = typeof geometry_1.Geometry !== 'undefined' && geometry_1.Geometry) === 'function' && _a) || Object)
-	    ], LinkerComponent.prototype, "geometry", void 0);
-	    LinkerComponent = __decorate([
-	        core_1.Component({
-	            selector: 'linker',
-	            template: __webpack_require__(665),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], LinkerComponent);
-	    return LinkerComponent;
-	    var _a;
-	}());
-	exports.LinkerComponent = LinkerComponent;
-
-
-/***/ },
-
-/***/ 665:
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"link-circle\" \n\t[style.left.px]=\"link.center.x\"\n\t[style.top.px]=\"link.center.y\"\n\t[style.width.px]=\"link.radius*2\"\n\t[style.height.px]=\"link.radius*2\">\n\n</div>";
-
-/***/ },
-
-/***/ 666:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var InputBoxComponent = (function () {
-	    function InputBoxComponent() {
-	    }
-	    InputBoxComponent = __decorate([
-	        core_1.Component({
-	            selector: 'input-box',
-	            template: __webpack_require__(667),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], InputBoxComponent);
-	    return InputBoxComponent;
-	}());
-	exports.InputBoxComponent = InputBoxComponent;
-
-
-/***/ },
-
-/***/ 667:
-/***/ function(module, exports) {
-
-	module.exports = "TODO";
-
-/***/ },
-
-/***/ 668:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var worksheet_1 = __webpack_require__(82);
-	var ClassDiagramComponent = (function () {
-	    function ClassDiagramComponent() {
-	        this.requestDragging = new core_1.EventEmitter();
-	    }
-	    ClassDiagramComponent.prototype.toggleSelection = function () {
-	        this.classDiagram.selected = !this.classDiagram.selected;
-	    };
-	    ClassDiagramComponent.prototype.registerDragIntention = function (dragProcessor) {
-	        this.requestDragging.emit(dragProcessor);
-	    };
-	    __decorate([
-	        core_1.Input('classDiagram'), 
-	        __metadata('design:type', (typeof (_a = typeof worksheet_1.ClassDiagramNode !== 'undefined' && worksheet_1.ClassDiagramNode) === 'function' && _a) || Object)
-	    ], ClassDiagramComponent.prototype, "classDiagram", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], ClassDiagramComponent.prototype, "requestDragging", void 0);
-	    ClassDiagramComponent = __decorate([
-	        core_1.Component({
-	            selector: 'class-diagram',
-	            template: __webpack_require__(669),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], ClassDiagramComponent);
-	    return ClassDiagramComponent;
-	    var _a;
-	}());
-	exports.ClassDiagramComponent = ClassDiagramComponent;
-
-
-/***/ },
-
-/***/ 669:
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classDiagram.rect.x\"\n[style.top.px]=\"classDiagram.rect.y\"\n[style.width.px]=\"classDiagram.rect.width\"\n[style.height.px]=\"classDiagram.rect.height\"\n[style.selected-block]=\"classDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span [class.italic]=\"classDiagram.classDefinition.isAbstract\">{{classDiagram.classDefinition.name}}</span>\n\t</div>\n\n\t<div \n\t*ngFor=\"let fieldMember of classDiagram.classDefinition.fieldList \" \n\tclass=\"block-cell content-block-cell\"\n\tcontenteditable=\"true\"\n\t>\n\t\t{{fieldMember.accessSpecifier | accessSymbol}} {{fieldMember.variableDefinition.name}} : {{fieldMember.variableDefinition.type.getName()}}\n\t</div>\n\t<div class=\"solid-horizontal-line mini-top-bottom-margin\"> </div>\n\t<div *ngFor=\"let methodMember of classDiagram.classDefinition.methodList; let i=index\" \n\t\tclass=\"block-cell content-block-cell\"\n\t\tcontenteditable=\"true\"\n\t\t>\n\n\t\t{{methodMember.accessSpecifier | accessSymbol}} \n\t\t<span [class.italic]=\"methodMember.isAbstract\">\n\t\t{{methodMember.methodPrototype.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of methodMember.methodPrototype.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{methodMember.methodPrototype.returnType.getName()}}\n\t\t</span>\n\t</div>\n</div>";
-
-/***/ },
-
-/***/ 670:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var worksheet_1 = __webpack_require__(82);
-	var ClassObjectComponent = (function () {
-	    function ClassObjectComponent() {
-	        this.requestDragging = new core_1.EventEmitter();
-	    }
-	    ClassObjectComponent.prototype.toggleSelection = function () {
-	        this.classObjectDiagram.selected = !this.classObjectDiagram.selected;
-	    };
-	    ClassObjectComponent.prototype.registerDragIntention = function (dragProcessor) {
-	        this.requestDragging.emit(dragProcessor);
-	    };
-	    __decorate([
-	        core_1.Input('classObjectDiagram'), 
-	        __metadata('design:type', (typeof (_a = typeof worksheet_1.ClassObjectDiagram !== 'undefined' && worksheet_1.ClassObjectDiagram) === 'function' && _a) || Object)
-	    ], ClassObjectComponent.prototype, "classObjectDiagram", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], ClassObjectComponent.prototype, "requestDragging", void 0);
-	    ClassObjectComponent = __decorate([
-	        core_1.Component({
-	            selector: 'class-object-diagram',
-	            template: __webpack_require__(671),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], ClassObjectComponent);
-	    return ClassObjectComponent;
-	    var _a;
-	}());
-	exports.ClassObjectComponent = ClassObjectComponent;
-
-
-/***/ },
-
-/***/ 671:
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classObjectDiagram.rect.x\"\n[style.top.px]=\"classObjectDiagram.rect.y\"\n[style.width.px]=\"classObjectDiagram.rect.width\"\n[style.height.px]=\"classObjectDiagram.rect.height\"\n[style.selected-block]=\"classObjectDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span>{{classObjectDiagram.classObject.name}}</span>\n\t\t : \n\t\t<span class=\"bold\">{{classObjectDiagram.classObject.classDefinition.getName()}}</span>\n\t</div>\n\n\t<div *ngFor=\"let fieldData of classObjectDiagram.classObject.fieldDataList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{fieldData.variable.name}} \n\t\t=\n\t\t{{fieldData.data.stringRepresentation()}}\n\t</div>\n</div>";
-
-/***/ },
-
-/***/ 672:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var worksheet_1 = __webpack_require__(82);
-	var InterfaceDiagramComponent = (function () {
-	    function InterfaceDiagramComponent() {
-	        this.requestDragging = new core_1.EventEmitter();
-	    }
-	    InterfaceDiagramComponent.prototype.toggleSelection = function () {
-	        this.interfaceDiagram.selected = !this.interfaceDiagram.selected;
-	    };
-	    InterfaceDiagramComponent.prototype.registerDragIntention = function (dragProcessor) {
-	        this.requestDragging.emit(dragProcessor);
-	    };
-	    __decorate([
-	        core_1.Input('interfaceDiagram'), 
-	        __metadata('design:type', (typeof (_a = typeof worksheet_1.InterfaceDiagramNode !== 'undefined' && worksheet_1.InterfaceDiagramNode) === 'function' && _a) || Object)
-	    ], InterfaceDiagramComponent.prototype, "interfaceDiagram", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], InterfaceDiagramComponent.prototype, "requestDragging", void 0);
-	    InterfaceDiagramComponent = __decorate([
-	        core_1.Component({
-	            selector: 'interface-diagram',
-	            template: __webpack_require__(673),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], InterfaceDiagramComponent);
-	    return InterfaceDiagramComponent;
-	    var _a;
-	}());
-	exports.InterfaceDiagramComponent = InterfaceDiagramComponent;
-
-
-/***/ },
-
-/***/ 673:
-/***/ function(module, exports) {
-
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"interfaceDiagram.rect.x\"\n[style.top.px]=\"interfaceDiagram.rect.y\"\n[style.width.px]=\"interfaceDiagram.rect.width\"\n[style.height.px]=\"interfaceDiagram.rect.height\"\n[style.selected-block]=\"interfaceDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<div class=\"header-decorater\"> &lt;&lt; Interface &gt;&gt; </div>\n\t\t<span>{{interfaceDiagram.interfaceDefinition.name}}</span>\n\t</div>\n\n\t<div *ngFor=\"let method of interfaceDiagram.interfaceDefinition.methodList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{method.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of method.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{method.returnType.getName()}}\n\t</div>\n</div>";
-
-/***/ },
-
-/***/ 674:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var InterfaceObjectDiagramComponent = (function () {
-	    function InterfaceObjectDiagramComponent() {
-	    }
-	    InterfaceObjectDiagramComponent = __decorate([
-	        core_1.Component({
-	            selector: 'interface-object-diagram',
-	            template: __webpack_require__(675),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], InterfaceObjectDiagramComponent);
-	    return InterfaceObjectDiagramComponent;
-	}());
-	exports.InterfaceObjectDiagramComponent = InterfaceObjectDiagramComponent;
-
-
-/***/ },
-
-/***/ 675:
-/***/ function(module, exports) {
-
-	module.exports = "TODO";
-
-/***/ },
-
-/***/ 676:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var LinkedSegmentsComponent = (function () {
-	    function LinkedSegmentsComponent() {
-	    }
-	    LinkedSegmentsComponent = __decorate([
-	        core_1.Component({
-	            selector: 'linked-segments',
-	            template: __webpack_require__(677),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], LinkedSegmentsComponent);
-	    return LinkedSegmentsComponent;
-	}());
-	exports.LinkedSegmentsComponent = LinkedSegmentsComponent;
-
-
-/***/ },
-
-/***/ 677:
-/***/ function(module, exports) {
-
-	module.exports = "TODO";
-
-/***/ },
-
-/***/ 678:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var __param = (this && this.__param) || function (paramIndex, decorator) {
-	    return function (target, key) { decorator(target, key, paramIndex); }
-	};
-	var core_1 = __webpack_require__(3);
-	var FocusDirective = (function () {
-	    function FocusDirective(element) {
-	        this.element = element;
-	    }
-	    FocusDirective.prototype.ngOnChanges = function () {
-	        this.element.nativeElement.focus();
-	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Boolean)
-	    ], FocusDirective.prototype, "focus", void 0);
-	    FocusDirective = __decorate([
-	        core_1.Directive({
-	            selector: '[focus]'
-	        }),
-	        __param(0, core_1.Inject(core_1.ElementRef)), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object])
-	    ], FocusDirective);
-	    return FocusDirective;
-	    var _a;
-	}());
-	exports.FocusDirective = FocusDirective;
-
-
-/***/ },
-
-/***/ 679:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var __param = (this && this.__param) || function (paramIndex, decorator) {
-	    return function (target, key) { decorator(target, key, paramIndex); }
-	};
-	var core_1 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(73);
-	var MyRectDirective = (function () {
-	    function MyRectDirective(element) {
-	        this.element = element;
-	        this.background = "white";
-	        this.strokeColor = 'black';
-	        this.strokeWidth = 2;
-	        this.strokeStyle = 'solid';
-	        this.opacity = 1;
-	    }
-	    MyRectDirective.prototype.ngOnChanges = function () {
-	        this.element.nativeElement.style.position = "absolute";
-	        this.element.nativeElement.style.left = this.myRect.x + "px";
-	        this.element.nativeElement.style.top = this.myRect.y + "px";
-	        this.element.nativeElement.style.width = this.myRect.width + "px";
-	        this.element.nativeElement.style.height = this.myRect.height + "px";
-	        this.element.nativeElement.style.background = this.background;
-	        this.element.nativeElement.style.borderColor = this.strokeColor;
-	        this.element.nativeElement.style.borderWidth = this.strokeWidth + "px";
-	        this.element.nativeElement.style.borderStyle = this.strokeStyle;
-	        this.element.nativeElement.style.opacity = this.opacity;
-	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', (typeof (_a = typeof geometry_1.Rect !== 'undefined' && geometry_1.Rect) === 'function' && _a) || Object)
-	    ], MyRectDirective.prototype, "myRect", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Object)
-	    ], MyRectDirective.prototype, "background", void 0);
-	    __decorate([
-	        core_1.Input('borderColor'), 
-	        __metadata('design:type', Object)
-	    ], MyRectDirective.prototype, "strokeColor", void 0);
-	    __decorate([
-	        core_1.Input('borderWidth'), 
-	        __metadata('design:type', Object)
-	    ], MyRectDirective.prototype, "strokeWidth", void 0);
-	    __decorate([
-	        core_1.Input('borderStyle'), 
-	        __metadata('design:type', Object)
-	    ], MyRectDirective.prototype, "strokeStyle", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Object)
-	    ], MyRectDirective.prototype, "opacity", void 0);
-	    MyRectDirective = __decorate([
-	        core_1.Directive({
-	            selector: '[myRect]'
-	        }),
-	        __param(0, core_1.Inject(core_1.ElementRef)), 
-	        __metadata('design:paramtypes', [(typeof (_b = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _b) || Object])
-	    ], MyRectDirective);
-	    return MyRectDirective;
-	    var _a, _b;
-	}());
-	exports.MyRectDirective = MyRectDirective;
-
-
-/***/ },
-
-/***/ 680:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var __param = (this && this.__param) || function (paramIndex, decorator) {
-	    return function (target, key) { decorator(target, key, paramIndex); }
-	};
-	var core_1 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(73);
-	var MyCircleDirective = (function () {
-	    function MyCircleDirective(element) {
-	        this.element = element;
-	        this.background = "white";
-	        this.strokeColor = 'black';
-	        this.strokeWidth = 2;
-	        this.strokeStyle = 'solid';
-	        this.opacity = 1;
-	    }
-	    MyCircleDirective.prototype.ngOnChanges = function () {
-	        this.element.nativeElement.style.borderRadius = "50%";
-	        this.element.nativeElement.style.position = "absolute";
-	        this.element.nativeElement.style.left = this.myCircle.center.x + "px";
-	        this.element.nativeElement.style.top = this.myCircle.center.y + "px";
-	        this.element.nativeElement.style.width = this.myCircle.radius * 2 + "px";
-	        this.element.nativeElement.style.height = this.myCircle.radius * 2 + "px";
-	        this.element.nativeElement.style.background = this.background;
-	        this.element.nativeElement.style.borderColor = this.strokeColor;
-	        this.element.nativeElement.style.borderWidth = this.strokeWidth + "px";
-	        this.element.nativeElement.style.borderStyle = this.strokeStyle;
-	        this.element.nativeElement.style.opacity = this.opacity;
-	    };
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', (typeof (_a = typeof geometry_1.Circle !== 'undefined' && geometry_1.Circle) === 'function' && _a) || Object)
-	    ], MyCircleDirective.prototype, "myCircle", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Object)
-	    ], MyCircleDirective.prototype, "background", void 0);
-	    __decorate([
-	        core_1.Input('borderColor'), 
-	        __metadata('design:type', Object)
-	    ], MyCircleDirective.prototype, "strokeColor", void 0);
-	    __decorate([
-	        core_1.Input('borderWidth'), 
-	        __metadata('design:type', Object)
-	    ], MyCircleDirective.prototype, "strokeWidth", void 0);
-	    __decorate([
-	        core_1.Input('borderStyle'), 
-	        __metadata('design:type', Object)
-	    ], MyCircleDirective.prototype, "strokeStyle", void 0);
-	    __decorate([
-	        core_1.Input(), 
-	        __metadata('design:type', Object)
-	    ], MyCircleDirective.prototype, "opacity", void 0);
-	    MyCircleDirective = __decorate([
-	        core_1.Directive({
-	            selector: '[myCircle]'
-	        }),
-	        __param(0, core_1.Inject(core_1.ElementRef)), 
-	        __metadata('design:paramtypes', [(typeof (_b = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _b) || Object])
-	    ], MyCircleDirective);
-	    return MyCircleDirective;
-	    var _a, _b;
-	}());
-	exports.MyCircleDirective = MyCircleDirective;
-
-
-/***/ },
-
-/***/ 681:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var semantic_model_1 = __webpack_require__(75);
-	/*
-	 * Gives the symbol for an access specifier
-	 *
-	 * Usage:
-	 *   value | accessSymbol
-	*/
-	var AccessSymbol = (function () {
-	    function AccessSymbol() {
-	    }
-	    AccessSymbol.prototype.transform = function (value) {
-	        switch (value) {
-	            case semantic_model_1.AccessSpecifier.Private:
-	                return "-";
-	            case semantic_model_1.AccessSpecifier.Protected:
-	                return "#";
-	            case semantic_model_1.AccessSpecifier.Public:
-	                return "+";
-	            case semantic_model_1.AccessSpecifier.Default:
-	            default:
-	                return " ";
-	        }
-	    };
-	    AccessSymbol = __decorate([
-	        core_1.Pipe({ name: 'accessSymbol' }), 
-	        __metadata('design:paramtypes', [])
-	    ], AccessSymbol);
-	    return AccessSymbol;
-	}());
-	exports.AccessSymbol = AccessSymbol;
-
-
-/***/ },
-
-/***/ 682:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var worksheet_1 = __webpack_require__(82);
-	/*
-	 * Gives the background(mostly svg) for generic type node
-	 * @Deprecated (Using inline svgs now)
-	 * Usage:
-	 *   value | nodeBg
-	*/
-	var NodeBackground = (function () {
-	    function NodeBackground() {
-	    }
-	    NodeBackground.prototype.transform = function (value) {
-	        var pathToBg = "";
-	        switch (value) {
-	            case worksheet_1.GenericDiagramNodeType.Rectangle:
-	                break;
-	            case worksheet_1.GenericDiagramNodeType.Circle:
-	                break;
-	            case worksheet_1.GenericDiagramNodeType.Diamond:
-	                break;
-	            case worksheet_1.GenericDiagramNodeType.Ellipse:
-	                break;
-	            case worksheet_1.GenericDiagramNodeType.StickFigure:
-	                break;
-	            case worksheet_1.GenericDiagramNodeType.Database:
-	        }
-	        return pathToBg;
-	    };
-	    NodeBackground = __decorate([
-	        core_1.Pipe({ name: 'nodeBg' }), 
-	        __metadata('design:paramtypes', [])
-	    ], NodeBackground);
-	    return NodeBackground;
-	}());
-	exports.NodeBackground = NodeBackground;
-
-
-/***/ },
-
-/***/ 683:
-/***/ function(module, exports) {
-
-	module.exports = "<a style=\"background: blue;color: white\" (click)=\"router.navigate(['/dashboard'])\">Dashboard</a>\n\n<div>Account</div>\n\n<div *ngIf=\"user!=null\">\n\n\t<div>\n\t\t<span>firstName:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.firstName\"/>\n\t</div>\n\n\t<div>\n\t\t<span>lastName:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.lastName\"/>\n\t</div>\n\n\t<div>\n\t\t<span>email:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.email\"/>\n\t</div>\n\n\t<div>\n\t\t<span>gender:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.gender\"/>\n\t</div>\n</div>\n\n<!--TODO allow changing password-->\n\n<a (click)=\"saveAccountDetails()\">Save details</a>";
-
-/***/ },
-
-/***/ 684:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var user_service_1 = __webpack_require__(686);
-	var router_1 = __webpack_require__(31);
-	var AccountComponent = (function () {
-	    function AccountComponent(userService, router) {
-	        this.userService = userService;
-	        this.router = router;
-	    }
-	    AccountComponent.prototype.ngOnInit = function () {
-	        var _this = this;
-	        this.userService.accountInfo().subscribe(function (user) {
-	            _this.user = user;
-	        }, function (error) {
-	            console.error("Retrieving account info"); //TODO show user friendly message
-	        });
-	    };
-	    AccountComponent.prototype.saveAccountDetails = function () {
-	        console.log("TODO Saving account Details");
-	    };
-	    AccountComponent = __decorate([
-	        core_1.Component({
-	            selector: 'account',
-	            template: __webpack_require__(683),
-	        }), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object])
-	    ], AccountComponent);
-	    return AccountComponent;
-	    var _a, _b;
-	}());
-	exports.AccountComponent = AccountComponent;
-
-
-/***/ },
-
-/***/ 685:
-/***/ function(module, exports) {
-
-	"use strict";
-	var LoginCredential = (function () {
-	    function LoginCredential() {
-	    }
-	    LoginCredential.prototype.toString = function () {
-	        return this.username;
-	    };
-	    return LoginCredential;
-	}());
-	exports.LoginCredential = LoginCredential;
-	var User = (function () {
-	    function User() {
-	    }
-	    User.prototype.toString = function () {
-	        return this.firstName + " " + this.lastName;
-	    };
-	    return User;
-	}());
-	exports.User = User;
-
-
-/***/ },
-
-/***/ 686:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var user_account_1 = __webpack_require__(685);
-	var http_1 = __webpack_require__(359);
-	var shared_codes_1 = __webpack_require__(688);
-	var UserService = (function () {
-	    function UserService(http) {
-	        this.http = http;
-	    }
-	    /** Creates an account for the supplied model.*/
-	    UserService.prototype.createUserAccount = function (user) {
-	        var body = JSON.stringify(user);
-	        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-	        var options = new http_1.RequestOptions({ headers: headers });
-	        return this.http.post(UserService.CREATE_USER_ACCOUNT_URL, body, options).map(this.toSignupAttempt);
-	    };
-	    UserService.prototype.toSignupAttempt = function (response) {
-	        //get the code from the response
-	        var body = response.json();
-	        if (typeof shared_codes_1.SignupAttempt[body] === 'undefined') {
-	            console.log("Invalid code from server");
-	            return null;
-	        }
-	        else {
-	            return body;
-	        }
-	    };
-	    /** Attempts to login with the credentials.*/
-	    UserService.prototype.login = function (login) {
-	        var body = JSON.stringify(login);
-	        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-	        var options = new http_1.RequestOptions({ headers: headers });
-	        return this.http.post(UserService.AUTHENTICATE_USER_URL, body, options).map(this.toLoginAttempt);
-	    };
-	    UserService.prototype.toLoginAttempt = function (response) {
-	        //get the code from the response
-	        var body = response.json();
-	        if (typeof shared_codes_1.LoginAttempt[body] === 'undefined') {
-	            console.log("Invalid code from server");
-	            return null;
-	        }
-	        else {
-	            return body;
-	        }
-	    };
-	    /** Gets the user object for the logged in user. Will return null(Observable) if the user is not in session. */
-	    UserService.prototype.accountInfo = function () {
-	        return this.http.get(UserService.ACCOUNT_URL).map(this.toUserObject);
-	    };
-	    UserService.prototype.toUserObject = function (response) {
-	        var body = response.json();
-	        var user = new user_account_1.User();
-	        user.firstName = body['firstName'];
-	        user.lastName = body['lastName'];
-	        user.email = body['email'];
-	        user.gender = body['gender'];
-	        user.rid = body['@rid'];
-	        return user;
-	    };
-	    UserService.prototype.logout = function () {
-	        return this.http.get(UserService.LOGOUT_URL).map(this.toUserObject);
-	    };
-	    //TODO move these urls in the shared-codes file
-	    UserService.CREATE_USER_ACCOUNT_URL = "api/create-user";
-	    UserService.AUTHENTICATE_USER_URL = "api/authenticate-user";
-	    UserService.ACCOUNT_URL = "api/account";
-	    UserService.LOGOUT_URL = "api/logout";
-	    UserService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
-	    ], UserService);
-	    return UserService;
-	    var _a;
-	}());
-	exports.UserService = UserService;
-
-
-/***/ },
-
-/***/ 688:
-/***/ function(module, exports) {
-
-	//IMPORTANT this file is shared between client and server but is duplicated in both places. 
-	//This is because typescript compiler is separete for both client and server.
-	//Make sure both the copies are kept in sync at all times
-	"use strict";
-	//TODO find a way to make this a common file
-	/** A mutually shared code between the client and server that identifies the login attempt. */
-	(function (LoginAttempt) {
-	    LoginAttempt[LoginAttempt["Success"] = 1] = "Success";
-	    LoginAttempt[LoginAttempt["InvalidUsernameOrPassword"] = 2] = "InvalidUsernameOrPassword";
-	    LoginAttempt[LoginAttempt["EmailDoesNotExist"] = 3] = "EmailDoesNotExist";
-	    LoginAttempt[LoginAttempt["InternalServerError"] = 4] = "InternalServerError";
-	})(exports.LoginAttempt || (exports.LoginAttempt = {}));
-	var LoginAttempt = exports.LoginAttempt;
-	/** A mutually shared code between the client and server that identifies the signup attempt. */
-	(function (SignupAttempt) {
-	    SignupAttempt[SignupAttempt["Success"] = 1] = "Success";
-	    SignupAttempt[SignupAttempt["EmailAlreadyExists"] = 2] = "EmailAlreadyExists";
-	    SignupAttempt[SignupAttempt["WeakPassword"] = 3] = "WeakPassword";
-	    SignupAttempt[SignupAttempt["NullPassword"] = 4] = "NullPassword";
-	    SignupAttempt[SignupAttempt["InternalServerError"] = 5] = "InternalServerError";
-	})(exports.SignupAttempt || (exports.SignupAttempt = {}));
-	var SignupAttempt = exports.SignupAttempt;
-
-
-/***/ },
-
-/***/ 689:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var worksheet_1 = __webpack_require__(82);
-	var http_1 = __webpack_require__(359);
-	var DashboardService = (function () {
-	    function DashboardService(http) {
-	        this.http = http;
-	    }
-	    /**
-	     * Gets the list of worksheets associated with the logged in user.
-	     * Will return null(Observable) if the user is not in session.
-	     */
-	    DashboardService.prototype.worksheetListForLoggedInUser = function () {
-	        var _this = this;
-	        return this.http.get(DashboardService.DASHBOARD_URL).map(function (response) { return _this.toWorksheetList(response); });
-	    };
-	    DashboardService.prototype.toWorksheetList = function (response) {
-	        var worksheetList = [];
-	        var arrayBody = response.json();
-	        for (var i = 0; i < arrayBody.length; i++) {
-	            worksheetList[i] = this.worksheetFromJson(arrayBody[i]);
-	        }
-	        return worksheetList;
-	    };
-	    DashboardService.prototype.worksheetFromJson = function (json) {
-	        var worksheet = new worksheet_1.Worksheet();
-	        worksheet.title = json.title;
-	        worksheet.description = json.description;
-	        worksheet.rid = json['@rid'];
-	        return worksheet;
-	    };
-	    /** Creates a worksheet for the logged in user. */
-	    DashboardService.prototype.createWorksheet = function (title, description) {
-	        var _this = this;
-	        var body = {
-	            "title": title,
-	            "description": description
-	        };
-	        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-	        var options = new http_1.RequestOptions({ headers: headers });
-	        return this.http.post(DashboardService.CREATE_WORKSHEET_URL, body, options).map(function (res) { return _this.worksheetFromJson(res.json()); });
-	    };
-	    /**
-	     * Removes the specified worksheet from the logged in user.
-	     * Returns false in case the worksheet is not associated with the user.
-	     */
-	    DashboardService.prototype.removeWorksheet = function (worksheet) {
-	        var body = {
-	            "worksheetRid": worksheet.rid
-	        };
-	        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
-	        var options = new http_1.RequestOptions({
-	            headers: headers,
-	            body: body
-	        });
-	        return this.http.delete(DashboardService.REMOVE_WORKSHEET_URL, options).map(function (res) { return (res.json()); });
-	    };
-	    //TODO move these urls in the shared-codes file
-	    DashboardService.DASHBOARD_URL = "api/dashboard";
-	    DashboardService.CREATE_WORKSHEET_URL = "api/create-worksheet";
-	    DashboardService.REMOVE_WORKSHEET_URL = "api/remove-worksheet";
-	    DashboardService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
-	    ], DashboardService);
-	    return DashboardService;
-	    var _a;
-	}());
-	exports.DashboardService = DashboardService;
-
-
-/***/ },
-
-/***/ 690:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var core_2 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(73);
-	var workspace_1 = __webpack_require__(692);
-	exports.WIDTH = 200;
-	exports.HEIGHT = 250;
-	var CreationDrawerComponent = (function () {
-	    function CreationDrawerComponent() {
-	        this.requestDragging = new core_1.EventEmitter();
-	    }
-	    CreationDrawerComponent.prototype.handleMousePress = function (event) {
-	    };
-	    CreationDrawerComponent.prototype.handleMouseDrag = function (event) {
-	    };
-	    CreationDrawerComponent.prototype.handleMouseRelease = function (event) {
-	    };
-	    CreationDrawerComponent.prototype.registerDragIntention = function (dragProcessor) {
-	        this.requestDragging.emit(dragProcessor);
-	    };
-	    __decorate([
-	        core_1.Input('workspace'), 
-	        __metadata('design:type', (typeof (_a = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _a) || Object)
-	    ], CreationDrawerComponent.prototype, "workspace", void 0);
-	    __decorate([
-	        core_1.Input('position'), 
-	        __metadata('design:type', (typeof (_b = typeof geometry_1.Point !== 'undefined' && geometry_1.Point) === 'function' && _b) || Object)
-	    ], CreationDrawerComponent.prototype, "position", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], CreationDrawerComponent.prototype, "requestDragging", void 0);
-	    CreationDrawerComponent = __decorate([
-	        core_1.Component({
-	            selector: 'creation-drawer',
-	            template: __webpack_require__(691),
-	            animations: [
-	                core_2.trigger('isDrawerOpen', [
-	                    core_2.state('open', core_2.style({
-	                        width: exports.WIDTH + "px",
-	                        height: exports.HEIGHT + "px",
-	                        transform: "scale(1,1)"
-	                    })),
-	                    core_2.state('closed', core_2.style({
-	                        width: exports.WIDTH + "px",
-	                        height: exports.HEIGHT + "px",
-	                        transform: "scale(0,0)"
-	                    })),
-	                    core_2.transition('open => closed', core_2.animate('100ms ease-in')),
-	                    core_2.transition('closed => open', core_2.animate('200ms ease-out'))
-	                ])
-	            ]
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], CreationDrawerComponent);
-	    return CreationDrawerComponent;
-	    var _a, _b;
-	}());
-	exports.CreationDrawerComponent = CreationDrawerComponent;
-
-
-/***/ },
-
-/***/ 691:
-/***/ function(module, exports) {
-
-	module.exports = "<div \n\tclass=\"drop-shadowed-pop-up\"\n\tid=\"creation-pop-up\"\n\t[style.left.px]=\"position.x\"\n\t[style.top.px]=\"position.y\"\n\t[@isDrawerOpen]=\"workspace.creationDrawerIsOpen?'open':'closed'\" >\n\n</div>";
-
-/***/ },
-
-/***/ 692:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var worksheet_1 = __webpack_require__(82);
-	/** Current configuration of the workspace on account of user actions so far. */
-	var Workspace = (function () {
-	    function Workspace(worksheet) {
-	        this.history = [];
-	        this.future = [];
-	        this._selection = new worksheet_1.DiagramModel();
-	        this.creationDrawerIsOpen = false;
-	        this._worksheet = worksheet;
-	    }
-	    Workspace.prototype.commit = function (command) {
-	        this.history.push(command);
-	        this.future.splice(0, this.future.length);
-	    };
-	    Workspace.prototype.undo = function () {
-	        if (this.history.length) {
-	            console.debug("history stack is empty");
-	            return;
-	        }
-	        var latestCommand = this.history.pop();
-	        latestCommand.unExecute(); //undo it
-	        this.future.push(latestCommand);
-	    };
-	    Workspace.prototype.redo = function () {
-	        if (this.future.length) {
-	            console.debug("future stack is empty");
-	            return;
-	        }
-	        var undoneCommand = this.history.pop();
-	        undoneCommand.execute(); //redo it back
-	        this.history.push(undoneCommand);
-	    };
-	    Object.defineProperty(Workspace.prototype, "worksheet", {
-	        get: function () {
-	            return this._worksheet;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(Workspace.prototype, "selection", {
-	        get: function () {
-	            return this._selection;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Workspace.prototype.addNodeToSelection = function (node) {
-	        if (this._selection.containsNode(node)) {
-	            return;
-	        }
-	        this._selection.diagramNodeList.push(node);
-	        node.selected = true;
-	    };
-	    Workspace.prototype.removeNodeToSelection = function (node) {
-	        var index = this._selection.diagramNodeList.indexOf(node);
-	        if (index != -1) {
-	            this._selection.diagramNodeList.splice(index, 1);
-	            node.selected = false;
-	        }
-	    };
-	    Workspace.prototype.addEdgeToSelection = function (edge) {
-	        if (this._selection.containsEdge(edge)) {
-	            return;
-	        }
-	        this._selection.diagramEdgeList.push(edge);
-	        edge.selected = true;
-	    };
-	    Workspace.prototype.removeEdgeToSelection = function (edge) {
-	        var index = this._selection.diagramEdgeList.indexOf(edge);
-	        if (index != -1) {
-	            this._selection.diagramEdgeList.splice(index, 1);
-	            edge.selected = false;
-	        }
-	    };
-	    /** Clears the selection and resets the selected flag for each node and edeg*/
-	    Workspace.prototype.clearSelection = function () {
-	        for (var _i = 0, _a = this._selection.diagramEdgeList; _i < _a.length; _i++) {
-	            var edge = _a[_i];
-	            this.removeEdgeToSelection(edge);
-	        }
-	        for (var _b = 0, _c = this._selection.diagramNodeList; _b < _c.length; _b++) {
-	            var node = _c[_b];
-	            this.removeNodeToSelection(node);
-	        }
-	    };
-	    return Workspace;
-	}());
-	exports.Workspace = Workspace;
-
-
-/***/ },
-
-/***/ 693:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
-	var workspace_1 = __webpack_require__(692);
-	var SelectionBoxComponent = (function () {
-	    function SelectionBoxComponent() {
-	        this.requestDragging = new core_1.EventEmitter();
-	    }
-	    SelectionBoxComponent.prototype.handleMousePress = function (event) {
-	    };
-	    SelectionBoxComponent.prototype.handleMouseDrag = function (event) {
-	    };
-	    SelectionBoxComponent.prototype.handleMouseRelease = function (event) {
-	    };
-	    SelectionBoxComponent.prototype.registerDragIntention = function (dragProcessor) {
-	        this.requestDragging.emit(dragProcessor);
-	    };
-	    __decorate([
-	        core_1.Input('workspace'), 
-	        __metadata('design:type', (typeof (_a = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _a) || Object)
-	    ], SelectionBoxComponent.prototype, "workspace", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], SelectionBoxComponent.prototype, "requestDragging", void 0);
-	    SelectionBoxComponent = __decorate([
-	        core_1.Component({
-	            selector: 'selection-box',
-	            template: __webpack_require__(694),
-	        }), 
-	        __metadata('design:paramtypes', [])
-	    ], SelectionBoxComponent);
-	    return SelectionBoxComponent;
-	    var _a;
-	}());
-	exports.SelectionBoxComponent = SelectionBoxComponent;
-
-
-/***/ },
-
-/***/ 694:
-/***/ function(module, exports) {
-
-	module.exports = "<div \n\tid=\"selection-box\"\n\t[style.left.px]=\"rect.x\"\n\t[style.top.px]=\"rect.y\"\n\t[style.width.px]=\"rect.width\"\n\t[style.height.px]=\"rect.height\"\n\t[@isDrawerOpen]=\"workspace.creationDrawerIsOpen?'open':'closed'\" >\n\n</div>";
-
 /***/ }
-
-});
+]);
 //# sourceMappingURL=app.js.map

@@ -106,6 +106,7 @@ export class ResizeHandleComponent implements OnInit,PressDragReleaseProcessor{
 	}
 
 	handleMouseDrag(event:MouseEvent):void{
+		console.debug("resize handle dragged "+(<HTMLDivElement>event.target).id);
 		var dx=event.clientX-this.lastX;
 		var dy=event.clientY-this.lastY;
 		if(event.buttons==1){//only left mouse button pressed

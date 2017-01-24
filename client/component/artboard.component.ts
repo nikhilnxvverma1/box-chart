@@ -12,6 +12,7 @@ import * as creationDrawer from './creation-drawer.component';
 import { InterpreterService } from '../editor/compiler/interpreter.service';
 import { GenericDiagramNode,GenericDiagramNodeType,DiagramEdge } from '../model/worksheet';
 import { Workspace } from '../editor/workspace';
+import { SelectionBoxComponent } from './selection-box.component';
 
 export const ArtboardWidth=3200;
 export const ArtboardHeight=(2/3)*ArtboardWidth;
@@ -25,6 +26,11 @@ export const ArtboardHeight=(2/3)*ArtboardWidth;
 export class ArtboardComponent  {
     massiveArea:Rect;
     rectList:Rect[]=[];
+
+	@ViewChild(SelectionBoxComponent)
+	private selectionBox:SelectionBoxComponent;
+
+
 	diagramticComponentList:DiagramaticComponent[]=[]
 
 	@Input() workspace:Workspace;
@@ -65,13 +71,15 @@ export class ArtboardComponent  {
 		this.creationDrawerLocation=new Point(event.offsetX-creationDrawer.WIDTH/2,event.offsetY-creationDrawer.HEIGHT/2);
 		this.workspace.creationDrawerIsOpen=true;
 	}
-
+  
 	mousedown(event:MouseEvent){
 		this.workspace.creationDrawerIsOpen=false;
 
 		this.mousedownEvent.emit(event);
 		if(this.draggingInteraction!=null){
 			this.draggingInteraction.handleMousePress(event);
+		}else{
+			this.selectionBox.mousePressed(event);
 		}
 	}
 
@@ -79,6 +87,8 @@ export class ArtboardComponent  {
 		this.mousemoveEvent.emit(event);	
 		if(this.draggingInteraction!=null){
 			this.draggingInteraction.handleMouseDrag(event);
+		}else{
+			this.selectionBox.mouseMoved(event);
 		}
 	}
 
@@ -86,6 +96,8 @@ export class ArtboardComponent  {
 		this.mouseupEvent.emit(event);	
 		if(this.draggingInteraction!=null){
 			this.draggingInteraction.handleMouseRelease(event);
+		}else{
+			this.selectionBox.mouseReleased(event);
 		}
 		this.draggingInteraction=null;
 	}
