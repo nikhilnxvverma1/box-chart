@@ -62,8 +62,7 @@ export class ArtboardComponent  {
 	}
 
 	doubleClickedArtboard(event:MouseEvent){
-		// this.creationDrawerLocation=new Point(event.offsetX-creationDrawer.WIDTH/2,event.offsetY);
-		this.creationDrawerLocation=new Point(event.offsetX,event.offsetY);
+		this.creationDrawerLocation=new Point(event.offsetX-creationDrawer.WIDTH/2,event.offsetY-creationDrawer.HEIGHT/2);
 		this.workspace.creationDrawerIsOpen=true;
 	}
 

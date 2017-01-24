@@ -6333,8 +6333,9 @@ webpackJsonp([0],{
 	        //get the width and height of the 'device' window and get the 
 	        this.movingWindow = new geometry_1.Rect(this.artboard.massiveArea.width / 2 - window.innerWidth / 2, this.artboard.massiveArea.height / 2 - window.innerHeight / 2, window.innerWidth, window.outerHeight);
 	        this.positionArtboardBasis(this.movingWindow);
-	        //get the worksheet for the given rid defined in url params
+	        //TODO get the worksheet for the given rid defined in url params
 	        this.workspace = new workspace_1.Workspace(new worksheet_1.Worksheet());
+	        this.workspace.worksheet.diagramModel = new worksheet_1.DiagramModel();
 	    };
 	    WorkspaceComponent.prototype.toggleSidebar = function () {
 	        this.sidebar.open = !this.sidebar.open;
@@ -7317,6 +7318,7 @@ webpackJsonp([0],{
 	var geometry_2 = __webpack_require__(73);
 	var mock_data_service_1 = __webpack_require__(81);
 	var auto_completion_component_1 = __webpack_require__(84);
+	var creationDrawer = __webpack_require__(690);
 	var interpreter_service_1 = __webpack_require__(87);
 	var worksheet_1 = __webpack_require__(82);
 	var workspace_1 = __webpack_require__(692);
@@ -7352,8 +7354,7 @@ webpackJsonp([0],{
 	        this.edge.to = this.genericNode2;
 	    };
 	    ArtboardComponent.prototype.doubleClickedArtboard = function (event) {
-	        // this.creationDrawerLocation=new Point(event.offsetX-creationDrawer.WIDTH/2,event.offsetY);
-	        this.creationDrawerLocation = new geometry_2.Point(event.offsetX, event.offsetY);
+	        this.creationDrawerLocation = new geometry_2.Point(event.offsetX - creationDrawer.WIDTH / 2, event.offsetY - creationDrawer.HEIGHT / 2);
 	        this.workspace.creationDrawerIsOpen = true;
 	    };
 	    ArtboardComponent.prototype.mousedown = function (event) {
@@ -7611,7 +7612,7 @@ webpackJsonp([0],{
 	var DiagramNode = (function () {
 	    function DiagramNode() {
 	        /** Used exclusively as a flag to tell weather this block is selected in the editor or not */
-	        this.selected = false; //TODO this should be a part of the component
+	        this.selected = false;
 	        /** Color of the background */
 	        this.background = new Color(); //white by default
 	        /** Color of the foreground(text) */
@@ -7630,6 +7631,8 @@ webpackJsonp([0],{
 	 */
 	var DiagramEdge = (function () {
 	    function DiagramEdge() {
+	        /** Used exclusively as a flag to tell weather this edge is selected in the editor or not */
+	        this.selected = false;
 	    }
 	    Object.defineProperty(DiagramEdge.prototype, "from", {
 	        get: function () {
@@ -9390,7 +9393,7 @@ webpackJsonp([0],{
 	
 	
 	// module
-	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  text-align: center; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n", ""]);
+	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.628);\n  position: absolute;\n  z-index: 11; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  text-align: center; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n", ""]);
 	
 	// exports
 
@@ -9740,6 +9743,7 @@ webpackJsonp([0],{
 	var interface_object_diagram_component_1 = __webpack_require__(674);
 	var linked_segments_component_1 = __webpack_require__(676);
 	var creation_drawer_component_1 = __webpack_require__(690);
+	var selection_box_component_1 = __webpack_require__(693);
 	var transform_service_1 = __webpack_require__(72);
 	var interpreter_service_1 = __webpack_require__(87);
 	var mock_data_service_1 = __webpack_require__(81);
@@ -9779,7 +9783,8 @@ webpackJsonp([0],{
 	                interface_object_diagram_component_1.InterfaceObjectDiagramComponent,
 	                linked_segments_component_1.LinkedSegmentsComponent,
 	                linker_component_1.LinkerComponent,
-	                creation_drawer_component_1.CreationDrawerComponent
+	                creation_drawer_component_1.CreationDrawerComponent,
+	                selection_box_component_1.SelectionBoxComponent
 	            ],
 	            schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA],
 	            providers: [transform_service_1.TransformService, interpreter_service_1.InterpreterService, mock_data_service_1.MockDataService]
@@ -11214,14 +11219,16 @@ webpackJsonp([0],{
 	                core_2.trigger('isDrawerOpen', [
 	                    core_2.state('open', core_2.style({
 	                        width: exports.WIDTH + "px",
-	                        height: exports.HEIGHT + "px"
+	                        height: exports.HEIGHT + "px",
+	                        transform: "scale(1,1)"
 	                    })),
 	                    core_2.state('closed', core_2.style({
-	                        width: "0px",
-	                        height: "0px"
+	                        width: exports.WIDTH + "px",
+	                        height: exports.HEIGHT + "px",
+	                        transform: "scale(0,0)"
 	                    })),
 	                    core_2.transition('open => closed', core_2.animate('100ms ease-in')),
-	                    core_2.transition('closed => open', core_2.animate('100ms ease-out'))
+	                    core_2.transition('closed => open', core_2.animate('200ms ease-out'))
 	                ])
 	            ]
 	        }), 
@@ -11297,11 +11304,13 @@ webpackJsonp([0],{
 	            return;
 	        }
 	        this._selection.diagramNodeList.push(node);
+	        node.selected = true;
 	    };
 	    Workspace.prototype.removeNodeToSelection = function (node) {
 	        var index = this._selection.diagramNodeList.indexOf(node);
 	        if (index != -1) {
 	            this._selection.diagramNodeList.splice(index, 1);
+	            node.selected = false;
 	        }
 	    };
 	    Workspace.prototype.addEdgeToSelection = function (edge) {
@@ -11309,17 +11318,88 @@ webpackJsonp([0],{
 	            return;
 	        }
 	        this._selection.diagramEdgeList.push(edge);
+	        edge.selected = true;
 	    };
 	    Workspace.prototype.removeEdgeToSelection = function (edge) {
 	        var index = this._selection.diagramEdgeList.indexOf(edge);
 	        if (index != -1) {
 	            this._selection.diagramEdgeList.splice(index, 1);
+	            edge.selected = false;
+	        }
+	    };
+	    /** Clears the selection and resets the selected flag for each node and edeg*/
+	    Workspace.prototype.clearSelection = function () {
+	        for (var _i = 0, _a = this._selection.diagramEdgeList; _i < _a.length; _i++) {
+	            var edge = _a[_i];
+	            this.removeEdgeToSelection(edge);
+	        }
+	        for (var _b = 0, _c = this._selection.diagramNodeList; _b < _c.length; _b++) {
+	            var node = _c[_b];
+	            this.removeNodeToSelection(node);
 	        }
 	    };
 	    return Workspace;
 	}());
 	exports.Workspace = Workspace;
 
+
+/***/ },
+
+/***/ 693:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var workspace_1 = __webpack_require__(692);
+	var SelectionBoxComponent = (function () {
+	    function SelectionBoxComponent() {
+	        this.requestDragging = new core_1.EventEmitter();
+	    }
+	    SelectionBoxComponent.prototype.handleMousePress = function (event) {
+	    };
+	    SelectionBoxComponent.prototype.handleMouseDrag = function (event) {
+	    };
+	    SelectionBoxComponent.prototype.handleMouseRelease = function (event) {
+	    };
+	    SelectionBoxComponent.prototype.registerDragIntention = function (dragProcessor) {
+	        this.requestDragging.emit(dragProcessor);
+	    };
+	    __decorate([
+	        core_1.Input('workspace'), 
+	        __metadata('design:type', (typeof (_a = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _a) || Object)
+	    ], SelectionBoxComponent.prototype, "workspace", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], SelectionBoxComponent.prototype, "requestDragging", void 0);
+	    SelectionBoxComponent = __decorate([
+	        core_1.Component({
+	            selector: 'selection-box',
+	            template: __webpack_require__(694),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], SelectionBoxComponent);
+	    return SelectionBoxComponent;
+	    var _a;
+	}());
+	exports.SelectionBoxComponent = SelectionBoxComponent;
+
+
+/***/ },
+
+/***/ 694:
+/***/ function(module, exports) {
+
+	module.exports = "<div \n\tid=\"selection-box\"\n\t[style.left.px]=\"rect.x\"\n\t[style.top.px]=\"rect.y\"\n\t[style.width.px]=\"rect.width\"\n\t[style.height.px]=\"rect.height\"\n\t[@isDrawerOpen]=\"workspace.creationDrawerIsOpen?'open':'closed'\" >\n\n</div>";
 
 /***/ }
 

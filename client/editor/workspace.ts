@@ -54,12 +54,14 @@ export class Workspace{
 			return;
 		}
 		this._selection.diagramNodeList.push(node);
+		node.selected=true;
 	}
 
 	removeNodeToSelection(node:DiagramNode){
 		let index=this._selection.diagramNodeList.indexOf(node);
 		if(index!=-1){
 			this._selection.diagramNodeList.splice(index,1);
+			node.selected=false;
 		}
 	}
 
@@ -68,12 +70,25 @@ export class Workspace{
 			return;
 		}
 		this._selection.diagramEdgeList.push(edge);
+		edge.selected=true;
 	}
 
 	removeEdgeToSelection(edge:DiagramEdge){
 		let index=this._selection.diagramEdgeList.indexOf(edge);
 		if(index!=-1){
 			this._selection.diagramEdgeList.splice(index,1);
+			edge.selected=false;
+		}
+	}
+
+	/** Clears the selection and resets the selected flag for each node and edeg*/
+	clearSelection(){
+		for(let edge of this._selection.diagramEdgeList ){
+			this.removeEdgeToSelection(edge);
+		}
+
+		for(let node of this._selection.diagramNodeList ){
+			this.removeNodeToSelection(node);
 		}
 	}
 }

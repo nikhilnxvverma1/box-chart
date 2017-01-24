@@ -66,7 +66,7 @@ export class Color{
  */
 export abstract class DiagramNode{
 	/** Used exclusively as a flag to tell weather this block is selected in the editor or not */
-	selected:boolean=false;//TODO this should be a part of the component
+	selected:boolean=false;
 	/** A unique identifier for this node */
 	id:string;
 	/** A string that describes this node */
@@ -91,6 +91,10 @@ export abstract class DiagramNode{
  * Additionally(and optionally) it also contains label and intermediate points that may be required for denoting linked line segments.
  */
 export class DiagramEdge{
+
+	/** Used exclusively as a flag to tell weather this edge is selected in the editor or not */
+	selected:boolean=false;
+
 	private _from:DiagramNode;
 	private _to:DiagramNode;
 	private _fromPoint:TrackingPoint;

@@ -17,6 +17,13 @@ $linker-color:#344353;
 	box-shadow: 0 1px 4px 0 rgba(0,0,0,0.50);
 }
 
+#selection-box{
+	border:1px solid blue;
+	background: rgba(19.5%, 47.8%, 92.9%, 0.628);
+	position:absolute;
+	z-index:11;
+}
+
 .node-background{
 	z-index: -1;
 	position: absolute;

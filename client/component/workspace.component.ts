@@ -5,7 +5,7 @@ import { Point,Rect } from '../model/geometry';
 import { SidebarComponent } from './sidebar.component';
 import { ArtboardComponent } from './artboard.component';
 import { Workspace } from '../editor/workspace';
-import { Worksheet } from '../model/worksheet';
+import { Worksheet,DiagramModel } from '../model/worksheet';
 
 const SpaceKey=32;
 
@@ -57,8 +57,9 @@ export class WorkspaceComponent implements OnInit{
           window.outerHeight);
         this.positionArtboardBasis(this.movingWindow);
 
-		//get the worksheet for the given rid defined in url params
+		//TODO get the worksheet for the given rid defined in url params
 		this.workspace=new Workspace(new Worksheet());
+		this.workspace.worksheet.diagramModel=new DiagramModel();
     }
 
     toggleSidebar(){
