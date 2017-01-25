@@ -130,14 +130,14 @@ export class ArtboardComponent implements OnInit{
 			}
 
 			//issue a press drag release based command which will work on the current selection
-			this.draggingInteraction=new MoveCommand(this.workspace);
+			this.draggingInteraction=new MoveCommand(this.workspace,this.workspace.copySelection());
 		}
 	}
 
 	removeCurrentSelection(){
 		if(this.workspace.selectionCount()>0){
 			console.debug("Issueing remove command for current selection");
-			this.workspace.commit(new RemoveCommand(this.workspace),true);
+			this.workspace.commit(new RemoveCommand(this.workspace,this.workspace.copySelection()),true);
 		}
 	}
 

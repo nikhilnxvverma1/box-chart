@@ -7885,13 +7885,13 @@ webpackJsonp([0],{
 	                this.workspace.addNodeToSelection(pressedNode);
 	            }
 	            //issue a press drag release based command which will work on the current selection
-	            this.draggingInteraction = new move_1.MoveCommand(this.workspace);
+	            this.draggingInteraction = new move_1.MoveCommand(this.workspace, this.workspace.copySelection());
 	        }
 	    };
 	    ArtboardComponent.prototype.removeCurrentSelection = function () {
 	        if (this.workspace.selectionCount() > 0) {
 	            console.debug("Issueing remove command for current selection");
-	            this.workspace.commit(new remove_1.RemoveCommand(this.workspace), true);
+	            this.workspace.commit(new remove_1.RemoveCommand(this.workspace, this.workspace.copySelection()), true);
 	        }
 	    };
 	    ArtboardComponent.prototype.register = function (listener) {
@@ -11621,20 +11621,36 @@ webpackJsonp([0],{
 	var geometry_1 = __webpack_require__(71);
 	var MoveCommand = (function (_super) {
 	    __extends(MoveCommand, _super);
-	    function MoveCommand(workspace) {
+	    function MoveCommand(workspace, target, commitToWorkspaceOnCompletion) {
+	        if (commitToWorkspaceOnCompletion === void 0) { commitToWorkspaceOnCompletion = true; }
 	        _super.call(this);
-	        this.difference = new geometry_1.Point(0, 0);
-	        this.workspace = workspace;
-	        this.target = this.workspace.copySelection();
+	        this._displacement = new geometry_1.Point(0, 0);
+	        this._workspace = workspace;
+	        this.target = target;
+	        this.commitToWorkspaceOnCompletion = commitToWorkspaceOnCompletion;
 	    }
+	    Object.defineProperty(MoveCommand.prototype, "workspace", {
+	        get: function () {
+	            return this._workspace;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(MoveCommand.prototype, "displacement", {
+	        get: function () {
+	            return this._displacement;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    MoveCommand.prototype.handleMousePress = function (event) {
 	        console.debug("Move command presed");
 	    };
 	    MoveCommand.prototype.handleMouseDrag = function (event) {
 	        console.debug("Move command dragged");
 	        //record the cumalative difference
-	        this.difference.x += event.movementX;
-	        this.difference.y += event.movementY;
+	        this.displacement.x += event.movementX;
+	        this.displacement.y += event.movementY;
 	        //move all nodes by marginal change in mouse position
 	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
 	            var node = _a[_i];
@@ -11643,7 +11659,7 @@ webpackJsonp([0],{
 	    };
 	    MoveCommand.prototype.handleMouseRelease = function (event) {
 	        console.debug("Move command released");
-	        if (!this.difference.isZero()) {
+	        if (!this.displacement.isZero() && this.commitToWorkspaceOnCompletion) {
 	            this.workspace.commit(this);
 	        }
 	    };
@@ -11651,14 +11667,14 @@ webpackJsonp([0],{
 	        //move all nodes by marginal change in mouse position
 	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
 	            var node = _a[_i];
-	            node.getGeometry().moveBy(this.difference);
+	            node.getGeometry().moveBy(this.displacement);
 	        }
 	    };
 	    MoveCommand.prototype.unExecute = function () {
 	        //move all nodes by marginal change in mouse position
 	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
 	            var node = _a[_i];
-	            node.getGeometry().moveBy(this.difference.inverse());
+	            node.getGeometry().moveBy(this.displacement.inverse());
 	        }
 	    };
 	    MoveCommand.prototype.getName = function () {
@@ -11822,12 +11838,19 @@ webpackJsonp([0],{
 	var command_1 = __webpack_require__(695);
 	var RemoveCommand = (function (_super) {
 	    __extends(RemoveCommand, _super);
-	    function RemoveCommand(workspace) {
+	    function RemoveCommand(workspace, target) {
 	        _super.call(this);
-	        this.workspace = workspace;
-	        this.target = this.workspace.copySelection();
+	        this._workspace = workspace;
+	        this.target = target;
 	        this.addConnectedEdgesToTargetNodes();
 	    }
+	    Object.defineProperty(RemoveCommand.prototype, "workspace", {
+	        get: function () {
+	            return this._workspace;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    RemoveCommand.prototype.addConnectedEdgesToTargetNodes = function () {
 	        //check each edge if they are connected to any target node
 	        for (var _i = 0, _a = this.workspace.worksheet.diagramModel.edgeList; _i < _a.length; _i++) {
@@ -11847,7 +11870,7 @@ webpackJsonp([0],{
 	        }
 	    };
 	    RemoveCommand.prototype.execute = function () {
-	        //remove all nodes that are in target
+	        //re add all nodes that are in target
 	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
 	            var node = _a[_i];
 	            var index = this.workspace.worksheet.diagramModel.nodeList.indexOf(node);
@@ -11858,7 +11881,7 @@ webpackJsonp([0],{
 	                console.error("Node to remove already doesn't exist");
 	            }
 	        }
-	        //remove all edges that are in target
+	        //re add all edges that are in target
 	        for (var _b = 0, _c = this.target.edgeList; _b < _c.length; _b++) {
 	            var edge = _c[_b];
 	            var index = this.workspace.worksheet.diagramModel.edgeList.indexOf(edge);

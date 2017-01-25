@@ -6,14 +6,24 @@ import { Point } from '../../model/geometry';
 
 export class MoveCommand extends Command implements PressDragReleaseProcessor{
 	
-	private workspace:Workspace;
+	private _workspace:Workspace;
 	private target:DiagramModel;
-	private difference=new Point(0,0);
+	private _displacement=new Point(0,0);
+	private commitToWorkspaceOnCompletion:boolean;
 
-	constructor(workspace:Workspace){
+	constructor(workspace:Workspace,target:DiagramModel,commitToWorkspaceOnCompletion=true){
 		super();
-		this.workspace=workspace;
-		this.target=this.workspace.copySelection();
+		this._workspace=workspace;
+		this.target=target;
+		this.commitToWorkspaceOnCompletion=commitToWorkspaceOnCompletion;
+	}
+
+	get workspace():Workspace{
+		return this._workspace;
+	}
+
+	get displacement():Point{
+		return this._displacement;
 	}
 
 	handleMousePress(event:MouseEvent):void{
@@ -23,8 +33,8 @@ export class MoveCommand extends Command implements PressDragReleaseProcessor{
 	handleMouseDrag(event:MouseEvent):void{
 		console.debug("Move command dragged");
 		//record the cumalative difference
-		this.difference.x+=event.movementX;
-		this.difference.y+=event.movementY;
+		this.displacement.x+=event.movementX;
+		this.displacement.y+=event.movementY;
 
 		//move all nodes by marginal change in mouse position
 		for(let node of this.target.nodeList){
@@ -34,7 +44,7 @@ export class MoveCommand extends Command implements PressDragReleaseProcessor{
 
 	handleMouseRelease(event:MouseEvent):void{
 		console.debug("Move command released");
-		if(!this.difference.isZero()){
+		if(!this.displacement.isZero() && this.commitToWorkspaceOnCompletion){
 			this.workspace.commit(this);
 		}
 	}
@@ -42,14 +52,14 @@ export class MoveCommand extends Command implements PressDragReleaseProcessor{
 	execute():void{
 		//move all nodes by marginal change in mouse position
 		for(let node of this.target.nodeList){
-			node.getGeometry().moveBy(this.difference);
+			node.getGeometry().moveBy(this.displacement);
 		}
 	}
 
 	unExecute():void{
 		//move all nodes by marginal change in mouse position
 		for(let node of this.target.nodeList){
-			node.getGeometry().moveBy(this.difference.inverse());
+			node.getGeometry().moveBy(this.displacement.inverse());
 		}
 	}
 

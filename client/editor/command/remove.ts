@@ -6,14 +6,18 @@ import { Point } from '../../model/geometry';
 
 export class RemoveCommand extends Command {
 
-	private workspace:Workspace;
+	private _workspace:Workspace;
 	private target:DiagramModel;
 
-	constructor(workspace:Workspace){
+	constructor(workspace:Workspace,target:DiagramModel){
 		super();
-		this.workspace=workspace;
-		this.target=this.workspace.copySelection();
+		this._workspace=workspace;
+		this.target=target;
 		this.addConnectedEdgesToTargetNodes();
+	}
+
+	get workspace():Workspace{
+		return this._workspace;
 	}
 
 	private addConnectedEdgesToTargetNodes(){
@@ -38,7 +42,7 @@ export class RemoveCommand extends Command {
 
 	execute():void{
 
-		//remove all nodes that are in target
+		//re add all nodes that are in target
 		for(let node of this.target.nodeList){
 			let index=this.workspace.worksheet.diagramModel.nodeList.indexOf(node);
 			if(index!=-1){
@@ -48,7 +52,7 @@ export class RemoveCommand extends Command {
 			}
 		}
 
-		//remove all edges that are in target
+		//re add all edges that are in target
 		for(let edge of this.target.edgeList){
 			let index=this.workspace.worksheet.diagramModel.edgeList.indexOf(edge);
 			if(index!=-1){
