@@ -73,3 +73,14 @@
 (requestDragging)="registerDragIntention($event)" 
 (updateAllResizeHandlers)="updateAllResizeHandlers($event)">
 </resize-handle>
+
+<div 
+	*ngIf="soloSelected" 
+	class="medium-bubble remove-operation"
+	(mousedown)="removeMe.emit(node)"
+	[style.left.px]="node.rect.topRight().offset(10,0).x"
+	[style.top.px]="node.rect.topRight().offset(0,-10).y"
+	><!--TODO try to externalize offset values (10)-->
+
+</div>
+

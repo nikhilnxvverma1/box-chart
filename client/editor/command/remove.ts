@@ -13,6 +13,27 @@ export class RemoveCommand extends Command {
 		super();
 		this.workspace=workspace;
 		this.target=this.workspace.copySelection();
+		this.addConnectedEdgesToTargetNodes();
+	}
+
+	private addConnectedEdgesToTargetNodes(){
+		//check each edge if they are connected to any target node
+		for(let edge of this.workspace.worksheet.diagramModel.edgeList){
+
+			//if edge is not present in target
+			if(this.target.edgeList.indexOf(edge)==-1){
+				//check if the terminal nodes of this edge belong in the target
+				if(this.target.nodeList.indexOf(edge.from)!=-1){
+					this.target.edgeList.push(edge);
+					continue;
+				}
+
+				//check if the other terminal node of this edge belong in the target
+				if(this.target.nodeList.indexOf(edge.to)!=-1){
+					this.target.edgeList.push(edge);
+				}
+			}
+		}
 	}
 
 	execute():void{

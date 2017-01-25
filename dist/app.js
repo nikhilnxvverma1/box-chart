@@ -7798,6 +7798,7 @@ webpackJsonp([0],{
 	var workspace_1 = __webpack_require__(89);
 	var selection_box_component_1 = __webpack_require__(130);
 	var move_1 = __webpack_require__(694);
+	var remove_1 = __webpack_require__(698);
 	exports.ArtboardWidth = 3200;
 	exports.ArtboardHeight = (2 / 3) * exports.ArtboardWidth;
 	var ArtboardComponent = (function () {
@@ -7885,6 +7886,12 @@ webpackJsonp([0],{
 	            }
 	            //issue a press drag release based command which will work on the current selection
 	            this.draggingInteraction = new move_1.MoveCommand(this.workspace);
+	        }
+	    };
+	    ArtboardComponent.prototype.removeCurrentSelection = function () {
+	        if (this.workspace.selectionCount() > 0) {
+	            console.debug("Issueing remove command for current selection");
+	            this.workspace.commit(new remove_1.RemoveCommand(this.workspace), true);
 	        }
 	    };
 	    ArtboardComponent.prototype.register = function (listener) {
@@ -8445,6 +8452,14 @@ webpackJsonp([0],{
 	        enumerable: true,
 	        configurable: true
 	    });
+	    Workspace.prototype.selectionCount = function () {
+	        if (this.selection == null) {
+	            return 0;
+	        }
+	        else {
+	            return this.selection.nodeList.length + this.selection.edgeList.length;
+	        }
+	    };
 	    Workspace.prototype.addNodeToSelection = function (node) {
 	        if (this._selection == null) {
 	            this._selection = new worksheet_1.DiagramModel();
@@ -9737,7 +9752,7 @@ webpackJsonp([0],{
 /***/ 96:
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\n\t<creation-drawer [workspace]=\"workspace\" [position]=\"creationDrawerLocation\"></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node\n\t\t\t[genericNode]=\"node\"\n\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t></generic-node>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>\n\t</ng-container>\n\n\t<multiple-selection \n\t\t[workspace]=\"workspace\" \n\t\t[active]=\"\n\t\t\tworkspace.selection!=null &&\n\t\t\t(workspace.selection.nodeList.length + workspace.selection.edgeList.length)>1 &&\n\t\t\tdraggingInteraction==null\"\n\t\t></multiple-selection>\n\n</div>";
+	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\n\t<creation-drawer [workspace]=\"workspace\" [position]=\"creationDrawerLocation\"></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node\n\t\t\t[genericNode]=\"node\"\n\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t></generic-node>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>\n\t</ng-container>\n\n\t<multiple-selection \n\t\t[workspace]=\"workspace\" \n\t\t[active]=\"\n\t\t\tworkspace.selectionCount()>1 &&\n\t\t\tdraggingInteraction==null\"\n\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t></multiple-selection>\n\n</div>";
 
 /***/ },
 
@@ -10382,6 +10397,7 @@ webpackJsonp([0],{
 	var GenericNodeComponent = (function () {
 	    function GenericNodeComponent() {
 	        this.requestDragging = new core_1.EventEmitter();
+	        this.removeMe = new core_1.EventEmitter();
 	    }
 	    GenericNodeComponent.prototype.registerDragIntention = function () {
 	        console.debug("Registering for drag");
@@ -10410,6 +10426,10 @@ webpackJsonp([0],{
 	        core_1.Output(), 
 	        __metadata('design:type', Object)
 	    ], GenericNodeComponent.prototype, "requestDragging", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], GenericNodeComponent.prototype, "removeMe", void 0);
 	    __decorate([
 	        core_1.ViewChildren(resize_handle_component_1.ResizeHandleComponent), 
 	        __metadata('design:type', (typeof (_b = typeof core_1.QueryList !== 'undefined' && core_1.QueryList) === 'function' && _b) || Object)
@@ -10444,7 +10464,7 @@ webpackJsonp([0],{
 /***/ 113:
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"node.rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"node.rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.rect.topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.rect.topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n";
 
 /***/ },
 
@@ -11271,7 +11291,7 @@ webpackJsonp([0],{
 	
 	
 	// module
-	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.3);\n  position: absolute;\n  z-index: 11; }\n\n#multiple-selection-container {\n  border: 1px solid blue;\n  position: absolute;\n  z-index: 11;\n  pointer-events: none; }\n\n.selected {\n  border-color: #2BA3FC;\n  color: #2BA3FC; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  text-align: center; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n", ""]);
+	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.3);\n  position: absolute;\n  z-index: 11; }\n\n#multiple-selection-container {\n  border: 1px solid blue;\n  position: absolute;\n  z-index: 11;\n  pointer-events: none; }\n\n.selected {\n  border-color: #2BA3FC;\n  color: #2BA3FC; }\n\n.medium-bubble {\n  border-radius: 50%;\n  position: absolute;\n  width: 15px;\n  height: 15px;\n  transform-origin: center; }\n\n.remove-operation {\n  background: red;\n  cursor: pointer; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  text-align: center; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n", ""]);
 	
 	// exports
 
@@ -11716,6 +11736,7 @@ webpackJsonp([0],{
 	var MultipleSelectionComponent = (function () {
 	    function MultipleSelectionComponent() {
 	        this.active = false;
+	        this.removeUs = new core_1.EventEmitter();
 	        this.rect = new geometry_1.Rect(1500, 900, 200, 300); //initial value only for debugging purposes
 	    }
 	    MultipleSelectionComponent.prototype.ngOnChanges = function (changes) {
@@ -11763,6 +11784,10 @@ webpackJsonp([0],{
 	        core_1.Input('active'), 
 	        __metadata('design:type', Object)
 	    ], MultipleSelectionComponent.prototype, "active", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], MultipleSelectionComponent.prototype, "removeUs", void 0);
 	    MultipleSelectionComponent = __decorate([
 	        core_1.Component({
 	            selector: 'multiple-selection',
@@ -11781,7 +11806,101 @@ webpackJsonp([0],{
 /***/ 697:
 /***/ function(module, exports) {
 
-	module.exports = "<div \n\tid=\"multiple-selection-container\"\n\t[style.left.px]=\"rect.x\"\n\t[style.top.px]=\"rect.y\"\n\t[style.width.px]=\"rect.width\"\n\t[style.height.px]=\"rect.height\"\n\t[style.display]=\"active?'block':'none'\">\n\n</div>";
+	module.exports = "<div \n\tid=\"multiple-selection-container\"\n\t[style.left.px]=\"rect.x\"\n\t[style.top.px]=\"rect.y\"\n\t[style.width.px]=\"rect.width\"\n\t[style.height.px]=\"rect.height\"\n\t[style.display]=\"active?'block':'none'\">\n\n</div>\n\n<div \n\t*ngIf=\"active\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeUs.emit()\"\n\t[style.left.px]=\"rect.topRight().offset(10,0).x\"\n\t[style.top.px]=\"rect.topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>";
+
+/***/ },
+
+/***/ 698:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var command_1 = __webpack_require__(695);
+	var RemoveCommand = (function (_super) {
+	    __extends(RemoveCommand, _super);
+	    function RemoveCommand(workspace) {
+	        _super.call(this);
+	        this.workspace = workspace;
+	        this.target = this.workspace.copySelection();
+	        this.addConnectedEdgesToTargetNodes();
+	    }
+	    RemoveCommand.prototype.addConnectedEdgesToTargetNodes = function () {
+	        //check each edge if they are connected to any target node
+	        for (var _i = 0, _a = this.workspace.worksheet.diagramModel.edgeList; _i < _a.length; _i++) {
+	            var edge = _a[_i];
+	            //if edge is not present in target
+	            if (this.target.edgeList.indexOf(edge) == -1) {
+	                //check if the terminal nodes of this edge belong in the target
+	                if (this.target.nodeList.indexOf(edge.from) != -1) {
+	                    this.target.edgeList.push(edge);
+	                    continue;
+	                }
+	                //check if the other terminal node of this edge belong in the target
+	                if (this.target.nodeList.indexOf(edge.to) != -1) {
+	                    this.target.edgeList.push(edge);
+	                }
+	            }
+	        }
+	    };
+	    RemoveCommand.prototype.execute = function () {
+	        //remove all nodes that are in target
+	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            var index = this.workspace.worksheet.diagramModel.nodeList.indexOf(node);
+	            if (index != -1) {
+	                this.workspace.worksheet.diagramModel.nodeList.splice(index, 1);
+	            }
+	            else {
+	                console.error("Node to remove already doesn't exist");
+	            }
+	        }
+	        //remove all edges that are in target
+	        for (var _b = 0, _c = this.target.edgeList; _b < _c.length; _b++) {
+	            var edge = _c[_b];
+	            var index = this.workspace.worksheet.diagramModel.edgeList.indexOf(edge);
+	            if (index != -1) {
+	                this.workspace.worksheet.diagramModel.edgeList.splice(index, 1);
+	            }
+	            else {
+	                console.error("Edge to remove already doesn't exist");
+	            }
+	        }
+	    };
+	    RemoveCommand.prototype.unExecute = function () {
+	        //remove all nodes that are in target
+	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            var index = this.workspace.worksheet.diagramModel.nodeList.indexOf(node);
+	            if (index == -1) {
+	                this.workspace.worksheet.diagramModel.nodeList.push(node);
+	            }
+	            else {
+	                console.error("Node already exists in list");
+	            }
+	        }
+	        //remove all edges that are in target
+	        for (var _b = 0, _c = this.target.edgeList; _b < _c.length; _b++) {
+	            var edge = _c[_b];
+	            var index = this.workspace.worksheet.diagramModel.edgeList.indexOf(edge);
+	            if (index == -1) {
+	                this.workspace.worksheet.diagramModel.edgeList.push(edge);
+	            }
+	            else {
+	                console.error("Edge already exists in list");
+	            }
+	        }
+	    };
+	    RemoveCommand.prototype.getName = function () {
+	        return "Remove Item(s)";
+	    };
+	    return RemoveCommand;
+	}(command_1.Command));
+	exports.RemoveCommand = RemoveCommand;
+
 
 /***/ }
 

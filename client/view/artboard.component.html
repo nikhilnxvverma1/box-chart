@@ -23,6 +23,7 @@
 		<generic-node
 			[genericNode]="node"
 			(requestDragging)="moveNodes($event)"
+			(removeMe)="removeCurrentSelection()"
 			[soloSelected]="workspace.selectionContainsOnlyNode(node)"
 			></generic-node>
 	</ng-container>
@@ -34,9 +35,9 @@
 	<multiple-selection 
 		[workspace]="workspace" 
 		[active]="
-			workspace.selection!=null &&
-			(workspace.selection.nodeList.length + workspace.selection.edgeList.length)>1 &&
+			workspace.selectionCount()>1 &&
 			draggingInteraction==null"
+		(removeUs)="removeCurrentSelection()"
 		></multiple-selection>
 
 </div>

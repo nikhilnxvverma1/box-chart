@@ -7,3 +7,13 @@
 	[style.display]="active?'block':'none'">
 
 </div>
+
+<div 
+	*ngIf="active" 
+	class="medium-bubble remove-operation"
+	(mousedown)="removeUs.emit()"
+	[style.left.px]="rect.topRight().offset(10,0).x"
+	[style.top.px]="rect.topRight().offset(0,-10).y"
+	><!--TODO try to externalize offset values (10)-->
+
+</div>

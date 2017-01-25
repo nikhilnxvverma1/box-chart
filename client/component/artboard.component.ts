@@ -14,6 +14,7 @@ import { DiagramNode,GenericDiagramNode,GenericDiagramNodeType,DiagramEdge } fro
 import { Workspace } from '../editor/workspace';
 import { SelectionBoxComponent } from './selection-box.component';
 import { MoveCommand } from '../editor/command/move';
+import { RemoveCommand } from '../editor/command/remove';
 
 export const ArtboardWidth=3200;
 export const ArtboardHeight=(2/3)*ArtboardWidth;
@@ -130,6 +131,13 @@ export class ArtboardComponent implements OnInit{
 
 			//issue a press drag release based command which will work on the current selection
 			this.draggingInteraction=new MoveCommand(this.workspace);
+		}
+	}
+
+	removeCurrentSelection(){
+		if(this.workspace.selectionCount()>0){
+			console.debug("Issueing remove command for current selection");
+			this.workspace.commit(new RemoveCommand(this.workspace),true);
 		}
 	}
 

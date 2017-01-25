@@ -29,6 +29,7 @@ export class GenericNodeComponent {
 	@Input("soloSelected") soloSelected:boolean;
 	@Input('genericNode') node:GenericDiagramNode;
 	@Output() requestDragging=new EventEmitter<DiagramNode>();
+	@Output() removeMe=new EventEmitter<DiagramNode>();
 	@ViewChildren(ResizeHandleComponent) resizeHandlers:QueryList<ResizeHandleComponent>;
 
 	registerDragIntention(){

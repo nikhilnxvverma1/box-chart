@@ -12,6 +12,7 @@ export class MultipleSelectionComponent implements OnChanges{
 
 	@Input('workspace') workspace: Workspace;
 	@Input('active') active = false;
+	@Output() removeUs=new EventEmitter();
 	rect: Rect = new Rect(1500, 900, 200, 300);//initial value only for debugging purposes
 	
 	ngOnChanges(changes:SimpleChanges){

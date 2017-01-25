@@ -36,6 +36,19 @@ $linker-color:#344353;
 	color:$selection-color;
 }
 
+.medium-bubble{
+	border-radius:50%;
+	position:absolute;
+	width:15px;
+	height:15px;
+	transform-origin: center;
+}
+
+.remove-operation{
+	background:red;//TODO SVG background 
+	cursor: pointer;
+}
+
 .node-background{
 	z-index: -1;
 	position: absolute;

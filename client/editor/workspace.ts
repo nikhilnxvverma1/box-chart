@@ -54,6 +54,14 @@ export class Workspace{
 		return this._selection;
 	}
 
+	selectionCount():number{
+		if(this.selection==null){
+			return 0;
+		} else {
+			return this.selection.nodeList.length+this.selection.edgeList.length;
+		}
+	}
+
 	addNodeToSelection(node:DiagramNode){
 		if(this._selection==null){
 			this._selection=new DiagramModel();
