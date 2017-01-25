@@ -140,4 +140,14 @@ export class Workspace{
 	selectionContainsEdge(edge:DiagramEdge):boolean{
 		return this._selection!=null && this._selection.containsEdge(edge);
 	}
+
+	/** Returns true if argument is the only node selected */
+	selectionContainsOnlyNode(node:DiagramNode):boolean{
+		return this._selection!=null && this._selection.nodeList.length==1 && this._selection.containsNode(node);
+	}
+
+	/** Returns true if argument is the only Edge selected */
+	selectionContainsOnlyEdge(edge:DiagramEdge):boolean{
+		return this._selection!=null && this._selection.edgeList.length==1 && this._selection.containsEdge(edge);
+	}
 }

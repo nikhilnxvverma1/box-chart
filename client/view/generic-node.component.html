@@ -27,49 +27,49 @@
 <!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->
 <!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->
 <resize-handle [rect]="node.rect" [placement]="1" 
-*ngIf="node.selected" 
+*ngIf="soloSelected" 
 (requestDragging)="registerDragIntention($event)" 
 (updateAllResizeHandlers)="updateAllResizeHandlers($event)">
 </resize-handle>
 
 <resize-handle [rect]="node.rect" [placement]="2"  
-*ngIf="node.selected" 
+*ngIf="soloSelected" 
 (requestDragging)="registerDragIntention($event)" 
 (updateAllResizeHandlers)="updateAllResizeHandlers($event)">
 </resize-handle>
 
 <resize-handle [rect]="node.rect" [placement]="3"  
-*ngIf="node.selected" 
+*ngIf="soloSelected" 
 (requestDragging)="registerDragIntention($event)" 
 (updateAllResizeHandlers)="updateAllResizeHandlers($event)">
 </resize-handle>
 
 <resize-handle [rect]="node.rect" [placement]="4"  
-*ngIf="node.selected" 
+*ngIf="soloSelected" 
 (requestDragging)="registerDragIntention($event)" 
 (updateAllResizeHandlers)="updateAllResizeHandlers($event)">
 </resize-handle>
 
 <resize-handle [rect]="node.rect" [placement]="5"  
-*ngIf="node.selected" 
+*ngIf="soloSelected" 
 (requestDragging)="registerDragIntention($event)" 
 (updateAllResizeHandlers)="updateAllResizeHandlers($event)">
 </resize-handle>
 
 <resize-handle [rect]="node.rect" [placement]="6"  
-*ngIf="node.selected" 
+*ngIf="soloSelected" 
 (requestDragging)="registerDragIntention($event)" 
 (updateAllResizeHandlers)="updateAllResizeHandlers($event)">
 </resize-handle>
 
 <resize-handle [rect]="node.rect" [placement]="7" 
-*ngIf="node.selected" 
+*ngIf="soloSelected" 
 (requestDragging)="registerDragIntention($event)" 
 (updateAllResizeHandlers)="updateAllResizeHandlers($event)">
 </resize-handle>
 
 <resize-handle [rect]="node.rect" [placement]="8"  
-*ngIf="node.selected" 
+*ngIf="soloSelected" 
 (requestDragging)="registerDragIntention($event)" 
 (updateAllResizeHandlers)="updateAllResizeHandlers($event)">
 </resize-handle>

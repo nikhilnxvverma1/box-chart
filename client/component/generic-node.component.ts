@@ -26,6 +26,7 @@ const SELECTION_COLOR='#2BA3FC';
 })
 export class GenericNodeComponent {
 
+	@Input("soloSelected") soloSelected:boolean;
 	@Input('genericNode') node:GenericDiagramNode;
 	@Output() requestDragging=new EventEmitter<DiagramNode>();
 	@ViewChildren(ResizeHandleComponent) resizeHandlers:QueryList<ResizeHandleComponent>;
