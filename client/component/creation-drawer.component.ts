@@ -3,6 +3,8 @@ import { animate,trigger,state,style,transition } from '@angular/core';
 import { Rect,Point } from '../model/geometry';
 import { Direction,PressDragReleaseProcessor } from '../utility/common';
 import { Workspace } from '../editor/workspace';
+import { DragAndDropCommand } from '../editor/command/drag-and-drop';
+import { CreationDrawerItem,creationDrawerList } from '../editor/creation-item';
 
 export const WIDTH=200;
 export const HEIGHT=250;
@@ -32,20 +34,26 @@ export class CreationDrawerComponent implements PressDragReleaseProcessor {
 	@Input('workspace') workspace:Workspace;
 	@Input('position') position:Point;
 	@Output() requestDragging=new EventEmitter<PressDragReleaseProcessor>();
+	private creationDrawerList=creationDrawerList;
     
 	handleMousePress(event:MouseEvent):void{
-
+		console.debug("creation drawer press");
 	}
 	
 	handleMouseDrag(event:MouseEvent):void{
-
+		console.debug("creation drawer drag");
 	}
 
 	handleMouseRelease(event:MouseEvent):void{
-
+		console.debug("creation drawer release");
 	}
 
 	registerDragIntention(dragProcessor:PressDragReleaseProcessor){
 		this.requestDragging.emit(dragProcessor);
+	}
+
+	provideDragAndDropFor(creationItem:CreationDrawerItem,event:MouseEvent){
+		let dragAndDrop=new DragAndDropCommand(this.workspace,creationItem.diagramModel(),this.position);
+		this.requestDragging.emit(dragAndDrop);
 	}
 }

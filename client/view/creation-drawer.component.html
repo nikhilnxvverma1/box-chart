@@ -5,4 +5,9 @@
 	[style.top.px]="position.y"
 	[@isDrawerOpen]="workspace.creationDrawerIsOpen?'open':'closed'" >
 
+	<ul>
+		<li *ngFor="let item of creationDrawerList" (mousedown)="provideDragAndDropFor(item,$event)">
+			<img [attr.src]="'assets/'+item.iconFilename"> {{item.name}}
+		</li>
+	</ul>
 </div>

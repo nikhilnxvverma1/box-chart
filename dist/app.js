@@ -8339,20 +8339,30 @@ webpackJsonp([0],{
 	var core_2 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(71);
 	var workspace_1 = __webpack_require__(89);
+	var drag_and_drop_1 = __webpack_require__(700);
+	var creation_item_1 = __webpack_require__(699);
 	exports.WIDTH = 200;
 	exports.HEIGHT = 250;
 	var CreationDrawerComponent = (function () {
 	    function CreationDrawerComponent() {
 	        this.requestDragging = new core_1.EventEmitter();
+	        this.creationDrawerList = creation_item_1.creationDrawerList;
 	    }
 	    CreationDrawerComponent.prototype.handleMousePress = function (event) {
+	        console.debug("creation drawer press");
 	    };
 	    CreationDrawerComponent.prototype.handleMouseDrag = function (event) {
+	        console.debug("creation drawer drag");
 	    };
 	    CreationDrawerComponent.prototype.handleMouseRelease = function (event) {
+	        console.debug("creation drawer release");
 	    };
 	    CreationDrawerComponent.prototype.registerDragIntention = function (dragProcessor) {
 	        this.requestDragging.emit(dragProcessor);
+	    };
+	    CreationDrawerComponent.prototype.provideDragAndDropFor = function (creationItem, event) {
+	        var dragAndDrop = new drag_and_drop_1.DragAndDropCommand(this.workspace, creationItem.diagramModel(), this.position);
+	        this.requestDragging.emit(dragAndDrop);
 	    };
 	    __decorate([
 	        core_1.Input('workspace'), 
@@ -8556,7 +8566,7 @@ webpackJsonp([0],{
 /***/ 90:
 /***/ function(module, exports) {
 
-	module.exports = "<div \n\tclass=\"drop-shadowed-pop-up\"\n\tid=\"creation-pop-up\"\n\t[style.left.px]=\"position.x\"\n\t[style.top.px]=\"position.y\"\n\t[@isDrawerOpen]=\"workspace.creationDrawerIsOpen?'open':'closed'\" >\n\n</div>";
+	module.exports = "<div \n\tclass=\"drop-shadowed-pop-up\"\n\tid=\"creation-pop-up\"\n\t[style.left.px]=\"position.x\"\n\t[style.top.px]=\"position.y\"\n\t[@isDrawerOpen]=\"workspace.creationDrawerIsOpen?'open':'closed'\" >\n\n\t<ul>\n\t\t<li *ngFor=\"let item of creationDrawerList\" (mousedown)=\"provideDragAndDropFor(item,$event)\">\n\t\t\t<img [attr.src]=\"'assets/'+item.iconFilename\"> {{item.name}}\n\t\t</li>\n\t</ul>\n</div>";
 
 /***/ },
 
@@ -9752,7 +9762,7 @@ webpackJsonp([0],{
 /***/ 96:
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\n\t<creation-drawer [workspace]=\"workspace\" [position]=\"creationDrawerLocation\"></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node\n\t\t\t[genericNode]=\"node\"\n\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t></generic-node>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>\n\t</ng-container>\n\n\t<multiple-selection \n\t\t[workspace]=\"workspace\" \n\t\t[active]=\"\n\t\t\tworkspace.selectionCount()>1 &&\n\t\t\tdraggingInteraction==null\"\n\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t></multiple-selection>\n\n</div>";
+	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\n\t<creation-drawer \n\t\t[workspace]=\"workspace\"\n\t\t[position]=\"creationDrawerLocation\"\n\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node\n\t\t\t[genericNode]=\"node\"\n\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t></generic-node>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>\n\t</ng-container>\n\n\t<multiple-selection \n\t\t[workspace]=\"workspace\" \n\t\t[active]=\"\n\t\t\tworkspace.selectionCount()>1 &&\n\t\t\tdraggingInteraction==null\"\n\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t></multiple-selection>\n\n</div>";
 
 /***/ },
 
@@ -11923,6 +11933,213 @@ webpackJsonp([0],{
 	    return RemoveCommand;
 	}(command_1.Command));
 	exports.RemoveCommand = RemoveCommand;
+
+
+/***/ },
+
+/***/ 699:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var worksheet_1 = __webpack_require__(70);
+	var worksheet_2 = __webpack_require__(70);
+	function diagramModelFromNode(node) {
+	    var diagramModel = new worksheet_1.DiagramModel();
+	    diagramModel.nodeList.push(node);
+	    return diagramModel;
+	}
+	function diagramModelFromEdge(edge) {
+	    var diagramModel = new worksheet_1.DiagramModel();
+	    diagramModel.edgeList.push(edge);
+	    return diagramModel;
+	}
+	var CreationDrawerItem = (function () {
+	    function CreationDrawerItem() {
+	    }
+	    return CreationDrawerItem;
+	}());
+	exports.CreationDrawerItem = CreationDrawerItem;
+	exports.creationDrawerList = [
+	    {
+	        name: "Rectangle",
+	        iconFilename: "rectangle-generic-icon.svg",
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Rectangle)); }
+	    },
+	    {
+	        name: "RoundedRectangle",
+	        iconFilename: "rounded-rectangle-generic-icon.svg",
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.RoundedRectangle)); }
+	    },
+	    {
+	        name: "Circle",
+	        iconFilename: "circle-generic-icon.svg",
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Circle)); }
+	    },
+	    {
+	        name: "Parallelogram",
+	        iconFilename: "parallelogram-generic-icon.svg",
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Parallelogram)); }
+	    },
+	    {
+	        name: "Diamond",
+	        iconFilename: "diamond-generic-icon.svg",
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Diamond)); }
+	    },
+	    {
+	        name: "Ellipse",
+	        iconFilename: "ellipse-generic-icon.svg",
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Ellipse)); }
+	    },
+	    {
+	        name: "StickFigure",
+	        iconFilename: "stick-figure-generic-icon.svg",
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.StickFigure)); }
+	    },
+	    {
+	        name: "Database",
+	        iconFilename: "database-generic-icon.svg",
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Database)); }
+	    }
+	];
+
+
+/***/ },
+
+/***/ 700:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var command_1 = __webpack_require__(695);
+	var create_1 = __webpack_require__(701);
+	var move_1 = __webpack_require__(694);
+	//indices for the commands in the command list
+	var CREATE = 0;
+	var MOVE = 1;
+	/** Used during dragging(Create Command) things from the drawer/sidebar and dropping(Move Command) them into the workspace */
+	var DragAndDropCommand = (function (_super) {
+	    __extends(DragAndDropCommand, _super);
+	    function DragAndDropCommand(workspace, target, startingPosition) {
+	        _super.call(this);
+	        this.commandList[CREATE] = new create_1.CreateCommand(workspace, target, startingPosition);
+	        this.commandList[MOVE] = new move_1.MoveCommand(workspace, target, false);
+	    }
+	    DragAndDropCommand.prototype.handleMousePress = function (event) {
+	        console.debug("Drag and drop command presed");
+	        this.commandList[CREATE].execute();
+	        this.commandList[MOVE].handleMousePress(event);
+	    };
+	    DragAndDropCommand.prototype.handleMouseDrag = function (event) {
+	        console.debug("Drag and drop command dragged");
+	        this.commandList[MOVE].handleMouseDrag(event);
+	    };
+	    DragAndDropCommand.prototype.handleMouseRelease = function (event) {
+	        console.debug("Drag and drop command released");
+	        //get Workspace reference from either command
+	        // let workspace=(<CreateCommand>this.commandList[CREATE]).workspace;
+	        var workspace = this.commandList[CREATE].workspace;
+	        //if there is not displacement after creation, 
+	        if (this.commandList[MOVE].displacement.isZero()) {
+	            //only commit create command
+	            workspace.commit(this.commandList[CREATE]);
+	        }
+	        else {
+	            //commit the entire drag and drop composite command
+	            workspace.commit(this);
+	        }
+	    };
+	    DragAndDropCommand.prototype.getName = function () {
+	        return "Drag and drop item(s).";
+	    };
+	    return DragAndDropCommand;
+	}(command_1.CompositeCommand));
+	exports.DragAndDropCommand = DragAndDropCommand;
+
+
+/***/ },
+
+/***/ 701:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var command_1 = __webpack_require__(695);
+	var CreateCommand = (function (_super) {
+	    __extends(CreateCommand, _super);
+	    function CreateCommand(workspace, target, startingPosition) {
+	        _super.call(this);
+	        this._workspace = workspace;
+	        this.target = target;
+	        this._startingPosition = startingPosition;
+	    }
+	    Object.defineProperty(CreateCommand.prototype, "startingPosition", {
+	        get: function () {
+	            return this._startingPosition;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(CreateCommand.prototype, "workspace", {
+	        get: function () {
+	            return this._workspace;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    CreateCommand.prototype.execute = function () {
+	        //add all nodes that are in target
+	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            node.getGeometry().moveBy(this.startingPosition);
+	            this.workspace.worksheet.diagramModel.nodeList.push(node);
+	        }
+	        //add all edges that are in target
+	        for (var _b = 0, _c = this.target.edgeList; _b < _c.length; _b++) {
+	            var edge = _c[_b];
+	            //TODO edge geometry position move by shift
+	            this.workspace.worksheet.diagramModel.edgeList.push(edge);
+	        }
+	    };
+	    CreateCommand.prototype.unExecute = function () {
+	        //remove all nodes that are in target
+	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            var index = this.workspace.worksheet.diagramModel.nodeList.indexOf(node);
+	            if (index != -1) {
+	                node.getGeometry().moveBy(this.startingPosition.inverse());
+	                this.workspace.worksheet.diagramModel.nodeList.splice(index, 1);
+	            }
+	            else {
+	                console.error("Node to remove already doesn't exist");
+	            }
+	        }
+	        //remove all edges that are in target
+	        for (var _b = 0, _c = this.target.edgeList; _b < _c.length; _b++) {
+	            var edge = _c[_b];
+	            var index = this.workspace.worksheet.diagramModel.edgeList.indexOf(edge);
+	            if (index != -1) {
+	                //TODO edge geometry position inverse move by shift
+	                this.workspace.worksheet.diagramModel.edgeList.splice(index, 1);
+	            }
+	            else {
+	                console.error("Edge to remove already doesn't exist");
+	            }
+	        }
+	    };
+	    CreateCommand.prototype.getName = function () {
+	        return "Create Item(s)";
+	    };
+	    return CreateCommand;
+	}(command_1.Command));
+	exports.CreateCommand = CreateCommand;
 
 
 /***/ }

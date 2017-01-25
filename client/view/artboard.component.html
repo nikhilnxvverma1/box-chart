@@ -14,7 +14,11 @@
 	[style.top.px]="massiveArea.height/2"
 	>Double click anywhere to create a box</h1>
 
-	<creation-drawer [workspace]="workspace" [position]="creationDrawerLocation"></creation-drawer>
+	<creation-drawer 
+		[workspace]="workspace"
+		[position]="creationDrawerLocation"
+		(requestDragging)="setDragInteractionIfEmpty($event)"
+		></creation-drawer>
 	<selection-box [workspace]="workspace"></selection-box>
 
 	<box *ngFor="let rect of rectList" [rect]="rect" (requestDragging)="setDragInteractionIfEmpty($event)"></box>
