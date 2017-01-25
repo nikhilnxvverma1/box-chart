@@ -1,6 +1,9 @@
+import { Workspace } from '../workspace';
 
 /** Any actionable change in the editor that results in a change to the model is handled by a command.*/
 export abstract class Command{
+	/**Reference to the workspace */
+	workspace?:Workspace;
 	/** Primary operation of this commamnd */
 	abstract execute():void;
 	/** Undoes the primary operation of this command */

@@ -1,0 +1,19 @@
+
+<svg width="9px" height="18px" viewBox="689 178 9 18" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <desc>Created with Sketch.</desc>
+    <defs>
+        <circle id="path-1" cx="3.5" cy="3.5" r="3.5"></circle>
+        <mask id="mask-2" maskContentUnits="userSpaceOnUse" maskUnits="objectBoundingBox" x="0" y="0" width="7" height="7" fill="white">
+            <use xlink:href="#path-1"></use>
+        </mask>
+    </defs>
+    <g id="stick-figure" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" transform="translate(690.000000, 178.000000)">
+        <use id="Oval-2-Copy-2" stroke="#8C8C8C" mask="url(#mask-2)" stroke-width="2" fill="#FFFFFF" xlink:href="#path-1"></use>
+        <path d="M3.5,6.5 L3.5,13.5" id="Line" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M0.5,11.5 L3.5,8.5" id="Line" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M3.5,11.5 L6.5,8.5" id="Line" stroke="#979797" stroke-linecap="square" transform="translate(5.000000, 10.000000) scale(-1, 1) translate(-5.000000, -10.000000) "></path>
+        <path d="M0.5,16.5 L3.5,13.5" id="Line" stroke="#979797" stroke-linecap="square"></path>
+        <path d="M3.5,16.5 L6.5,13.5" id="Line" stroke="#979797" stroke-linecap="square" transform="translate(5.000000, 15.000000) scale(-1, 1) translate(-5.000000, -15.000000) "></path>
+    </g>
+</svg>

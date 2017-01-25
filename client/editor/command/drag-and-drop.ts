@@ -34,7 +34,8 @@ export class DragAndDropCommand extends CompositeCommand implements PressDragRel
 		console.debug("Drag and drop command released");
 
 		//get Workspace reference from either command
-		let workspace=(<CreateCommand>this.commandList[CREATE]).workspace;
+		// let workspace=(<CreateCommand>this.commandList[CREATE]).workspace;
+		let workspace=this.commandList[CREATE].workspace;
 
 		//if there is not displacement after creation, 
 		if((<MoveCommand>this.commandList[MOVE]).displacement.isZero()){
