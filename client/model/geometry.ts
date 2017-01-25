@@ -91,6 +91,15 @@ export class Point{
 		return this.x>=lx && this.x<=mx;
 	}
 
+	/** Returns true if both x and y are 0 for this point. */
+	isZero():boolean{
+		return this.x==0 && this.y==0;
+	}
+
+	/** Returns a new point that contains the negative of x and y of this point */
+	inverse():Point{
+		return new Point(-1 * this.x , -1 * this.y );
+	}
 }
 
 /** Stores 2D position and holds links to previous and next point in series */

@@ -2,12 +2,13 @@ import { Command } from './command';
 import { Workspace } from '../workspace';
 import { Direction,PressDragReleaseProcessor } from '../../utility/common';
 import { DiagramModel,DiagramNode,DiagramEdge } from '../../model/worksheet';
+import { Point } from '../../model/geometry';
 
 export class MoveCommand extends Command implements PressDragReleaseProcessor{
 	
 	private workspace:Workspace;
 	private target:DiagramModel;
-	private dragMade=false;
+	private difference=new Point(0,0);
 
 	constructor(workspace:Workspace){
 		super();
@@ -21,22 +22,35 @@ export class MoveCommand extends Command implements PressDragReleaseProcessor{
 	
 	handleMouseDrag(event:MouseEvent):void{
 		console.debug("Move command dragged");
-		this.dragMade=true;
+		//record the cumalative difference
+		this.difference.x+=event.movementX;
+		this.difference.y+=event.movementY;
+
+		//move all nodes by marginal change in mouse position
+		for(let node of this.target.nodeList){
+			node.moveBy(new Point(event.movementX,event.movementY));
+		}
 	}
 
 	handleMouseRelease(event:MouseEvent):void{
 		console.debug("Move command released");
-		if(this.dragMade){
+		if(!this.difference.isZero()){
 			this.workspace.commit(this);
 		}
 	}
 
 	execute():void{
-
+		//move all nodes by marginal change in mouse position
+		for(let node of this.target.nodeList){
+			node.moveBy(this.difference);
+		}
 	}
 
 	unExecute():void{
-
+		//move all nodes by marginal change in mouse position
+		for(let node of this.target.nodeList){
+			node.moveBy(this.difference.inverse());
+		}
 	}
 
 	getName():string{

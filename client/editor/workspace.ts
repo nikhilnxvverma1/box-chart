@@ -14,7 +14,11 @@ export class Workspace{
 		this._worksheet=worksheet;
 	}
 
-	commit(command:Command){
+	/** Pushes the command onto history. By specifying true as the second argument, it will also execute before pushing to history */
+	commit(command:Command,execute:boolean=false){
+		if(execute){
+			command.execute();
+		}
 		this.history.push(command);
 		this.future.splice(0,this.future.length);
 	}

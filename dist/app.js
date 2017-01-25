@@ -6360,8 +6360,8 @@ webpackJsonp([0],{
 	        this.foreground = new Color(0, 0, 0, 0);
 	        /** Color of the stroke */
 	        this.stroke = new Color(0, 0, 0, 0);
-	        this.incomingEdges = [];
-	        this.outgoingEdges = [];
+	        this.incomingEdges = []; //TODO remove
+	        this.outgoingEdges = []; //TODO remove
 	    }
 	    return DiagramNode;
 	}());
@@ -6510,6 +6510,10 @@ webpackJsonp([0],{
 	        enumerable: true,
 	        configurable: true
 	    });
+	    GenericDiagramNode.prototype.moveBy = function (difference) {
+	        this.rect.x += difference.x;
+	        this.rect.y += difference.y;
+	    };
 	    GenericDiagramNode.Width = 200;
 	    GenericDiagramNode.Height = 30;
 	    return GenericDiagramNode;
@@ -6531,6 +6535,10 @@ webpackJsonp([0],{
 	        var methodCells = !this.methodsCollapsed ? this.classDefinition.methodList.length : 0;
 	        return 1 + fieldCells + methodCells;
 	    };
+	    ClassDiagramNode.prototype.moveBy = function (difference) {
+	        this.rect.x += difference.x;
+	        this.rect.y += difference.y;
+	    };
 	    ClassDiagramNode.DEFAULT_WIDTH = 300;
 	    return ClassDiagramNode;
 	}(DiagramNode));
@@ -6550,6 +6558,10 @@ webpackJsonp([0],{
 	        var methodCells = !this.methodsCollapsed ? this.interfaceDefinition.methodList.length : 0;
 	        return 1 + methodCells;
 	    };
+	    InterfaceDiagramNode.prototype.moveBy = function (difference) {
+	        this.rect.x += difference.x;
+	        this.rect.y += difference.y;
+	    };
 	    return InterfaceDiagramNode;
 	}(DiagramNode));
 	exports.InterfaceDiagramNode = InterfaceDiagramNode;
@@ -6564,6 +6576,10 @@ webpackJsonp([0],{
 	    };
 	    SingleLineComment.prototype.cellRequirement = function () {
 	        return 1;
+	    };
+	    SingleLineComment.prototype.moveBy = function (difference) {
+	        this.rect.x += difference.x;
+	        this.rect.y += difference.y;
 	    };
 	    return SingleLineComment;
 	}(DiagramNode));
@@ -6580,6 +6596,10 @@ webpackJsonp([0],{
 	    };
 	    MultiLineComment.prototype.cellRequirement = function () {
 	        return this.lines.length;
+	    };
+	    MultiLineComment.prototype.moveBy = function (difference) {
+	        this.rect.x += difference.x;
+	        this.rect.y += difference.y;
 	    };
 	    return MultiLineComment;
 	}(DiagramNode));
@@ -6606,6 +6626,10 @@ webpackJsonp([0],{
 	        //header + description + field data list
 	        return 1 + 1 + this.classObject.fieldDataList.length;
 	    };
+	    ClassObjectDiagram.prototype.moveBy = function (difference) {
+	        this.rect.x += difference.x;
+	        this.rect.y += difference.y;
+	    };
 	    return ClassObjectDiagram;
 	}(ObjectDiagram));
 	exports.ClassObjectDiagram = ClassObjectDiagram;
@@ -6617,6 +6641,10 @@ webpackJsonp([0],{
 	    InterfaceObjectDiagram.prototype.cellRequirement = function () {
 	        //header + description 
 	        return 1 + 1;
+	    };
+	    InterfaceObjectDiagram.prototype.moveBy = function (difference) {
+	        this.rect.x += difference.x;
+	        this.rect.y += difference.y;
 	    };
 	    return InterfaceObjectDiagram;
 	}(ObjectDiagram));
@@ -6713,6 +6741,14 @@ webpackJsonp([0],{
 	        var lx = x1 < x2 ? x1 : x2;
 	        var mx = x1 >= x2 ? x2 : x1;
 	        return this.x >= lx && this.x <= mx;
+	    };
+	    /** Returns true if both x and y are 0 for this point. */
+	    Point.prototype.isZero = function () {
+	        return this.x == 0 && this.y == 0;
+	    };
+	    /** Returns a new point that contains the negative of x and y of this point */
+	    Point.prototype.inverse = function () {
+	        return new Point(-1 * this.x, -1 * this.y);
 	    };
 	    return Point;
 	}());
@@ -8375,7 +8411,12 @@ webpackJsonp([0],{
 	        this.creationDrawerIsOpen = false;
 	        this._worksheet = worksheet;
 	    }
-	    Workspace.prototype.commit = function (command) {
+	    /** Pushes the command onto history. By specifying true as the second argument, it will also execute before pushing to history */
+	    Workspace.prototype.commit = function (command, execute) {
+	        if (execute === void 0) { execute = false; }
+	        if (execute) {
+	            command.execute();
+	        }
 	        this.history.push(command);
 	        this.future.splice(0, this.future.length);
 	    };
@@ -11551,11 +11592,12 @@ webpackJsonp([0],{
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var command_1 = __webpack_require__(695);
+	var geometry_1 = __webpack_require__(71);
 	var MoveCommand = (function (_super) {
 	    __extends(MoveCommand, _super);
 	    function MoveCommand(workspace) {
 	        _super.call(this);
-	        this.dragMade = false;
+	        this.difference = new geometry_1.Point(0, 0);
 	        this.workspace = workspace;
 	        this.target = this.workspace.copySelection();
 	    }
@@ -11564,17 +11606,34 @@ webpackJsonp([0],{
 	    };
 	    MoveCommand.prototype.handleMouseDrag = function (event) {
 	        console.debug("Move command dragged");
-	        this.dragMade = true;
+	        //record the cumalative difference
+	        this.difference.x += event.movementX;
+	        this.difference.y += event.movementY;
+	        //move all nodes by marginal change in mouse position
+	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            node.moveBy(new geometry_1.Point(event.movementX, event.movementY));
+	        }
 	    };
 	    MoveCommand.prototype.handleMouseRelease = function (event) {
 	        console.debug("Move command released");
-	        if (this.dragMade) {
+	        if (!this.difference.isZero()) {
 	            this.workspace.commit(this);
 	        }
 	    };
 	    MoveCommand.prototype.execute = function () {
+	        //move all nodes by marginal change in mouse position
+	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            node.moveBy(this.difference);
+	        }
 	    };
 	    MoveCommand.prototype.unExecute = function () {
+	        //move all nodes by marginal change in mouse position
+	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            node.moveBy(this.difference.inverse());
+	        }
 	    };
 	    MoveCommand.prototype.getName = function () {
 	        return "Move Items";
