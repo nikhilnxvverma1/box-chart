@@ -11642,7 +11642,7 @@ webpackJsonp([0],{
 	        }
 	    };
 	    MoveCommand.prototype.getName = function () {
-	        return "Move Items";
+	        return "Move Item(s)";
 	    };
 	    return MoveCommand;
 	}(command_1.Command));

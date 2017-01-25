@@ -54,6 +54,6 @@ export class MoveCommand extends Command implements PressDragReleaseProcessor{
 	}
 
 	getName():string{
-		return "Move Items";
+		return "Move Item(s)";
 	}
 }
