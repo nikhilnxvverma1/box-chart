@@ -24,6 +24,13 @@ $linker-color:#344353;
 	z-index:11;
 }
 
+#multiple-selection-container{
+	border:1px solid blue;
+	position:absolute;
+	z-index:11;
+	pointer-events: none;//selection box should not block any events on the nodes behind it.
+}
+
 .selected{
 	border-color:$selection-color;
 	color:$selection-color;

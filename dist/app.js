@@ -9737,7 +9737,7 @@ webpackJsonp([0],{
 /***/ 96:
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\n\t<creation-drawer [workspace]=\"workspace\" [position]=\"creationDrawerLocation\"></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node\n\t\t\t[genericNode]=\"node\"\n\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t></generic-node>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>\n\t</ng-container>\n\n</div>";
+	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\n\t<creation-drawer [workspace]=\"workspace\" [position]=\"creationDrawerLocation\"></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node\n\t\t\t[genericNode]=\"node\"\n\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t></generic-node>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>\n\t</ng-container>\n\n\t<multiple-selection \n\t\t[workspace]=\"workspace\" \n\t\t[active]=\"\n\t\t\tworkspace.selection!=null &&\n\t\t\t(workspace.selection.nodeList.length + workspace.selection.edgeList.length)>1 &&\n\t\t\tdraggingInteraction==null\"\n\t\t></multiple-selection>\n\n</div>";
 
 /***/ },
 
@@ -9994,6 +9994,7 @@ webpackJsonp([0],{
 	var linked_segments_component_1 = __webpack_require__(128);
 	var creation_drawer_component_1 = __webpack_require__(88);
 	var selection_box_component_1 = __webpack_require__(130);
+	var multiple_selection_component_1 = __webpack_require__(696);
 	var transform_service_1 = __webpack_require__(78);
 	var interpreter_service_1 = __webpack_require__(91);
 	var mock_data_service_1 = __webpack_require__(83);
@@ -10034,7 +10035,8 @@ webpackJsonp([0],{
 	                linked_segments_component_1.LinkedSegmentsComponent,
 	                linker_component_1.LinkerComponent,
 	                creation_drawer_component_1.CreationDrawerComponent,
-	                selection_box_component_1.SelectionBoxComponent
+	                selection_box_component_1.SelectionBoxComponent,
+	                multiple_selection_component_1.MultipleSelectionComponent
 	            ],
 	            schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA],
 	            providers: [transform_service_1.TransformService, interpreter_service_1.InterpreterService, mock_data_service_1.MockDataService]
@@ -10854,7 +10856,7 @@ webpackJsonp([0],{
 	var workspace_1 = __webpack_require__(89);
 	var SelectionBoxComponent = (function () {
 	    function SelectionBoxComponent() {
-	        this.rect = new geometry_1.Rect(1500, 900, 200, 300);
+	        this.rect = new geometry_1.Rect(1500, 900, 200, 300); //initial value only for debugging purposes
 	        //for controlling selection box positioning
 	        this.active = false;
 	    }
@@ -11269,7 +11271,7 @@ webpackJsonp([0],{
 	
 	
 	// module
-	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.3);\n  position: absolute;\n  z-index: 11; }\n\n.selected {\n  border-color: #2BA3FC;\n  color: #2BA3FC; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  text-align: center; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n", ""]);
+	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.3);\n  position: absolute;\n  z-index: 11; }\n\n#multiple-selection-container {\n  border: 1px solid blue;\n  position: absolute;\n  z-index: 11;\n  pointer-events: none; }\n\n.selected {\n  border-color: #2BA3FC;\n  color: #2BA3FC; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  text-align: center; }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n", ""]);
 	
 	// exports
 
@@ -11692,6 +11694,94 @@ webpackJsonp([0],{
 	}(Command));
 	exports.CompositeCommand = CompositeCommand;
 
+
+/***/ },
+
+/***/ 696:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(71);
+	var workspace_1 = __webpack_require__(89);
+	var MultipleSelectionComponent = (function () {
+	    function MultipleSelectionComponent() {
+	        this.active = false;
+	        this.rect = new geometry_1.Rect(1500, 900, 200, 300); //initial value only for debugging purposes
+	    }
+	    MultipleSelectionComponent.prototype.ngOnChanges = function (changes) {
+	        //if active flag changed from false to true,
+	        var activationChange = changes['active'];
+	        if (activationChange != null && activationChange.currentValue) {
+	            //compute and set the dimensions of the box
+	            this.setBoxDimensions();
+	        }
+	    };
+	    MultipleSelectionComponent.prototype.setBoxDimensions = function () {
+	        //find the low x, low y and high x high y 
+	        var lowX = 999999;
+	        var lowY = 999999;
+	        var highX = 0;
+	        var highY = 0;
+	        for (var _i = 0, _a = this.workspace.selection.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            var boundingBox = node.getGeometry().getBoundingBox();
+	            if (boundingBox.x < lowX) {
+	                lowX = boundingBox.x;
+	            }
+	            if (boundingBox.y < lowY) {
+	                lowY = boundingBox.y;
+	            }
+	            if ((boundingBox.x + boundingBox.width) > highX) {
+	                highX = boundingBox.x + boundingBox.width;
+	            }
+	            if ((boundingBox.y + boundingBox.height) > highY) {
+	                highY = boundingBox.y + boundingBox.height;
+	            }
+	        }
+	        //TODO do the same thing with edges
+	        //set the dimensions of the rect
+	        this.rect.x = lowX;
+	        this.rect.y = lowY;
+	        this.rect.width = highX - lowX;
+	        this.rect.height = highY - lowY;
+	    };
+	    __decorate([
+	        core_1.Input('workspace'), 
+	        __metadata('design:type', (typeof (_a = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _a) || Object)
+	    ], MultipleSelectionComponent.prototype, "workspace", void 0);
+	    __decorate([
+	        core_1.Input('active'), 
+	        __metadata('design:type', Object)
+	    ], MultipleSelectionComponent.prototype, "active", void 0);
+	    MultipleSelectionComponent = __decorate([
+	        core_1.Component({
+	            selector: 'multiple-selection',
+	            template: __webpack_require__(697),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], MultipleSelectionComponent);
+	    return MultipleSelectionComponent;
+	    var _a;
+	}());
+	exports.MultipleSelectionComponent = MultipleSelectionComponent;
+
+
+/***/ },
+
+/***/ 697:
+/***/ function(module, exports) {
+
+	module.exports = "<div \n\tid=\"multiple-selection-container\"\n\t[style.left.px]=\"rect.x\"\n\t[style.top.px]=\"rect.y\"\n\t[style.width.px]=\"rect.width\"\n\t[style.height.px]=\"rect.height\"\n\t[style.display]=\"active?'block':'none'\">\n\n</div>";
 
 /***/ }
 

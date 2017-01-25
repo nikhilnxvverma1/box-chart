@@ -11,7 +11,7 @@ import { Workspace } from '../editor/workspace';
 export class SelectionBoxComponent {
 
 	@Input('workspace') workspace: Workspace;
-	rect: Rect = new Rect(1500, 900, 200, 300);
+	rect: Rect = new Rect(1500, 900, 200, 300);//initial value only for debugging purposes
 
 	//for controlling selection box positioning
 	private active = false;
