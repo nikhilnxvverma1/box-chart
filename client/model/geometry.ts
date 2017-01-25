@@ -100,6 +100,17 @@ export class Point{
 	inverse():Point{
 		return new Point(-1 * this.x , -1 * this.y );
 	}
+
+	/**Move by the difference in x and y axis specified by the point */
+	moveBy(point:Point):void{
+		this.x+=point.x;
+		this.y+=point.y;
+	}
+
+	/** Returns a new point shifted by specified numbers */
+	offset(dx:number,dy:number):Point{
+		return new Point(this.x + dx, this.y + dy);
+	}
 }
 
 /** Stores 2D position and holds links to previous and next point in series */
@@ -124,6 +135,8 @@ export interface Geometry{
 	getBoundingBox():Rect;
 	/** Overlap check with a rectangle */
 	overlapsWithRect(rect:Rect):boolean;
+	/**Move by the difference in x and y axis specified by the point */
+	moveBy(point:Point):void;
 }
 
 export class Rect implements Geometry{
@@ -193,6 +206,11 @@ export class Rect implements Geometry{
 			}
 		}
 	}
+
+	moveBy(point:Point):void{
+		this.x+=point.x;
+		this.y+=point.y;
+	}
 }
 
 export class Circle implements Geometry{
@@ -223,6 +241,9 @@ export class Circle implements Geometry{
 	overlapsWithRect(rect:Rect):boolean{
 		//TODO line circle overlap check
 		return false;
+	}
+	moveBy(point:Point):void{
+		this.center.moveBy(point);
 	}
 }
 
@@ -264,5 +285,10 @@ export class LineSegment implements Geometry{
 	overlapsWithRect(rect:Rect):boolean{
 		//TODO line rect overlap check
 		return false;
+	}
+
+	moveBy(point:Point):void{
+		this.start.moveBy(point);
+		this.end.moveBy(point);
 	}
 }

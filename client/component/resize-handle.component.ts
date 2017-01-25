@@ -17,7 +17,7 @@ export class ResizeHandleComponent implements OnInit,PressDragReleaseProcessor{
 	@Output() updateAllResizeHandlers=new EventEmitter<ResizeHandleComponent>();
 
 	private handle:Rect;
-	private pointOnSide:RectTrackingPoint;
+	private rectTracking:RectTrackingPoint;
 	private cursor:string;
 
 	//the following private fields are used exclusively to handle the drag event
@@ -34,52 +34,52 @@ export class ResizeHandleComponent implements OnInit,PressDragReleaseProcessor{
 	private initHandle(){
 
 		//initialize tracking point based on this handles placement
-		this.pointOnSide=new RectTrackingPoint(this.rect);
+		this.rectTracking=new RectTrackingPoint(this.rect);
 		switch(this.placement){
 			case Direction.Top:
-				this.pointOnSide.fraction=0.5;
-				this.pointOnSide.side=Direction.Top;
+				this.rectTracking.fraction=0.5;
+				this.rectTracking.side=Direction.Top;
 				this.cursor="ns-resize";
 				break;
 			case Direction.TopLeft:
-				this.pointOnSide.fraction=0;
-				this.pointOnSide.side=Direction.Top;
+				this.rectTracking.fraction=0;
+				this.rectTracking.side=Direction.Top;
 				this.cursor="nwse-resize";
 				break;
 			case Direction.TopRight:
-				this.pointOnSide.fraction=1;
-				this.pointOnSide.side=Direction.Top;
+				this.rectTracking.fraction=1;
+				this.rectTracking.side=Direction.Top;
 				this.cursor="nesw-resize";
 				break;
 			case Direction.Bottom:
-				this.pointOnSide.fraction=0.5;
-				this.pointOnSide.side=Direction.Bottom;
+				this.rectTracking.fraction=0.5;
+				this.rectTracking.side=Direction.Bottom;
 				this.cursor="ns-resize";
 				break;
 			case Direction.BottomLeft:
-				this.pointOnSide.fraction=1;//because fraction of rect with side goes clockwise
-				this.pointOnSide.side=Direction.Bottom;
+				this.rectTracking.fraction=1;//because fraction of rect with side goes clockwise
+				this.rectTracking.side=Direction.Bottom;
 				this.cursor="nesw-resize";
 				break;
 			case Direction.BottomRight:
-				this.pointOnSide.fraction=0;
-				this.pointOnSide.side=Direction.Bottom;
+				this.rectTracking.fraction=0;
+				this.rectTracking.side=Direction.Bottom;
 				this.cursor="nwse-resize";
 				break;
 			case Direction.Left:
-				this.pointOnSide.fraction=0.5;
-				this.pointOnSide.side=Direction.Left;
+				this.rectTracking.fraction=0.5;
+				this.rectTracking.side=Direction.Left;
 				this.cursor="ew-resize";
 				break;
 			case Direction.Right:
-				this.pointOnSide.fraction=0.5;
-				this.pointOnSide.side=Direction.Right;
+				this.rectTracking.fraction=0.5;
+				this.rectTracking.side=Direction.Right;
 				this.cursor="ew-resize";
 				break;
 		}
 
 		//initialize handle's rect by using the tracking point
-		var point=this.pointOnSide.pointOnSide(this.pointOnSide.side,this.pointOnSide.fraction);
+		var point=this.rectTracking.pointOnSide(this.rectTracking.side,this.rectTracking.fraction);
 		this.handle=new Rect(
 			point.x-ResizeHandleComponent.HandleWidth/2,
 			point.y-ResizeHandleComponent.HandleWidth/2,
@@ -89,7 +89,7 @@ export class ResizeHandleComponent implements OnInit,PressDragReleaseProcessor{
 	}
 
 	updateHandlePosition(){
-		var point=this.pointOnSide.pointOnGeometry();
+		var point=this.rectTracking.pointOnGeometry();
 		//shift in the x and y relative to handle's width
 		var xShift=-0.5;
 		var yShift=-0.5;

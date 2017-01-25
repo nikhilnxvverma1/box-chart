@@ -84,8 +84,6 @@ export abstract class DiagramNode{
 	abstract getGeometry():Geometry;
 	/** Each diagram block has a certain cell requirement which can be found using this method */
 	abstract cellRequirement():number;//TODO remove
-
-	abstract moveBy(difference:Point):void;
 }
 
 /** 
@@ -240,10 +238,6 @@ export class GenericDiagramNode extends DiagramNode{
 		return this._content;
 	}
 
-	moveBy(difference:Point):void{
-		this.rect.x+=difference.x;
-		this.rect.y+=difference.y;
-	}
 }
 
 /** A rect diagram node used for holding class definition, its associated geometry and collapse flags for field and method blocks*/
@@ -270,10 +264,6 @@ export class ClassDiagramNode extends DiagramNode{
 		return 1 + fieldCells + methodCells;
 	}
 	
-	moveBy(difference:Point):void{
-		this.rect.x+=difference.x;
-		this.rect.y+=difference.y;
-	}
 }
 
 /** A rect diagram node used for holding interface definition, its associated geometry and collapse flag for method block*/
@@ -297,10 +287,6 @@ export class InterfaceDiagramNode extends DiagramNode{
 		return 1 + methodCells;
 	}
 
-	moveBy(difference:Point):void{
-		this.rect.x+=difference.x;
-		this.rect.y+=difference.y;
-	}
 }
 
 /** A single line comment block thats put in a rect */
@@ -317,10 +303,6 @@ export class SingleLineComment extends DiagramNode{
 		return 1;
 	}
 
-	moveBy(difference:Point):void{
-		this.rect.x+=difference.x;
-		this.rect.y+=difference.y;
-	}
 }
 
 /** A multi line comment block thats put in a rect */
@@ -337,10 +319,6 @@ export class MultiLineComment extends DiagramNode{
 		return this.lines.length;
 	}
 
-	moveBy(difference:Point):void{
-		this.rect.x+=difference.x;
-		this.rect.y+=difference.y;
-	}
 }
 
 export abstract class ObjectDiagram extends DiagramNode{
@@ -369,10 +347,6 @@ export class ClassObjectDiagram extends ObjectDiagram{
 		return 1+1+this.classObject.fieldDataList.length;
 	}
 
-	moveBy(difference:Point):void{
-		this.rect.x+=difference.x;
-		this.rect.y+=difference.y;
-	}
 }
 
 export class InterfaceObjectDiagram extends ObjectDiagram{
@@ -381,9 +355,5 @@ export class InterfaceObjectDiagram extends ObjectDiagram{
 	cellRequirement():number{
 		//header + description 
 		return 1+1;
-	}
-	moveBy(difference:Point):void{
-		this.rect.x+=difference.x;
-		this.rect.y+=difference.y;
 	}
 }

@@ -6510,10 +6510,6 @@ webpackJsonp([0],{
 	        enumerable: true,
 	        configurable: true
 	    });
-	    GenericDiagramNode.prototype.moveBy = function (difference) {
-	        this.rect.x += difference.x;
-	        this.rect.y += difference.y;
-	    };
 	    GenericDiagramNode.Width = 200;
 	    GenericDiagramNode.Height = 30;
 	    return GenericDiagramNode;
@@ -6535,10 +6531,6 @@ webpackJsonp([0],{
 	        var methodCells = !this.methodsCollapsed ? this.classDefinition.methodList.length : 0;
 	        return 1 + fieldCells + methodCells;
 	    };
-	    ClassDiagramNode.prototype.moveBy = function (difference) {
-	        this.rect.x += difference.x;
-	        this.rect.y += difference.y;
-	    };
 	    ClassDiagramNode.DEFAULT_WIDTH = 300;
 	    return ClassDiagramNode;
 	}(DiagramNode));
@@ -6558,10 +6550,6 @@ webpackJsonp([0],{
 	        var methodCells = !this.methodsCollapsed ? this.interfaceDefinition.methodList.length : 0;
 	        return 1 + methodCells;
 	    };
-	    InterfaceDiagramNode.prototype.moveBy = function (difference) {
-	        this.rect.x += difference.x;
-	        this.rect.y += difference.y;
-	    };
 	    return InterfaceDiagramNode;
 	}(DiagramNode));
 	exports.InterfaceDiagramNode = InterfaceDiagramNode;
@@ -6576,10 +6564,6 @@ webpackJsonp([0],{
 	    };
 	    SingleLineComment.prototype.cellRequirement = function () {
 	        return 1;
-	    };
-	    SingleLineComment.prototype.moveBy = function (difference) {
-	        this.rect.x += difference.x;
-	        this.rect.y += difference.y;
 	    };
 	    return SingleLineComment;
 	}(DiagramNode));
@@ -6596,10 +6580,6 @@ webpackJsonp([0],{
 	    };
 	    MultiLineComment.prototype.cellRequirement = function () {
 	        return this.lines.length;
-	    };
-	    MultiLineComment.prototype.moveBy = function (difference) {
-	        this.rect.x += difference.x;
-	        this.rect.y += difference.y;
 	    };
 	    return MultiLineComment;
 	}(DiagramNode));
@@ -6626,10 +6606,6 @@ webpackJsonp([0],{
 	        //header + description + field data list
 	        return 1 + 1 + this.classObject.fieldDataList.length;
 	    };
-	    ClassObjectDiagram.prototype.moveBy = function (difference) {
-	        this.rect.x += difference.x;
-	        this.rect.y += difference.y;
-	    };
 	    return ClassObjectDiagram;
 	}(ObjectDiagram));
 	exports.ClassObjectDiagram = ClassObjectDiagram;
@@ -6641,10 +6617,6 @@ webpackJsonp([0],{
 	    InterfaceObjectDiagram.prototype.cellRequirement = function () {
 	        //header + description 
 	        return 1 + 1;
-	    };
-	    InterfaceObjectDiagram.prototype.moveBy = function (difference) {
-	        this.rect.x += difference.x;
-	        this.rect.y += difference.y;
 	    };
 	    return InterfaceObjectDiagram;
 	}(ObjectDiagram));
@@ -6750,6 +6722,15 @@ webpackJsonp([0],{
 	    Point.prototype.inverse = function () {
 	        return new Point(-1 * this.x, -1 * this.y);
 	    };
+	    /**Move by the difference in x and y axis specified by the point */
+	    Point.prototype.moveBy = function (point) {
+	        this.x += point.x;
+	        this.y += point.y;
+	    };
+	    /** Returns a new point shifted by specified numbers */
+	    Point.prototype.offset = function (dx, dy) {
+	        return new Point(this.x + dx, this.y + dy);
+	    };
 	    return Point;
 	}());
 	exports.Point = Point;
@@ -6821,6 +6802,10 @@ webpackJsonp([0],{
 	            }
 	        }
 	    };
+	    Rect.prototype.moveBy = function (point) {
+	        this.x += point.x;
+	        this.y += point.y;
+	    };
 	    return Rect;
 	}());
 	exports.Rect = Rect;
@@ -6844,6 +6829,9 @@ webpackJsonp([0],{
 	    Circle.prototype.overlapsWithRect = function (rect) {
 	        //TODO line circle overlap check
 	        return false;
+	    };
+	    Circle.prototype.moveBy = function (point) {
+	        this.center.moveBy(point);
 	    };
 	    return Circle;
 	}());
@@ -6876,6 +6864,10 @@ webpackJsonp([0],{
 	    LineSegment.prototype.overlapsWithRect = function (rect) {
 	        //TODO line rect overlap check
 	        return false;
+	    };
+	    LineSegment.prototype.moveBy = function (point) {
+	        this.start.moveBy(point);
+	        this.end.moveBy(point);
 	    };
 	    LineSegment.closeEnoughDistance = 10;
 	    return LineSegment;
@@ -10197,55 +10189,55 @@ webpackJsonp([0],{
 	    };
 	    ResizeHandleComponent.prototype.initHandle = function () {
 	        //initialize tracking point based on this handles placement
-	        this.pointOnSide = new tracking_point_1.RectTrackingPoint(this.rect);
+	        this.rectTracking = new tracking_point_1.RectTrackingPoint(this.rect);
 	        switch (this.placement) {
 	            case common_1.Direction.Top:
-	                this.pointOnSide.fraction = 0.5;
-	                this.pointOnSide.side = common_1.Direction.Top;
+	                this.rectTracking.fraction = 0.5;
+	                this.rectTracking.side = common_1.Direction.Top;
 	                this.cursor = "ns-resize";
 	                break;
 	            case common_1.Direction.TopLeft:
-	                this.pointOnSide.fraction = 0;
-	                this.pointOnSide.side = common_1.Direction.Top;
+	                this.rectTracking.fraction = 0;
+	                this.rectTracking.side = common_1.Direction.Top;
 	                this.cursor = "nwse-resize";
 	                break;
 	            case common_1.Direction.TopRight:
-	                this.pointOnSide.fraction = 1;
-	                this.pointOnSide.side = common_1.Direction.Top;
+	                this.rectTracking.fraction = 1;
+	                this.rectTracking.side = common_1.Direction.Top;
 	                this.cursor = "nesw-resize";
 	                break;
 	            case common_1.Direction.Bottom:
-	                this.pointOnSide.fraction = 0.5;
-	                this.pointOnSide.side = common_1.Direction.Bottom;
+	                this.rectTracking.fraction = 0.5;
+	                this.rectTracking.side = common_1.Direction.Bottom;
 	                this.cursor = "ns-resize";
 	                break;
 	            case common_1.Direction.BottomLeft:
-	                this.pointOnSide.fraction = 1; //because fraction of rect with side goes clockwise
-	                this.pointOnSide.side = common_1.Direction.Bottom;
+	                this.rectTracking.fraction = 1; //because fraction of rect with side goes clockwise
+	                this.rectTracking.side = common_1.Direction.Bottom;
 	                this.cursor = "nesw-resize";
 	                break;
 	            case common_1.Direction.BottomRight:
-	                this.pointOnSide.fraction = 0;
-	                this.pointOnSide.side = common_1.Direction.Bottom;
+	                this.rectTracking.fraction = 0;
+	                this.rectTracking.side = common_1.Direction.Bottom;
 	                this.cursor = "nwse-resize";
 	                break;
 	            case common_1.Direction.Left:
-	                this.pointOnSide.fraction = 0.5;
-	                this.pointOnSide.side = common_1.Direction.Left;
+	                this.rectTracking.fraction = 0.5;
+	                this.rectTracking.side = common_1.Direction.Left;
 	                this.cursor = "ew-resize";
 	                break;
 	            case common_1.Direction.Right:
-	                this.pointOnSide.fraction = 0.5;
-	                this.pointOnSide.side = common_1.Direction.Right;
+	                this.rectTracking.fraction = 0.5;
+	                this.rectTracking.side = common_1.Direction.Right;
 	                this.cursor = "ew-resize";
 	                break;
 	        }
 	        //initialize handle's rect by using the tracking point
-	        var point = this.pointOnSide.pointOnSide(this.pointOnSide.side, this.pointOnSide.fraction);
+	        var point = this.rectTracking.pointOnSide(this.rectTracking.side, this.rectTracking.fraction);
 	        this.handle = new geometry_1.Rect(point.x - ResizeHandleComponent.HandleWidth / 2, point.y - ResizeHandleComponent.HandleWidth / 2, ResizeHandleComponent.HandleWidth, ResizeHandleComponent.HandleWidth);
 	    };
 	    ResizeHandleComponent.prototype.updateHandlePosition = function () {
-	        var point = this.pointOnSide.pointOnGeometry();
+	        var point = this.rectTracking.pointOnGeometry();
 	        //shift in the x and y relative to handle's width
 	        var xShift = -0.5;
 	        var yShift = -0.5;
@@ -10438,7 +10430,7 @@ webpackJsonp([0],{
 /***/ 113:
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"node.rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"node.rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"node.selected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"node.selected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"node.selected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"node.selected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"node.selected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"node.selected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"node.selected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"node.selected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
 
 /***/ },
 
@@ -11612,7 +11604,7 @@ webpackJsonp([0],{
 	        //move all nodes by marginal change in mouse position
 	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
 	            var node = _a[_i];
-	            node.moveBy(new geometry_1.Point(event.movementX, event.movementY));
+	            node.getGeometry().moveBy(new geometry_1.Point(event.movementX, event.movementY));
 	        }
 	    };
 	    MoveCommand.prototype.handleMouseRelease = function (event) {
@@ -11625,14 +11617,14 @@ webpackJsonp([0],{
 	        //move all nodes by marginal change in mouse position
 	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
 	            var node = _a[_i];
-	            node.moveBy(this.difference);
+	            node.getGeometry().moveBy(this.difference);
 	        }
 	    };
 	    MoveCommand.prototype.unExecute = function () {
 	        //move all nodes by marginal change in mouse position
 	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
 	            var node = _a[_i];
-	            node.moveBy(this.difference.inverse());
+	            node.getGeometry().moveBy(this.difference.inverse());
 	        }
 	    };
 	    MoveCommand.prototype.getName = function () {

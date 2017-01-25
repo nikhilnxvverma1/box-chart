@@ -28,7 +28,7 @@ export class MoveCommand extends Command implements PressDragReleaseProcessor{
 
 		//move all nodes by marginal change in mouse position
 		for(let node of this.target.nodeList){
-			node.moveBy(new Point(event.movementX,event.movementY));
+			node.getGeometry().moveBy(new Point(event.movementX,event.movementY));
 		}
 	}
 
@@ -42,14 +42,14 @@ export class MoveCommand extends Command implements PressDragReleaseProcessor{
 	execute():void{
 		//move all nodes by marginal change in mouse position
 		for(let node of this.target.nodeList){
-			node.moveBy(this.difference);
+			node.getGeometry().moveBy(this.difference);
 		}
 	}
 
 	unExecute():void{
 		//move all nodes by marginal change in mouse position
 		for(let node of this.target.nodeList){
-			node.moveBy(this.difference.inverse());
+			node.getGeometry().moveBy(this.difference.inverse());
 		}
 	}
 
