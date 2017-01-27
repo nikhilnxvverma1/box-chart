@@ -1,5 +1,6 @@
 import { Command } from './command/command';
 import { Worksheet,DiagramModel,DiagramNode,DiagramEdge } from '../model/worksheet';
+import { Point } from '../model/geometry';
 
 /** Current configuration of the workspace on account of user actions so far. */
 export class Workspace{
@@ -9,6 +10,7 @@ export class Workspace{
 	private future:Command[]=[];
 	private _selection:DiagramModel;
 	creationDrawerIsOpen:boolean=false;
+	private _cursorPosition:Point;
 
 	constructor(worksheet:Worksheet){
 		this._worksheet=worksheet;
@@ -54,6 +56,14 @@ export class Workspace{
 	/** Gets a diagram model that contains items in selection. Can be null if selection is empty*/
 	get selection():DiagramModel{
 		return this._selection;
+	}
+
+	get cursorPosition():Point{
+		return this._cursorPosition;
+	}
+
+	set cursorPosition(value:Point){
+		this._cursorPosition=value;
 	}
 
 	selectionCount():number{
@@ -151,12 +161,12 @@ export class Workspace{
 		return this._selection!=null && this._selection.containsEdge(edge);
 	}
 
-	/** Returns true if argument is the only node selected */
+	/** Returns true if argument is the only node selected (O(1)) */
 	selectionContainsOnlyNode(node:DiagramNode):boolean{
 		return this._selection!=null && this._selection.nodeList.length==1 && this._selection.containsNode(node);
 	}
 
-	/** Returns true if argument is the only Edge selected */
+	/** Returns true if argument is the only Edge selected  (O(1)) */
 	selectionContainsOnlyEdge(edge:DiagramEdge):boolean{
 		return this._selection!=null && this._selection.edgeList.length==1 && this._selection.containsEdge(edge);
 	}

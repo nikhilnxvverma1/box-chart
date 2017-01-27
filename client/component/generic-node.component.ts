@@ -1,6 +1,7 @@
 import { Component,Input,Output,EventEmitter,ViewChildren,QueryList } from '@angular/core';
 import { animate,trigger,state,style,transition } from '@angular/core';
 import { Rect } from '../model/geometry';
+import { Workspace } from '../editor/workspace';
 import { Direction,PressDragReleaseProcessor } from '../utility/common';
 import { ResizeHandleComponent } from './resize-handle.component';
 import { DiagramNode,GenericDiagramNode } from '../model/worksheet';
@@ -26,6 +27,7 @@ const SELECTION_COLOR='#2BA3FC';
 })
 export class GenericNodeComponent {
 
+	@Input('workspace') workspace:Workspace;
 	@Input("soloSelected") soloSelected:boolean;
 	@Input('genericNode') node:GenericDiagramNode;
 	@Output() requestDragging=new EventEmitter<DiagramNode>();

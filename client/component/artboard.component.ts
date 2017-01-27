@@ -93,7 +93,8 @@ export class ArtboardComponent implements OnInit{
 	}
 
 	mousemove(event:MouseEvent){
-		this.mousemoveEvent.emit(event);	
+		this.mousemoveEvent.emit(event);
+		this.workspace.cursorPosition=new Point(event.offsetX,event.offsetY);
 		if(this.draggingInteraction!=null){
 			this.draggingInteraction.handleMouseDrag(event);
 		}else{

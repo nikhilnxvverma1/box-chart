@@ -22,6 +22,7 @@ import { LinkedSegmentsComponent } from './component/linked-segments.component';
 import { CreationDrawerComponent } from './component/creation-drawer.component';
 import { SelectionBoxComponent } from './component/selection-box.component';
 import { MultipleSelectionComponent } from './component/multiple-selection.component';
+import { DiagramEdgeComponent } from './component/diagram-edge.component';
 import { TransformService } from './utility/transform.service';
 import { InterpreterService } from './editor/compiler/interpreter.service';
 import { MockDataService } from './utility/mock-data.service';
@@ -60,7 +61,8 @@ import { NodeBackground } from './helper/node-background.pipe';
 		LinkerComponent,
 		CreationDrawerComponent,
 		SelectionBoxComponent,
-		MultipleSelectionComponent
+		MultipleSelectionComponent,
+		DiagramEdgeComponent
 		],
 	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 	providers:[TransformService,InterpreterService,MockDataService]

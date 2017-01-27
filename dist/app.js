@@ -6,7 +6,7 @@ webpackJsonp([0],{
 	"use strict";
 	var platform_browser_dynamic_1 = __webpack_require__(1);
 	var app_module_1 = __webpack_require__(23);
-	__webpack_require__(137);
+	__webpack_require__(145);
 	platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
 
 
@@ -32,11 +32,11 @@ webpackJsonp([0],{
 	var app_component_1 = __webpack_require__(29);
 	var app_routing_module_1 = __webpack_require__(31);
 	var home_component_1 = __webpack_require__(62);
-	var login_component_1 = __webpack_require__(101);
+	var login_component_1 = __webpack_require__(108);
 	var signup_component_1 = __webpack_require__(64);
-	var dashboard_module_1 = __webpack_require__(103);
-	var workspace_module_1 = __webpack_require__(105);
-	var account_component_1 = __webpack_require__(99);
+	var dashboard_module_1 = __webpack_require__(110);
+	var workspace_module_1 = __webpack_require__(112);
+	var account_component_1 = __webpack_require__(106);
 	var user_service_1 = __webpack_require__(66);
 	var AppModule = (function () {
 	    function AppModule() {
@@ -5899,7 +5899,7 @@ webpackJsonp([0],{
 	var signup_component_1 = __webpack_require__(64);
 	var dashboard_component_1 = __webpack_require__(69);
 	var workspace_component_1 = __webpack_require__(77);
-	var account_component_1 = __webpack_require__(99);
+	var account_component_1 = __webpack_require__(106);
 	var AppRoutingModule = (function () {
 	    function AppRoutingModule() {
 	    }
@@ -7559,9 +7559,9 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var core_2 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(71);
-	var sidebar_component_1 = __webpack_require__(79);
-	var artboard_component_1 = __webpack_require__(82);
-	var workspace_1 = __webpack_require__(89);
+	var sidebar_component_1 = __webpack_require__(78);
+	var artboard_component_1 = __webpack_require__(81);
+	var workspace_1 = __webpack_require__(88);
 	var worksheet_1 = __webpack_require__(70);
 	var SPACE_KEY = 32;
 	var Z_KEY = 90;
@@ -7656,8 +7656,8 @@ webpackJsonp([0],{
 	    WorkspaceComponent = __decorate([
 	        core_1.Component({
 	            selector: 'workspace',
-	            styles: [__webpack_require__(97)],
-	            template: __webpack_require__(98),
+	            styles: [__webpack_require__(104)],
+	            template: __webpack_require__(105),
 	            animations: [
 	                core_2.trigger('shiftMenuControls', [
 	                    core_2.state('unshifted', core_2.style({
@@ -7695,47 +7695,6 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(71);
-	var TransformService = (function () {
-	    function TransformService() {
-	    }
-	    TransformService.prototype.toModelSpace = function (p) {
-	        return new geometry_1.Point(p.x, p.y); //TODO
-	    };
-	    TransformService.prototype.lengthInModelSpace = function (l) {
-	        return l; //TODO
-	    };
-	    TransformService.prototype.toViewSpace = function (p) {
-	        return new geometry_1.Point(p.x, p.y); //TODO
-	    };
-	    TransformService.prototype.lengthInViewSpace = function (l) {
-	        return l; //TODO
-	    };
-	    TransformService = __decorate([
-	        core_1.Injectable(), 
-	        __metadata('design:paramtypes', [])
-	    ], TransformService);
-	    return TransformService;
-	}());
-	exports.TransformService = TransformService;
-
-
-/***/ },
-
-/***/ 79:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-	    return c > 3 && r && Object.defineProperty(target, key, r), r;
-	};
-	var __metadata = (this && this.__metadata) || function (k, v) {
-	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-	};
-	var core_1 = __webpack_require__(3);
 	var core_2 = __webpack_require__(3);
 	var SidebarComponent = (function () {
 	    function SidebarComponent() {
@@ -7744,8 +7703,8 @@ webpackJsonp([0],{
 	    SidebarComponent = __decorate([
 	        core_1.Component({
 	            selector: 'sidebar',
-	            styles: [__webpack_require__(80)],
-	            template: __webpack_require__(81),
+	            styles: [__webpack_require__(79)],
+	            template: __webpack_require__(80),
 	            animations: [
 	                core_2.trigger('sidebarOpen', [
 	                    core_2.state('close', core_2.style({
@@ -7768,21 +7727,21 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 80:
+/***/ 79:
 /***/ function(module, exports) {
 
 	module.exports = "#sidebar {\n  background: #8f42de;\n  color: whitesmoke;\n  width: 280px;\n  height: 100%;\n  position: absolute;\n  top: 0px; }\n"
 
 /***/ },
 
-/***/ 81:
+/***/ 80:
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"sidebar\" [@sidebarOpen]=\"open?'open':'close'\">\n\t<h2>sidebar</h2>\n\t<i class=\"ms-Icon ms-Icon--Cancel\" aria-hidden=\"true\" (click)=\"open=false\"></i>\n\t\n</div>";
 
 /***/ },
 
-/***/ 82:
+/***/ 81:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7799,15 +7758,15 @@ webpackJsonp([0],{
 	var core_2 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(71);
 	var geometry_2 = __webpack_require__(71);
-	var mock_data_service_1 = __webpack_require__(83);
-	var auto_completion_component_1 = __webpack_require__(85);
-	var creationDrawer = __webpack_require__(88);
-	var interpreter_service_1 = __webpack_require__(91);
+	var mock_data_service_1 = __webpack_require__(82);
+	var auto_completion_component_1 = __webpack_require__(84);
+	var creationDrawer = __webpack_require__(87);
+	var interpreter_service_1 = __webpack_require__(95);
 	var worksheet_1 = __webpack_require__(70);
-	var workspace_1 = __webpack_require__(89);
-	var selection_box_component_1 = __webpack_require__(130);
-	var move_1 = __webpack_require__(694);
-	var remove_1 = __webpack_require__(698);
+	var workspace_1 = __webpack_require__(88);
+	var selection_box_component_1 = __webpack_require__(99);
+	var move_1 = __webpack_require__(92);
+	var remove_1 = __webpack_require__(101);
 	exports.ArtboardWidth = 3200;
 	exports.ArtboardHeight = (2 / 3) * exports.ArtboardWidth;
 	var ArtboardComponent = (function () {
@@ -7861,6 +7820,7 @@ webpackJsonp([0],{
 	    };
 	    ArtboardComponent.prototype.mousemove = function (event) {
 	        this.mousemoveEvent.emit(event);
+	        this.workspace.cursorPosition = new geometry_2.Point(event.offsetX, event.offsetY);
 	        if (this.draggingInteraction != null) {
 	            this.draggingInteraction.handleMouseDrag(event);
 	        }
@@ -7939,8 +7899,8 @@ webpackJsonp([0],{
 	    ArtboardComponent = __decorate([
 	        core_1.Component({
 	            selector: 'artboard',
-	            styles: [__webpack_require__(95)],
-	            template: __webpack_require__(96),
+	            styles: [__webpack_require__(102)],
+	            template: __webpack_require__(103),
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_d = typeof mock_data_service_1.MockDataService !== 'undefined' && mock_data_service_1.MockDataService) === 'function' && _d) || Object, (typeof (_e = typeof interpreter_service_1.InterpreterService !== 'undefined' && interpreter_service_1.InterpreterService) === 'function' && _e) || Object])
 	    ], ArtboardComponent);
@@ -7952,7 +7912,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 83:
+/***/ 82:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7968,8 +7928,8 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var semantic = __webpack_require__(73);
 	var worksheet = __webpack_require__(70);
-	var object = __webpack_require__(84);
-	var artboard_component_1 = __webpack_require__(82);
+	var object = __webpack_require__(83);
+	var artboard_component_1 = __webpack_require__(81);
 	var MockDataService = (function () {
 	    function MockDataService() {
 	    }
@@ -8067,7 +8027,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 84:
+/***/ 83:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8272,7 +8232,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 85:
+/***/ 84:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8288,7 +8248,7 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(71);
 	var semantic_model_1 = __webpack_require__(73);
-	var object_model_1 = __webpack_require__(84);
+	var object_model_1 = __webpack_require__(83);
 	var AutoCompletionComponent = (function () {
 	    function AutoCompletionComponent() {
 	        this.position = new geometry_1.Point(1200, 900);
@@ -8304,8 +8264,8 @@ webpackJsonp([0],{
 	    AutoCompletionComponent = __decorate([
 	        core_1.Component({
 	            selector: 'auto-completion',
-	            template: __webpack_require__(86),
-	            styles: [__webpack_require__(87)]
+	            template: __webpack_require__(85),
+	            styles: [__webpack_require__(86)]
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], AutoCompletionComponent);
@@ -8317,21 +8277,21 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 86:
+/***/ 85:
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"auto-completion-box\"\n\t[style.left.px]=\"position.x\"\n\t[style.top.px]=\"position.y\"\n\t>\n\tSomeClassName\n</div>";
 
 /***/ },
 
-/***/ 87:
+/***/ 86:
 /***/ function(module, exports) {
 
 	module.exports = "#auto-completion-box {\n  position: absolute;\n  background: #6f6f6f;\n  color: white;\n  width: 250px;\n  height: 200px;\n  overflow-x: hidden;\n  overflow-y: scroll; }\n"
 
 /***/ },
 
-/***/ 88:
+/***/ 87:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8347,9 +8307,9 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var core_2 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(71);
-	var workspace_1 = __webpack_require__(89);
-	var drag_and_drop_1 = __webpack_require__(700);
-	var creation_item_1 = __webpack_require__(699);
+	var workspace_1 = __webpack_require__(88);
+	var drag_and_drop_1 = __webpack_require__(89);
+	var creation_item_1 = __webpack_require__(93);
 	exports.WIDTH = 200;
 	exports.HEIGHT = 250;
 	var CreationDrawerComponent = (function () {
@@ -8388,7 +8348,7 @@ webpackJsonp([0],{
 	    CreationDrawerComponent = __decorate([
 	        core_1.Component({
 	            selector: 'creation-drawer',
-	            template: __webpack_require__(90),
+	            template: __webpack_require__(94),
 	            animations: [
 	                core_2.trigger('isDrawerOpen', [
 	                    core_2.state('open', core_2.style({
@@ -8416,7 +8376,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 89:
+/***/ 88:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8468,6 +8428,16 @@ webpackJsonp([0],{
 	        /** Gets a diagram model that contains items in selection. Can be null if selection is empty*/
 	        get: function () {
 	            return this._selection;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(Workspace.prototype, "cursorPosition", {
+	        get: function () {
+	            return this._cursorPosition;
+	        },
+	        set: function (value) {
+	            this._cursorPosition = value;
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -8558,11 +8528,11 @@ webpackJsonp([0],{
 	    Workspace.prototype.selectionContainsEdge = function (edge) {
 	        return this._selection != null && this._selection.containsEdge(edge);
 	    };
-	    /** Returns true if argument is the only node selected */
+	    /** Returns true if argument is the only node selected (O(1)) */
 	    Workspace.prototype.selectionContainsOnlyNode = function (node) {
 	        return this._selection != null && this._selection.nodeList.length == 1 && this._selection.containsNode(node);
 	    };
-	    /** Returns true if argument is the only Edge selected */
+	    /** Returns true if argument is the only Edge selected  (O(1)) */
 	    Workspace.prototype.selectionContainsOnlyEdge = function (edge) {
 	        return this._selection != null && this._selection.edgeList.length == 1 && this._selection.containsEdge(edge);
 	    };
@@ -8573,14 +8543,346 @@ webpackJsonp([0],{
 
 /***/ },
 
+/***/ 89:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var command_1 = __webpack_require__(90);
+	var create_1 = __webpack_require__(91);
+	var move_1 = __webpack_require__(92);
+	//indices for the commands in the command list
+	var CREATE = 0;
+	var MOVE = 1;
+	/** Used during dragging(Create Command) things from the drawer/sidebar and dropping(Move Command) them into the workspace */
+	var DragAndDropCommand = (function (_super) {
+	    __extends(DragAndDropCommand, _super);
+	    function DragAndDropCommand(workspace, target, startingPosition) {
+	        _super.call(this);
+	        this.commandList[CREATE] = new create_1.CreateCommand(workspace, target, startingPosition);
+	        this.commandList[MOVE] = new move_1.MoveCommand(workspace, target, false);
+	    }
+	    DragAndDropCommand.prototype.handleMousePress = function (event) {
+	        console.debug("Drag and drop command presed");
+	        this.commandList[CREATE].execute();
+	        this.commandList[MOVE].handleMousePress(event);
+	    };
+	    DragAndDropCommand.prototype.handleMouseDrag = function (event) {
+	        console.debug("Drag and drop command dragged");
+	        this.commandList[MOVE].handleMouseDrag(event);
+	    };
+	    DragAndDropCommand.prototype.handleMouseRelease = function (event) {
+	        console.debug("Drag and drop command released");
+	        //get Workspace reference from either command
+	        // let workspace=(<CreateCommand>this.commandList[CREATE]).workspace;
+	        var workspace = this.commandList[CREATE].workspace;
+	        //if there is not displacement after creation, 
+	        if (this.commandList[MOVE].displacement.isZero()) {
+	            //only commit create command
+	            workspace.commit(this.commandList[CREATE]);
+	        }
+	        else {
+	            //commit the entire drag and drop composite command
+	            workspace.commit(this);
+	        }
+	    };
+	    DragAndDropCommand.prototype.getName = function () {
+	        return "Drag and drop item(s).";
+	    };
+	    return DragAndDropCommand;
+	}(command_1.CompositeCommand));
+	exports.DragAndDropCommand = DragAndDropCommand;
+
+
+/***/ },
+
 /***/ 90:
+/***/ function(module, exports) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	/** Any actionable change in the editor that results in a change to the model is handled by a command.*/
+	var Command = (function () {
+	    function Command() {
+	    }
+	    return Command;
+	}());
+	exports.Command = Command;
+	/** Holds several commands that will run in one go. */
+	var CompositeCommand = (function (_super) {
+	    __extends(CompositeCommand, _super);
+	    function CompositeCommand() {
+	        _super.apply(this, arguments);
+	        this.commandList = [];
+	    }
+	    CompositeCommand.prototype.execute = function () {
+	        for (var _i = 0, _a = this.commandList; _i < _a.length; _i++) {
+	            var command = _a[_i];
+	            command.execute();
+	        }
+	    };
+	    CompositeCommand.prototype.unExecute = function () {
+	        for (var _i = 0, _a = this.commandList; _i < _a.length; _i++) {
+	            var command = _a[_i];
+	            command.unExecute();
+	        }
+	    };
+	    /** Subclasses should override to return a more descriptive user friendly name*/
+	    CompositeCommand.prototype.getName = function () {
+	        return "Composite Command";
+	    };
+	    return CompositeCommand;
+	}(Command));
+	exports.CompositeCommand = CompositeCommand;
+
+
+/***/ },
+
+/***/ 91:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var command_1 = __webpack_require__(90);
+	var CreateCommand = (function (_super) {
+	    __extends(CreateCommand, _super);
+	    function CreateCommand(workspace, target, startingPosition) {
+	        _super.call(this);
+	        this._workspace = workspace;
+	        this.target = target;
+	        this._startingPosition = startingPosition;
+	    }
+	    Object.defineProperty(CreateCommand.prototype, "startingPosition", {
+	        get: function () {
+	            return this._startingPosition;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(CreateCommand.prototype, "workspace", {
+	        get: function () {
+	            return this._workspace;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    CreateCommand.prototype.execute = function () {
+	        //add all nodes that are in target
+	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            node.getGeometry().moveBy(this.startingPosition);
+	            this.workspace.worksheet.diagramModel.nodeList.push(node);
+	        }
+	        //add all edges that are in target
+	        for (var _b = 0, _c = this.target.edgeList; _b < _c.length; _b++) {
+	            var edge = _c[_b];
+	            //TODO edge geometry position move by shift
+	            this.workspace.worksheet.diagramModel.edgeList.push(edge);
+	        }
+	    };
+	    CreateCommand.prototype.unExecute = function () {
+	        //remove all nodes that are in target
+	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            var index = this.workspace.worksheet.diagramModel.nodeList.indexOf(node);
+	            if (index != -1) {
+	                node.getGeometry().moveBy(this.startingPosition.inverse());
+	                this.workspace.worksheet.diagramModel.nodeList.splice(index, 1);
+	            }
+	            else {
+	                console.error("Node to remove already doesn't exist");
+	            }
+	        }
+	        //remove all edges that are in target
+	        for (var _b = 0, _c = this.target.edgeList; _b < _c.length; _b++) {
+	            var edge = _c[_b];
+	            var index = this.workspace.worksheet.diagramModel.edgeList.indexOf(edge);
+	            if (index != -1) {
+	                //TODO edge geometry position inverse move by shift
+	                this.workspace.worksheet.diagramModel.edgeList.splice(index, 1);
+	            }
+	            else {
+	                console.error("Edge to remove already doesn't exist");
+	            }
+	        }
+	    };
+	    CreateCommand.prototype.getName = function () {
+	        return "Create Item(s)";
+	    };
+	    return CreateCommand;
+	}(command_1.Command));
+	exports.CreateCommand = CreateCommand;
+
+
+/***/ },
+
+/***/ 92:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var command_1 = __webpack_require__(90);
+	var geometry_1 = __webpack_require__(71);
+	var MoveCommand = (function (_super) {
+	    __extends(MoveCommand, _super);
+	    function MoveCommand(workspace, target, commitToWorkspaceOnCompletion) {
+	        if (commitToWorkspaceOnCompletion === void 0) { commitToWorkspaceOnCompletion = true; }
+	        _super.call(this);
+	        this._displacement = new geometry_1.Point(0, 0);
+	        this._workspace = workspace;
+	        this.target = target;
+	        this.commitToWorkspaceOnCompletion = commitToWorkspaceOnCompletion;
+	    }
+	    Object.defineProperty(MoveCommand.prototype, "workspace", {
+	        get: function () {
+	            return this._workspace;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(MoveCommand.prototype, "displacement", {
+	        get: function () {
+	            return this._displacement;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    MoveCommand.prototype.handleMousePress = function (event) {
+	        console.debug("Move command presed");
+	    };
+	    MoveCommand.prototype.handleMouseDrag = function (event) {
+	        console.debug("Move command dragged");
+	        //record the cumalative difference
+	        this.displacement.x += event.movementX;
+	        this.displacement.y += event.movementY;
+	        //move all nodes by marginal change in mouse position
+	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            node.getGeometry().moveBy(new geometry_1.Point(event.movementX, event.movementY));
+	        }
+	    };
+	    MoveCommand.prototype.handleMouseRelease = function (event) {
+	        console.debug("Move command released");
+	        if (!this.displacement.isZero() && this.commitToWorkspaceOnCompletion) {
+	            this.workspace.commit(this);
+	        }
+	    };
+	    MoveCommand.prototype.execute = function () {
+	        //move all nodes by marginal change in mouse position
+	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            node.getGeometry().moveBy(this.displacement);
+	        }
+	    };
+	    MoveCommand.prototype.unExecute = function () {
+	        //move all nodes by marginal change in mouse position
+	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            node.getGeometry().moveBy(this.displacement.inverse());
+	        }
+	    };
+	    MoveCommand.prototype.getName = function () {
+	        return "Move Item(s)";
+	    };
+	    return MoveCommand;
+	}(command_1.Command));
+	exports.MoveCommand = MoveCommand;
+
+
+/***/ },
+
+/***/ 93:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var worksheet_1 = __webpack_require__(70);
+	var worksheet_2 = __webpack_require__(70);
+	function diagramModelFromNode(node) {
+	    var diagramModel = new worksheet_1.DiagramModel();
+	    diagramModel.nodeList.push(node);
+	    return diagramModel;
+	}
+	function diagramModelFromEdge(edge) {
+	    var diagramModel = new worksheet_1.DiagramModel();
+	    diagramModel.edgeList.push(edge);
+	    return diagramModel;
+	}
+	var CreationDrawerItem = (function () {
+	    function CreationDrawerItem() {
+	    }
+	    return CreationDrawerItem;
+	}());
+	exports.CreationDrawerItem = CreationDrawerItem;
+	exports.creationDrawerList = [
+	    {
+	        name: "Rectangle",
+	        iconFilename: "rectangle-generic-icon.svg",
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Rectangle)); }
+	    },
+	    {
+	        name: "RoundedRectangle",
+	        iconFilename: "rounded-rectangle-generic-icon.svg",
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.RoundedRectangle)); }
+	    },
+	    {
+	        name: "Circle",
+	        iconFilename: "circle-generic-icon.svg",
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Circle)); }
+	    },
+	    {
+	        name: "Parallelogram",
+	        iconFilename: "parallelogram-generic-icon.svg",
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Parallelogram)); }
+	    },
+	    {
+	        name: "Diamond",
+	        iconFilename: "diamond-generic-icon.svg",
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Diamond)); }
+	    },
+	    {
+	        name: "Ellipse",
+	        iconFilename: "ellipse-generic-icon.svg",
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Ellipse)); }
+	    },
+	    {
+	        name: "StickFigure",
+	        iconFilename: "stick-figure-generic-icon.svg",
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.StickFigure)); }
+	    },
+	    {
+	        name: "Database",
+	        iconFilename: "database-generic-icon.svg",
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Database)); }
+	    }
+	];
+
+
+/***/ },
+
+/***/ 94:
 /***/ function(module, exports) {
 
 	module.exports = "<div \n\tclass=\"drop-shadowed-pop-up\"\n\tid=\"creation-pop-up\"\n\t[style.left.px]=\"position.x\"\n\t[style.top.px]=\"position.y\"\n\t[@isDrawerOpen]=\"workspace.creationDrawerIsOpen?'open':'closed'\" >\n\n\t<ul>\n\t\t<li *ngFor=\"let item of creationDrawerList\" (mousedown)=\"provideDragAndDropFor(item,$event)\">\n\t\t\t<img [attr.src]=\"'assets/'+item.iconFilename\"> {{item.name}}\n\t\t</li>\n\t</ul>\n</div>";
 
 /***/ },
 
-/***/ 91:
+/***/ 95:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8594,8 +8896,8 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var lexer = __webpack_require__(92);
-	var parser = __webpack_require__(93);
+	var lexer = __webpack_require__(96);
+	var parser = __webpack_require__(97);
 	var InterpreterService = (function () {
 	    function InterpreterService() {
 	    }
@@ -8636,7 +8938,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 92:
+/***/ 96:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -8885,12 +9187,12 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 93:
+/***/ 97:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var lexical_analyzer_1 = __webpack_require__(92);
-	var parser_table_1 = __webpack_require__(94);
+	var lexical_analyzer_1 = __webpack_require__(96);
+	var parser_table_1 = __webpack_require__(98);
 	var util = __webpack_require__(72);
 	/** Different types of syntax elements that can exists in a CFG */
 	(function (SyntaxElementType) {
@@ -9340,11 +9642,11 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 94:
+/***/ 98:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var syntax_parser_1 = __webpack_require__(93);
+	var syntax_parser_1 = __webpack_require__(97);
 	var util = __webpack_require__(72);
 	/** Type of action in the parser table */
 	(function (ParserTableValueType) {
@@ -9762,35 +10064,234 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 95:
+/***/ 99:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(71);
+	var workspace_1 = __webpack_require__(88);
+	var SelectionBoxComponent = (function () {
+	    function SelectionBoxComponent() {
+	        this.rect = new geometry_1.Rect(1500, 900, 200, 300); //initial value only for debugging purposes
+	        //for controlling selection box positioning
+	        this.active = false;
+	    }
+	    SelectionBoxComponent.prototype.mousePressed = function (event) {
+	        this.workspace.clearSelection();
+	        this.active = true;
+	        this.rect.x = event.offsetX;
+	        this.rect.y = event.offsetY;
+	        this.rect.width = 0;
+	        this.rect.height = 0;
+	        this.difference = new geometry_1.Point(0, 0);
+	        this.originalPress = new geometry_1.Point(this.rect.x, this.rect.y);
+	    };
+	    SelectionBoxComponent.prototype.mouseMoved = function (event) {
+	        if (this.active) {
+	            this.difference.x += event.movementX;
+	            this.difference.y += event.movementY;
+	            if (this.difference.x < 0) {
+	                this.rect.x = this.originalPress.x + this.difference.x;
+	                this.rect.width = this.difference.x * -1;
+	            }
+	            else {
+	                this.rect.x = this.originalPress.x;
+	                this.rect.width = this.difference.x;
+	            }
+	            if (this.difference.y < 0) {
+	                this.rect.y = this.originalPress.y + this.difference.y;
+	                this.rect.height = this.difference.y * -1;
+	            }
+	            else {
+	                this.rect.y = this.originalPress.y;
+	                this.rect.height = this.difference.y;
+	            }
+	            this.selectOverlappingNodes();
+	        }
+	    };
+	    SelectionBoxComponent.prototype.mouseReleased = function (event) {
+	        this.active = false;
+	    };
+	    SelectionBoxComponent.prototype.selectOverlappingNodes = function () {
+	        //start afresh
+	        this.workspace.clearSelection();
+	        var count = 0;
+	        //select all overlapping nodes
+	        for (var _i = 0, _a = this.workspace.worksheet.diagramModel.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            if (node.getGeometry().overlapsWithRect(this.rect)) {
+	                this.workspace.addNodeToSelection(node);
+	                count++;
+	            }
+	        }
+	        return count;
+	    };
+	    __decorate([
+	        core_1.Input('workspace'), 
+	        __metadata('design:type', (typeof (_a = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _a) || Object)
+	    ], SelectionBoxComponent.prototype, "workspace", void 0);
+	    SelectionBoxComponent = __decorate([
+	        core_1.Component({
+	            selector: 'selection-box',
+	            template: __webpack_require__(100),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], SelectionBoxComponent);
+	    return SelectionBoxComponent;
+	    var _a;
+	}());
+	exports.SelectionBoxComponent = SelectionBoxComponent;
+
+
+/***/ },
+
+/***/ 100:
+/***/ function(module, exports) {
+
+	module.exports = "<div \n\tid=\"selection-box\"\n\t[style.left.px]=\"rect.x\"\n\t[style.top.px]=\"rect.y\"\n\t[style.width.px]=\"rect.width\"\n\t[style.height.px]=\"rect.height\"\n\t[style.display]=\"active?'block':'none'\">\n\n</div>";
+
+/***/ },
+
+/***/ 101:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var command_1 = __webpack_require__(90);
+	var RemoveCommand = (function (_super) {
+	    __extends(RemoveCommand, _super);
+	    function RemoveCommand(workspace, target) {
+	        _super.call(this);
+	        this._workspace = workspace;
+	        this.target = target;
+	        this.addConnectedEdgesToTargetNodes();
+	    }
+	    Object.defineProperty(RemoveCommand.prototype, "workspace", {
+	        get: function () {
+	            return this._workspace;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    RemoveCommand.prototype.addConnectedEdgesToTargetNodes = function () {
+	        //check each edge if they are connected to any target node
+	        for (var _i = 0, _a = this.workspace.worksheet.diagramModel.edgeList; _i < _a.length; _i++) {
+	            var edge = _a[_i];
+	            //if edge is not present in target
+	            if (this.target.edgeList.indexOf(edge) == -1) {
+	                //check if the terminal nodes of this edge belong in the target
+	                if (this.target.nodeList.indexOf(edge.from) != -1) {
+	                    this.target.edgeList.push(edge);
+	                    continue;
+	                }
+	                //check if the other terminal node of this edge belong in the target
+	                if (this.target.nodeList.indexOf(edge.to) != -1) {
+	                    this.target.edgeList.push(edge);
+	                }
+	            }
+	        }
+	    };
+	    RemoveCommand.prototype.execute = function () {
+	        //re add all nodes that are in target
+	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            var index = this.workspace.worksheet.diagramModel.nodeList.indexOf(node);
+	            if (index != -1) {
+	                this.workspace.worksheet.diagramModel.nodeList.splice(index, 1);
+	            }
+	            else {
+	                console.error("Node to remove already doesn't exist");
+	            }
+	        }
+	        //re add all edges that are in target
+	        for (var _b = 0, _c = this.target.edgeList; _b < _c.length; _b++) {
+	            var edge = _c[_b];
+	            var index = this.workspace.worksheet.diagramModel.edgeList.indexOf(edge);
+	            if (index != -1) {
+	                this.workspace.worksheet.diagramModel.edgeList.splice(index, 1);
+	            }
+	            else {
+	                console.error("Edge to remove already doesn't exist");
+	            }
+	        }
+	    };
+	    RemoveCommand.prototype.unExecute = function () {
+	        //remove all nodes that are in target
+	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            var index = this.workspace.worksheet.diagramModel.nodeList.indexOf(node);
+	            if (index == -1) {
+	                this.workspace.worksheet.diagramModel.nodeList.push(node);
+	            }
+	            else {
+	                console.error("Node already exists in list");
+	            }
+	        }
+	        //remove all edges that are in target
+	        for (var _b = 0, _c = this.target.edgeList; _b < _c.length; _b++) {
+	            var edge = _c[_b];
+	            var index = this.workspace.worksheet.diagramModel.edgeList.indexOf(edge);
+	            if (index == -1) {
+	                this.workspace.worksheet.diagramModel.edgeList.push(edge);
+	            }
+	            else {
+	                console.error("Edge already exists in list");
+	            }
+	        }
+	    };
+	    RemoveCommand.prototype.getName = function () {
+	        return "Remove Item(s)";
+	    };
+	    return RemoveCommand;
+	}(command_1.Command));
+	exports.RemoveCommand = RemoveCommand;
+
+
+/***/ },
+
+/***/ 102:
 /***/ function(module, exports) {
 
 	module.exports = "#massive-area {\n  position: absolute; }\n\n#starter-tip {\n  position: absolute;\n  color: gray; }\n"
 
 /***/ },
 
-/***/ 96:
+/***/ 103:
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\n\t<creation-drawer \n\t\t[workspace]=\"workspace\"\n\t\t[position]=\"creationDrawerLocation\"\n\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node\n\t\t\t[genericNode]=\"node\"\n\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t></generic-node>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>\n\t</ng-container>\n\n\t<multiple-selection \n\t\t[workspace]=\"workspace\" \n\t\t[active]=\"\n\t\t\tworkspace.selectionCount()>1 &&\n\t\t\tdraggingInteraction==null\"\n\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t></multiple-selection>\n\n</div>";
+	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\n\t<creation-drawer \n\t\t[workspace]=\"workspace\"\n\t\t[position]=\"creationDrawerLocation\"\n\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node\n\t\t\t[genericNode]=\"node\"\n\t\t\t[workspace]=\"workspace\"\n\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t></generic-node>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<!--<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>-->\n\t\t<diagram-edge [edge]=\"edge\" [workspace]=\"workspace\"></diagram-edge>\n\t</ng-container>\n\n\t<multiple-selection \n\t\t[workspace]=\"workspace\" \n\t\t[active]=\"\n\t\t\tworkspace.selectionCount()>1 &&\n\t\t\tdraggingInteraction==null\"\n\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t></multiple-selection>\n\n</div>";
 
 /***/ },
 
-/***/ 97:
+/***/ 104:
 /***/ function(module, exports) {
 
 	module.exports = "#menu-controls {\n  position: absolute;\n  padding: 0px;\n  top: 10px; }\n  #menu-controls li {\n    color: blue;\n    cursor: pointer;\n    display: inline;\n    list-style: none; }\n  #menu-controls li:hover {\n    color: darkblue; }\n\n#container {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n"
 
 /***/ },
 
-/***/ 98:
+/***/ 105:
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t\t[workspace]=\"workspace\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t<li>Area</li>\n\t\t<li>Overview</li>\n\t</ul>\n</div>\n";
 
 /***/ },
 
-/***/ 99:
+/***/ 106:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9825,7 +10326,7 @@ webpackJsonp([0],{
 	    AccountComponent = __decorate([
 	        core_1.Component({
 	            selector: 'account',
-	            template: __webpack_require__(100),
+	            template: __webpack_require__(107),
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object])
 	    ], AccountComponent);
@@ -9837,14 +10338,14 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 100:
+/***/ 107:
 /***/ function(module, exports) {
 
 	module.exports = "<a style=\"background: blue;color: white\" (click)=\"router.navigate(['/dashboard'])\">Dashboard</a>\n\n<div>Account</div>\n\n<div *ngIf=\"user!=null\">\n\n\t<div>\n\t\t<span>firstName:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.firstName\"/>\n\t</div>\n\n\t<div>\n\t\t<span>lastName:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.lastName\"/>\n\t</div>\n\n\t<div>\n\t\t<span>email:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.email\"/>\n\t</div>\n\n\t<div>\n\t\t<span>gender:</span>\n\t\t<input type=\"text\" [(ngModel)]=\"user.gender\"/>\n\t</div>\n</div>\n\n<!--TODO allow changing password-->\n\n<a (click)=\"saveAccountDetails()\">Save details</a>";
 
 /***/ },
 
-/***/ 101:
+/***/ 108:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9891,7 +10392,7 @@ webpackJsonp([0],{
 	    LoginComponent = __decorate([
 	        core_1.Component({
 	            selector: 'login',
-	            template: __webpack_require__(102),
+	            template: __webpack_require__(109),
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object])
 	    ], LoginComponent);
@@ -9903,14 +10404,14 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 102:
+/***/ 109:
 /***/ function(module, exports) {
 
 	module.exports = "<input type=\"text\" [(ngModel)]=\"loginForm.username\"/>\n<input type=\"password\" [(ngModel)]=\"loginForm.password\"/>\n<a href=\"#\" (click)=\"attemptLogin()\">Login</a>\n<div><a routerLink=\"/signup\">Sign Up</a></div>";
 
 /***/ },
 
-/***/ 103:
+/***/ 110:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9926,7 +10427,7 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var platform_browser_1 = __webpack_require__(21);
 	var forms_1 = __webpack_require__(24);
-	var dashboard_routing_module_1 = __webpack_require__(104);
+	var dashboard_routing_module_1 = __webpack_require__(111);
 	var dashboard_component_1 = __webpack_require__(69);
 	var dashboard_service_1 = __webpack_require__(75);
 	var DashboardModule = (function () {
@@ -9953,7 +10454,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 104:
+/***/ 111:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9995,7 +10496,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 105:
+/***/ 112:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10012,32 +10513,33 @@ webpackJsonp([0],{
 	var platform_browser_1 = __webpack_require__(21);
 	var forms_1 = __webpack_require__(24);
 	var workspace_component_1 = __webpack_require__(77);
-	var artboard_component_1 = __webpack_require__(82);
-	var sidebar_component_1 = __webpack_require__(79);
-	var area_component_1 = __webpack_require__(106);
-	var box_component_1 = __webpack_require__(108);
-	var generic_node_component_1 = __webpack_require__(112);
-	var line_segment_component_1 = __webpack_require__(114);
-	var resize_handle_component_1 = __webpack_require__(109);
-	var linker_component_1 = __webpack_require__(116);
-	var input_box_component_1 = __webpack_require__(118);
-	var auto_completion_component_1 = __webpack_require__(85);
-	var class_diagram_component_1 = __webpack_require__(120);
-	var class_object_diagram_component_1 = __webpack_require__(122);
-	var interface_diagram_component_1 = __webpack_require__(124);
-	var interface_object_diagram_component_1 = __webpack_require__(126);
-	var linked_segments_component_1 = __webpack_require__(128);
-	var creation_drawer_component_1 = __webpack_require__(88);
-	var selection_box_component_1 = __webpack_require__(130);
-	var multiple_selection_component_1 = __webpack_require__(696);
-	var transform_service_1 = __webpack_require__(78);
-	var interpreter_service_1 = __webpack_require__(91);
-	var mock_data_service_1 = __webpack_require__(83);
-	var focus_directive_1 = __webpack_require__(132);
-	var my_rect_directive_1 = __webpack_require__(133);
-	var my_circle_directive_1 = __webpack_require__(134);
-	var access_symbol_pipe_1 = __webpack_require__(135);
-	var node_background_pipe_1 = __webpack_require__(136);
+	var artboard_component_1 = __webpack_require__(81);
+	var sidebar_component_1 = __webpack_require__(78);
+	var area_component_1 = __webpack_require__(113);
+	var box_component_1 = __webpack_require__(115);
+	var generic_node_component_1 = __webpack_require__(119);
+	var line_segment_component_1 = __webpack_require__(121);
+	var resize_handle_component_1 = __webpack_require__(116);
+	var linker_component_1 = __webpack_require__(123);
+	var input_box_component_1 = __webpack_require__(125);
+	var auto_completion_component_1 = __webpack_require__(84);
+	var class_diagram_component_1 = __webpack_require__(127);
+	var class_object_diagram_component_1 = __webpack_require__(129);
+	var interface_diagram_component_1 = __webpack_require__(131);
+	var interface_object_diagram_component_1 = __webpack_require__(133);
+	var linked_segments_component_1 = __webpack_require__(135);
+	var creation_drawer_component_1 = __webpack_require__(87);
+	var selection_box_component_1 = __webpack_require__(99);
+	var multiple_selection_component_1 = __webpack_require__(137);
+	var diagram_edge_component_1 = __webpack_require__(702);
+	var transform_service_1 = __webpack_require__(139);
+	var interpreter_service_1 = __webpack_require__(95);
+	var mock_data_service_1 = __webpack_require__(82);
+	var focus_directive_1 = __webpack_require__(140);
+	var my_rect_directive_1 = __webpack_require__(141);
+	var my_circle_directive_1 = __webpack_require__(142);
+	var access_symbol_pipe_1 = __webpack_require__(143);
+	var node_background_pipe_1 = __webpack_require__(144);
 	var WorkspaceModule = (function () {
 	    function WorkspaceModule() {
 	    }
@@ -10071,7 +10573,8 @@ webpackJsonp([0],{
 	                linker_component_1.LinkerComponent,
 	                creation_drawer_component_1.CreationDrawerComponent,
 	                selection_box_component_1.SelectionBoxComponent,
-	                multiple_selection_component_1.MultipleSelectionComponent
+	                multiple_selection_component_1.MultipleSelectionComponent,
+	                diagram_edge_component_1.DiagramEdgeComponent
 	            ],
 	            schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA],
 	            providers: [transform_service_1.TransformService, interpreter_service_1.InterpreterService, mock_data_service_1.MockDataService]
@@ -10085,7 +10588,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 106:
+/***/ 113:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10105,7 +10608,7 @@ webpackJsonp([0],{
 	    AreaComponent = __decorate([
 	        core_1.Component({
 	            selector: 'area-highlight',
-	            template: __webpack_require__(107),
+	            template: __webpack_require__(114),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], AreaComponent);
@@ -10116,14 +10619,14 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 107:
+/***/ 114:
 /***/ function(module, exports) {
 
 	module.exports = "<h1>TODO area</h1>";
 
 /***/ },
 
-/***/ 108:
+/***/ 115:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10139,7 +10642,7 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var core_2 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(71);
-	var resize_handle_component_1 = __webpack_require__(109);
+	var resize_handle_component_1 = __webpack_require__(116);
 	var BoxComponent = (function () {
 	    function BoxComponent() {
 	        this.requestDragging = new core_1.EventEmitter();
@@ -10177,7 +10680,7 @@ webpackJsonp([0],{
 	    BoxComponent = __decorate([
 	        core_1.Component({
 	            selector: 'box',
-	            template: __webpack_require__(111),
+	            template: __webpack_require__(118),
 	            animations: [
 	                core_2.trigger('selection', [
 	                    core_2.state('selected', core_2.style({
@@ -10201,7 +10704,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 109:
+/***/ 116:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10369,7 +10872,7 @@ webpackJsonp([0],{
 	    ResizeHandleComponent = __decorate([
 	        core_1.Component({
 	            selector: 'resize-handle',
-	            template: __webpack_require__(110)
+	            template: __webpack_require__(117)
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], ResizeHandleComponent);
@@ -10381,21 +10884,21 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 110:
+/***/ 117:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"handle-pick\"\n\t[style.left.px]=\"handle.x\"\n\t[style.top.px]=\"handle.y\"\n\t[style.width.px]=\"handle.width\"\n\t[style.height.px]=\"handle.height\"\n\t[style.cursor]=\"cursor\"\n\t(mousedown)=\"requestDragging.emit(this)\"\n\t></div>";
 
 /***/ },
 
-/***/ 111:
+/***/ 118:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"rect.x\"\n[style.top.px]=\"rect.y\"\n[style.width.px]=\"rect.width\"\n[style.height.px]=\"rect.height\"\n[@selection]=\"isSelected?'selected':'unselected'\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\"></div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
 
 /***/ },
 
-/***/ 112:
+/***/ 119:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10410,7 +10913,8 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(3);
 	var core_2 = __webpack_require__(3);
-	var resize_handle_component_1 = __webpack_require__(109);
+	var workspace_1 = __webpack_require__(88);
+	var resize_handle_component_1 = __webpack_require__(116);
 	var worksheet_1 = __webpack_require__(70);
 	//TODO move outside to a special 'variables' file 
 	var SELECTION_COLOR = '#2BA3FC';
@@ -10435,12 +10939,16 @@ webpackJsonp([0],{
 	        return this.node.selected ? SELECTION_COLOR : this.node.stroke.hashCode();
 	    };
 	    __decorate([
+	        core_1.Input('workspace'), 
+	        __metadata('design:type', (typeof (_a = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _a) || Object)
+	    ], GenericNodeComponent.prototype, "workspace", void 0);
+	    __decorate([
 	        core_1.Input("soloSelected"), 
 	        __metadata('design:type', Boolean)
 	    ], GenericNodeComponent.prototype, "soloSelected", void 0);
 	    __decorate([
 	        core_1.Input('genericNode'), 
-	        __metadata('design:type', (typeof (_a = typeof worksheet_1.GenericDiagramNode !== 'undefined' && worksheet_1.GenericDiagramNode) === 'function' && _a) || Object)
+	        __metadata('design:type', (typeof (_b = typeof worksheet_1.GenericDiagramNode !== 'undefined' && worksheet_1.GenericDiagramNode) === 'function' && _b) || Object)
 	    ], GenericNodeComponent.prototype, "node", void 0);
 	    __decorate([
 	        core_1.Output(), 
@@ -10452,12 +10960,12 @@ webpackJsonp([0],{
 	    ], GenericNodeComponent.prototype, "removeMe", void 0);
 	    __decorate([
 	        core_1.ViewChildren(resize_handle_component_1.ResizeHandleComponent), 
-	        __metadata('design:type', (typeof (_b = typeof core_1.QueryList !== 'undefined' && core_1.QueryList) === 'function' && _b) || Object)
+	        __metadata('design:type', (typeof (_c = typeof core_1.QueryList !== 'undefined' && core_1.QueryList) === 'function' && _c) || Object)
 	    ], GenericNodeComponent.prototype, "resizeHandlers", void 0);
 	    GenericNodeComponent = __decorate([
 	        core_1.Component({
 	            selector: 'generic-node',
-	            template: __webpack_require__(113),
+	            template: __webpack_require__(120),
 	            animations: [
 	                core_2.trigger('selection', [
 	                    core_2.state('selected', core_2.style({
@@ -10474,21 +10982,21 @@ webpackJsonp([0],{
 	        __metadata('design:paramtypes', [])
 	    ], GenericNodeComponent);
 	    return GenericNodeComponent;
-	    var _a, _b;
+	    var _a, _b, _c;
 	}());
 	exports.GenericNodeComponent = GenericNodeComponent;
 
 
 /***/ },
 
-/***/ 113:
+/***/ 120:
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"node.rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.rect.topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.rect.topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n";
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"node.rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.rect.topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.rect.topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n";
 
 /***/ },
 
-/***/ 114:
+/***/ 121:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10528,7 +11036,7 @@ webpackJsonp([0],{
 	    LineSegmentComponent = __decorate([
 	        core_1.Component({
 	            selector: 'line-segment',
-	            template: __webpack_require__(115),
+	            template: __webpack_require__(122),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], LineSegmentComponent);
@@ -10540,14 +11048,14 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 115:
+/***/ 122:
 /***/ function(module, exports) {
 
 	module.exports = "<div \n\tclass=\"line-segment\" \n\t[style.left.px]=\"(start.x+end.x)/2\" \n\t[style.top.px]=\"(start.y+end.y)/2\"\n\t[style.width.px]=\"start.distance(end)\"\n\t[style.-webkit-transform]=\"transformationMatrix()\"\n\t[style.-ms-transform]=\"transformationMatrix()\"\n\t[style.transform]=\"transformationMatrix()\">\n\t<div class=\"line-segment-text\" >\n\t\t<span contenteditable=\"true\">Editable</span>\n\t</div>\n</div>";
 
 /***/ },
 
-/***/ 116:
+/***/ 123:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10580,7 +11088,7 @@ webpackJsonp([0],{
 	    LinkerComponent = __decorate([
 	        core_1.Component({
 	            selector: 'linker',
-	            template: __webpack_require__(117),
+	            template: __webpack_require__(124),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], LinkerComponent);
@@ -10592,14 +11100,14 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 117:
+/***/ 124:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"link-circle\" \n\t[style.left.px]=\"link.center.x\"\n\t[style.top.px]=\"link.center.y\"\n\t[style.width.px]=\"link.radius*2\"\n\t[style.height.px]=\"link.radius*2\">\n\n</div>";
 
 /***/ },
 
-/***/ 118:
+/***/ 125:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10619,7 +11127,7 @@ webpackJsonp([0],{
 	    InputBoxComponent = __decorate([
 	        core_1.Component({
 	            selector: 'input-box',
-	            template: __webpack_require__(119),
+	            template: __webpack_require__(126),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], InputBoxComponent);
@@ -10630,14 +11138,14 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 119:
+/***/ 126:
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
 
-/***/ 120:
+/***/ 127:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10673,7 +11181,7 @@ webpackJsonp([0],{
 	    ClassDiagramComponent = __decorate([
 	        core_1.Component({
 	            selector: 'class-diagram',
-	            template: __webpack_require__(121),
+	            template: __webpack_require__(128),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], ClassDiagramComponent);
@@ -10685,14 +11193,14 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 121:
+/***/ 128:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classDiagram.rect.x\"\n[style.top.px]=\"classDiagram.rect.y\"\n[style.width.px]=\"classDiagram.rect.width\"\n[style.height.px]=\"classDiagram.rect.height\"\n[style.selected-block]=\"classDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span [class.italic]=\"classDiagram.classDefinition.isAbstract\">{{classDiagram.classDefinition.name}}</span>\n\t</div>\n\n\t<div \n\t*ngFor=\"let fieldMember of classDiagram.classDefinition.fieldList \" \n\tclass=\"block-cell content-block-cell\"\n\tcontenteditable=\"true\"\n\t>\n\t\t{{fieldMember.accessSpecifier | accessSymbol}} {{fieldMember.variableDefinition.name}} : {{fieldMember.variableDefinition.type.getName()}}\n\t</div>\n\t<div class=\"solid-horizontal-line mini-top-bottom-margin\"> </div>\n\t<div *ngFor=\"let methodMember of classDiagram.classDefinition.methodList; let i=index\" \n\t\tclass=\"block-cell content-block-cell\"\n\t\tcontenteditable=\"true\"\n\t\t>\n\n\t\t{{methodMember.accessSpecifier | accessSymbol}} \n\t\t<span [class.italic]=\"methodMember.isAbstract\">\n\t\t{{methodMember.methodPrototype.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of methodMember.methodPrototype.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{methodMember.methodPrototype.returnType.getName()}}\n\t\t</span>\n\t</div>\n</div>";
 
 /***/ },
 
-/***/ 122:
+/***/ 129:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10728,7 +11236,7 @@ webpackJsonp([0],{
 	    ClassObjectComponent = __decorate([
 	        core_1.Component({
 	            selector: 'class-object-diagram',
-	            template: __webpack_require__(123),
+	            template: __webpack_require__(130),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], ClassObjectComponent);
@@ -10740,14 +11248,14 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 123:
+/***/ 130:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classObjectDiagram.rect.x\"\n[style.top.px]=\"classObjectDiagram.rect.y\"\n[style.width.px]=\"classObjectDiagram.rect.width\"\n[style.height.px]=\"classObjectDiagram.rect.height\"\n[style.selected-block]=\"classObjectDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span>{{classObjectDiagram.classObject.name}}</span>\n\t\t : \n\t\t<span class=\"bold\">{{classObjectDiagram.classObject.classDefinition.getName()}}</span>\n\t</div>\n\n\t<div *ngFor=\"let fieldData of classObjectDiagram.classObject.fieldDataList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{fieldData.variable.name}} \n\t\t=\n\t\t{{fieldData.data.stringRepresentation()}}\n\t</div>\n</div>";
 
 /***/ },
 
-/***/ 124:
+/***/ 131:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10783,7 +11291,7 @@ webpackJsonp([0],{
 	    InterfaceDiagramComponent = __decorate([
 	        core_1.Component({
 	            selector: 'interface-diagram',
-	            template: __webpack_require__(125),
+	            template: __webpack_require__(132),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], InterfaceDiagramComponent);
@@ -10795,14 +11303,14 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 125:
+/***/ 132:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"interfaceDiagram.rect.x\"\n[style.top.px]=\"interfaceDiagram.rect.y\"\n[style.width.px]=\"interfaceDiagram.rect.width\"\n[style.height.px]=\"interfaceDiagram.rect.height\"\n[style.selected-block]=\"interfaceDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<div class=\"header-decorater\"> &lt;&lt; Interface &gt;&gt; </div>\n\t\t<span>{{interfaceDiagram.interfaceDefinition.name}}</span>\n\t</div>\n\n\t<div *ngFor=\"let method of interfaceDiagram.interfaceDefinition.methodList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{method.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of method.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{method.returnType.getName()}}\n\t</div>\n</div>";
 
 /***/ },
 
-/***/ 126:
+/***/ 133:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10822,7 +11330,7 @@ webpackJsonp([0],{
 	    InterfaceObjectDiagramComponent = __decorate([
 	        core_1.Component({
 	            selector: 'interface-object-diagram',
-	            template: __webpack_require__(127),
+	            template: __webpack_require__(134),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], InterfaceObjectDiagramComponent);
@@ -10833,14 +11341,14 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 127:
+/***/ 134:
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
 
-/***/ 128:
+/***/ 135:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10860,7 +11368,7 @@ webpackJsonp([0],{
 	    LinkedSegmentsComponent = __decorate([
 	        core_1.Component({
 	            selector: 'linked-segments',
-	            template: __webpack_require__(129),
+	            template: __webpack_require__(136),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], LinkedSegmentsComponent);
@@ -10871,14 +11379,14 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 129:
+/***/ 136:
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
 
-/***/ 130:
+/***/ 137:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10893,90 +11401,126 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(71);
-	var workspace_1 = __webpack_require__(89);
-	var SelectionBoxComponent = (function () {
-	    function SelectionBoxComponent() {
+	var workspace_1 = __webpack_require__(88);
+	var MultipleSelectionComponent = (function () {
+	    function MultipleSelectionComponent() {
+	        this.active = false;
+	        this.removeUs = new core_1.EventEmitter();
 	        this.rect = new geometry_1.Rect(1500, 900, 200, 300); //initial value only for debugging purposes
-	        //for controlling selection box positioning
-	        this.active = false;
 	    }
-	    SelectionBoxComponent.prototype.mousePressed = function (event) {
-	        this.workspace.clearSelection();
-	        this.active = true;
-	        this.rect.x = event.offsetX;
-	        this.rect.y = event.offsetY;
-	        this.rect.width = 0;
-	        this.rect.height = 0;
-	        this.difference = new geometry_1.Point(0, 0);
-	        this.originalPress = new geometry_1.Point(this.rect.x, this.rect.y);
-	    };
-	    SelectionBoxComponent.prototype.mouseMoved = function (event) {
-	        if (this.active) {
-	            this.difference.x += event.movementX;
-	            this.difference.y += event.movementY;
-	            if (this.difference.x < 0) {
-	                this.rect.x = this.originalPress.x + this.difference.x;
-	                this.rect.width = this.difference.x * -1;
-	            }
-	            else {
-	                this.rect.x = this.originalPress.x;
-	                this.rect.width = this.difference.x;
-	            }
-	            if (this.difference.y < 0) {
-	                this.rect.y = this.originalPress.y + this.difference.y;
-	                this.rect.height = this.difference.y * -1;
-	            }
-	            else {
-	                this.rect.y = this.originalPress.y;
-	                this.rect.height = this.difference.y;
-	            }
-	            this.selectOverlappingNodes();
+	    MultipleSelectionComponent.prototype.ngOnChanges = function (changes) {
+	        //if active flag changed from false to true,
+	        var activationChange = changes['active'];
+	        if (activationChange != null && activationChange.currentValue) {
+	            //compute and set the dimensions of the box
+	            this.setBoxDimensions();
 	        }
 	    };
-	    SelectionBoxComponent.prototype.mouseReleased = function (event) {
-	        this.active = false;
-	    };
-	    SelectionBoxComponent.prototype.selectOverlappingNodes = function () {
-	        //start afresh
-	        this.workspace.clearSelection();
-	        var count = 0;
-	        //select all overlapping nodes
-	        for (var _i = 0, _a = this.workspace.worksheet.diagramModel.nodeList; _i < _a.length; _i++) {
+	    MultipleSelectionComponent.prototype.setBoxDimensions = function () {
+	        //find the low x, low y and high x high y 
+	        var lowX = 999999;
+	        var lowY = 999999;
+	        var highX = 0;
+	        var highY = 0;
+	        for (var _i = 0, _a = this.workspace.selection.nodeList; _i < _a.length; _i++) {
 	            var node = _a[_i];
-	            if (node.getGeometry().overlapsWithRect(this.rect)) {
-	                this.workspace.addNodeToSelection(node);
-	                count++;
+	            var boundingBox = node.getGeometry().getBoundingBox();
+	            if (boundingBox.x < lowX) {
+	                lowX = boundingBox.x;
+	            }
+	            if (boundingBox.y < lowY) {
+	                lowY = boundingBox.y;
+	            }
+	            if ((boundingBox.x + boundingBox.width) > highX) {
+	                highX = boundingBox.x + boundingBox.width;
+	            }
+	            if ((boundingBox.y + boundingBox.height) > highY) {
+	                highY = boundingBox.y + boundingBox.height;
 	            }
 	        }
-	        return count;
+	        //TODO do the same thing with edges
+	        //set the dimensions of the rect
+	        this.rect.x = lowX;
+	        this.rect.y = lowY;
+	        this.rect.width = highX - lowX;
+	        this.rect.height = highY - lowY;
 	    };
 	    __decorate([
 	        core_1.Input('workspace'), 
 	        __metadata('design:type', (typeof (_a = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _a) || Object)
-	    ], SelectionBoxComponent.prototype, "workspace", void 0);
-	    SelectionBoxComponent = __decorate([
+	    ], MultipleSelectionComponent.prototype, "workspace", void 0);
+	    __decorate([
+	        core_1.Input('active'), 
+	        __metadata('design:type', Object)
+	    ], MultipleSelectionComponent.prototype, "active", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], MultipleSelectionComponent.prototype, "removeUs", void 0);
+	    MultipleSelectionComponent = __decorate([
 	        core_1.Component({
-	            selector: 'selection-box',
-	            template: __webpack_require__(131),
+	            selector: 'multiple-selection',
+	            template: __webpack_require__(138),
 	        }), 
 	        __metadata('design:paramtypes', [])
-	    ], SelectionBoxComponent);
-	    return SelectionBoxComponent;
+	    ], MultipleSelectionComponent);
+	    return MultipleSelectionComponent;
 	    var _a;
 	}());
-	exports.SelectionBoxComponent = SelectionBoxComponent;
+	exports.MultipleSelectionComponent = MultipleSelectionComponent;
 
 
 /***/ },
 
-/***/ 131:
+/***/ 138:
 /***/ function(module, exports) {
 
-	module.exports = "<div \n\tid=\"selection-box\"\n\t[style.left.px]=\"rect.x\"\n\t[style.top.px]=\"rect.y\"\n\t[style.width.px]=\"rect.width\"\n\t[style.height.px]=\"rect.height\"\n\t[style.display]=\"active?'block':'none'\">\n\n</div>";
+	module.exports = "<div \n\tid=\"multiple-selection-container\"\n\t[style.left.px]=\"rect.x\"\n\t[style.top.px]=\"rect.y\"\n\t[style.width.px]=\"rect.width\"\n\t[style.height.px]=\"rect.height\"\n\t[style.display]=\"active?'block':'none'\">\n\n</div>\n\n<div \n\t*ngIf=\"active\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeUs.emit()\"\n\t[style.left.px]=\"rect.topRight().offset(10,0).x\"\n\t[style.top.px]=\"rect.topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>";
 
 /***/ },
 
-/***/ 132:
+/***/ 139:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(71);
+	var TransformService = (function () {
+	    function TransformService() {
+	    }
+	    TransformService.prototype.toModelSpace = function (p) {
+	        return new geometry_1.Point(p.x, p.y); //TODO
+	    };
+	    TransformService.prototype.lengthInModelSpace = function (l) {
+	        return l; //TODO
+	    };
+	    TransformService.prototype.toViewSpace = function (p) {
+	        return new geometry_1.Point(p.x, p.y); //TODO
+	    };
+	    TransformService.prototype.lengthInViewSpace = function (l) {
+	        return l; //TODO
+	    };
+	    TransformService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [])
+	    ], TransformService);
+	    return TransformService;
+	}());
+	exports.TransformService = TransformService;
+
+
+/***/ },
+
+/***/ 140:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11019,7 +11563,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 133:
+/***/ 141:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11097,7 +11641,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 134:
+/***/ 142:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11176,7 +11720,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 135:
+/***/ 143:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11224,7 +11768,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 136:
+/***/ 144:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11276,16 +11820,16 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 137:
+/***/ 145:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(138);
+	var content = __webpack_require__(146);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(140)(content, {});
+	var update = __webpack_require__(148)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -11303,10 +11847,10 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 138:
+/***/ 146:
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(139)();
+	exports = module.exports = __webpack_require__(147)();
 	// imports
 	
 	
@@ -11318,7 +11862,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 139:
+/***/ 147:
 /***/ function(module, exports) {
 
 	/*
@@ -11375,7 +11919,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 140:
+/***/ 148:
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -11628,132 +12172,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 694:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var command_1 = __webpack_require__(695);
-	var geometry_1 = __webpack_require__(71);
-	var MoveCommand = (function (_super) {
-	    __extends(MoveCommand, _super);
-	    function MoveCommand(workspace, target, commitToWorkspaceOnCompletion) {
-	        if (commitToWorkspaceOnCompletion === void 0) { commitToWorkspaceOnCompletion = true; }
-	        _super.call(this);
-	        this._displacement = new geometry_1.Point(0, 0);
-	        this._workspace = workspace;
-	        this.target = target;
-	        this.commitToWorkspaceOnCompletion = commitToWorkspaceOnCompletion;
-	    }
-	    Object.defineProperty(MoveCommand.prototype, "workspace", {
-	        get: function () {
-	            return this._workspace;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(MoveCommand.prototype, "displacement", {
-	        get: function () {
-	            return this._displacement;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    MoveCommand.prototype.handleMousePress = function (event) {
-	        console.debug("Move command presed");
-	    };
-	    MoveCommand.prototype.handleMouseDrag = function (event) {
-	        console.debug("Move command dragged");
-	        //record the cumalative difference
-	        this.displacement.x += event.movementX;
-	        this.displacement.y += event.movementY;
-	        //move all nodes by marginal change in mouse position
-	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
-	            var node = _a[_i];
-	            node.getGeometry().moveBy(new geometry_1.Point(event.movementX, event.movementY));
-	        }
-	    };
-	    MoveCommand.prototype.handleMouseRelease = function (event) {
-	        console.debug("Move command released");
-	        if (!this.displacement.isZero() && this.commitToWorkspaceOnCompletion) {
-	            this.workspace.commit(this);
-	        }
-	    };
-	    MoveCommand.prototype.execute = function () {
-	        //move all nodes by marginal change in mouse position
-	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
-	            var node = _a[_i];
-	            node.getGeometry().moveBy(this.displacement);
-	        }
-	    };
-	    MoveCommand.prototype.unExecute = function () {
-	        //move all nodes by marginal change in mouse position
-	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
-	            var node = _a[_i];
-	            node.getGeometry().moveBy(this.displacement.inverse());
-	        }
-	    };
-	    MoveCommand.prototype.getName = function () {
-	        return "Move Item(s)";
-	    };
-	    return MoveCommand;
-	}(command_1.Command));
-	exports.MoveCommand = MoveCommand;
-
-
-/***/ },
-
-/***/ 695:
-/***/ function(module, exports) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	/** Any actionable change in the editor that results in a change to the model is handled by a command.*/
-	var Command = (function () {
-	    function Command() {
-	    }
-	    return Command;
-	}());
-	exports.Command = Command;
-	/** Holds several commands that will run in one go. */
-	var CompositeCommand = (function (_super) {
-	    __extends(CompositeCommand, _super);
-	    function CompositeCommand() {
-	        _super.apply(this, arguments);
-	        this.commandList = [];
-	    }
-	    CompositeCommand.prototype.execute = function () {
-	        for (var _i = 0, _a = this.commandList; _i < _a.length; _i++) {
-	            var command = _a[_i];
-	            command.execute();
-	        }
-	    };
-	    CompositeCommand.prototype.unExecute = function () {
-	        for (var _i = 0, _a = this.commandList; _i < _a.length; _i++) {
-	            var command = _a[_i];
-	            command.unExecute();
-	        }
-	    };
-	    /** Subclasses should override to return a more descriptive user friendly name*/
-	    CompositeCommand.prototype.getName = function () {
-	        return "Composite Command";
-	    };
-	    return CompositeCommand;
-	}(Command));
-	exports.CompositeCommand = CompositeCommand;
-
-
-/***/ },
-
-/***/ 696:
+/***/ 702:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11767,390 +12186,38 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var geometry_1 = __webpack_require__(71);
-	var workspace_1 = __webpack_require__(89);
-	var MultipleSelectionComponent = (function () {
-	    function MultipleSelectionComponent() {
-	        this.active = false;
-	        this.removeUs = new core_1.EventEmitter();
-	        this.rect = new geometry_1.Rect(1500, 900, 200, 300); //initial value only for debugging purposes
+	var worksheet_1 = __webpack_require__(70);
+	var workspace_1 = __webpack_require__(88);
+	var DiagramEdgeComponent = (function () {
+	    function DiagramEdgeComponent() {
 	    }
-	    MultipleSelectionComponent.prototype.ngOnChanges = function (changes) {
-	        //if active flag changed from false to true,
-	        var activationChange = changes['active'];
-	        if (activationChange != null && activationChange.currentValue) {
-	            //compute and set the dimensions of the box
-	            this.setBoxDimensions();
-	        }
-	    };
-	    MultipleSelectionComponent.prototype.setBoxDimensions = function () {
-	        //find the low x, low y and high x high y 
-	        var lowX = 999999;
-	        var lowY = 999999;
-	        var highX = 0;
-	        var highY = 0;
-	        for (var _i = 0, _a = this.workspace.selection.nodeList; _i < _a.length; _i++) {
-	            var node = _a[_i];
-	            var boundingBox = node.getGeometry().getBoundingBox();
-	            if (boundingBox.x < lowX) {
-	                lowX = boundingBox.x;
-	            }
-	            if (boundingBox.y < lowY) {
-	                lowY = boundingBox.y;
-	            }
-	            if ((boundingBox.x + boundingBox.width) > highX) {
-	                highX = boundingBox.x + boundingBox.width;
-	            }
-	            if ((boundingBox.y + boundingBox.height) > highY) {
-	                highY = boundingBox.y + boundingBox.height;
-	            }
-	        }
-	        //TODO do the same thing with edges
-	        //set the dimensions of the rect
-	        this.rect.x = lowX;
-	        this.rect.y = lowY;
-	        this.rect.width = highX - lowX;
-	        this.rect.height = highY - lowY;
-	    };
 	    __decorate([
 	        core_1.Input('workspace'), 
 	        __metadata('design:type', (typeof (_a = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _a) || Object)
-	    ], MultipleSelectionComponent.prototype, "workspace", void 0);
+	    ], DiagramEdgeComponent.prototype, "workspace", void 0);
 	    __decorate([
-	        core_1.Input('active'), 
-	        __metadata('design:type', Object)
-	    ], MultipleSelectionComponent.prototype, "active", void 0);
-	    __decorate([
-	        core_1.Output(), 
-	        __metadata('design:type', Object)
-	    ], MultipleSelectionComponent.prototype, "removeUs", void 0);
-	    MultipleSelectionComponent = __decorate([
+	        core_1.Input('edge'), 
+	        __metadata('design:type', (typeof (_b = typeof worksheet_1.DiagramEdge !== 'undefined' && worksheet_1.DiagramEdge) === 'function' && _b) || Object)
+	    ], DiagramEdgeComponent.prototype, "edge", void 0);
+	    DiagramEdgeComponent = __decorate([
 	        core_1.Component({
-	            selector: 'multiple-selection',
-	            template: __webpack_require__(697),
+	            selector: 'diagram-edge',
+	            template: __webpack_require__(703),
 	        }), 
 	        __metadata('design:paramtypes', [])
-	    ], MultipleSelectionComponent);
-	    return MultipleSelectionComponent;
-	    var _a;
+	    ], DiagramEdgeComponent);
+	    return DiagramEdgeComponent;
+	    var _a, _b;
 	}());
-	exports.MultipleSelectionComponent = MultipleSelectionComponent;
+	exports.DiagramEdgeComponent = DiagramEdgeComponent;
 
 
 /***/ },
 
-/***/ 697:
+/***/ 703:
 /***/ function(module, exports) {
 
-	module.exports = "<div \n\tid=\"multiple-selection-container\"\n\t[style.left.px]=\"rect.x\"\n\t[style.top.px]=\"rect.y\"\n\t[style.width.px]=\"rect.width\"\n\t[style.height.px]=\"rect.height\"\n\t[style.display]=\"active?'block':'none'\">\n\n</div>\n\n<div \n\t*ngIf=\"active\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeUs.emit()\"\n\t[style.left.px]=\"rect.topRight().offset(10,0).x\"\n\t[style.top.px]=\"rect.topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>";
-
-/***/ },
-
-/***/ 698:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var command_1 = __webpack_require__(695);
-	var RemoveCommand = (function (_super) {
-	    __extends(RemoveCommand, _super);
-	    function RemoveCommand(workspace, target) {
-	        _super.call(this);
-	        this._workspace = workspace;
-	        this.target = target;
-	        this.addConnectedEdgesToTargetNodes();
-	    }
-	    Object.defineProperty(RemoveCommand.prototype, "workspace", {
-	        get: function () {
-	            return this._workspace;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    RemoveCommand.prototype.addConnectedEdgesToTargetNodes = function () {
-	        //check each edge if they are connected to any target node
-	        for (var _i = 0, _a = this.workspace.worksheet.diagramModel.edgeList; _i < _a.length; _i++) {
-	            var edge = _a[_i];
-	            //if edge is not present in target
-	            if (this.target.edgeList.indexOf(edge) == -1) {
-	                //check if the terminal nodes of this edge belong in the target
-	                if (this.target.nodeList.indexOf(edge.from) != -1) {
-	                    this.target.edgeList.push(edge);
-	                    continue;
-	                }
-	                //check if the other terminal node of this edge belong in the target
-	                if (this.target.nodeList.indexOf(edge.to) != -1) {
-	                    this.target.edgeList.push(edge);
-	                }
-	            }
-	        }
-	    };
-	    RemoveCommand.prototype.execute = function () {
-	        //re add all nodes that are in target
-	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
-	            var node = _a[_i];
-	            var index = this.workspace.worksheet.diagramModel.nodeList.indexOf(node);
-	            if (index != -1) {
-	                this.workspace.worksheet.diagramModel.nodeList.splice(index, 1);
-	            }
-	            else {
-	                console.error("Node to remove already doesn't exist");
-	            }
-	        }
-	        //re add all edges that are in target
-	        for (var _b = 0, _c = this.target.edgeList; _b < _c.length; _b++) {
-	            var edge = _c[_b];
-	            var index = this.workspace.worksheet.diagramModel.edgeList.indexOf(edge);
-	            if (index != -1) {
-	                this.workspace.worksheet.diagramModel.edgeList.splice(index, 1);
-	            }
-	            else {
-	                console.error("Edge to remove already doesn't exist");
-	            }
-	        }
-	    };
-	    RemoveCommand.prototype.unExecute = function () {
-	        //remove all nodes that are in target
-	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
-	            var node = _a[_i];
-	            var index = this.workspace.worksheet.diagramModel.nodeList.indexOf(node);
-	            if (index == -1) {
-	                this.workspace.worksheet.diagramModel.nodeList.push(node);
-	            }
-	            else {
-	                console.error("Node already exists in list");
-	            }
-	        }
-	        //remove all edges that are in target
-	        for (var _b = 0, _c = this.target.edgeList; _b < _c.length; _b++) {
-	            var edge = _c[_b];
-	            var index = this.workspace.worksheet.diagramModel.edgeList.indexOf(edge);
-	            if (index == -1) {
-	                this.workspace.worksheet.diagramModel.edgeList.push(edge);
-	            }
-	            else {
-	                console.error("Edge already exists in list");
-	            }
-	        }
-	    };
-	    RemoveCommand.prototype.getName = function () {
-	        return "Remove Item(s)";
-	    };
-	    return RemoveCommand;
-	}(command_1.Command));
-	exports.RemoveCommand = RemoveCommand;
-
-
-/***/ },
-
-/***/ 699:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var worksheet_1 = __webpack_require__(70);
-	var worksheet_2 = __webpack_require__(70);
-	function diagramModelFromNode(node) {
-	    var diagramModel = new worksheet_1.DiagramModel();
-	    diagramModel.nodeList.push(node);
-	    return diagramModel;
-	}
-	function diagramModelFromEdge(edge) {
-	    var diagramModel = new worksheet_1.DiagramModel();
-	    diagramModel.edgeList.push(edge);
-	    return diagramModel;
-	}
-	var CreationDrawerItem = (function () {
-	    function CreationDrawerItem() {
-	    }
-	    return CreationDrawerItem;
-	}());
-	exports.CreationDrawerItem = CreationDrawerItem;
-	exports.creationDrawerList = [
-	    {
-	        name: "Rectangle",
-	        iconFilename: "rectangle-generic-icon.svg",
-	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Rectangle)); }
-	    },
-	    {
-	        name: "RoundedRectangle",
-	        iconFilename: "rounded-rectangle-generic-icon.svg",
-	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.RoundedRectangle)); }
-	    },
-	    {
-	        name: "Circle",
-	        iconFilename: "circle-generic-icon.svg",
-	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Circle)); }
-	    },
-	    {
-	        name: "Parallelogram",
-	        iconFilename: "parallelogram-generic-icon.svg",
-	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Parallelogram)); }
-	    },
-	    {
-	        name: "Diamond",
-	        iconFilename: "diamond-generic-icon.svg",
-	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Diamond)); }
-	    },
-	    {
-	        name: "Ellipse",
-	        iconFilename: "ellipse-generic-icon.svg",
-	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Ellipse)); }
-	    },
-	    {
-	        name: "StickFigure",
-	        iconFilename: "stick-figure-generic-icon.svg",
-	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.StickFigure)); }
-	    },
-	    {
-	        name: "Database",
-	        iconFilename: "database-generic-icon.svg",
-	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Database)); }
-	    }
-	];
-
-
-/***/ },
-
-/***/ 700:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var command_1 = __webpack_require__(695);
-	var create_1 = __webpack_require__(701);
-	var move_1 = __webpack_require__(694);
-	//indices for the commands in the command list
-	var CREATE = 0;
-	var MOVE = 1;
-	/** Used during dragging(Create Command) things from the drawer/sidebar and dropping(Move Command) them into the workspace */
-	var DragAndDropCommand = (function (_super) {
-	    __extends(DragAndDropCommand, _super);
-	    function DragAndDropCommand(workspace, target, startingPosition) {
-	        _super.call(this);
-	        this.commandList[CREATE] = new create_1.CreateCommand(workspace, target, startingPosition);
-	        this.commandList[MOVE] = new move_1.MoveCommand(workspace, target, false);
-	    }
-	    DragAndDropCommand.prototype.handleMousePress = function (event) {
-	        console.debug("Drag and drop command presed");
-	        this.commandList[CREATE].execute();
-	        this.commandList[MOVE].handleMousePress(event);
-	    };
-	    DragAndDropCommand.prototype.handleMouseDrag = function (event) {
-	        console.debug("Drag and drop command dragged");
-	        this.commandList[MOVE].handleMouseDrag(event);
-	    };
-	    DragAndDropCommand.prototype.handleMouseRelease = function (event) {
-	        console.debug("Drag and drop command released");
-	        //get Workspace reference from either command
-	        // let workspace=(<CreateCommand>this.commandList[CREATE]).workspace;
-	        var workspace = this.commandList[CREATE].workspace;
-	        //if there is not displacement after creation, 
-	        if (this.commandList[MOVE].displacement.isZero()) {
-	            //only commit create command
-	            workspace.commit(this.commandList[CREATE]);
-	        }
-	        else {
-	            //commit the entire drag and drop composite command
-	            workspace.commit(this);
-	        }
-	    };
-	    DragAndDropCommand.prototype.getName = function () {
-	        return "Drag and drop item(s).";
-	    };
-	    return DragAndDropCommand;
-	}(command_1.CompositeCommand));
-	exports.DragAndDropCommand = DragAndDropCommand;
-
-
-/***/ },
-
-/***/ 701:
-/***/ function(module, exports, __webpack_require__) {
-
-	"use strict";
-	var __extends = (this && this.__extends) || function (d, b) {
-	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
-	    function __() { this.constructor = d; }
-	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-	};
-	var command_1 = __webpack_require__(695);
-	var CreateCommand = (function (_super) {
-	    __extends(CreateCommand, _super);
-	    function CreateCommand(workspace, target, startingPosition) {
-	        _super.call(this);
-	        this._workspace = workspace;
-	        this.target = target;
-	        this._startingPosition = startingPosition;
-	    }
-	    Object.defineProperty(CreateCommand.prototype, "startingPosition", {
-	        get: function () {
-	            return this._startingPosition;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(CreateCommand.prototype, "workspace", {
-	        get: function () {
-	            return this._workspace;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    CreateCommand.prototype.execute = function () {
-	        //add all nodes that are in target
-	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
-	            var node = _a[_i];
-	            node.getGeometry().moveBy(this.startingPosition);
-	            this.workspace.worksheet.diagramModel.nodeList.push(node);
-	        }
-	        //add all edges that are in target
-	        for (var _b = 0, _c = this.target.edgeList; _b < _c.length; _b++) {
-	            var edge = _c[_b];
-	            //TODO edge geometry position move by shift
-	            this.workspace.worksheet.diagramModel.edgeList.push(edge);
-	        }
-	    };
-	    CreateCommand.prototype.unExecute = function () {
-	        //remove all nodes that are in target
-	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
-	            var node = _a[_i];
-	            var index = this.workspace.worksheet.diagramModel.nodeList.indexOf(node);
-	            if (index != -1) {
-	                node.getGeometry().moveBy(this.startingPosition.inverse());
-	                this.workspace.worksheet.diagramModel.nodeList.splice(index, 1);
-	            }
-	            else {
-	                console.error("Node to remove already doesn't exist");
-	            }
-	        }
-	        //remove all edges that are in target
-	        for (var _b = 0, _c = this.target.edgeList; _b < _c.length; _b++) {
-	            var edge = _c[_b];
-	            var index = this.workspace.worksheet.diagramModel.edgeList.indexOf(edge);
-	            if (index != -1) {
-	                //TODO edge geometry position inverse move by shift
-	                this.workspace.worksheet.diagramModel.edgeList.splice(index, 1);
-	            }
-	            else {
-	                console.error("Edge to remove already doesn't exist");
-	            }
-	        }
-	    };
-	    CreateCommand.prototype.getName = function () {
-	        return "Create Item(s)";
-	    };
-	    return CreateCommand;
-	}(command_1.Command));
-	exports.CreateCommand = CreateCommand;
-
+	module.exports = "<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>";
 
 /***/ }
 
