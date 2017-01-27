@@ -21,10 +21,12 @@ export class Workspace{
 		}
 		this.history.push(command);
 		this.future.splice(0,this.future.length);
+
+		console.debug(command.getName()+" committed");
 	}
 
 	undo(){
-		if(this.history.length){
+		if(this.history.length==0){
 			console.debug("history stack is empty");
 			return;
 		}
@@ -35,7 +37,7 @@ export class Workspace{
 	}
 
 	redo(){
-		if(this.future.length){
+		if(this.future.length==0){
 			console.debug("future stack is empty");
 			return;
 		}

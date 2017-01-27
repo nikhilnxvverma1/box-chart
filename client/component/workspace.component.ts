@@ -7,7 +7,8 @@ import { ArtboardComponent } from './artboard.component';
 import { Workspace } from '../editor/workspace';
 import { Worksheet,DiagramModel } from '../model/worksheet';
 
-const SpaceKey=32;
+const SPACE_KEY=32;
+const Z_KEY=90;
 
 @Component({
     selector: 'workspace',
@@ -75,13 +76,20 @@ export class WorkspaceComponent implements OnInit{
     }
 
     keydown(event:KeyboardEvent){
-        if(event.keyCode==SpaceKey){
+        if(event.keyCode==SPACE_KEY){
             this.windowMovementAllowed=true;
-        }
+        }else if(event.keyCode==Z_KEY && event.metaKey){//cmd + z
+
+			if(event.shiftKey){//cmd+shift+z
+				this.workspace.redo();
+			}else{
+				this.workspace.undo();
+			}
+		}
     }
 
     keyup(event:KeyboardEvent){
-        if(event.keyCode==SpaceKey){
+        if(event.keyCode==SPACE_KEY){
             this.windowMovementAllowed=false;
         }
     }

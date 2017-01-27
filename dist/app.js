@@ -7563,7 +7563,8 @@ webpackJsonp([0],{
 	var artboard_component_1 = __webpack_require__(82);
 	var workspace_1 = __webpack_require__(89);
 	var worksheet_1 = __webpack_require__(70);
-	var SpaceKey = 32;
+	var SPACE_KEY = 32;
+	var Z_KEY = 90;
 	var WorkspaceComponent = (function () {
 	    function WorkspaceComponent() {
 	        this.windowMovementAllowed = false; //allowed only when space is held
@@ -7592,12 +7593,20 @@ webpackJsonp([0],{
 	        this.movingWindow.y = frame.y;
 	    };
 	    WorkspaceComponent.prototype.keydown = function (event) {
-	        if (event.keyCode == SpaceKey) {
+	        if (event.keyCode == SPACE_KEY) {
 	            this.windowMovementAllowed = true;
+	        }
+	        else if (event.keyCode == Z_KEY && event.metaKey) {
+	            if (event.shiftKey) {
+	                this.workspace.redo();
+	            }
+	            else {
+	                this.workspace.undo();
+	            }
 	        }
 	    };
 	    WorkspaceComponent.prototype.keyup = function (event) {
-	        if (event.keyCode == SpaceKey) {
+	        if (event.keyCode == SPACE_KEY) {
 	            this.windowMovementAllowed = false;
 	        }
 	    };
@@ -8428,9 +8437,10 @@ webpackJsonp([0],{
 	        }
 	        this.history.push(command);
 	        this.future.splice(0, this.future.length);
+	        console.debug(command.getName() + " committed");
 	    };
 	    Workspace.prototype.undo = function () {
-	        if (this.history.length) {
+	        if (this.history.length == 0) {
 	            console.debug("history stack is empty");
 	            return;
 	        }
@@ -8439,7 +8449,7 @@ webpackJsonp([0],{
 	        this.future.push(latestCommand);
 	    };
 	    Workspace.prototype.redo = function () {
-	        if (this.future.length) {
+	        if (this.future.length == 0) {
 	            console.debug("future stack is empty");
 	            return;
 	        }
