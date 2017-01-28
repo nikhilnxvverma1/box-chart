@@ -7,8 +7,10 @@ export interface TrackingPoint{
 	pointOnGeometry():Point;
 	/** 
 	 * Sets the configuration so that the tracked point exists nearest to the point being supplied. 
-	 * Additionally also returns said point  */
-	gravitateTowards(p:Point):Point;
+	 * Additionally also returns said point 
+	 * @param offset specifies distance offset from the border this tracking point is on.
+	 */
+	gravitateTowards(p:Point,offset?:number):Point;
 }
 
 /** A simple point. Empty suggests that this tracking point is not tracking anything(geometry) */
@@ -17,7 +19,7 @@ export class EmptyTrackingPoint implements TrackingPoint{
 	pointOnGeometry():Point{
 		return this.point;
 	}
-	gravitateTowards(p:Point):Point{
+	gravitateTowards(p:Point,offset=0):Point{
 		return this.point;
 	}
 }
@@ -33,7 +35,7 @@ export class CenterTrackingPoint implements TrackingPoint{
 	pointOnGeometry():Point{
 		return this.geometry.getBoundingBox().center();
 	}
-	gravitateTowards(p:Point):Point{
+	gravitateTowards(p:Point,offset=0):Point{
 		return this.geometry.getBoundingBox().center();
 	}
 }
@@ -90,7 +92,7 @@ export class RectTrackingPoint implements TrackingPoint{
 		return linearInterpolation(startPoint,endPoint,fraction);
 	}
 
-	gravitateTowards(p:Point):Point{
+	gravitateTowards(p:Point,offset=0):Point{
 		//find the center of the rectangle
 		let cx=(this.rect.x + this.rect.x + this.rect.width)/2;
 		let cy=(this.rect.y + this.rect.y + this.rect.height)/2;
@@ -152,6 +154,18 @@ export class RectTrackingPoint implements TrackingPoint{
 			}
 		}
 
+		//apply the offset based on side
+		if(this.side==Direction.Top){
+			return this.trackedPoint.offset(0,-offset);
+		}else if(this.side==Direction.Right){
+			return this.trackedPoint.offset(offset,0);
+		}else if(this.side==Direction.Bottom){
+			return this.trackedPoint.offset(0,offset);
+		}else if(this.side==Direction.Left){
+			return this.trackedPoint.offset(-offset,0);
+		}
+
+		//assertion: the method should have applied offset and returned by now
 		return this.trackedPoint;
 	}
 }
@@ -169,7 +183,7 @@ export class CircleTrackingPoint implements TrackingPoint{
 		return this.trackedPoint;
 	}
 
-	gravitateTowards(p:Point):Point{
+	gravitateTowards(p:Point,offset=0):Point{
 		var angleOfSegment=this.circle.center.angleOfSegment(p);
 		this.trackedPoint=this.circle.center.pointAtLength(angleOfSegment,this.circle.radius);
 		return this.trackedPoint;
@@ -185,7 +199,7 @@ export class LineSegmentTrackingPoint implements TrackingPoint{
 		return linearInterpolation(this.lineSegment.start,this.lineSegment.end,this.fraction);
 	}
 
-	gravitateTowards(p:Point):Point{
+	gravitateTowards(p:Point,offset=0):Point{
 		return null;//TODO
 	}
 }

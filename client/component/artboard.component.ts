@@ -1,4 +1,4 @@
-import { Component,Input,Output,EventEmitter,OnInit } from '@angular/core';
+import { Component,Input,Output,EventEmitter,OnInit,ElementRef,ContentChild } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { animate,trigger,state,transition,style } from '@angular/core';
 import { Rect } from '../model/geometry';
@@ -28,6 +28,8 @@ export const ArtboardHeight=(2/3)*ArtboardWidth;
 export class ArtboardComponent implements OnInit{
     massiveArea:Rect;
     rectList:Rect[]=[];
+
+	@ContentChild('massiveAreaDiv') massiveAreaDiv:ElementRef;
 
 	@ViewChild(SelectionBoxComponent)
 	private selectionBox:SelectionBoxComponent;
@@ -94,7 +96,12 @@ export class ArtboardComponent implements OnInit{
 
 	mousemove(event:MouseEvent){
 		this.mousemoveEvent.emit(event);
-		this.workspace.cursorPosition=new Point(event.offsetX,event.offsetY);
+		//update the position of the cursor only if this event is not in BUBBLING_PHASE
+		//this ensure, wrong cursor position is not set because of mouse move event triggering on a child node
+		if (event.eventPhase != Event.BUBBLING_PHASE) {
+			this.workspace.cursorPosition=new Point(event.offsetX,event.offsetY);
+		}
+		
 		if(this.draggingInteraction!=null){
 			this.draggingInteraction.handleMouseDrag(event);
 		}else{

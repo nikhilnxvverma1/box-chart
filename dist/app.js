@@ -7300,7 +7300,8 @@ webpackJsonp([0],{
 	    EmptyTrackingPoint.prototype.pointOnGeometry = function () {
 	        return this.point;
 	    };
-	    EmptyTrackingPoint.prototype.gravitateTowards = function (p) {
+	    EmptyTrackingPoint.prototype.gravitateTowards = function (p, offset) {
+	        if (offset === void 0) { offset = 0; }
 	        return this.point;
 	    };
 	    return EmptyTrackingPoint;
@@ -7314,7 +7315,8 @@ webpackJsonp([0],{
 	    CenterTrackingPoint.prototype.pointOnGeometry = function () {
 	        return this.geometry.getBoundingBox().center();
 	    };
-	    CenterTrackingPoint.prototype.gravitateTowards = function (p) {
+	    CenterTrackingPoint.prototype.gravitateTowards = function (p, offset) {
+	        if (offset === void 0) { offset = 0; }
 	        return this.geometry.getBoundingBox().center();
 	    };
 	    return CenterTrackingPoint;
@@ -7364,7 +7366,8 @@ webpackJsonp([0],{
 	        }
 	        return common_1.linearInterpolation(startPoint, endPoint, fraction);
 	    };
-	    RectTrackingPoint.prototype.gravitateTowards = function (p) {
+	    RectTrackingPoint.prototype.gravitateTowards = function (p, offset) {
+	        if (offset === void 0) { offset = 0; }
 	        //find the center of the rectangle
 	        var cx = (this.rect.x + this.rect.x + this.rect.width) / 2;
 	        var cy = (this.rect.y + this.rect.y + this.rect.height) / 2;
@@ -7434,6 +7437,20 @@ webpackJsonp([0],{
 	                }
 	            }
 	        }
+	        //apply the offset based on side
+	        if (this.side == common_1.Direction.Top) {
+	            return this.trackedPoint.offset(0, -offset);
+	        }
+	        else if (this.side == common_1.Direction.Right) {
+	            return this.trackedPoint.offset(offset, 0);
+	        }
+	        else if (this.side == common_1.Direction.Bottom) {
+	            return this.trackedPoint.offset(0, offset);
+	        }
+	        else if (this.side == common_1.Direction.Left) {
+	            return this.trackedPoint.offset(-offset, 0);
+	        }
+	        //assertion: the method should have applied offset and returned by now
 	        return this.trackedPoint;
 	    };
 	    return RectTrackingPoint;
@@ -7446,7 +7463,8 @@ webpackJsonp([0],{
 	    CircleTrackingPoint.prototype.pointOnGeometry = function () {
 	        return this.trackedPoint;
 	    };
-	    CircleTrackingPoint.prototype.gravitateTowards = function (p) {
+	    CircleTrackingPoint.prototype.gravitateTowards = function (p, offset) {
+	        if (offset === void 0) { offset = 0; }
 	        var angleOfSegment = this.circle.center.angleOfSegment(p);
 	        this.trackedPoint = this.circle.center.pointAtLength(angleOfSegment, this.circle.radius);
 	        return this.trackedPoint;
@@ -7460,7 +7478,8 @@ webpackJsonp([0],{
 	    LineSegmentTrackingPoint.prototype.pointOnGeometry = function () {
 	        return common_1.linearInterpolation(this.lineSegment.start, this.lineSegment.end, this.fraction);
 	    };
-	    LineSegmentTrackingPoint.prototype.gravitateTowards = function (p) {
+	    LineSegmentTrackingPoint.prototype.gravitateTowards = function (p, offset) {
+	        if (offset === void 0) { offset = 0; }
 	        return null; //TODO
 	    };
 	    return LineSegmentTrackingPoint;
@@ -7839,7 +7858,11 @@ webpackJsonp([0],{
 	    };
 	    ArtboardComponent.prototype.mousemove = function (event) {
 	        this.mousemoveEvent.emit(event);
-	        this.workspace.cursorPosition = new geometry_2.Point(event.offsetX, event.offsetY);
+	        //update the position of the cursor only if this event is not in BUBBLING_PHASE
+	        //this ensure, wrong cursor position is not set because of mouse move event triggering on a child node
+	        if (event.eventPhase != Event.BUBBLING_PHASE) {
+	            this.workspace.cursorPosition = new geometry_2.Point(event.offsetX, event.offsetY);
+	        }
 	        if (this.draggingInteraction != null) {
 	            this.draggingInteraction.handleMouseDrag(event);
 	        }
@@ -7892,12 +7915,16 @@ webpackJsonp([0],{
 	        }
 	    };
 	    __decorate([
+	        core_1.ContentChild('massiveAreaDiv'), 
+	        __metadata('design:type', (typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object)
+	    ], ArtboardComponent.prototype, "massiveAreaDiv", void 0);
+	    __decorate([
 	        core_2.ViewChild(selection_box_component_1.SelectionBoxComponent), 
-	        __metadata('design:type', (typeof (_a = typeof selection_box_component_1.SelectionBoxComponent !== 'undefined' && selection_box_component_1.SelectionBoxComponent) === 'function' && _a) || Object)
+	        __metadata('design:type', (typeof (_b = typeof selection_box_component_1.SelectionBoxComponent !== 'undefined' && selection_box_component_1.SelectionBoxComponent) === 'function' && _b) || Object)
 	    ], ArtboardComponent.prototype, "selectionBox", void 0);
 	    __decorate([
 	        core_1.Input(), 
-	        __metadata('design:type', (typeof (_b = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _b) || Object)
+	        __metadata('design:type', (typeof (_c = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _c) || Object)
 	    ], ArtboardComponent.prototype, "workspace", void 0);
 	    __decorate([
 	        core_1.Output(), 
@@ -7913,7 +7940,7 @@ webpackJsonp([0],{
 	    ], ArtboardComponent.prototype, "mouseupEvent", void 0);
 	    __decorate([
 	        core_2.ViewChild(auto_completion_component_1.AutoCompletionComponent), 
-	        __metadata('design:type', (typeof (_c = typeof auto_completion_component_1.AutoCompletionComponent !== 'undefined' && auto_completion_component_1.AutoCompletionComponent) === 'function' && _c) || Object)
+	        __metadata('design:type', (typeof (_d = typeof auto_completion_component_1.AutoCompletionComponent !== 'undefined' && auto_completion_component_1.AutoCompletionComponent) === 'function' && _d) || Object)
 	    ], ArtboardComponent.prototype, "autoCompletion", void 0);
 	    ArtboardComponent = __decorate([
 	        core_1.Component({
@@ -7921,10 +7948,10 @@ webpackJsonp([0],{
 	            styles: [__webpack_require__(102)],
 	            template: __webpack_require__(103),
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_d = typeof mock_data_service_1.MockDataService !== 'undefined' && mock_data_service_1.MockDataService) === 'function' && _d) || Object, (typeof (_e = typeof interpreter_service_1.InterpreterService !== 'undefined' && interpreter_service_1.InterpreterService) === 'function' && _e) || Object])
+	        __metadata('design:paramtypes', [(typeof (_e = typeof mock_data_service_1.MockDataService !== 'undefined' && mock_data_service_1.MockDataService) === 'function' && _e) || Object, (typeof (_f = typeof interpreter_service_1.InterpreterService !== 'undefined' && interpreter_service_1.InterpreterService) === 'function' && _f) || Object])
 	    ], ArtboardComponent);
 	    return ArtboardComponent;
-	    var _a, _b, _c, _d, _e;
+	    var _a, _b, _c, _d, _e, _f;
 	}());
 	exports.ArtboardComponent = ArtboardComponent;
 
@@ -10292,7 +10319,7 @@ webpackJsonp([0],{
 /***/ 103:
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<!--<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>-->\n\n\t<creation-drawer \n\t\t[workspace]=\"workspace\"\n\t\t[position]=\"creationDrawerLocation\"\n\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node\n\t\t\t[genericNode]=\"node\"\n\t\t\t[workspace]=\"workspace\"\n\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t></generic-node>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<!--<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>-->\n\t\t<diagram-edge [edge]=\"edge\" [workspace]=\"workspace\"></diagram-edge>\n\t</ng-container>\n\n\t<multiple-selection \n\t\t[workspace]=\"workspace\" \n\t\t[active]=\"\n\t\t\tworkspace.selectionCount()>1 &&\n\t\t\tdraggingInteraction==null\"\n\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t></multiple-selection>\n\n</div>";
+	module.exports = "<div id=\"massive-area\"\n\t#massiveAreaDiv \n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<!--<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>-->\n\n\t<creation-drawer \n\t\t[workspace]=\"workspace\"\n\t\t[position]=\"creationDrawerLocation\"\n\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node\n\t\t\t[genericNode]=\"node\"\n\t\t\t[workspace]=\"workspace\"\n\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t></generic-node>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<!--<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>-->\n\t\t<diagram-edge [edge]=\"edge\" [workspace]=\"workspace\"></diagram-edge>\n\t</ng-container>\n\n\t<multiple-selection \n\t\t[workspace]=\"workspace\" \n\t\t[active]=\"\n\t\t\tworkspace.selectionCount()>1 &&\n\t\t\tdraggingInteraction==null\"\n\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t></multiple-selection>\n\n</div>";
 
 /***/ },
 
@@ -11010,7 +11037,7 @@ webpackJsonp([0],{
 /***/ 120:
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<!--<linker [geometry]=\"node.rect\"></linker>-->\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.rect.topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.rect.topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<div class=\"link-circle\" \n\t*ngIf=\"soloSelected\" \n\t[style.left.px]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition).x\"\n\t[style.top.px]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition).y\"\n\t[style.width.px]=\"10\"\n\t[style.height.px]=\"10\">\n\n</div>";
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<!--<linker [geometry]=\"node.rect\"></linker>-->\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.rect.topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.rect.topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<!--<div class=\"link-circle\" \n\t*ngIf=\"soloSelected\" \n\t[style.left.px]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition).x\"\n\t[style.top.px]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition).y\"\n\t[style.width.px]=\"10\"\n\t[style.height.px]=\"10\">\n\n</div>-->\n\n<div class=\"link-circle\" \n\t*ngIf=\"soloSelected\" \n\t[style.left.px]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30).x\"\n\t[style.top.px]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30).y\"\n\t[style.width.px]=\"10\"\n\t[style.height.px]=\"10\">\n\n</div>\n\n<line-segment\n\t*ngIf=\"soloSelected\" \n\t[start]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition)\" \n\t[end]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30)\"\n\t>\n</line-segment>\n";
 
 /***/ },
 
@@ -11069,7 +11096,7 @@ webpackJsonp([0],{
 /***/ 122:
 /***/ function(module, exports) {
 
-	module.exports = "<div \n\tclass=\"line-segment\" \n\t[style.left.px]=\"(start.x+end.x)/2\" \n\t[style.top.px]=\"(start.y+end.y)/2\"\n\t[style.width.px]=\"start.distance(end)\"\n\t[style.-webkit-transform]=\"transformationMatrix()\"\n\t[style.-ms-transform]=\"transformationMatrix()\"\n\t[style.transform]=\"transformationMatrix()\">\n\t<div class=\"line-segment-text\" >\n\t\t<span contenteditable=\"true\">Editable</span>\n\t</div>\n</div>";
+	module.exports = "<div \n\tclass=\"line-segment\" \n\t[style.left.px]=\"(start.x+end.x)/2\" \n\t[style.top.px]=\"(start.y+end.y)/2\"\n\t[style.width.px]=\"start.distance(end)\"\n\t[style.-webkit-transform]=\"transformationMatrix()\"\n\t[style.-ms-transform]=\"transformationMatrix()\"\n\t[style.transform]=\"transformationMatrix()\">\n\t<!--<div class=\"line-segment-text\" >\n\t\t<span contenteditable=\"true\">Editable</span>\n\t</div>-->\n</div>";
 
 /***/ },
 
