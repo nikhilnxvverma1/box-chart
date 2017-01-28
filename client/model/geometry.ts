@@ -78,7 +78,6 @@ export class Point{
 	withinYSpan(y1: number, y2: number): boolean {
 		var ly = y1 < y2 ? y1 : y2;
 		var my = y1 >= y2 ? y1 : y2;
-		console.debug(this.toString()+" b/w "+ly+ " and "+my);
 		return this.y >= ly && this.y <= my;
 	}
 

@@ -6703,7 +6703,6 @@ webpackJsonp([0],{
 	    Point.prototype.withinYSpan = function (y1, y2) {
 	        var ly = y1 < y2 ? y1 : y2;
 	        var my = y1 >= y2 ? y1 : y2;
-	        console.debug(this.toString() + " b/w " + ly + " and " + my);
 	        return this.y >= ly && this.y <= my;
 	    };
 	    /**
@@ -7899,6 +7898,9 @@ webpackJsonp([0],{
 	            this.draggingInteraction = new move_1.MoveCommand(this.workspace, this.workspace.copySelection());
 	        }
 	    };
+	    ArtboardComponent.prototype.linkNodes = function (dragInteration) {
+	        this.setDragInteractionIfEmpty(dragInteration);
+	    };
 	    ArtboardComponent.prototype.removeCurrentSelection = function () {
 	        if (this.workspace.selectionCount() > 0) {
 	            console.debug("Issueing remove command for current selection");
@@ -7915,16 +7917,12 @@ webpackJsonp([0],{
 	        }
 	    };
 	    __decorate([
-	        core_1.ContentChild('massiveAreaDiv'), 
-	        __metadata('design:type', (typeof (_a = typeof core_1.ElementRef !== 'undefined' && core_1.ElementRef) === 'function' && _a) || Object)
-	    ], ArtboardComponent.prototype, "massiveAreaDiv", void 0);
-	    __decorate([
 	        core_2.ViewChild(selection_box_component_1.SelectionBoxComponent), 
-	        __metadata('design:type', (typeof (_b = typeof selection_box_component_1.SelectionBoxComponent !== 'undefined' && selection_box_component_1.SelectionBoxComponent) === 'function' && _b) || Object)
+	        __metadata('design:type', (typeof (_a = typeof selection_box_component_1.SelectionBoxComponent !== 'undefined' && selection_box_component_1.SelectionBoxComponent) === 'function' && _a) || Object)
 	    ], ArtboardComponent.prototype, "selectionBox", void 0);
 	    __decorate([
 	        core_1.Input(), 
-	        __metadata('design:type', (typeof (_c = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _c) || Object)
+	        __metadata('design:type', (typeof (_b = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _b) || Object)
 	    ], ArtboardComponent.prototype, "workspace", void 0);
 	    __decorate([
 	        core_1.Output(), 
@@ -7940,7 +7938,7 @@ webpackJsonp([0],{
 	    ], ArtboardComponent.prototype, "mouseupEvent", void 0);
 	    __decorate([
 	        core_2.ViewChild(auto_completion_component_1.AutoCompletionComponent), 
-	        __metadata('design:type', (typeof (_d = typeof auto_completion_component_1.AutoCompletionComponent !== 'undefined' && auto_completion_component_1.AutoCompletionComponent) === 'function' && _d) || Object)
+	        __metadata('design:type', (typeof (_c = typeof auto_completion_component_1.AutoCompletionComponent !== 'undefined' && auto_completion_component_1.AutoCompletionComponent) === 'function' && _c) || Object)
 	    ], ArtboardComponent.prototype, "autoCompletion", void 0);
 	    ArtboardComponent = __decorate([
 	        core_1.Component({
@@ -7948,10 +7946,10 @@ webpackJsonp([0],{
 	            styles: [__webpack_require__(102)],
 	            template: __webpack_require__(103),
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_e = typeof mock_data_service_1.MockDataService !== 'undefined' && mock_data_service_1.MockDataService) === 'function' && _e) || Object, (typeof (_f = typeof interpreter_service_1.InterpreterService !== 'undefined' && interpreter_service_1.InterpreterService) === 'function' && _f) || Object])
+	        __metadata('design:paramtypes', [(typeof (_d = typeof mock_data_service_1.MockDataService !== 'undefined' && mock_data_service_1.MockDataService) === 'function' && _d) || Object, (typeof (_e = typeof interpreter_service_1.InterpreterService !== 'undefined' && interpreter_service_1.InterpreterService) === 'function' && _e) || Object])
 	    ], ArtboardComponent);
 	    return ArtboardComponent;
-	    var _a, _b, _c, _d, _e, _f;
+	    var _a, _b, _c, _d, _e;
 	}());
 	exports.ArtboardComponent = ArtboardComponent;
 
@@ -8459,7 +8457,7 @@ webpackJsonp([0],{
 	            console.debug("future stack is empty");
 	            return;
 	        }
-	        var undoneCommand = this.history.pop();
+	        var undoneCommand = this.future.pop();
 	        undoneCommand.execute(); //redo it back
 	        this.history.push(undoneCommand);
 	    };
@@ -10319,7 +10317,7 @@ webpackJsonp([0],{
 /***/ 103:
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"massive-area\"\n\t#massiveAreaDiv \n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<!--<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>-->\n\n\t<creation-drawer \n\t\t[workspace]=\"workspace\"\n\t\t[position]=\"creationDrawerLocation\"\n\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node\n\t\t\t[genericNode]=\"node\"\n\t\t\t[workspace]=\"workspace\"\n\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t></generic-node>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<!--<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>-->\n\t\t<diagram-edge [edge]=\"edge\" [workspace]=\"workspace\"></diagram-edge>\n\t</ng-container>\n\n\t<multiple-selection \n\t\t[workspace]=\"workspace\" \n\t\t[active]=\"\n\t\t\tworkspace.selectionCount()>1 &&\n\t\t\tdraggingInteraction==null\"\n\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t></multiple-selection>\n\n</div>";
+	module.exports = "<div id=\"massive-area\" \n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<!--<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>-->\n\n\t<creation-drawer \n\t\t[workspace]=\"workspace\"\n\t\t[position]=\"creationDrawerLocation\"\n\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node\n\t\t\t[genericNode]=\"node\"\n\t\t\t[workspace]=\"workspace\"\n\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t(linkNodes)=\"linkNodes($event)\"\n\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t></generic-node>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<!--<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>-->\n\t\t<diagram-edge [edge]=\"edge\" [workspace]=\"workspace\"></diagram-edge>\n\t</ng-container>\n\n\t<multiple-selection \n\t\t[workspace]=\"workspace\" \n\t\t[active]=\"\n\t\t\tworkspace.selectionCount()>1 &&\n\t\t\tdraggingInteraction==null\"\n\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t></multiple-selection>\n\n</div>";
 
 /***/ },
 
@@ -10578,6 +10576,7 @@ webpackJsonp([0],{
 	var selection_box_component_1 = __webpack_require__(99);
 	var multiple_selection_component_1 = __webpack_require__(137);
 	var diagram_edge_component_1 = __webpack_require__(702);
+	var gizmo_edge_component_1 = __webpack_require__(704);
 	var transform_service_1 = __webpack_require__(139);
 	var interpreter_service_1 = __webpack_require__(95);
 	var mock_data_service_1 = __webpack_require__(82);
@@ -10620,7 +10619,8 @@ webpackJsonp([0],{
 	                creation_drawer_component_1.CreationDrawerComponent,
 	                selection_box_component_1.SelectionBoxComponent,
 	                multiple_selection_component_1.MultipleSelectionComponent,
-	                diagram_edge_component_1.DiagramEdgeComponent
+	                diagram_edge_component_1.DiagramEdgeComponent,
+	                gizmo_edge_component_1.GizmoEdgeComponent
 	            ],
 	            schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA],
 	            providers: [transform_service_1.TransformService, interpreter_service_1.InterpreterService, mock_data_service_1.MockDataService]
@@ -10967,6 +10967,7 @@ webpackJsonp([0],{
 	var GenericNodeComponent = (function () {
 	    function GenericNodeComponent() {
 	        this.requestDragging = new core_1.EventEmitter();
+	        this.linkNodes = new core_1.EventEmitter();
 	        this.removeMe = new core_1.EventEmitter();
 	    }
 	    GenericNodeComponent.prototype.registerDragIntention = function () {
@@ -10999,6 +11000,10 @@ webpackJsonp([0],{
 	        core_1.Output(), 
 	        __metadata('design:type', Object)
 	    ], GenericNodeComponent.prototype, "requestDragging", void 0);
+	    __decorate([
+	        core_1.Output('linkNodes'), 
+	        __metadata('design:type', Object)
+	    ], GenericNodeComponent.prototype, "linkNodes", void 0);
 	    __decorate([
 	        core_1.Output(), 
 	        __metadata('design:type', Object)
@@ -11037,7 +11042,7 @@ webpackJsonp([0],{
 /***/ 120:
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<!--<linker [geometry]=\"node.rect\"></linker>-->\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.rect.topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.rect.topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<!--<div class=\"link-circle\" \n\t*ngIf=\"soloSelected\" \n\t[style.left.px]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition).x\"\n\t[style.top.px]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition).y\"\n\t[style.width.px]=\"10\"\n\t[style.height.px]=\"10\">\n\n</div>-->\n\n<div class=\"link-circle\" \n\t*ngIf=\"soloSelected\" \n\t[style.left.px]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30).x\"\n\t[style.top.px]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30).y\"\n\t[style.width.px]=\"10\"\n\t[style.height.px]=\"10\">\n\n</div>\n\n<line-segment\n\t*ngIf=\"soloSelected\" \n\t[start]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition)\" \n\t[end]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30)\"\n\t>\n</line-segment>\n";
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<!--<linker [geometry]=\"node.rect\"></linker>-->\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.rect.topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.rect.topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<gizmo-edge \n\t*ngIf=\"soloSelected\" \n\t[workspace]=\"workspace\"\n\t[fromNode]=\"node\"\n>\n</gizmo-edge>\n\n<!--<div class=\"link-circle\" \n\t*ngIf=\"soloSelected\" \n\t(mousedown)=\"linkNodesByDragging($event)\"\n\t[style.left.px]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30).x\"\n\t[style.top.px]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30).y\"\n\t[style.width.px]=\"10\"\n\t[style.height.px]=\"10\">\n\n</div>\n\n<line-segment\n\t*ngIf=\"soloSelected\" \n\t[start]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition)\" \n\t[end]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30)\"\n\t>\n</line-segment>-->\n";
 
 /***/ },
 
@@ -12263,6 +12268,118 @@ webpackJsonp([0],{
 /***/ function(module, exports) {
 
 	module.exports = "<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>";
+
+/***/ },
+
+/***/ 704:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var worksheet_1 = __webpack_require__(70);
+	var workspace_1 = __webpack_require__(88);
+	var link_nodes_1 = __webpack_require__(706);
+	var GizmoEdgeComponent = (function () {
+	    function GizmoEdgeComponent() {
+	        this.linkNodes = new core_1.EventEmitter();
+	    }
+	    GizmoEdgeComponent.prototype.ngOnChanges = function (changes) {
+	        console.debug("Change detected " + changes[0]);
+	    };
+	    GizmoEdgeComponent.prototype.ngOnInit = function () {
+	        this.prepared = new worksheet_1.DiagramEdge();
+	    };
+	    GizmoEdgeComponent.prototype.linkNodesByDragging = function (event) {
+	        this.linkNodes.emit(new link_nodes_1.LinkNodesCommand(this.workspace, this.prepared, this.fromNode));
+	    };
+	    __decorate([
+	        core_1.Input('workspace'), 
+	        __metadata('design:type', (typeof (_a = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _a) || Object)
+	    ], GizmoEdgeComponent.prototype, "workspace", void 0);
+	    __decorate([
+	        core_1.Input('fromNode'), 
+	        __metadata('design:type', (typeof (_b = typeof worksheet_1.DiagramNode !== 'undefined' && worksheet_1.DiagramNode) === 'function' && _b) || Object)
+	    ], GizmoEdgeComponent.prototype, "fromNode", void 0);
+	    __decorate([
+	        core_1.Output('linkNodes'), 
+	        __metadata('design:type', Object)
+	    ], GizmoEdgeComponent.prototype, "linkNodes", void 0);
+	    GizmoEdgeComponent = __decorate([
+	        core_1.Component({
+	            selector: 'gizmo-edge',
+	            template: __webpack_require__(705),
+	        }), 
+	        __metadata('design:paramtypes', [])
+	    ], GizmoEdgeComponent);
+	    return GizmoEdgeComponent;
+	    var _a, _b;
+	}());
+	exports.GizmoEdgeComponent = GizmoEdgeComponent;
+
+
+/***/ },
+
+/***/ 705:
+/***/ function(module, exports) {
+
+	module.exports = "<div class=\"link-circle\" \n\t(mousedown)=\"linkNodesByDragging($event)\"\n\t[style.left.px]=\"fromNode.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30).x\"\n\t[style.top.px]=\"fromNode.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30).y\"\n\t[style.width.px]=\"10\"\n\t[style.height.px]=\"10\">\n\n</div>\n\n<line-segment\n\t[start]=\"fromNode.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition)\" \n\t[end]=\"fromNode.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30)\"\n\t>\n</line-segment>\n";
+
+/***/ },
+
+/***/ 706:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var command_1 = __webpack_require__(90);
+	var LinkNodesCommand = (function (_super) {
+	    __extends(LinkNodesCommand, _super);
+	    function LinkNodesCommand(workspace, edge, node) {
+	        _super.call(this);
+	        this._workspace = workspace;
+	        this.edge = edge;
+	        this.edge.from = node;
+	    }
+	    Object.defineProperty(LinkNodesCommand.prototype, "workspace", {
+	        get: function () {
+	            return this._workspace;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    LinkNodesCommand.prototype.handleMousePress = function (event) {
+	        console.debug("link node mouse press");
+	    };
+	    LinkNodesCommand.prototype.handleMouseDrag = function (event) {
+	        console.debug("link node mouse drag");
+	    };
+	    LinkNodesCommand.prototype.handleMouseRelease = function (event) {
+	        console.debug("link node mouse release");
+	    };
+	    LinkNodesCommand.prototype.execute = function () {
+	    };
+	    LinkNodesCommand.prototype.unExecute = function () {
+	    };
+	    LinkNodesCommand.prototype.getName = function () {
+	        return "Link Nodes";
+	    };
+	    return LinkNodesCommand;
+	}(command_1.Command));
+	exports.LinkNodesCommand = LinkNodesCommand;
+
 
 /***/ }
 

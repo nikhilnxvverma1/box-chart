@@ -1,5 +1,4 @@
-<div id="massive-area"
-	#massiveAreaDiv 
+<div id="massive-area" 
  [style.width]="massiveArea.width+'px'" 
  [style.height]="massiveArea.height+'px'" 
  [style.left]="massiveArea.x+'px'" 
@@ -22,13 +21,12 @@
 		></creation-drawer>
 	<selection-box [workspace]="workspace"></selection-box>
 
-	<box *ngFor="let rect of rectList" [rect]="rect" (requestDragging)="setDragInteractionIfEmpty($event)"></box>
-
 	<ng-container *ngFor="let node of workspace.worksheet.diagramModel.nodeList">
 		<generic-node
 			[genericNode]="node"
 			[workspace]="workspace"
 			(requestDragging)="moveNodes($event)"
+			(linkNodes)="linkNodes($event)"
 			(removeMe)="removeCurrentSelection()"
 			[soloSelected]="workspace.selectionContainsOnlyNode(node)"
 			></generic-node>

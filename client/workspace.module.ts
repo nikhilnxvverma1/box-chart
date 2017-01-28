@@ -23,6 +23,7 @@ import { CreationDrawerComponent } from './component/creation-drawer.component';
 import { SelectionBoxComponent } from './component/selection-box.component';
 import { MultipleSelectionComponent } from './component/multiple-selection.component';
 import { DiagramEdgeComponent } from './component/diagram-edge.component';
+import { GizmoEdgeComponent } from './component/gizmo-edge.component';
 import { TransformService } from './utility/transform.service';
 import { InterpreterService } from './editor/compiler/interpreter.service';
 import { MockDataService } from './utility/mock-data.service';
@@ -62,7 +63,8 @@ import { NodeBackground } from './helper/node-background.pipe';
 		CreationDrawerComponent,
 		SelectionBoxComponent,
 		MultipleSelectionComponent,
-		DiagramEdgeComponent
+		DiagramEdgeComponent,
+		GizmoEdgeComponent
 		],
 	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 	providers:[TransformService,InterpreterService,MockDataService]

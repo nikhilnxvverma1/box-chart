@@ -44,7 +44,7 @@ export class Workspace{
 			return;
 		}
 		
-		let undoneCommand=this.history.pop();
+		let undoneCommand=this.future.pop();
 		undoneCommand.execute();//redo it back
 		this.history.push(undoneCommand);
 	}

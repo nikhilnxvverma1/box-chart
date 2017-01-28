@@ -4,7 +4,8 @@ import { Rect } from '../model/geometry';
 import { Workspace } from '../editor/workspace';
 import { Direction,PressDragReleaseProcessor } from '../utility/common';
 import { ResizeHandleComponent } from './resize-handle.component';
-import { DiagramNode,GenericDiagramNode } from '../model/worksheet';
+import { DiagramNode,DiagramEdge,GenericDiagramNode } from '../model/worksheet';
+import { LinkNodesCommand } from '../editor/command/link-nodes';
 
 //TODO move outside to a special 'variables' file 
 const SELECTION_COLOR='#2BA3FC';
@@ -31,11 +32,11 @@ export class GenericNodeComponent {
 	@Input("soloSelected") soloSelected:boolean;
 	@Input('genericNode') node:GenericDiagramNode;
 	@Output() requestDragging=new EventEmitter<DiagramNode>();
+	@Output('linkNodes') linkNodes=new EventEmitter<LinkNodesCommand>();
 	@Output() removeMe=new EventEmitter<DiagramNode>();
 	@ViewChildren(ResizeHandleComponent) resizeHandlers:QueryList<ResizeHandleComponent>;
 
 	registerDragIntention(){
-		
 		this.requestDragging.emit(this.node);
 	}
 

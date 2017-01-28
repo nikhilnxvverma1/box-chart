@@ -29,8 +29,6 @@ export class ArtboardComponent implements OnInit{
     massiveArea:Rect;
     rectList:Rect[]=[];
 
-	@ContentChild('massiveAreaDiv') massiveAreaDiv:ElementRef;
-
 	@ViewChild(SelectionBoxComponent)
 	private selectionBox:SelectionBoxComponent;
 
@@ -140,6 +138,10 @@ export class ArtboardComponent implements OnInit{
 			//issue a press drag release based command which will work on the current selection
 			this.draggingInteraction=new MoveCommand(this.workspace,this.workspace.copySelection());
 		}
+	}
+
+	linkNodes(dragInteration:PressDragReleaseProcessor){
+		this.setDragInteractionIfEmpty(dragInteration);
 	}
 
 	removeCurrentSelection(){
