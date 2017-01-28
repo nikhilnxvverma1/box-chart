@@ -6702,7 +6702,8 @@ webpackJsonp([0],{
 	     */
 	    Point.prototype.withinYSpan = function (y1, y2) {
 	        var ly = y1 < y2 ? y1 : y2;
-	        var my = y1 >= y2 ? y2 : y1;
+	        var my = y1 >= y2 ? y1 : y2;
+	        console.debug(this.toString() + " b/w " + ly + " and " + my);
 	        return this.y >= ly && this.y <= my;
 	    };
 	    /**
@@ -6711,7 +6712,7 @@ webpackJsonp([0],{
 	     */
 	    Point.prototype.withinXSpan = function (x1, x2) {
 	        var lx = x1 < x2 ? x1 : x2;
-	        var mx = x1 >= x2 ? x2 : x1;
+	        var mx = x1 >= x2 ? x1 : x2;
 	        return this.x >= lx && this.x <= mx;
 	    };
 	    /** Returns true if both x and y are 0 for this point. */
@@ -7367,53 +7368,71 @@ webpackJsonp([0],{
 	        //find the center of the rectangle
 	        var cx = (this.rect.x + this.rect.x + this.rect.width) / 2;
 	        var cy = (this.rect.y + this.rect.y + this.rect.height) / 2;
-	        var centerToPoint = new common_1.LineEquation(new geometry_1.Point(cx, cy), p);
+	        //corner points (only one part of it will get used)
 	        var topLeft = this.rect.topLeft();
 	        var topRight = this.rect.topRight();
 	        var bottomLeft = this.rect.bottomLeft();
 	        var bottomRight = this.rect.bottomRight();
-	        var verticalSideEquation;
-	        var horizontalSideEquation;
-	        var verticalSideDirection;
-	        var horizontalSideDirection;
-	        //choose the side on which this point should get close to
-	        if (p.y > cy) {
+	        //find the quadrant in which argument point is in
+	        if (p.y < cy) {
 	            if (p.x > cx) {
-	                var verticalSideEquation = new common_1.LineEquation(topRight, bottomRight);
-	                verticalSideDirection = common_1.Direction.Right;
-	                var horizontalSideEquation = new common_1.LineEquation(topLeft, topRight);
-	                horizontalSideDirection = common_1.Direction.Top;
+	                if (p.withinXSpan(cx, topRight.x)) {
+	                    this.side = common_1.Direction.Top;
+	                    this.trackedPoint = new geometry_1.Point(p.x, this.rect.y);
+	                }
+	                else if (p.withinYSpan(topRight.y, cy)) {
+	                    this.side = common_1.Direction.Right;
+	                    this.trackedPoint = new geometry_1.Point(topRight.x, p.y);
+	                }
+	                else {
+	                    this.side = common_1.Direction.Top;
+	                    this.trackedPoint = topRight;
+	                }
 	            }
 	            else {
-	                var verticalSideEquation = new common_1.LineEquation(topLeft, bottomLeft);
-	                verticalSideDirection = common_1.Direction.Left;
-	                var horizontalSideEquation = new common_1.LineEquation(topLeft, topRight);
-	                horizontalSideDirection = common_1.Direction.Top;
+	                if (p.withinXSpan(topLeft.x, cx)) {
+	                    this.side = common_1.Direction.Top;
+	                    this.trackedPoint = new geometry_1.Point(p.x, this.rect.y);
+	                }
+	                else if (p.withinYSpan(topLeft.y, cy)) {
+	                    this.side = common_1.Direction.Left;
+	                    this.trackedPoint = new geometry_1.Point(topLeft.x, p.y);
+	                }
+	                else {
+	                    this.side = common_1.Direction.Top;
+	                    this.trackedPoint = topLeft;
+	                }
 	            }
 	        }
 	        else {
 	            if (p.x > cx) {
-	                var verticalSideEquation = new common_1.LineEquation(topRight, bottomRight);
-	                verticalSideDirection = common_1.Direction.Right;
-	                var horizontalSideEquation = new common_1.LineEquation(bottomLeft, bottomRight);
-	                horizontalSideDirection = common_1.Direction.Bottom;
+	                if (p.withinXSpan(cx, bottomRight.x)) {
+	                    this.side = common_1.Direction.Bottom;
+	                    this.trackedPoint = new geometry_1.Point(p.x, bottomRight.y);
+	                }
+	                else if (p.withinYSpan(cy, bottomLeft.y)) {
+	                    this.side = common_1.Direction.Right;
+	                    this.trackedPoint = new geometry_1.Point(bottomRight.x, p.y);
+	                }
+	                else {
+	                    this.side = common_1.Direction.Bottom;
+	                    this.trackedPoint = bottomRight;
+	                }
 	            }
 	            else {
-	                var verticalSideEquation = new common_1.LineEquation(topLeft, bottomLeft);
-	                verticalSideDirection = common_1.Direction.Left;
-	                var horizontalSideEquation = new common_1.LineEquation(bottomLeft, bottomRight);
-	                horizontalSideDirection = common_1.Direction.Bottom;
+	                if (p.withinXSpan(bottomLeft.x, cx)) {
+	                    this.side = common_1.Direction.Bottom;
+	                    this.trackedPoint = new geometry_1.Point(p.x, bottomLeft.y);
+	                }
+	                else if (p.withinYSpan(cy, bottomLeft.y)) {
+	                    this.side = common_1.Direction.Left;
+	                    this.trackedPoint = new geometry_1.Point(bottomLeft.x, p.y);
+	                }
+	                else {
+	                    this.side = common_1.Direction.Bottom;
+	                    this.trackedPoint = bottomLeft;
+	                }
 	            }
-	        }
-	        var verticalSidePoint = verticalSideEquation.intersectionWith(centerToPoint);
-	        var horizontalSidePoint = horizontalSideEquation.intersectionWith(centerToPoint);
-	        if (verticalSidePoint != null && verticalSidePoint.withinYSpan(topRight.y, bottomRight.y)) {
-	            this.side = verticalSideDirection;
-	            this.trackedPoint = verticalSidePoint;
-	        }
-	        else {
-	            this.side = horizontalSideDirection;
-	            this.trackedPoint = horizontalSidePoint;
 	        }
 	        return this.trackedPoint;
 	    };
@@ -10273,7 +10292,7 @@ webpackJsonp([0],{
 /***/ 103:
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>\n\n\t<creation-drawer \n\t\t[workspace]=\"workspace\"\n\t\t[position]=\"creationDrawerLocation\"\n\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node\n\t\t\t[genericNode]=\"node\"\n\t\t\t[workspace]=\"workspace\"\n\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t></generic-node>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<!--<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>-->\n\t\t<diagram-edge [edge]=\"edge\" [workspace]=\"workspace\"></diagram-edge>\n\t</ng-container>\n\n\t<multiple-selection \n\t\t[workspace]=\"workspace\" \n\t\t[active]=\"\n\t\t\tworkspace.selectionCount()>1 &&\n\t\t\tdraggingInteraction==null\"\n\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t></multiple-selection>\n\n</div>";
+	module.exports = "<div id=\"massive-area\"\n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<!--<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>-->\n\n\t<creation-drawer \n\t\t[workspace]=\"workspace\"\n\t\t[position]=\"creationDrawerLocation\"\n\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<box *ngFor=\"let rect of rectList\" [rect]=\"rect\" (requestDragging)=\"setDragInteractionIfEmpty($event)\"></box>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node\n\t\t\t[genericNode]=\"node\"\n\t\t\t[workspace]=\"workspace\"\n\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t></generic-node>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<!--<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>-->\n\t\t<diagram-edge [edge]=\"edge\" [workspace]=\"workspace\"></diagram-edge>\n\t</ng-container>\n\n\t<multiple-selection \n\t\t[workspace]=\"workspace\" \n\t\t[active]=\"\n\t\t\tworkspace.selectionCount()>1 &&\n\t\t\tdraggingInteraction==null\"\n\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t></multiple-selection>\n\n</div>";
 
 /***/ },
 
@@ -10924,7 +10943,6 @@ webpackJsonp([0],{
 	        this.removeMe = new core_1.EventEmitter();
 	    }
 	    GenericNodeComponent.prototype.registerDragIntention = function () {
-	        console.debug("Registering for drag");
 	        this.requestDragging.emit(this.node);
 	    };
 	    GenericNodeComponent.prototype.updateAllResizeHandlers = function (resizeHandler) {
@@ -10992,7 +11010,7 @@ webpackJsonp([0],{
 /***/ 120:
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"node.rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.rect.topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.rect.topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n";
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<!--<linker [geometry]=\"node.rect\"></linker>-->\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.rect.topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.rect.topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<div class=\"link-circle\" \n\t*ngIf=\"soloSelected\" \n\t[style.left.px]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition).x\"\n\t[style.top.px]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition).y\"\n\t[style.width.px]=\"10\"\n\t[style.height.px]=\"10\">\n\n</div>";
 
 /***/ },
 

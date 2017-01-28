@@ -71,24 +71,25 @@ export class Point{
 				this.y>=ly && this.y<=my;
 	}
 
-	/** 
+	/**
 	 * Checks if the point is within infinite horizontal section defined by two vertical axis.
 	 * Interchanging order of points is safe and does not affect result.
 	 */
-	withinYSpan(y1:number,y2:number):boolean{
-		var ly=y1<y2?y1:y2;
-		var my=y1>=y2?y2:y1;
-		return this.y>=ly && this.y<=my;
+	withinYSpan(y1: number, y2: number): boolean {
+		var ly = y1 < y2 ? y1 : y2;
+		var my = y1 >= y2 ? y1 : y2;
+		console.debug(this.toString()+" b/w "+ly+ " and "+my);
+		return this.y >= ly && this.y <= my;
 	}
 
-	/** 
+	/**
 	 * Checks if the point is within infinite vertical section defined by two horizontal axis.
 	 * Interchanging order of points is safe and does not affect result.
 	 */
-	withinXSpan(x1:number,x2:number):boolean{
-		var lx=x1<x2?x1:x2;
-		var mx=x1>=x2?x2:x1;
-		return this.x>=lx && this.x<=mx;
+	withinXSpan(x1: number, x2: number): boolean {
+		var lx = x1 < x2 ? x1 : x2;
+		var mx = x1 >= x2 ? x1 : x2;
+		return this.x >= lx && this.x <= mx;
 	}
 
 	/** Returns true if both x and y are 0 for this point. */
@@ -195,7 +196,7 @@ export class Rect implements Geometry{
 		if(rect.x<this.x){
 			if(rect.y<this.y){//rect is top left to this
 				return rect.contains(this.topLeft());
-			}else{//rect is left and below this 
+			}else{//rect is left and below this
 				return rect.contains(this.bottomLeft());
 			}
 		}else{
@@ -257,7 +258,7 @@ export class LineSegment implements Geometry{
 		this.end=end;
 	}
 
-	toString():string{		
+	toString():string{
 		return "LS: "+this.start+","+this.end+")";
 	}
 

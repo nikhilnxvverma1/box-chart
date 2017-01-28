@@ -35,7 +35,7 @@ export class GenericNodeComponent {
 	@ViewChildren(ResizeHandleComponent) resizeHandlers:QueryList<ResizeHandleComponent>;
 
 	registerDragIntention(){
-		console.debug("Registering for drag");
+		
 		this.requestDragging.emit(this.node);
 	}
 

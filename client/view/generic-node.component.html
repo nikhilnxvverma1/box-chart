@@ -22,7 +22,7 @@
 </div>
 
 <!-- Linker associated with this box-->
-<linker [geometry]="node.rect"></linker>
+<!--<linker [geometry]="node.rect"></linker>-->
 
 <!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->
 <!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->
@@ -81,5 +81,14 @@
 	[style.left.px]="node.rect.topRight().offset(10,0).x"
 	[style.top.px]="node.rect.topRight().offset(0,-10).y"
 	><!--TODO try to externalize offset values (10)-->
+
+</div>
+
+<div class="link-circle" 
+	*ngIf="soloSelected" 
+	[style.left.px]="node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition).x"
+	[style.top.px]="node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition).y"
+	[style.width.px]="10"
+	[style.height.px]="10">
 
 </div>

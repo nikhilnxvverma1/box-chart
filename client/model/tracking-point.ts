@@ -92,64 +92,64 @@ export class RectTrackingPoint implements TrackingPoint{
 
 	gravitateTowards(p:Point):Point{
 		//find the center of the rectangle
-		var cx=(this.rect.x + this.rect.x + this.rect.width)/2;
-		var cy=(this.rect.y + this.rect.y + this.rect.height)/2;
+		let cx=(this.rect.x + this.rect.x + this.rect.width)/2;
+		let cy=(this.rect.y + this.rect.y + this.rect.height)/2;
 
-		var centerToPoint=new LineEquation(new Point(cx,cy),p);
+		//corner points (only one part of it will get used)
+		let topLeft=this.rect.topLeft();
+		let topRight=this.rect.topRight();
+		let bottomLeft=this.rect.bottomLeft();
+		let bottomRight=this.rect.bottomRight();
 
-		var topLeft=this.rect.topLeft();
-		var topRight=this.rect.topRight();
-		var bottomLeft=this.rect.bottomLeft();
-		var bottomRight=this.rect.bottomRight();
-
-		var verticalSideEquation:LineEquation;
-		var horizontalSideEquation:LineEquation;
-
-		var verticalSideDirection:Direction;
-		var horizontalSideDirection:Direction;
-
-		//choose the side on which this point should get close to
-		if(p.y>cy){//top
+		//find the quadrant in which argument point is in
+		if(p.y<cy){//top (y goes down)
 			if(p.x>cx){//right
-				var verticalSideEquation = new LineEquation(topRight,bottomRight);
-				verticalSideDirection=Direction.Right;
-
-				var horizontalSideEquation = new LineEquation(topLeft,topRight);
-				horizontalSideDirection=Direction.Top;
-
+				if(p.withinXSpan(cx,topRight.x)){
+					this.side=Direction.Top;
+					this.trackedPoint=new Point(p.x,this.rect.y);
+				}else if(p.withinYSpan(topRight.y,cy)){
+					this.side=Direction.Right;
+					this.trackedPoint=new Point(topRight.x,p.y);
+				}else{//corner edge case
+					this.side=Direction.Top;
+					this.trackedPoint=topRight;
+				}
 			}else{//left
-				var verticalSideEquation = new LineEquation(topLeft,bottomLeft);
-				verticalSideDirection=Direction.Left;
-
-				var horizontalSideEquation = new LineEquation(topLeft,topRight);
-				horizontalSideDirection=Direction.Top;
-				
+				if(p.withinXSpan(topLeft.x,cx)){
+					this.side=Direction.Top;
+					this.trackedPoint=new Point(p.x,this.rect.y);
+				}else if(p.withinYSpan(topLeft.y,cy)){
+					this.side=Direction.Left;
+					this.trackedPoint=new Point(topLeft.x,p.y);
+				}else{//corner edge case
+					this.side=Direction.Top;
+					this.trackedPoint=topLeft;
+				}
 			}
 		}else{//bottom
 			if(p.x>cx){//right
-				var verticalSideEquation = new LineEquation(topRight,bottomRight);
-				verticalSideDirection=Direction.Right;
-
-				var horizontalSideEquation = new LineEquation(bottomLeft,bottomRight);
-				horizontalSideDirection=Direction.Bottom;
+				if(p.withinXSpan(cx,bottomRight.x)){
+					this.side=Direction.Bottom;
+					this.trackedPoint=new Point(p.x,bottomRight.y);
+				}else if(p.withinYSpan(cy,bottomLeft.y)){
+					this.side=Direction.Right;
+					this.trackedPoint=new Point(bottomRight.x,p.y);
+				}else{//corner edge case
+					this.side=Direction.Bottom;
+					this.trackedPoint=bottomRight;
+				}
 			}else{//left
-				var verticalSideEquation = new LineEquation(topLeft,bottomLeft);
-				verticalSideDirection=Direction.Left;
-
-				var horizontalSideEquation = new LineEquation(bottomLeft,bottomRight);
-				horizontalSideDirection=Direction.Bottom;
+				if(p.withinXSpan(bottomLeft.x,cx)){
+					this.side=Direction.Bottom;
+					this.trackedPoint=new Point(p.x,bottomLeft.y);
+				}else if(p.withinYSpan(cy,bottomLeft.y)){
+					this.side=Direction.Left;
+					this.trackedPoint=new Point(bottomLeft.x,p.y);
+				}else{//corner edge case
+					this.side=Direction.Bottom;
+					this.trackedPoint=bottomLeft;
+				}
 			}
-		}
-
-		var verticalSidePoint = verticalSideEquation.intersectionWith(centerToPoint);
-		var horizontalSidePoint = horizontalSideEquation.intersectionWith(centerToPoint);
-		
-		if(verticalSidePoint!=null && verticalSidePoint.withinYSpan(topRight.y,bottomRight.y)){
-			this.side=verticalSideDirection;
-			this.trackedPoint=verticalSidePoint;
-		}else{
-			this.side=horizontalSideDirection;
-			this.trackedPoint=horizontalSidePoint;
 		}
 
 		return this.trackedPoint;
