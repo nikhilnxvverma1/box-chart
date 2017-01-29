@@ -50,7 +50,7 @@ export class ArtboardComponent implements OnInit{
 	}
 
 	ngOnInit(){
-		this.testing();
+		// this.testing();
 	}
 
 	testing(){

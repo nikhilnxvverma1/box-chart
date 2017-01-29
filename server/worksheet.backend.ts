@@ -1,6 +1,7 @@
 import ojs= require('orientjs');
 import winston=require('winston');
 import Promise=require('bluebird');
+import { WorksheetAccess } from './shared-codes';
 
 /** Intermediate service that talks to the database for all worksheet related queries */
 export class WorksheetBackend{
@@ -63,6 +64,35 @@ export class WorksheetBackend{
 				return newWorksheet;
 		 	});
 		 });
+	}
+
+	/** 
+	 * Gets the specific worksheet for the specified user, only if that worksheet belongs to him.
+	 * Returns a pair of worksheet access and worksheet(null for no access).
+	 * Access set by this method can only be Granted or Denied
+	 */ 
+	getWorksheetForUserIfAuthorized(user:any,worksheetRid:string):Promise<any>{
+		return this.getWorksheetsForUser(user).
+			then((worksheetList:any[])=>{
+				//check if requested worksheet rid is in that list
+				let foundWorksheet:any=null;
+				for(let worksheet of worksheetList){
+					if(worksheet['@rid'].toString()==worksheetRid){
+						foundWorksheet=worksheet;
+						break;
+					}
+				}
+
+				//return granted and worksheet if found
+				let accessResult:any={};
+				if(foundWorksheet!=null){
+					accessResult.access=WorksheetAccess.Granted;
+					accessResult.worksheet=foundWorksheet;
+				}else{//else return access denied (403 is sent also by the calling code.
+					accessResult.access=WorksheetAccess.Denied;
+				}
+				return accessResult;
+			});
 	}
 }
 

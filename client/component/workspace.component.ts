@@ -1,7 +1,7 @@
 import { Component,ViewChild,OnInit } from '@angular/core';
 import { animate,style,trigger,transition,state } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { TransformService } from '../utility/transform.service';
+import { WorksheetService } from '../utility/worksheet.service';
 import { Point,Rect } from '../model/geometry';
 import { SidebarComponent } from './sidebar.component';
 import { ArtboardComponent } from './artboard.component';
@@ -46,21 +46,24 @@ export class WorkspaceComponent implements OnInit{
     @ViewChild(ArtboardComponent)
     private artboard:ArtboardComponent;
 
-	constructor(private route:ActivatedRoute){}
+	constructor(
+		private route:ActivatedRoute,
+		private worksheetService:WorksheetService){}
 
 	ngOnInit(){
 
-		console.log("finding worksheet");
+		//get the worksheet for the given rid defined in url params in OnInit method
 		this.route.params.subscribe((params:{[key:string]:any})=>{
-			console.debug("Rid is "+params['rid']);
+			
+			//get rid from url
 			let rid=params['rid'];
-			console.debug("Getting worksheet for rid"+rid);
-			console.debug("worksheet is "+null);
+			
+			//find worksheet using service
+			this.worksheetService.getWorksheet(rid).subscribe((worksheet)=>{
+				this.workspace=new Workspace(worksheet);
+				this.workspace.worksheet.diagramModel=new DiagramModel();//TODO remove after integration
+			})
 		});
-
-		//TODO get the worksheet for the given rid defined in url params in OnInit method
-		this.workspace=new Workspace(new Worksheet());
-		this.workspace.worksheet.diagramModel=new DiagramModel();
 
 		//'window' here refers to the window object
 		//get the width and height of the 'device' window and get the 

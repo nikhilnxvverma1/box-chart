@@ -6171,6 +6171,13 @@ webpackJsonp([0],{
 	    SignupAttempt[SignupAttempt["InternalServerError"] = 5] = "InternalServerError";
 	})(exports.SignupAttempt || (exports.SignupAttempt = {}));
 	var SignupAttempt = exports.SignupAttempt;
+	/** Identifies the nature of access when requested for a worksheet */
+	(function (WorksheetAccess) {
+	    WorksheetAccess[WorksheetAccess["Granted"] = 1] = "Granted";
+	    WorksheetAccess[WorksheetAccess["Denied"] = 2] = "Denied";
+	    WorksheetAccess[WorksheetAccess["LoginRequired"] = 3] = "LoginRequired";
+	})(exports.WorksheetAccess || (exports.WorksheetAccess = {}));
+	var WorksheetAccess = exports.WorksheetAccess;
 
 
 /***/ },
@@ -8147,6 +8154,7 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var core_2 = __webpack_require__(3);
 	var router_1 = __webpack_require__(32);
+	var worksheet_service_1 = __webpack_require__(708);
 	var geometry_1 = __webpack_require__(71);
 	var sidebar_component_1 = __webpack_require__(78);
 	var artboard_component_1 = __webpack_require__(81);
@@ -8155,8 +8163,9 @@ webpackJsonp([0],{
 	var SPACE_KEY = 32;
 	var Z_KEY = 90;
 	var WorkspaceComponent = (function () {
-	    function WorkspaceComponent(route) {
+	    function WorkspaceComponent(route, worksheetService) {
 	        this.route = route;
+	        this.worksheetService = worksheetService;
 	        this.windowMovementAllowed = false; //allowed only when space is held
 	        this.dragEntered = false;
 	        this.startX = 0;
@@ -8165,16 +8174,17 @@ webpackJsonp([0],{
 	        this.lastY = 0;
 	    }
 	    WorkspaceComponent.prototype.ngOnInit = function () {
-	        console.log("finding worksheet");
+	        var _this = this;
+	        //get the worksheet for the given rid defined in url params in OnInit method
 	        this.route.params.subscribe(function (params) {
-	            console.debug("Rid is " + params['rid']);
+	            //get rid from url
 	            var rid = params['rid'];
-	            console.debug("Getting worksheet for rid" + rid);
-	            console.debug("worksheet is " + null);
+	            //find worksheet using service
+	            _this.worksheetService.getWorksheet(rid).subscribe(function (worksheet) {
+	                _this.workspace = new workspace_1.Workspace(worksheet);
+	                _this.workspace.worksheet.diagramModel = new worksheet_1.DiagramModel(); //TODO remove after integration
+	            });
 	        });
-	        //TODO get the worksheet for the given rid defined in url params in OnInit method
-	        this.workspace = new workspace_1.Workspace(new worksheet_1.Worksheet());
-	        this.workspace.worksheet.diagramModel = new worksheet_1.DiagramModel();
 	        //'window' here refers to the window object
 	        //get the width and height of the 'device' window and get the 
 	        this.movingWindow = new geometry_1.Rect(this.artboard.massiveArea.width / 2 - window.innerWidth / 2, this.artboard.massiveArea.height / 2 - window.innerHeight / 2, window.innerWidth, window.outerHeight);
@@ -8268,10 +8278,10 @@ webpackJsonp([0],{
 	                ])
 	            ]
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_c = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _c) || Object])
+	        __metadata('design:paramtypes', [(typeof (_c = typeof router_1.ActivatedRoute !== 'undefined' && router_1.ActivatedRoute) === 'function' && _c) || Object, (typeof (_d = typeof worksheet_service_1.WorksheetService !== 'undefined' && worksheet_service_1.WorksheetService) === 'function' && _d) || Object])
 	    ], WorkspaceComponent);
 	    return WorkspaceComponent;
-	    var _a, _b, _c;
+	    var _a, _b, _c, _d;
 	}());
 	exports.WorkspaceComponent = WorkspaceComponent;
 
@@ -8382,7 +8392,7 @@ webpackJsonp([0],{
 	        this.massiveArea = new geometry_1.Rect(0, 0, exports.ArtboardWidth, exports.ArtboardHeight);
 	    }
 	    ArtboardComponent.prototype.ngOnInit = function () {
-	        this.testing();
+	        // this.testing();
 	    };
 	    ArtboardComponent.prototype.testing = function () {
 	        // this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
@@ -10881,7 +10891,7 @@ webpackJsonp([0],{
 /***/ 103:
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"massive-area\" \n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<!--<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>-->\n\n\t<creation-drawer \n\t\t[workspace]=\"workspace\"\n\t\t[position]=\"creationDrawerLocation\"\n\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<!--<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>-->\n\t\t<diagram-edge [edge]=\"edge\" [workspace]=\"workspace\"></diagram-edge>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node\n\t\t\t[genericNode]=\"node\"\n\t\t\t[workspace]=\"workspace\"\n\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t(linkNodes)=\"linkNodes($event)\"\n\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t></generic-node>\n\t</ng-container>\n\n\t<multiple-selection \n\t\t[workspace]=\"workspace\" \n\t\t[active]=\"\n\t\t\tworkspace.selectionCount()>1 &&\n\t\t\tdraggingInteraction==null\"\n\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t></multiple-selection>\n\n</div>";
+	module.exports = "<ng-container *ngIf=\"workspace!=null\">\n\t<div id=\"massive-area\" \n\t[style.width]=\"massiveArea.width+'px'\" \n\t[style.height]=\"massiveArea.height+'px'\" \n\t[style.left]=\"massiveArea.x+'px'\" \n\t[style.top]=\"massiveArea.y+'px'\"\n\t(mousedown)=\"mousedown($event)\"\n\t(mousemove)=\"mousemove($event)\"\n\t(mouseup)=\"mouseup($event)\"\n\t(dblclick)=\"doubleClickedArtboard($event)\"\n\t>\n\n\t\t<!--<h1 id=\"starter-tip\"\n\t\t[style.left.px]=\"massiveArea.width/2\"\n\t\t[style.top.px]=\"massiveArea.height/2\"\n\t\t>Double click anywhere to create a box</h1>-->\n\n\t\t\n\t\t\n\t\t<creation-drawer \n\t\t\t[workspace]=\"workspace\"\n\t\t\t[position]=\"creationDrawerLocation\"\n\t\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t\t></creation-drawer>\n\t\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t\t<!--<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>-->\n\t\t\t<diagram-edge [edge]=\"edge\" [workspace]=\"workspace\"></diagram-edge>\n\t\t</ng-container>\n\n\t\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t\t<generic-node\n\t\t\t\t[genericNode]=\"node\"\n\t\t\t\t[workspace]=\"workspace\"\n\t\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t\t(linkNodes)=\"linkNodes($event)\"\n\t\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t\t></generic-node>\n\t\t</ng-container>\n\n\t\t<multiple-selection \n\t\t\t[workspace]=\"workspace\" \n\t\t\t[active]=\"\n\t\t\t\tworkspace.selectionCount()>1 &&\n\t\t\t\tdraggingInteraction==null\"\n\t\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t\t></multiple-selection>\n\t</div>\n</ng-container>";
 
 /***/ },
 
@@ -11160,6 +11170,7 @@ webpackJsonp([0],{
 	var transform_service_1 = __webpack_require__(144);
 	var interpreter_service_1 = __webpack_require__(95);
 	var mock_data_service_1 = __webpack_require__(82);
+	var worksheet_service_1 = __webpack_require__(708);
 	var focus_directive_1 = __webpack_require__(145);
 	var my_rect_directive_1 = __webpack_require__(146);
 	var my_circle_directive_1 = __webpack_require__(147);
@@ -11203,7 +11214,7 @@ webpackJsonp([0],{
 	                diagram_edge_component_1.DiagramEdgeComponent,
 	            ],
 	            schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA],
-	            providers: [transform_service_1.TransformService, interpreter_service_1.InterpreterService, mock_data_service_1.MockDataService]
+	            providers: [transform_service_1.TransformService, interpreter_service_1.InterpreterService, worksheet_service_1.WorksheetService, mock_data_service_1.MockDataService]
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], WorkspaceModule);
@@ -13028,6 +13039,61 @@ webpackJsonp([0],{
 	    return DashboardContainerComponent;
 	}());
 	exports.DashboardContainerComponent = DashboardContainerComponent;
+
+
+/***/ },
+
+/***/ 708:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var worksheet_1 = __webpack_require__(70);
+	var http_1 = __webpack_require__(28);
+	var shared_codes_1 = __webpack_require__(67);
+	var WorksheetService = (function () {
+	    function WorksheetService(http) {
+	        this.http = http;
+	    }
+	    /**
+	     * Gets the worksheet only if associated with the logged in user,otherwise null.
+	     * 'rid' specifies the record id.
+	     */
+	    WorksheetService.prototype.getWorksheet = function (rid) {
+	        var _this = this;
+	        var params = new http_1.URLSearchParams();
+	        params.set('worksheetRid', rid);
+	        return this.http.get(WorksheetService.WORKSHEET_URL, { search: params }).map(function (response) { return _this.worksheetAccess(response); });
+	    };
+	    WorksheetService.prototype.worksheetAccess = function (response) {
+	        var json = response.json();
+	        if (json.access != shared_codes_1.WorksheetAccess.Granted) {
+	            return null;
+	        }
+	        var worksheet = new worksheet_1.Worksheet();
+	        worksheet.title = json.worksheet.title;
+	        worksheet.description = json.worksheet.description;
+	        worksheet.rid = json.worksheet['@rid'];
+	        return worksheet;
+	    };
+	    WorksheetService.WORKSHEET_URL = "api/get-worksheet";
+	    WorksheetService = __decorate([
+	        core_1.Injectable(), 
+	        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])
+	    ], WorksheetService);
+	    return WorksheetService;
+	    var _a;
+	}());
+	exports.WorksheetService = WorksheetService;
 
 
 /***/ }

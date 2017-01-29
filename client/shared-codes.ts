@@ -20,3 +20,10 @@ export enum SignupAttempt{
 	NullPassword=4,
 	InternalServerError=5
 }
+
+/** Identifies the nature of access when requested for a worksheet */
+export enum WorksheetAccess{
+	Granted=1,
+	Denied=2,
+	LoginRequired=3
+}

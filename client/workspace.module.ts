@@ -27,6 +27,7 @@ import { GizmoEdgeComponent } from './component/gizmo-edge.component';
 import { TransformService } from './utility/transform.service';
 import { InterpreterService } from './editor/compiler/interpreter.service';
 import { MockDataService } from './utility/mock-data.service';
+import { WorksheetService } from './utility/worksheet.service';
 import { FocusDirective } from './helper/focus.directive';
 import { MyRectDirective } from './helper/my-rect.directive';
 import { MyCircleDirective } from './helper/my-circle.directive';
@@ -67,6 +68,6 @@ import { NodeBackground } from './helper/node-background.pipe';
 		DiagramEdgeComponent,
 		],
 	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
-	providers:[TransformService,InterpreterService,MockDataService]
+	providers:[TransformService,InterpreterService,WorksheetService,MockDataService]
 })
 export class WorkspaceModule { }

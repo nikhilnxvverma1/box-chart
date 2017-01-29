@@ -1,48 +1,51 @@
-<div id="massive-area" 
- [style.width]="massiveArea.width+'px'" 
- [style.height]="massiveArea.height+'px'" 
- [style.left]="massiveArea.x+'px'" 
- [style.top]="massiveArea.y+'px'"
- (mousedown)="mousedown($event)"
- (mousemove)="mousemove($event)"
- (mouseup)="mouseup($event)"
- (dblclick)="doubleClickedArtboard($event)"
- >
+<ng-container *ngIf="workspace!=null">
+	<div id="massive-area" 
+	[style.width]="massiveArea.width+'px'" 
+	[style.height]="massiveArea.height+'px'" 
+	[style.left]="massiveArea.x+'px'" 
+	[style.top]="massiveArea.y+'px'"
+	(mousedown)="mousedown($event)"
+	(mousemove)="mousemove($event)"
+	(mouseup)="mouseup($event)"
+	(dblclick)="doubleClickedArtboard($event)"
+	>
 
-	<!--<h1 id="starter-tip"
-	[style.left.px]="massiveArea.width/2"
-	[style.top.px]="massiveArea.height/2"
-	>Double click anywhere to create a box</h1>-->
+		<!--<h1 id="starter-tip"
+		[style.left.px]="massiveArea.width/2"
+		[style.top.px]="massiveArea.height/2"
+		>Double click anywhere to create a box</h1>-->
 
-	<creation-drawer 
-		[workspace]="workspace"
-		[position]="creationDrawerLocation"
-		(requestDragging)="setDragInteractionIfEmpty($event)"
-		></creation-drawer>
-	<selection-box [workspace]="workspace"></selection-box>
-
-	<ng-container *ngFor="let edge of workspace.worksheet.diagramModel.edgeList">
-		<!--<line-segment [start]="edge.fromPoint.pointOnGeometry()" [end]="edge.toPoint.pointOnGeometry()"></line-segment>-->
-		<diagram-edge [edge]="edge" [workspace]="workspace"></diagram-edge>
-	</ng-container>
-
-	<ng-container *ngFor="let node of workspace.worksheet.diagramModel.nodeList">
-		<generic-node
-			[genericNode]="node"
+		
+		
+		<creation-drawer 
 			[workspace]="workspace"
-			(requestDragging)="moveNodes($event)"
-			(linkNodes)="linkNodes($event)"
-			(removeMe)="removeCurrentSelection()"
-			[soloSelected]="workspace.selectionContainsOnlyNode(node)"
-			></generic-node>
-	</ng-container>
+			[position]="creationDrawerLocation"
+			(requestDragging)="setDragInteractionIfEmpty($event)"
+			></creation-drawer>
+		<selection-box [workspace]="workspace"></selection-box>
 
-	<multiple-selection 
-		[workspace]="workspace" 
-		[active]="
-			workspace.selectionCount()>1 &&
-			draggingInteraction==null"
-		(removeUs)="removeCurrentSelection()"
-		></multiple-selection>
+		<ng-container *ngFor="let edge of workspace.worksheet.diagramModel.edgeList">
+			<!--<line-segment [start]="edge.fromPoint.pointOnGeometry()" [end]="edge.toPoint.pointOnGeometry()"></line-segment>-->
+			<diagram-edge [edge]="edge" [workspace]="workspace"></diagram-edge>
+		</ng-container>
 
-</div>
+		<ng-container *ngFor="let node of workspace.worksheet.diagramModel.nodeList">
+			<generic-node
+				[genericNode]="node"
+				[workspace]="workspace"
+				(requestDragging)="moveNodes($event)"
+				(linkNodes)="linkNodes($event)"
+				(removeMe)="removeCurrentSelection()"
+				[soloSelected]="workspace.selectionContainsOnlyNode(node)"
+				></generic-node>
+		</ng-container>
+
+		<multiple-selection 
+			[workspace]="workspace" 
+			[active]="
+				workspace.selectionCount()>1 &&
+				draggingInteraction==null"
+			(removeUs)="removeCurrentSelection()"
+			></multiple-selection>
+	</div>
+</ng-container>

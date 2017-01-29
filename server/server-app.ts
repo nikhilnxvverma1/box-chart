@@ -10,6 +10,7 @@ import { AccountService,AuthenticationResult } from './account.backend';
 import { LoginAttempt,SignupAttempt } from './shared-codes';
 import * as statusCode from './status-code';
 import { WorksheetBackend } from './worksheet.backend';
+import { WorksheetAccess } from './shared-codes';
 
 export class ServerApp {
     
@@ -141,7 +142,7 @@ export class ServerApp {
 		});
 
 		//remove new worksheet and associate with user
-		this.app.delete('/api/remove-worksheet', (req:express.Request, res:express.Response) => {
+		this.app.delete('/api/remove-worksheet', (req:express.Request, res:express.Response) => {//TODO HTTP authorization check
 			winston.debug("Removing existing worksheet from logged in user");
 			//get user in session
 			let loggedInUser=(<any>req).session.user;
@@ -155,6 +156,34 @@ export class ServerApp {
 					jsonHeader(res).status(200).send(JSON.stringify(deleted));
 				}).catch((error:Error)=>{
 					res.status(500).send('Something went wrong while deleting worksheet');//TODO make these json responses too
+				})
+			}
+		});
+
+		//remove new worksheet and associate with user
+		this.app.get('/api/get-worksheet', (req:express.Request, res:express.Response) => {
+			winston.debug("Getting existing worksheet from logged in user");
+			//get user in session
+			let loggedInUser=(<any>req).session.user;
+			if(!loggedInUser){
+				let loginRequired={
+					'access':WorksheetAccess.LoginRequired, 
+				}
+				jsonHeader(res).status(401).send(JSON.stringify(loginRequired));
+			}else{
+				//get the url params for the worksheet and get it for the logged in user
+				let worksheetRid=req.query['worksheetRid'];
+				this.worksheetBackend.getWorksheetForUserIfAuthorized(loggedInUser,worksheetRid).
+				then((accessResult:any)=>{
+					if(accessResult.access==WorksheetAccess.Granted){
+						jsonHeader(res).status(200).send(JSON.stringify(accessResult));
+					}else if(accessResult.access=WorksheetAccess.Denied){
+						jsonHeader(res).status(403).send(JSON.stringify(accessResult));
+					}else{
+						jsonHeader(res).status(500).send('Access to worksheet unrecognized');
+					}
+				}).catch((error:Error)=>{
+					jsonHeader(res).status(500).send('Something went wrong while finding worksheet');
 				})
 			}
 		});
