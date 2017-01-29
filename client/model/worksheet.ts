@@ -1,4 +1,4 @@
-import { Geometry,Rect,LinkedPoint,Point,Circle } from './geometry';
+import { Geometry,GeometryType,Rect,LinkedPoint,Point,Circle } from './geometry';
 import { SemanticModel,ClassDefinition,InterfaceDefinition } from './semantic-model';
 import { TrackingPoint,CenterTrackingPoint } from './tracking-point';
 import { ObjectModel, ClassObjectData, InterfaceObjectData, Collection } from './object-model';
@@ -82,7 +82,8 @@ export abstract class DiagramNode{
 	incomingEdges:DiagramEdge[]=[];//TODO remove
 	outgoingEdges:DiagramEdge[]=[];//TODO remove
 	/** Gives the geometrical shape for this diagram block */
-	abstract getGeometry():Geometry;
+	geometry?:Geometry;
+	// abstract getGeometry():Geometry;
 	/** Each diagram block has a certain cell requirement which can be found using this method */
 	abstract cellRequirement():number;//TODO remove
 	/** Creates a duplicate of this node with an optional shift and slightly different content. */
@@ -120,7 +121,7 @@ export class DiagramEdge{
 
 	set from(value:DiagramNode){
 		this._from=value;
-		this._fromPoint=new CenterTrackingPoint(value.getGeometry());
+		this._fromPoint=new CenterTrackingPoint(value.geometry);
 	}
 
 	get to():DiagramNode{
@@ -129,7 +130,7 @@ export class DiagramEdge{
 
 	set to(value:DiagramNode){
 		this._to=value;
-		this._toPoint=new CenterTrackingPoint(value.getGeometry());
+		this._toPoint=new CenterTrackingPoint(value.geometry);
 	}
 
 	get fromPoint():TrackingPoint{
@@ -166,7 +167,7 @@ export enum GenericDiagramNodeType{
 	//TODO add more below, not in the middle
 }
 
-/** Returns a rectangle whose dimensions are based on the generic node type */
+/** @deprecated Returns a rectangle whose dimensions are based on the generic node type */
 export function getRectForGenericNode(nodeType:GenericDiagramNodeType,x=0,y=0):Geometry{
 	var width=0;
 	var height=0;
@@ -218,13 +219,8 @@ export class GenericDiagramNode extends DiagramNode{
 	constructor(type:GenericDiagramNodeType){
 		super();
 		this._type=type;
-		this._geometry=getRectForGenericNode(this._type);
-		// this._rect=getRectForGenericNode(this._type);//TODO replace with bounding box
+		this._geometry=GenericDiagramNode.geometryForType(this._type,new Point(0,0));
 		this._content="Content";
-	}
-
-	getGeometry():Geometry{
-		return this._geometry;
 	}
 	
 	cellRequirement():number{
@@ -247,7 +243,79 @@ export class GenericDiagramNode extends DiagramNode{
 		this._content=value;
 	}
 
-	clone(similarButDifferentContent?:boolean,offset?:Point):DiagramNode{
+	set geometry(value:Geometry){
+		this._geometry=value;
+		this._type=GenericDiagramNode.nodeTypeFromGeometryType(this._geometry.getGeometryType());
+	}
+
+	get geometry():Geometry{
+		return this._geometry;
+	}
+
+	set type(value:GenericDiagramNodeType){
+		this._type=value;
+		this._geometry=GenericDiagramNode.geometryForType(this._type,this._geometry.getCenter());
+	}
+
+	/** Returns type of node based on geometry */
+	static nodeTypeFromGeometryType(geometryType:GeometryType):GenericDiagramNodeType{
+		if(geometryType==GeometryType.Rect){
+			return GenericDiagramNodeType.Rectangle;
+		}else if(geometryType==GeometryType.Circle){
+			return GenericDiagramNodeType.Circle;
+		}//TODO add more
+		return GenericDiagramNodeType.Rectangle;//fallback
+	}
+
+	/** Returns a rectangle whose dimensions are based on the generic node type */
+	static geometryForType(nodeType:GenericDiagramNodeType,centerPosition:Point):Geometry{
+
+		var width=0;
+		var height=0;
+		switch(nodeType){
+			case GenericDiagramNodeType.Rectangle:
+				width=200;
+				height=30;
+				break;
+			case GenericDiagramNodeType.Circle:
+				width=100;
+				height=100;
+				break;
+			case GenericDiagramNodeType.Diamond:
+				width=100;
+				height=100;
+				break;
+			case GenericDiagramNodeType.Ellipse:
+				width=200;
+				height=60;
+				break;
+			case GenericDiagramNodeType.RoundedRectangle:
+				width=200;
+				height=60;
+				break;
+			case GenericDiagramNodeType.StickFigure:
+				width=80;
+				height=120;
+				break;
+			case GenericDiagramNodeType.Database:
+				width=80;
+				height=120;
+			case GenericDiagramNodeType.Parallelogram:
+				width=200;
+				height=80;
+				break;
+		}
+
+		//return geomtry shape based on type of node
+		if(nodeType==GenericDiagramNodeType.Rectangle){
+			return new Rect(centerPosition.x-width,centerPosition.y-height,width,height);
+		}else if(nodeType==GenericDiagramNodeType.Circle){
+			return new Circle(centerPosition,width);//fallback
+		}
+		return new Rect(centerPosition.x-width,centerPosition.y-height,width,height);//fallback
+	}
+
+	clone(similarButDifferentContent?:boolean,offset?:Point):GenericDiagramNode{
 		//prepare a content for the duplicate node
 		let newContent=this.content;
 		if (similarButDifferentContent != null && similarButDifferentContent == true) {
@@ -261,7 +329,7 @@ export class GenericDiagramNode extends DiagramNode{
 
 		//move it by offset if needed
 		if(offset!=null){
-			newNode.getGeometry().moveBy(offset);
+			newNode.geometry.moveBy(offset);
 		}
 		return newNode;
 	}

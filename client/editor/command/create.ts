@@ -28,7 +28,7 @@ export class CreateCommand extends Command {
 	execute():void{
 		//add all nodes that are in target
 		for(let node of this.target.nodeList){
-			node.getGeometry().moveBy(this.startingPosition);
+			node.geometry.moveBy(this.startingPosition);
 			this.workspace.worksheet.diagramModel.nodeList.push(node);
 		}
 
@@ -45,7 +45,7 @@ export class CreateCommand extends Command {
 		for(let node of this.target.nodeList){
 			let index=this.workspace.worksheet.diagramModel.nodeList.indexOf(node);
 			if(index!=-1){
-				node.getGeometry().moveBy(this.startingPosition.inverse());
+				node.geometry.moveBy(this.startingPosition.inverse());
 				this.workspace.worksheet.diagramModel.nodeList.splice(index,1);
 			}else{
 				console.error("Node to remove already doesn't exist");

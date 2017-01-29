@@ -1,8 +1,39 @@
 import { RadiansToDegrees,DegreesToRadians,LineEquation } from '../utility/common';
-import { TrackingPoint,RectTrackingPoint,CircleTrackingPoint,LineSegmentTrackingPoint } from './tracking-point';
+import { TrackingPoint,RectTrackingPoint,CircleTrackingPoint,LineSegmentTrackingPoint,EmptyTrackingPoint } from './tracking-point';
+
+/** Filled geometric shapes that usually make 'digramatic elements' implement this interface*/
+export interface Geometry{
+	/** Checks a point for containment within this geometry */
+	contains(p:Point):boolean;
+	/** Makes a tracking point specific to this geometry that can be used to get a point on the circumferance of this geometry */
+	getTrackingPoint():TrackingPoint;
+	/** Returns a rect that tells about this geometry's top left position and dimensions */
+	getBoundingBox():Rect;
+	/** Overlap check with a rectangle */
+	overlapsWithRect(rect:Rect):boolean;
+	/**Move by the difference in x and y axis specified by the point.Returns the same geometry to allow chaining */
+	moveBy(point:Point):Geometry;
+	/** Returns a deep copy of thie geometry. */
+	clone():Geometry;
+	/** Identifies type of geometry. */
+	getGeometryType():GeometryType;
+	/** Returns center of this geometry */
+	getCenter():Point;
+	/** Sets the position of this geometry anchored at center. Returns same geometry for chaining */
+	setPosition(center:Point):Geometry;
+}
+
+/** Geometry type specifies the type of geometry */
+export enum GeometryType{
+	Point=1,
+	Rect=2,
+	Circle=3,
+	LineSegment=4,
+}
+
 
 /** Generic model for storing 2d coordinates */
-export class Point{
+export class Point implements Geometry{
 	x:number;
 	y:number;
 
@@ -13,6 +44,36 @@ export class Point{
 
 	toString():string{
 		return "P("+this.x+","+this.y+")";
+	}
+
+	contains(p:Point):boolean{
+		return false;
+	}
+
+	getTrackingPoint():EmptyTrackingPoint{
+		return new EmptyTrackingPoint(this);
+	}
+
+	getBoundingBox():Rect{
+		return new Rect(0,0,0,0);
+	}
+
+	overlapsWithRect(rect:Rect):boolean{
+		return rect.contains(this);
+	}
+
+	getCenter():Point{
+		return this.clone();
+	}
+
+	getGeometryType():GeometryType{
+		return GeometryType.Point;
+	}
+
+	setPosition(center:Point):Point{
+		this.x=center.x;
+		this.y=center.y;
+		return this;
 	}
 
 	/** Finds the distance from another point */
@@ -117,6 +178,11 @@ export class Point{
 	clone():Point{
 		return new Point(this.x,this.y);
 	}
+
+	/** Returns an element wise difference between this point and argument */
+	minus(point:Point):Point{
+		return new Point(this.x - point.x, this.y - point.y);
+	}
 }
 
 /** Stores 2D position and holds links to previous and next point in series */
@@ -129,23 +195,14 @@ export class LinkedPoint extends Point{
 		var nextString=this.next==null?"NULL":"->";
 		return "<-"+super.toString()+"->";
 	}
+
+	setPosition(center:Point):LinkedPoint{
+		this.x=center.x;
+		this.y=center.y;
+		return this;
+	}
 }
 
-/** Filled geometric shapes that usually make 'digramatic elements' implement this interface*/
-export interface Geometry{
-	/** Checks a point for containment within this geometry */
-	contains(p:Point):boolean;
-	/** Makes a tracking point specific to this geometry that can be used to get a point on the circumferance of this geometry */
-	getTrackingPoint():TrackingPoint;
-	/** Returns a rect that tells about this geometry's top left position and dimensions */
-	getBoundingBox():Rect;
-	/** Overlap check with a rectangle */
-	overlapsWithRect(rect:Rect):boolean;
-	/**Move by the difference in x and y axis specified by the point.Returns the same geometry to allow chaining */
-	moveBy(point:Point):Geometry;
-	/** Returns a deep copy of thie geometry. */
-	clone():Geometry;
-}
 
 export class Rect implements Geometry{
 	x:number;
@@ -224,6 +281,20 @@ export class Rect implements Geometry{
 	clone():Rect{
 		return new Rect(this.x,this.y,this.width,this.height);
 	}
+
+	getGeometryType():GeometryType{
+		return GeometryType.Rect;
+	}
+
+	getCenter():Point{
+		return new Point(this.x+this.width/2,this.y+this.height/2);
+	}
+
+	setPosition(center:Point):Rect{
+		this.x=center.x-this.width/2;
+		this.y=center.y-this.height/2;
+		return this;
+	}
 }
 
 export class Circle implements Geometry{
@@ -263,6 +334,20 @@ export class Circle implements Geometry{
 
 	clone():Circle{
 		return new Circle(this.center.clone(),this.radius);
+	}
+
+	getGeometryType():GeometryType{
+		return GeometryType.Circle;
+	}
+
+	getCenter():Point{
+		return this.center.clone();
+	}
+
+	setPosition(center:Point):Circle{
+		this.center.x=center.x;
+		this.center.y=center.y;
+		return this;
 	}
 }
 
@@ -314,5 +399,20 @@ export class LineSegment implements Geometry{
 
 	clone():LineSegment{
 		return new LineSegment(this.start.clone(),this.end.clone());
+	}
+
+	getGeometryType():GeometryType{
+		return GeometryType.LineSegment;
+	}
+
+	getCenter():Point{
+		return new Point((this.start.x + this.end.x) / 2, (this.start.y + this.end.y) / 2);//midpoint
+	}
+
+	setPosition(center:Point):LineSegment{
+		let shift=this.getCenter().minus(center);
+		this.start.moveBy(shift);
+		this.end.moveBy(shift);
+		return this;
 	}
 }

@@ -34,7 +34,7 @@ export class MultipleSelectionComponent implements OnChanges{
 		let highY = 0;
 
 		for (let node of this.workspace.selection.nodeList) {
-			let boundingBox = node.getGeometry().getBoundingBox();
+			let boundingBox = node.geometry.getBoundingBox();
 			if (boundingBox.x < lowX) {
 				lowX = boundingBox.x;
 			}

@@ -1,8 +1,8 @@
 <div class="generic-block"
-[style.left.px]="node.rect.x"
-[style.top.px]="node.rect.y"
-[style.width.px]="node.rect.width"
-[style.height.px]="node.rect.height"
+[style.left.px]="node.geometry.getBoundingBox().x"
+[style.top.px]="node.geometry.getBoundingBox().y"
+[style.width.px]="node.geometry.getBoundingBox().width"
+[style.height.px]="node.geometry.getBoundingBox().height"
 [@selection]="node.selected?'selected':'unselected'" 
 (mousedown)="registerDragIntention()"
 (dblclick)="editContent($event)">
@@ -22,53 +22,53 @@
 </div>
 
 <!-- Linker associated with this box-->
-<!--<linker [geometry]="node.rect"></linker>-->
+<!--<linker [geometry]="node.geometry.getBoundingBox()"></linker>-->
 
 <!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->
 <!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->
-<resize-handle [rect]="node.rect" [placement]="1" 
+<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="1" 
 *ngIf="soloSelected" 
 (requestDragging)="registerDragIntention($event)" 
 (updateAllResizeHandlers)="updateAllResizeHandlers($event)">
 </resize-handle>
 
-<resize-handle [rect]="node.rect" [placement]="2"  
+<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="2"  
 *ngIf="soloSelected" 
 (requestDragging)="registerDragIntention($event)" 
 (updateAllResizeHandlers)="updateAllResizeHandlers($event)">
 </resize-handle>
 
-<resize-handle [rect]="node.rect" [placement]="3"  
+<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="3"  
 *ngIf="soloSelected" 
 (requestDragging)="registerDragIntention($event)" 
 (updateAllResizeHandlers)="updateAllResizeHandlers($event)">
 </resize-handle>
 
-<resize-handle [rect]="node.rect" [placement]="4"  
+<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="4"  
 *ngIf="soloSelected" 
 (requestDragging)="registerDragIntention($event)" 
 (updateAllResizeHandlers)="updateAllResizeHandlers($event)">
 </resize-handle>
 
-<resize-handle [rect]="node.rect" [placement]="5"  
+<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="5"  
 *ngIf="soloSelected" 
 (requestDragging)="registerDragIntention($event)" 
 (updateAllResizeHandlers)="updateAllResizeHandlers($event)">
 </resize-handle>
 
-<resize-handle [rect]="node.rect" [placement]="6"  
+<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="6"  
 *ngIf="soloSelected" 
 (requestDragging)="registerDragIntention($event)" 
 (updateAllResizeHandlers)="updateAllResizeHandlers($event)">
 </resize-handle>
 
-<resize-handle [rect]="node.rect" [placement]="7" 
+<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="7" 
 *ngIf="soloSelected" 
 (requestDragging)="registerDragIntention($event)" 
 (updateAllResizeHandlers)="updateAllResizeHandlers($event)">
 </resize-handle>
 
-<resize-handle [rect]="node.rect" [placement]="8"  
+<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="8"  
 *ngIf="soloSelected" 
 (requestDragging)="registerDragIntention($event)" 
 (updateAllResizeHandlers)="updateAllResizeHandlers($event)">
@@ -78,8 +78,8 @@
 	*ngIf="soloSelected" 
 	class="medium-bubble remove-operation"
 	(mousedown)="removeMe.emit(node)"
-	[style.left.px]="node.rect.topRight().offset(10,0).x"
-	[style.top.px]="node.rect.topRight().offset(0,-10).y"
+	[style.left.px]="node.geometry.getBoundingBox().topRight().offset(10,0).x"
+	[style.top.px]="node.geometry.getBoundingBox().topRight().offset(0,-10).y"
 	><!--TODO try to externalize offset values (10)-->
 
 </div>

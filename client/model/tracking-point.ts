@@ -16,11 +16,19 @@ export interface TrackingPoint{
 	 * 'distance' specifies how much the new tracking point's geometry will be away from this one.
 	 */
 	inverse(distance:number):TrackingPoint;
+
+	/** Returns the geometry tracked by this tracking point */
+	getGeometry():Geometry;
 }
 
 /** A simple point. Empty suggests that this tracking point is not tracking anything(geometry) */
 export class EmptyTrackingPoint implements TrackingPoint{
 	point:Point;
+
+	constructor(point:Point){
+		this.point=point;
+	}
+
 	pointOnGeometry():Point{
 		return this.point;
 	}
@@ -29,9 +37,11 @@ export class EmptyTrackingPoint implements TrackingPoint{
 	}
 
 	inverse(distance:number):TrackingPoint{
-		let clone=new EmptyTrackingPoint();
-		clone.point=new Point(this.point.x,this.point.y);
-		return clone;
+		return new EmptyTrackingPoint(this.point.clone());
+	}
+
+	getGeometry():Point{
+		return this.point;
 	}
 }
 
@@ -52,6 +62,10 @@ export class CenterTrackingPoint implements TrackingPoint{
 
 	inverse(distance:number):CenterTrackingPoint{
 		return new CenterTrackingPoint(this.geometry.clone().moveBy(new Point(distance,distance)));
+	}
+
+	getGeometry():Geometry{
+		return this.geometry;
 	}
 }
 
@@ -222,6 +236,10 @@ export class RectTrackingPoint implements TrackingPoint{
 		//return the inverse
 		return new RectTrackingPoint(copyRect, oppositeSide, 1 - this.fraction);
 	}
+
+	getGeometry():Rect{
+		return this.rect;
+	}
 }
 
 export class CircleTrackingPoint implements TrackingPoint{
@@ -250,6 +268,10 @@ export class CircleTrackingPoint implements TrackingPoint{
 		// this.circle.clone().moveBy(distance,distance);
 		return new CircleTrackingPoint(this.circle);
 	}
+
+	getGeometry():Circle{
+		return this.circle;
+	}
 }
 
 export class LineSegmentTrackingPoint implements TrackingPoint{
@@ -267,5 +289,9 @@ export class LineSegmentTrackingPoint implements TrackingPoint{
 
 	inverse(distance:number):LineSegmentTrackingPoint{
 		return new LineSegmentTrackingPoint();
+	}
+
+	getGeometry():LineSegment{
+		return this.lineSegment;
 	}
 }

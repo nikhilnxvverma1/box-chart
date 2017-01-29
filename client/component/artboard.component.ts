@@ -58,12 +58,12 @@ export class ArtboardComponent implements OnInit{
 		this.rectList.push(new Rect(1300,1000,200,50));
 
 		let genericNode1=new GenericDiagramNode(GenericDiagramNodeType.Rectangle);
-		genericNode1.rect.x=1500;
-		genericNode1.rect.y=1200;
+		let rect1=new Rect(1500,1200,200,50);
+		genericNode1.geometry=rect1;
 
 		let genericNode2=new GenericDiagramNode(GenericDiagramNodeType.RoundedRectangle);
-		genericNode2.rect.x=1800;
-		genericNode2.rect.y=1000;
+		let rect2=new Rect(1800,1000,200,50);
+		genericNode2.geometry=rect2;
 
 		let edge=new DiagramEdge();
 		edge.from=genericNode1;

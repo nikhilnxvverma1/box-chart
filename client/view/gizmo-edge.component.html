@@ -1,14 +1,15 @@
-<div class="link-circle" 
+<!--<div class="link-circle" 
 	(mousedown)="linkNodesByDragging($event)"
-	[style.left.px]="fromNode.getGeometry().getTrackingPoint().gravitateTowards(cursorPosition,30).x"
-	[style.top.px]="fromNode.getGeometry().getTrackingPoint().gravitateTowards(cursorPosition,30).y"
+	[style.left.px]="fromNode.geometry.getTrackingPoint().gravitateTowards(cursorPosition,30).x"
+	[style.top.px]="fromNode.geometry.getTrackingPoint().gravitateTowards(cursorPosition,30).y"
 	[style.width.px]="10"
 	[style.height.px]="10">
 
 </div>
 
 <line-segment
-	[start]="fromNode.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition)" 
-	[end]="fromNode.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30)"
+	[start]="fromNode.geometry.getTrackingPoint().gravitateTowards(workspace.cursorPosition)" 
+	[end]="fromNode.geometry.getTrackingPoint().gravitateTowards(workspace.cursorPosition,30)"
 	>
-</line-segment>
+</line-segment>-->
+gizmo edge

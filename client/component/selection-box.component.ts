@@ -68,7 +68,7 @@ export class SelectionBoxComponent {
 
 		//select all overlapping nodes
 		for(let node of this.workspace.worksheet.diagramModel.nodeList){
-			if(node.getGeometry().overlapsWithRect(this.rect)){
+			if(node.geometry.overlapsWithRect(this.rect)){
 				this.workspace.addNodeToSelection(node);
 				count++;
 			}
