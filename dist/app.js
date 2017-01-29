@@ -6366,7 +6366,6 @@ webpackJsonp([0],[
 	    };
 	    DiagramModel.prototype.toJSON = function () {
 	        var json = {};
-	        json.rid = this.rid;
 	        //set an id on each node and auto increment it
 	        var autoId = 0;
 	        //add all nodes to json after setting their ids 

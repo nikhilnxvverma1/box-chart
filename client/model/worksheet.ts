@@ -38,7 +38,6 @@ export class DiagramModel{
 
 	toJSON():any{
 		let json:any={};
-		json.rid=this.rid;
 		
 		//set an id on each node and auto increment it
 		let autoId=0;
