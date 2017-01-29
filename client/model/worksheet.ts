@@ -4,9 +4,6 @@ import { TrackingPoint,CenterTrackingPoint } from './tracking-point';
 import { ObjectModel, ClassObjectData, InterfaceObjectData, Collection } from './object-model';
 import * as util from '../utility/common';
 
-//the following constants are used to identify objects of this data model in JSON
-export const WorksheetType="Worksheet";//TODO may not be required
-
 /** Containment of all worksheet related data is maintained in the model. */
 export class Worksheet{
 	/**Record ID in DB */
@@ -23,8 +20,7 @@ export class Worksheet{
  * even if they are not part of the worksheet.
  */
 export class DiagramModel{
-	/** Record Id in DB. Only applicable if model belongs to a worksheet.*/
-	rid:string;
+	
 	/** List of nodes in graph */
 	nodeList:DiagramNode[]=[];
 	/** List of edges in graph */
@@ -38,6 +34,30 @@ export class DiagramModel{
 	/** Checks weather a given edge exists in this diagram node or not */
 	containsEdge(edge:DiagramEdge):boolean{
 		return this.edgeList.indexOf(edge)!=-1;
+	}
+
+	toJSON():any{
+		let json:any={};
+		json.rid=this.rid;
+		
+		//set an id on each node and auto increment it
+		let autoId=0;
+
+		//add all nodes to json after setting their ids 
+		json.nodeList=[];
+		//this must be done before nodes because edges have use node's ids for inter referencing
+		for(let node of this.nodeList){
+			node.id=autoId++;
+			json.nodeList.push(node.toJSON());
+		}
+
+		//add all edges to json after setting their ids
+		json.edgeList=[];
+		for(let edge of this.edgeList){
+			edge.id=autoId++;
+			json.edgeList.push(edge.toJSON());
+		}
+		return json;
 	}
 }
 
@@ -61,6 +81,12 @@ export class Color{
 	}
 }
 
+/** Identifies the type of node */
+export enum DiagramNodeType{
+	GenericDiagramNode=1,
+	//TODO add more if needed, for now, everything is a GenericDiagramNode
+}
+
 /** 
  * A node in the diagram graph that contains both the incoming and outgoing edges.
  * A diagram node is also a visual block to display and additionally also holds geometry.
@@ -69,7 +95,7 @@ export abstract class DiagramNode{
 	/** Used exclusively as a flag to tell weather this node is selected or not. IMPORTANT only 'Workspace' class should toggle this. */
 	selected:boolean=false;
 	/** A unique identifier for this node */
-	id:string;
+	id:number;
 	/** A string that describes this node */
 	label:string;
 	/** Color of the background */
@@ -78,18 +104,16 @@ export abstract class DiagramNode{
 	foreground=new Color(0,0,0,0);
 	/** Color of the stroke */
 	stroke=new Color(0,0,0,0);
-
-	incomingEdges:DiagramEdge[]=[];//TODO remove
-	outgoingEdges:DiagramEdge[]=[];//TODO remove
 	/** Gives the geometrical shape for this diagram block */
 	geometry?:Geometry;
-	// abstract getGeometry():Geometry;
-	/** Each diagram block has a certain cell requirement which can be found using this method */
-	abstract cellRequirement():number;//TODO remove
 	/** Creates a duplicate of this node with an optional shift and slightly different content. */
 	abstract clone(similarButDifferentContent?:boolean,offset?:Point):DiagramNode;
 	/** Based on type, a retangular specified bounding size sets the dimensions of this node. */
 	abstract setBoundingSize(rect:Rect):void;
+	/** Returns JSON representation for this node */
+	abstract toJSON():any;
+	/** Identifies the type of node */
+	abstract get type():DiagramNodeType;
 }
 
 /** 
@@ -100,7 +124,8 @@ export class DiagramEdge{
 
 	/** Used exclusively as a flag to tell weather this node is selected or not. IMPORTANT only 'Workspace' class should toggle this. */
 	selected:boolean=false;
-
+	/** A unique identifier for this node */
+	id:number;
 	private _from:DiagramNode;
 	private _to:DiagramNode;
 	private _fromPoint:TrackingPoint;
@@ -147,6 +172,17 @@ export class DiagramEdge{
 
 	set toPoint(value:TrackingPoint){
 		this._toPoint=value;
+	}
+
+	toJSON():any{
+		let json:any={};
+		json.id=this.id;
+		json.label=this.label;
+		json.fromId=this.from.id;
+		json.toId=this.to.id;
+		json.fromPoint=this.fromPoint;
+		json.toPoint=this.toPoint;
+		return json;
 	}
 }
 
@@ -211,15 +247,15 @@ export class GenericDiagramNode extends DiagramNode{
 	private static readonly Width=200;
 	private static readonly Height=30;
 
-	private _type:GenericDiagramNodeType;
+	private _shapeType:GenericDiagramNodeType;
 	private _rect:Rect;
 	private _content:string;
 	private _geometry:Geometry;
 
 	constructor(type:GenericDiagramNodeType){
 		super();
-		this._type=type;
-		this._geometry=GenericDiagramNode.geometryForType(this._type,new Point(0,0));
+		this._shapeType=type;
+		this._geometry=GenericDiagramNode.geometryForType(this._shapeType,new Point(0,0));
 		this._content="Content";
 	}
 	
@@ -231,8 +267,8 @@ export class GenericDiagramNode extends DiagramNode{
 		return this._rect;
 	}
 
-	get type():GenericDiagramNodeType{
-		return this._type;
+	get shapeType():GenericDiagramNodeType{
+		return this._shapeType;
 	}
 
 	get content():string{
@@ -245,16 +281,20 @@ export class GenericDiagramNode extends DiagramNode{
 
 	set geometry(value:Geometry){
 		this._geometry=value;
-		this._type=GenericDiagramNode.nodeTypeFromGeometryType(this._geometry.getGeometryType());
+		this._shapeType=GenericDiagramNode.nodeTypeFromGeometryType(this._geometry.type);
 	}
 
 	get geometry():Geometry{
 		return this._geometry;
 	}
 
-	set type(value:GenericDiagramNodeType){
-		this._type=value;
-		this._geometry=GenericDiagramNode.geometryForType(this._type,this._geometry.getCenter());
+	set shapeType(value:GenericDiagramNodeType){
+		this._shapeType=value;
+		this._geometry=GenericDiagramNode.geometryForType(this._shapeType,this._geometry.getCenter());
+	}
+
+	get type():DiagramNodeType{
+		return DiagramNodeType.GenericDiagramNode;
 	}
 
 	/** Returns type of node based on geometry */
@@ -323,7 +363,7 @@ export class GenericDiagramNode extends DiagramNode{
 		}
 
 		//duplicate the node with the same type
-		let newNode=new GenericDiagramNode(this.type);
+		let newNode=new GenericDiagramNode(this.shapeType);
 		newNode.content=newContent;
 		newNode.selected=false;
 
@@ -336,6 +376,28 @@ export class GenericDiagramNode extends DiagramNode{
 
 	setBoundingSize(rect:Rect):void{
 		//TODO
+	}
+
+	toJSON():any{
+		let json:any={};
+		json.type=this.type;
+		json.id=this.id;
+		json.label=this.label;
+		json.background=this.background;
+		json.foreground=this.foreground;
+		json.stroke=this.stroke;
+		json.geometry=this.geometry.toJSON();
+		json.shapeType=this.shapeType;
+		json.content=this.content;
+		return json;
+	}
+
+	private jsonReplacer(key:string,value:any):any{
+
+	}
+
+	nodeType():DiagramNodeType{
+		return DiagramNodeType.GenericDiagramNode;
 	}
 }
 
@@ -370,6 +432,14 @@ export class ClassDiagramNode extends DiagramNode{
 	setBoundingSize(rect:Rect):void{
 		this.rect=rect;
 	}
+
+	toJSON():any{
+		return JSON.stringify(this);
+	}
+
+	get type():DiagramNodeType{
+		return DiagramNodeType.GenericDiagramNode;
+	}
 }
 
 /** A rect diagram node used for holding interface definition, its associated geometry and collapse flag for method block*/
@@ -399,6 +469,14 @@ export class InterfaceDiagramNode extends DiagramNode{
 	setBoundingSize(rect:Rect):void{
 		this.rect=rect;
 	}
+
+	toJSON():any{
+		return JSON.stringify(this);
+	}
+
+	get type():DiagramNodeType{
+		return DiagramNodeType.GenericDiagramNode;
+	}
 }
 
 /** A single line comment block thats put in a rect */
@@ -421,6 +499,14 @@ export class SingleLineComment extends DiagramNode{
 	setBoundingSize(rect:Rect):void{
 		this.rect=rect;
 	}
+
+	toJSON():any{
+		return JSON.stringify(this);
+	}
+
+	get type():DiagramNodeType{
+		return DiagramNodeType.GenericDiagramNode;
+	}
 }
 
 /** A multi line comment block thats put in a rect */
@@ -442,6 +528,14 @@ export class MultiLineComment extends DiagramNode{
 	}
 	setBoundingSize(rect:Rect):void{
 		this.rect=rect;
+	}
+
+	toJSON():any{
+		return JSON.stringify(this);
+	}
+
+	get type():DiagramNodeType{
+		return DiagramNodeType.GenericDiagramNode;
 	}
 }
 
@@ -477,6 +571,12 @@ export class ClassObjectDiagram extends ObjectDiagram{
 		return 1+1+this.classObject.fieldDataList.length;
 	}
 
+	toJSON():any{
+		return JSON.stringify(this);
+	}
+	get type():DiagramNodeType{
+		return DiagramNodeType.GenericDiagramNode;
+	}
 }
 
 export class InterfaceObjectDiagram extends ObjectDiagram{
@@ -485,5 +585,13 @@ export class InterfaceObjectDiagram extends ObjectDiagram{
 	cellRequirement():number{
 		//header + description 
 		return 1+1;
+	}
+
+	toJSON():any{
+		return JSON.stringify(this);
+	}
+
+	get type():DiagramNodeType{
+		return DiagramNodeType.GenericDiagramNode;
 	}
 }

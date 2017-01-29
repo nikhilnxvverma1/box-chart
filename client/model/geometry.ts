@@ -15,12 +15,14 @@ export interface Geometry{
 	moveBy(point:Point):Geometry;
 	/** Returns a deep copy of thie geometry. */
 	clone():Geometry;
-	/** Identifies type of geometry. */
-	getGeometryType():GeometryType;
 	/** Returns center of this geometry */
 	getCenter():Point;
 	/** Sets the position of this geometry anchored at center. Returns same geometry for chaining */
 	setPosition(center:Point):Geometry;
+	/**Identifies this geometry */
+	type:GeometryType;
+	/**Returns JSON representation of this class object */
+	toJSON():any;
 }
 
 /** Geometry type specifies the type of geometry */
@@ -66,7 +68,7 @@ export class Point implements Geometry{
 		return this.clone();
 	}
 
-	getGeometryType():GeometryType{
+	get type():GeometryType{
 		return GeometryType.Point;
 	}
 
@@ -183,6 +185,14 @@ export class Point implements Geometry{
 	minus(point:Point):Point{
 		return new Point(this.x - point.x, this.y - point.y);
 	}
+
+	toJSON():any{
+		let json:any={};
+		json.type=this.type;
+		json.x=this.x;
+		json.y=this.y;
+		return json;
+	}
 }
 
 /** Stores 2D position and holds links to previous and next point in series */
@@ -282,7 +292,7 @@ export class Rect implements Geometry{
 		return new Rect(this.x,this.y,this.width,this.height);
 	}
 
-	getGeometryType():GeometryType{
+	get type():GeometryType{
 		return GeometryType.Rect;
 	}
 
@@ -294,6 +304,16 @@ export class Rect implements Geometry{
 		this.x=center.x-this.width/2;
 		this.y=center.y-this.height/2;
 		return this;
+	}
+
+	toJSON():any{
+		let json:any={};
+		json.type=this.type;
+		json.x=this.x;
+		json.y=this.y;
+		json.width=this.width;
+		json.height=this.height;
+		return json;
 	}
 }
 
@@ -314,7 +334,7 @@ export class Circle implements Geometry{
 		return new Point(this.center.x,this.center.y).distance(p) <= this.radius;
 	}
 
-	getTrackingPoint():TrackingPoint{
+	getTrackingPoint():CircleTrackingPoint{
 		return new CircleTrackingPoint(this);
 	}
 
@@ -336,7 +356,7 @@ export class Circle implements Geometry{
 		return new Circle(this.center.clone(),this.radius);
 	}
 
-	getGeometryType():GeometryType{
+	get type():GeometryType{
 		return GeometryType.Circle;
 	}
 
@@ -348,6 +368,14 @@ export class Circle implements Geometry{
 		this.center.x=center.x;
 		this.center.y=center.y;
 		return this;
+	}
+
+	toJSON():any{
+		let json:any={};
+		json.type=this.type;
+		json.center=this.center.toJSON();
+		json.radius=this.radius;
+		return json;
 	}
 }
 
@@ -401,7 +429,7 @@ export class LineSegment implements Geometry{
 		return new LineSegment(this.start.clone(),this.end.clone());
 	}
 
-	getGeometryType():GeometryType{
+	get type():GeometryType{
 		return GeometryType.LineSegment;
 	}
 
@@ -414,5 +442,13 @@ export class LineSegment implements Geometry{
 		this.start.moveBy(shift);
 		this.end.moveBy(shift);
 		return this;
+	}
+
+	toJSON():any{
+		let json:any={};
+		json.type=this.type;
+		json.start=this.start.toJSON();
+		json.end=this.end.toJSON();
+		return json;
 	}
 }

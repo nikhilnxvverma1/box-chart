@@ -6337,8 +6337,6 @@ webpackJsonp([0],[
 	var geometry_1 = __webpack_require__(71);
 	var tracking_point_1 = __webpack_require__(74);
 	var util = __webpack_require__(72);
-	//the following constants are used to identify objects of this data model in JSON
-	exports.WorksheetType = "Worksheet"; //TODO may not be required
 	/** Containment of all worksheet related data is maintained in the model. */
 	var Worksheet = (function () {
 	    function Worksheet() {
@@ -6366,6 +6364,28 @@ webpackJsonp([0],[
 	    DiagramModel.prototype.containsEdge = function (edge) {
 	        return this.edgeList.indexOf(edge) != -1;
 	    };
+	    DiagramModel.prototype.toJSON = function () {
+	        var json = {};
+	        json.rid = this.rid;
+	        //set an id on each node and auto increment it
+	        var autoId = 0;
+	        //add all nodes to json after setting their ids 
+	        json.nodeList = [];
+	        //this must be done before nodes because edges have use node's ids for inter referencing
+	        for (var _i = 0, _a = this.nodeList; _i < _a.length; _i++) {
+	            var node = _a[_i];
+	            node.id = autoId++;
+	            json.nodeList.push(node.toJSON());
+	        }
+	        //add all edges to json after setting their ids
+	        json.edgeList = [];
+	        for (var _b = 0, _c = this.edgeList; _b < _c.length; _b++) {
+	            var edge = _c[_b];
+	            edge.id = autoId++;
+	            json.edgeList.push(edge.toJSON());
+	        }
+	        return json;
+	    };
 	    return DiagramModel;
 	}());
 	exports.DiagramModel = DiagramModel;
@@ -6388,6 +6408,11 @@ webpackJsonp([0],[
 	    return Color;
 	}());
 	exports.Color = Color;
+	/** Identifies the type of node */
+	(function (DiagramNodeType) {
+	    DiagramNodeType[DiagramNodeType["GenericDiagramNode"] = 1] = "GenericDiagramNode";
+	})(exports.DiagramNodeType || (exports.DiagramNodeType = {}));
+	var DiagramNodeType = exports.DiagramNodeType;
 	/**
 	 * A node in the diagram graph that contains both the incoming and outgoing edges.
 	 * A diagram node is also a visual block to display and additionally also holds geometry.
@@ -6402,9 +6427,13 @@ webpackJsonp([0],[
 	        this.foreground = new Color(0, 0, 0, 0);
 	        /** Color of the stroke */
 	        this.stroke = new Color(0, 0, 0, 0);
-	        this.incomingEdges = []; //TODO remove
-	        this.outgoingEdges = []; //TODO remove
 	    }
+	    Object.defineProperty(DiagramNode.prototype, "type", {
+	        /** Identifies the type of node */
+	        get: function () { },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    return DiagramNode;
 	}());
 	exports.DiagramNode = DiagramNode;
@@ -6459,6 +6488,16 @@ webpackJsonp([0],[
 	        enumerable: true,
 	        configurable: true
 	    });
+	    DiagramEdge.prototype.toJSON = function () {
+	        var json = {};
+	        json.id = this.id;
+	        json.label = this.label;
+	        json.fromId = this.from.id;
+	        json.toId = this.to.id;
+	        json.fromPoint = this.fromPoint;
+	        json.toPoint = this.toPoint;
+	        return json;
+	    };
 	    return DiagramEdge;
 	}());
 	exports.DiagramEdge = DiagramEdge;
@@ -6521,8 +6560,8 @@ webpackJsonp([0],[
 	    __extends(GenericDiagramNode, _super);
 	    function GenericDiagramNode(type) {
 	        _super.call(this);
-	        this._type = type;
-	        this._geometry = GenericDiagramNode.geometryForType(this._type, new geometry_1.Point(0, 0));
+	        this._shapeType = type;
+	        this._geometry = GenericDiagramNode.geometryForType(this._shapeType, new geometry_1.Point(0, 0));
 	        this._content = "Content";
 	    }
 	    GenericDiagramNode.prototype.cellRequirement = function () {
@@ -6535,13 +6574,13 @@ webpackJsonp([0],[
 	        enumerable: true,
 	        configurable: true
 	    });
-	    Object.defineProperty(GenericDiagramNode.prototype, "type", {
+	    Object.defineProperty(GenericDiagramNode.prototype, "shapeType", {
 	        get: function () {
-	            return this._type;
+	            return this._shapeType;
 	        },
 	        set: function (value) {
-	            this._type = value;
-	            this._geometry = GenericDiagramNode.geometryForType(this._type, this._geometry.getCenter());
+	            this._shapeType = value;
+	            this._geometry = GenericDiagramNode.geometryForType(this._shapeType, this._geometry.getCenter());
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -6562,7 +6601,14 @@ webpackJsonp([0],[
 	        },
 	        set: function (value) {
 	            this._geometry = value;
-	            this._type = GenericDiagramNode.nodeTypeFromGeometryType(this._geometry.getGeometryType());
+	            this._shapeType = GenericDiagramNode.nodeTypeFromGeometryType(this._geometry.type);
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(GenericDiagramNode.prototype, "type", {
+	        get: function () {
+	            return DiagramNodeType.GenericDiagramNode;
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -6630,7 +6676,7 @@ webpackJsonp([0],[
 	            newContent = util.deriveSimilarButDifferentString(this.content);
 	        }
 	        //duplicate the node with the same type
-	        var newNode = new GenericDiagramNode(this.type);
+	        var newNode = new GenericDiagramNode(this.shapeType);
 	        newNode.content = newContent;
 	        newNode.selected = false;
 	        //move it by offset if needed
@@ -6641,6 +6687,24 @@ webpackJsonp([0],[
 	    };
 	    GenericDiagramNode.prototype.setBoundingSize = function (rect) {
 	        //TODO
+	    };
+	    GenericDiagramNode.prototype.toJSON = function () {
+	        var json = {};
+	        json.type = this.type;
+	        json.id = this.id;
+	        json.label = this.label;
+	        json.background = this.background;
+	        json.foreground = this.foreground;
+	        json.stroke = this.stroke;
+	        json.geometry = this.geometry.toJSON();
+	        json.shapeType = this.shapeType;
+	        json.content = this.content;
+	        return json;
+	    };
+	    GenericDiagramNode.prototype.jsonReplacer = function (key, value) {
+	    };
+	    GenericDiagramNode.prototype.nodeType = function () {
+	        return DiagramNodeType.GenericDiagramNode;
 	    };
 	    GenericDiagramNode.Width = 200;
 	    GenericDiagramNode.Height = 30;
@@ -6669,6 +6733,16 @@ webpackJsonp([0],[
 	    ClassDiagramNode.prototype.setBoundingSize = function (rect) {
 	        this.rect = rect;
 	    };
+	    ClassDiagramNode.prototype.toJSON = function () {
+	        return JSON.stringify(this);
+	    };
+	    Object.defineProperty(ClassDiagramNode.prototype, "type", {
+	        get: function () {
+	            return DiagramNodeType.GenericDiagramNode;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    ClassDiagramNode.DEFAULT_WIDTH = 300;
 	    return ClassDiagramNode;
 	}(DiagramNode));
@@ -6694,6 +6768,16 @@ webpackJsonp([0],[
 	    InterfaceDiagramNode.prototype.setBoundingSize = function (rect) {
 	        this.rect = rect;
 	    };
+	    InterfaceDiagramNode.prototype.toJSON = function () {
+	        return JSON.stringify(this);
+	    };
+	    Object.defineProperty(InterfaceDiagramNode.prototype, "type", {
+	        get: function () {
+	            return DiagramNodeType.GenericDiagramNode;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    return InterfaceDiagramNode;
 	}(DiagramNode));
 	exports.InterfaceDiagramNode = InterfaceDiagramNode;
@@ -6715,6 +6799,16 @@ webpackJsonp([0],[
 	    SingleLineComment.prototype.setBoundingSize = function (rect) {
 	        this.rect = rect;
 	    };
+	    SingleLineComment.prototype.toJSON = function () {
+	        return JSON.stringify(this);
+	    };
+	    Object.defineProperty(SingleLineComment.prototype, "type", {
+	        get: function () {
+	            return DiagramNodeType.GenericDiagramNode;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    return SingleLineComment;
 	}(DiagramNode));
 	exports.SingleLineComment = SingleLineComment;
@@ -6737,6 +6831,16 @@ webpackJsonp([0],[
 	    MultiLineComment.prototype.setBoundingSize = function (rect) {
 	        this.rect = rect;
 	    };
+	    MultiLineComment.prototype.toJSON = function () {
+	        return JSON.stringify(this);
+	    };
+	    Object.defineProperty(MultiLineComment.prototype, "type", {
+	        get: function () {
+	            return DiagramNodeType.GenericDiagramNode;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    return MultiLineComment;
 	}(DiagramNode));
 	exports.MultiLineComment = MultiLineComment;
@@ -6768,6 +6872,16 @@ webpackJsonp([0],[
 	        //header + description + field data list
 	        return 1 + 1 + this.classObject.fieldDataList.length;
 	    };
+	    ClassObjectDiagram.prototype.toJSON = function () {
+	        return JSON.stringify(this);
+	    };
+	    Object.defineProperty(ClassObjectDiagram.prototype, "type", {
+	        get: function () {
+	            return DiagramNodeType.GenericDiagramNode;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    return ClassObjectDiagram;
 	}(ObjectDiagram));
 	exports.ClassObjectDiagram = ClassObjectDiagram;
@@ -6780,6 +6894,16 @@ webpackJsonp([0],[
 	        //header + description 
 	        return 1 + 1;
 	    };
+	    InterfaceObjectDiagram.prototype.toJSON = function () {
+	        return JSON.stringify(this);
+	    };
+	    Object.defineProperty(InterfaceObjectDiagram.prototype, "type", {
+	        get: function () {
+	            return DiagramNodeType.GenericDiagramNode;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    return InterfaceObjectDiagram;
 	}(ObjectDiagram));
 	exports.InterfaceObjectDiagram = InterfaceObjectDiagram;
@@ -6829,9 +6953,13 @@ webpackJsonp([0],[
 	    Point.prototype.getCenter = function () {
 	        return this.clone();
 	    };
-	    Point.prototype.getGeometryType = function () {
-	        return GeometryType.Point;
-	    };
+	    Object.defineProperty(Point.prototype, "type", {
+	        get: function () {
+	            return GeometryType.Point;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    Point.prototype.setPosition = function (center) {
 	        this.x = center.x;
 	        this.y = center.y;
@@ -6932,6 +7060,13 @@ webpackJsonp([0],[
 	    Point.prototype.minus = function (point) {
 	        return new Point(this.x - point.x, this.y - point.y);
 	    };
+	    Point.prototype.toJSON = function () {
+	        var json = {};
+	        json.type = this.type;
+	        json.x = this.x;
+	        json.y = this.y;
+	        return json;
+	    };
 	    return Point;
 	}());
 	exports.Point = Point;
@@ -7016,9 +7151,13 @@ webpackJsonp([0],[
 	    Rect.prototype.clone = function () {
 	        return new Rect(this.x, this.y, this.width, this.height);
 	    };
-	    Rect.prototype.getGeometryType = function () {
-	        return GeometryType.Rect;
-	    };
+	    Object.defineProperty(Rect.prototype, "type", {
+	        get: function () {
+	            return GeometryType.Rect;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    Rect.prototype.getCenter = function () {
 	        return new Point(this.x + this.width / 2, this.y + this.height / 2);
 	    };
@@ -7026,6 +7165,15 @@ webpackJsonp([0],[
 	        this.x = center.x - this.width / 2;
 	        this.y = center.y - this.height / 2;
 	        return this;
+	    };
+	    Rect.prototype.toJSON = function () {
+	        var json = {};
+	        json.type = this.type;
+	        json.x = this.x;
+	        json.y = this.y;
+	        json.width = this.width;
+	        json.height = this.height;
+	        return json;
 	    };
 	    return Rect;
 	}());
@@ -7058,9 +7206,13 @@ webpackJsonp([0],[
 	    Circle.prototype.clone = function () {
 	        return new Circle(this.center.clone(), this.radius);
 	    };
-	    Circle.prototype.getGeometryType = function () {
-	        return GeometryType.Circle;
-	    };
+	    Object.defineProperty(Circle.prototype, "type", {
+	        get: function () {
+	            return GeometryType.Circle;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    Circle.prototype.getCenter = function () {
 	        return this.center.clone();
 	    };
@@ -7068,6 +7220,13 @@ webpackJsonp([0],[
 	        this.center.x = center.x;
 	        this.center.y = center.y;
 	        return this;
+	    };
+	    Circle.prototype.toJSON = function () {
+	        var json = {};
+	        json.type = this.type;
+	        json.center = this.center.toJSON();
+	        json.radius = this.radius;
+	        return json;
 	    };
 	    return Circle;
 	}());
@@ -7109,9 +7268,13 @@ webpackJsonp([0],[
 	    LineSegment.prototype.clone = function () {
 	        return new LineSegment(this.start.clone(), this.end.clone());
 	    };
-	    LineSegment.prototype.getGeometryType = function () {
-	        return GeometryType.LineSegment;
-	    };
+	    Object.defineProperty(LineSegment.prototype, "type", {
+	        get: function () {
+	            return GeometryType.LineSegment;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    LineSegment.prototype.getCenter = function () {
 	        return new Point((this.start.x + this.end.x) / 2, (this.start.y + this.end.y) / 2); //midpoint
 	    };
@@ -7120,6 +7283,13 @@ webpackJsonp([0],[
 	        this.start.moveBy(shift);
 	        this.end.moveBy(shift);
 	        return this;
+	    };
+	    LineSegment.prototype.toJSON = function () {
+	        var json = {};
+	        json.type = this.type;
+	        json.start = this.start.toJSON();
+	        json.end = this.end.toJSON();
+	        return json;
 	    };
 	    LineSegment.closeEnoughDistance = 10;
 	    return LineSegment;
@@ -7559,6 +7729,15 @@ webpackJsonp([0],[
 	"use strict";
 	var common_1 = __webpack_require__(72);
 	var geometry_1 = __webpack_require__(71);
+	/** Identifies the tracking point */
+	(function (TrackingPointType) {
+	    TrackingPointType[TrackingPointType["Empty"] = 1] = "Empty";
+	    TrackingPointType[TrackingPointType["Center"] = 2] = "Center";
+	    TrackingPointType[TrackingPointType["Rect"] = 3] = "Rect";
+	    TrackingPointType[TrackingPointType["Circle"] = 4] = "Circle";
+	    TrackingPointType[TrackingPointType["LineSegment"] = 5] = "LineSegment";
+	})(exports.TrackingPointType || (exports.TrackingPointType = {}));
+	var TrackingPointType = exports.TrackingPointType;
 	/** A simple point. Empty suggests that this tracking point is not tracking anything(geometry) */
 	var EmptyTrackingPoint = (function () {
 	    function EmptyTrackingPoint(point) {
@@ -7576,6 +7755,19 @@ webpackJsonp([0],[
 	    };
 	    EmptyTrackingPoint.prototype.getGeometry = function () {
 	        return this.point;
+	    };
+	    Object.defineProperty(EmptyTrackingPoint.prototype, "type", {
+	        get: function () {
+	            return TrackingPointType.Empty;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    EmptyTrackingPoint.prototype.toJSON = function () {
+	        var json = {};
+	        json.type = this.type;
+	        json.point = JSON.stringify(this.point);
+	        return json;
 	    };
 	    return EmptyTrackingPoint;
 	}());
@@ -7597,6 +7789,19 @@ webpackJsonp([0],[
 	    };
 	    CenterTrackingPoint.prototype.getGeometry = function () {
 	        return this.geometry;
+	    };
+	    Object.defineProperty(CenterTrackingPoint.prototype, "type", {
+	        get: function () {
+	            return TrackingPointType.Circle;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    CenterTrackingPoint.prototype.toJSON = function () {
+	        var json = {};
+	        json.type = this.type;
+	        json.point = JSON.stringify(this.geometry);
+	        return json;
 	    };
 	    return CenterTrackingPoint;
 	}());
@@ -7775,6 +7980,21 @@ webpackJsonp([0],[
 	    RectTrackingPoint.prototype.getGeometry = function () {
 	        return this.rect;
 	    };
+	    Object.defineProperty(RectTrackingPoint.prototype, "type", {
+	        get: function () {
+	            return TrackingPointType.Rect;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    RectTrackingPoint.prototype.toJSON = function () {
+	        var json = {};
+	        json.type = this.type;
+	        json.rect = this.rect;
+	        json.fraction = this.fraction;
+	        json.side = this.side;
+	        return json;
+	    };
 	    return RectTrackingPoint;
 	}());
 	exports.RectTrackingPoint = RectTrackingPoint;
@@ -7799,6 +8019,20 @@ webpackJsonp([0],[
 	    CircleTrackingPoint.prototype.getGeometry = function () {
 	        return this.circle;
 	    };
+	    Object.defineProperty(CircleTrackingPoint.prototype, "type", {
+	        get: function () {
+	            return TrackingPointType.Circle;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    CircleTrackingPoint.prototype.toJSON = function () {
+	        var json = {};
+	        json.type = this.type;
+	        json.angle = this.angle;
+	        json.circle = this.circle;
+	        return json;
+	    };
 	    return CircleTrackingPoint;
 	}());
 	exports.CircleTrackingPoint = CircleTrackingPoint;
@@ -7817,6 +8051,20 @@ webpackJsonp([0],[
 	    };
 	    LineSegmentTrackingPoint.prototype.getGeometry = function () {
 	        return this.lineSegment;
+	    };
+	    Object.defineProperty(LineSegmentTrackingPoint.prototype, "type", {
+	        get: function () {
+	            return TrackingPointType.LineSegment;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    LineSegmentTrackingPoint.prototype.toJSON = function () {
+	        var json = {};
+	        json.type = this.type;
+	        json.lineSegment = this.lineSegment;
+	        json.fraction = this.fraction;
+	        return json;
 	    };
 	    return LineSegmentTrackingPoint;
 	}());
@@ -8169,6 +8417,8 @@ webpackJsonp([0],[
 	        this.workspace.worksheet.diagramModel.nodeList.push(genericNode1);
 	        this.workspace.worksheet.diagramModel.nodeList.push(genericNode2);
 	        this.workspace.worksheet.diagramModel.edgeList.push(edge);
+	        var jsonModel = this.workspace.worksheet.diagramModel.toJSON();
+	        console.log(jsonModel);
 	    };
 	    ArtboardComponent.prototype.doubleClickedArtboard = function (event) {
 	        this.creationDrawerLocation = new geometry_2.Point(event.offsetX - creationDrawer.WIDTH / 2, event.offsetY - creationDrawer.HEIGHT / 2);
@@ -11335,7 +11585,7 @@ webpackJsonp([0],[
 /* 120 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.geometry.getBoundingBox().x\"\n[style.top.px]=\"node.geometry.getBoundingBox().y\"\n[style.width.px]=\"node.geometry.getBoundingBox().width\"\n[style.height.px]=\"node.geometry.getBoundingBox().height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"1\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"2\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"3\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"4\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"5\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"6\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"7\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"8\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<!-- Gizmo Edge associated with this Node-->\n<gizmo-edge \n\t*ngIf=\"soloSelected\" \n\t[workspace]=\"workspace\"\n\t[fromNode]=\"node\"\n\t[positionOfTheCursor]=\"workspace.cursorPosition\"\n\t(linkNodes)=\"linkNodes.emit($event)\"\n>\n</gizmo-edge>";
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.geometry.getBoundingBox().x\"\n[style.top.px]=\"node.geometry.getBoundingBox().y\"\n[style.width.px]=\"node.geometry.getBoundingBox().width\"\n[style.height.px]=\"node.geometry.getBoundingBox().height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.shapeType==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.shapeType==2||node.shapeType==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.shapeType==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.shapeType==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"1\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"2\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"3\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"4\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"5\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"6\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"7\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"8\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<!-- Gizmo Edge associated with this Node-->\n<gizmo-edge \n\t*ngIf=\"soloSelected\" \n\t[workspace]=\"workspace\"\n\t[fromNode]=\"node\"\n\t[positionOfTheCursor]=\"workspace.cursorPosition\"\n\t(linkNodes)=\"linkNodes.emit($event)\"\n>\n</gizmo-edge>";
 
 /***/ },
 /* 121 */

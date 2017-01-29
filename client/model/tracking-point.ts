@@ -1,6 +1,15 @@
 import { Direction,linearInterpolation,LineEquation,oppositeDirection } from '../utility/common';
 import { Point,Rect,Circle,LineSegment,Geometry } from './geometry';
 
+/** Identifies the tracking point */
+export enum TrackingPointType{
+	Empty=1,
+	Center=2,
+	Rect=3,
+	Circle=4,
+	LineSegment=5
+}
+
 /** Represents a data structure that can denote a point on a geometry */
 export interface TrackingPoint{
 	/** Finds the point on geometry for the current configuration of the tracking point */
@@ -19,6 +28,12 @@ export interface TrackingPoint{
 
 	/** Returns the geometry tracked by this tracking point */
 	getGeometry():Geometry;
+
+	/**Returns the type of tracking point this object is */
+	type:TrackingPointType;
+
+	/** Returns the json representation of this tracking point which includes type*/
+	toJSON():any;
 }
 
 /** A simple point. Empty suggests that this tracking point is not tracking anything(geometry) */
@@ -43,6 +58,17 @@ export class EmptyTrackingPoint implements TrackingPoint{
 	getGeometry():Point{
 		return this.point;
 	}
+
+	get type():TrackingPointType{
+		return TrackingPointType.Empty;
+	}
+
+	toJSON():any{
+		let json:any={};
+		json.type=this.type;
+		json.point=JSON.stringify(this.point);
+		return json;
+	}
 }
 
 /** Tracks the center point of a given geometry */
@@ -66,6 +92,17 @@ export class CenterTrackingPoint implements TrackingPoint{
 
 	getGeometry():Geometry{
 		return this.geometry;
+	}
+
+	get type():TrackingPointType{
+		return TrackingPointType.Circle;
+	}
+
+	toJSON():any{
+		let json:any={};
+		json.type=this.type;
+		json.point=JSON.stringify(this.geometry);
+		return json;
 	}
 }
 
@@ -240,6 +277,19 @@ export class RectTrackingPoint implements TrackingPoint{
 	getGeometry():Rect{
 		return this.rect;
 	}
+
+	get type():TrackingPointType{
+		return TrackingPointType.Rect;
+	}
+
+	toJSON():any{
+		let json:any={};
+		json.type=this.type;
+		json.rect=this.rect;
+		json.fraction=this.fraction;
+		json.side=this.side;
+		return json;
+	}
 }
 
 export class CircleTrackingPoint implements TrackingPoint{
@@ -272,6 +322,18 @@ export class CircleTrackingPoint implements TrackingPoint{
 	getGeometry():Circle{
 		return this.circle;
 	}
+
+	get type():TrackingPointType{
+		return TrackingPointType.Circle;
+	}
+
+	toJSON():any{
+		let json:any={};
+		json.type=this.type;
+		json.angle=this.angle;
+		json.circle=this.circle;
+		return json;
+	}
 }
 
 export class LineSegmentTrackingPoint implements TrackingPoint{
@@ -293,5 +355,17 @@ export class LineSegmentTrackingPoint implements TrackingPoint{
 
 	getGeometry():LineSegment{
 		return this.lineSegment;
+	}
+
+	get type():TrackingPointType{
+		return TrackingPointType.LineSegment;
+	}
+
+	toJSON():any{
+		let json:any={};
+		json.type=this.type;
+		json.lineSegment=this.lineSegment;
+		json.fraction=this.fraction;
+		return json;
 	}
 }

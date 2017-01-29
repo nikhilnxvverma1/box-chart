@@ -73,6 +73,9 @@ export class ArtboardComponent implements OnInit{
 		this.workspace.worksheet.diagramModel.nodeList.push(genericNode2);
 
 		this.workspace.worksheet.diagramModel.edgeList.push(edge);
+
+		let jsonModel=this.workspace.worksheet.diagramModel.toJSON();
+		console.log(jsonModel);
 	}
 
 	doubleClickedArtboard(event:MouseEvent){
