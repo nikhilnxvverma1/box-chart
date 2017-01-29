@@ -54,7 +54,7 @@ export class ArtboardComponent implements OnInit{
 	}
 
 	testing(){
-		this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
+		// this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
 		this.rectList.push(new Rect(1300,1000,200,50));
 
 		let genericNode1=new GenericDiagramNode(GenericDiagramNodeType.Rectangle);

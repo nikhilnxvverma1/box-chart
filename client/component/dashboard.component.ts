@@ -77,4 +77,12 @@ export class DashboardComponent implements OnInit {
 			console.error("Logging out user");//TODO show some friendly message to user
 		})
 	}
+
+	private gotoWorksheet(worksheet:Worksheet){
+		let navigationExtras: NavigationExtras = {
+			queryParams: { 'rid': worksheet.rid },
+		};
+		// Navigate to the worksheet page with extras
+    	this.router.navigate(['worksheet'], navigationExtras);
+	}
 }

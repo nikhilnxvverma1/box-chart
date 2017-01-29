@@ -4,7 +4,8 @@
 <h1>Worksheet list</h1>
 
 <div class="worksheet-tag" *ngFor="let worksheet of worksheetList">
-	<span>{{worksheet.title}}</span> : 
+	<!--<a (click)="gotoWorksheet(worksheet)"><span>{{worksheet.title}}({{worksheet.rid}})</span></a> : -->
+	<a [routerLink]="'worksheet/'+worksheet.rid"><span>{{worksheet.title}}({{worksheet.rid}})</span></a> : 
 	<span>{{worksheet.description}}</span> 
 	<a style="background: red;color: white" (click)="removeWorksheet(worksheet)">Remove</a>
 </div>

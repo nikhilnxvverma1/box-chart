@@ -1,5 +1,6 @@
 import { Component,ViewChild,OnInit } from '@angular/core';
 import { animate,style,trigger,transition,state } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { TransformService } from '../utility/transform.service';
 import { Point,Rect } from '../model/geometry';
 import { SidebarComponent } from './sidebar.component';
@@ -45,8 +46,17 @@ export class WorkspaceComponent implements OnInit{
     @ViewChild(ArtboardComponent)
     private artboard:ArtboardComponent;
 
+	constructor(private route:ActivatedRoute){}
 
 	ngOnInit(){
+
+		console.log("finding worksheet");
+		this.route.params.subscribe((params:{[key:string]:any})=>{
+			console.debug("Rid is "+params['rid']);
+			let rid=params['rid'];
+			console.debug("Getting worksheet for rid"+rid);
+			console.debug("worksheet is "+null);
+		});
 
 		//TODO get the worksheet for the given rid defined in url params in OnInit method
 		this.workspace=new Workspace(new Worksheet());

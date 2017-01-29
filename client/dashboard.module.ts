@@ -4,6 +4,8 @@ import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { DashboardRoutingModule } from './dashboard-routing.module';
 import { DashboardComponent } from './component/dashboard.component';
+import { DashboardContainerComponent } from './component/dashboard-container.component';
+import { WorkspaceComponent } from './component/workspace.component';
 import { WorkspaceModule } from './workspace.module';
 import { DashboardService } from './utility/dashboard.service';
 
@@ -11,10 +13,12 @@ import { DashboardService } from './utility/dashboard.service';
 	imports:[ 
 		BrowserModule,
 		FormsModule,
-		DashboardRoutingModule
+		DashboardRoutingModule,
+		WorkspaceModule
 	],
 	declarations: [
-			DashboardComponent
+			DashboardComponent,
+			DashboardContainerComponent,
 		],
 	providers:[DashboardService],
 })

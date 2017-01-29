@@ -18,8 +18,7 @@ import { UserService } from './utility/user.service';
 		FormsModule,
 		HttpModule,
 		AppRoutingModule,
-		DashboardModule,
-		WorkspaceModule
+		DashboardModule
 	],
 	declarations: [
 		AppComponent,

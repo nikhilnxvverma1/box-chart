@@ -15,7 +15,7 @@ import { AccountComponent } from './component/account.component';
       { path: '',  component: HomeComponent},
       { path: 'signup',  component: SignupComponent },
       { path: 'dashboard',  component: DashboardComponent },
-      { path: 'worksheet',  component: WorkspaceComponent },
+    //   { path: 'worksheet',  component: WorkspaceComponent },
       { path: 'account',  component: AccountComponent },
     ])
   ],
