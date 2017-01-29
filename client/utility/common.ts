@@ -19,6 +19,20 @@ export enum Direction{//going clockwise
 	TopLeft
 }
 
+/** Returns opposite direction as that of argument */
+export function oppositeDirection(direction:Direction):Direction{
+	switch(direction){
+		case Direction.Top:return Direction.Bottom;
+		case Direction.TopRight:return Direction.BottomLeft;
+		case Direction.TopLeft:return Direction.BottomRight;
+		case Direction.Right:return Direction.Left;
+		case Direction.Left:return Direction.Right;
+		case Direction.Bottom:return Direction.Top;
+		case Direction.BottomRight:return Direction.TopLeft;
+		case Direction.BottomLeft:return Direction.TopRight;
+	}
+}
+
 /** Computes a point between two points based on fraction between 0 to 1 */
 export function linearInterpolation(start:Point,end:Point,fraction:number):Point{
 	var interpolated=new Point(start.x,start.y);
@@ -151,4 +165,8 @@ export function printList(list:any[]){
 	for(let item of list){
 		console.log(item.toString());
 	}
+}
+
+export function deriveSimilarButDifferentString(content:string):string{
+	return content;//TODO
 }

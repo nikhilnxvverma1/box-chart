@@ -88,22 +88,7 @@
 	*ngIf="soloSelected" 
 	[workspace]="workspace"
 	[fromNode]="node"
+	[cursorPosition]="workspace.cursorPosition"
+	(linkNodes)="linkNodes.emit($event)"
 >
 </gizmo-edge>
-
-<!--<div class="link-circle" 
-	*ngIf="soloSelected" 
-	(mousedown)="linkNodesByDragging($event)"
-	[style.left.px]="node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30).x"
-	[style.top.px]="node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30).y"
-	[style.width.px]="10"
-	[style.height.px]="10">
-
-</div>
-
-<line-segment
-	*ngIf="soloSelected" 
-	[start]="node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition)" 
-	[end]="node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30)"
-	>
-</line-segment>-->

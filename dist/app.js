@@ -6295,6 +6295,7 @@ webpackJsonp([0],{
 	};
 	var geometry_1 = __webpack_require__(71);
 	var tracking_point_1 = __webpack_require__(74);
+	var util = __webpack_require__(72);
 	//the following constants are used to identify objects of this data model in JSON
 	exports.WorksheetType = "Worksheet"; //TODO may not be required
 	/** Containment of all worksheet related data is maintained in the model. */
@@ -6480,11 +6481,12 @@ webpackJsonp([0],{
 	    function GenericDiagramNode(type) {
 	        _super.call(this);
 	        this._type = type;
-	        this._rect = getRectForGenericNode(this._type);
+	        this._geometry = getRectForGenericNode(this._type);
+	        // this._rect=getRectForGenericNode(this._type);//TODO replace with bounding box
 	        this._content = "Content";
 	    }
 	    GenericDiagramNode.prototype.getGeometry = function () {
-	        return this._rect;
+	        return this._geometry;
 	    };
 	    GenericDiagramNode.prototype.cellRequirement = function () {
 	        return 0;
@@ -6507,9 +6509,31 @@ webpackJsonp([0],{
 	        get: function () {
 	            return this._content;
 	        },
+	        set: function (value) {
+	            this._content = value;
+	        },
 	        enumerable: true,
 	        configurable: true
 	    });
+	    GenericDiagramNode.prototype.clone = function (similarButDifferentContent, offset) {
+	        //prepare a content for the duplicate node
+	        var newContent = this.content;
+	        if (similarButDifferentContent != null && similarButDifferentContent == true) {
+	            newContent = util.deriveSimilarButDifferentString(this.content);
+	        }
+	        //duplicate the node with the same type
+	        var newNode = new GenericDiagramNode(this.type);
+	        newNode.content = newContent;
+	        newNode.selected = false;
+	        //move it by offset if needed
+	        if (offset != null) {
+	            newNode.getGeometry().moveBy(offset);
+	        }
+	        return newNode;
+	    };
+	    GenericDiagramNode.prototype.setBoundingSize = function (rect) {
+	        //TODO
+	    };
 	    GenericDiagramNode.Width = 200;
 	    GenericDiagramNode.Height = 30;
 	    return GenericDiagramNode;
@@ -6531,6 +6555,12 @@ webpackJsonp([0],{
 	        var methodCells = !this.methodsCollapsed ? this.classDefinition.methodList.length : 0;
 	        return 1 + fieldCells + methodCells;
 	    };
+	    ClassDiagramNode.prototype.clone = function (similarButDifferentContent, offset) {
+	        return null;
+	    };
+	    ClassDiagramNode.prototype.setBoundingSize = function (rect) {
+	        this.rect = rect;
+	    };
 	    ClassDiagramNode.DEFAULT_WIDTH = 300;
 	    return ClassDiagramNode;
 	}(DiagramNode));
@@ -6550,6 +6580,12 @@ webpackJsonp([0],{
 	        var methodCells = !this.methodsCollapsed ? this.interfaceDefinition.methodList.length : 0;
 	        return 1 + methodCells;
 	    };
+	    InterfaceDiagramNode.prototype.clone = function (similarButDifferentContent, offset) {
+	        return null;
+	    };
+	    InterfaceDiagramNode.prototype.setBoundingSize = function (rect) {
+	        this.rect = rect;
+	    };
 	    return InterfaceDiagramNode;
 	}(DiagramNode));
 	exports.InterfaceDiagramNode = InterfaceDiagramNode;
@@ -6564,6 +6600,12 @@ webpackJsonp([0],{
 	    };
 	    SingleLineComment.prototype.cellRequirement = function () {
 	        return 1;
+	    };
+	    SingleLineComment.prototype.clone = function (similarButDifferentContent, offset) {
+	        return null;
+	    };
+	    SingleLineComment.prototype.setBoundingSize = function (rect) {
+	        this.rect = rect;
 	    };
 	    return SingleLineComment;
 	}(DiagramNode));
@@ -6581,6 +6623,12 @@ webpackJsonp([0],{
 	    MultiLineComment.prototype.cellRequirement = function () {
 	        return this.lines.length;
 	    };
+	    MultiLineComment.prototype.clone = function (similarButDifferentContent, offset) {
+	        return null;
+	    };
+	    MultiLineComment.prototype.setBoundingSize = function (rect) {
+	        this.rect = rect;
+	    };
 	    return MultiLineComment;
 	}(DiagramNode));
 	exports.MultiLineComment = MultiLineComment;
@@ -6591,6 +6639,12 @@ webpackJsonp([0],{
 	    }
 	    ObjectDiagram.prototype.getGeometry = function () {
 	        return this.rect;
+	    };
+	    ObjectDiagram.prototype.clone = function (similarButDifferentContent, offset) {
+	        return null;
+	    };
+	    ObjectDiagram.prototype.setBoundingSize = function (rect) {
+	        this.rect = rect;
 	    };
 	    return ObjectDiagram;
 	}(DiagramNode));
@@ -6722,14 +6776,19 @@ webpackJsonp([0],{
 	    Point.prototype.inverse = function () {
 	        return new Point(-1 * this.x, -1 * this.y);
 	    };
-	    /**Move by the difference in x and y axis specified by the point */
+	    /**Move by the difference in x and y axis specified by the point.Returns the same point for chaining */
 	    Point.prototype.moveBy = function (point) {
 	        this.x += point.x;
 	        this.y += point.y;
+	        return this;
 	    };
 	    /** Returns a new point shifted by specified numbers */
 	    Point.prototype.offset = function (dx, dy) {
 	        return new Point(this.x + dx, this.y + dy);
+	    };
+	    /** Returns a deep copy */
+	    Point.prototype.clone = function () {
+	        return new Point(this.x, this.y);
 	    };
 	    return Point;
 	}());
@@ -6805,6 +6864,10 @@ webpackJsonp([0],{
 	    Rect.prototype.moveBy = function (point) {
 	        this.x += point.x;
 	        this.y += point.y;
+	        return this;
+	    };
+	    Rect.prototype.clone = function () {
+	        return new Rect(this.x, this.y, this.width, this.height);
 	    };
 	    return Rect;
 	}());
@@ -6832,6 +6895,10 @@ webpackJsonp([0],{
 	    };
 	    Circle.prototype.moveBy = function (point) {
 	        this.center.moveBy(point);
+	        return this;
+	    };
+	    Circle.prototype.clone = function () {
+	        return new Circle(this.center.clone(), this.radius);
 	    };
 	    return Circle;
 	}());
@@ -6868,6 +6935,10 @@ webpackJsonp([0],{
 	    LineSegment.prototype.moveBy = function (point) {
 	        this.start.moveBy(point);
 	        this.end.moveBy(point);
+	        return this;
+	    };
+	    LineSegment.prototype.clone = function () {
+	        return new LineSegment(this.start.clone(), this.end.clone());
 	    };
 	    LineSegment.closeEnoughDistance = 10;
 	    return LineSegment;
@@ -6899,6 +6970,20 @@ webpackJsonp([0],{
 	    Direction[Direction["TopLeft"] = 8] = "TopLeft";
 	})(exports.Direction || (exports.Direction = {}));
 	var Direction = exports.Direction;
+	/** Returns opposite direction as that of argument */
+	function oppositeDirection(direction) {
+	    switch (direction) {
+	        case Direction.Top: return Direction.Bottom;
+	        case Direction.TopRight: return Direction.BottomLeft;
+	        case Direction.TopLeft: return Direction.BottomRight;
+	        case Direction.Right: return Direction.Left;
+	        case Direction.Left: return Direction.Right;
+	        case Direction.Bottom: return Direction.Top;
+	        case Direction.BottomRight: return Direction.TopLeft;
+	        case Direction.BottomLeft: return Direction.TopRight;
+	    }
+	}
+	exports.oppositeDirection = oppositeDirection;
 	/** Computes a point between two points based on fraction between 0 to 1 */
 	function linearInterpolation(start, end, fraction) {
 	    var interpolated = new geometry_1.Point(start.x, start.y);
@@ -7019,6 +7104,10 @@ webpackJsonp([0],{
 	    }
 	}
 	exports.printList = printList;
+	function deriveSimilarButDifferentString(content) {
+	    return content; //TODO
+	}
+	exports.deriveSimilarButDifferentString = deriveSimilarButDifferentString;
 
 
 /***/ },
@@ -7303,6 +7392,11 @@ webpackJsonp([0],{
 	        if (offset === void 0) { offset = 0; }
 	        return this.point;
 	    };
+	    EmptyTrackingPoint.prototype.inverse = function (distance) {
+	        var clone = new EmptyTrackingPoint();
+	        clone.point = new geometry_1.Point(this.point.x, this.point.y);
+	        return clone;
+	    };
 	    return EmptyTrackingPoint;
 	}());
 	exports.EmptyTrackingPoint = EmptyTrackingPoint;
@@ -7317,6 +7411,9 @@ webpackJsonp([0],{
 	    CenterTrackingPoint.prototype.gravitateTowards = function (p, offset) {
 	        if (offset === void 0) { offset = 0; }
 	        return this.geometry.getBoundingBox().center();
+	    };
+	    CenterTrackingPoint.prototype.inverse = function (distance) {
+	        return new CenterTrackingPoint(this.geometry.clone().moveBy(new geometry_1.Point(distance, distance)));
 	    };
 	    return CenterTrackingPoint;
 	}());
@@ -7364,6 +7461,23 @@ webpackJsonp([0],{
 	                break;
 	        }
 	        return common_1.linearInterpolation(startPoint, endPoint, fraction);
+	    };
+	    /** Find the fraction(between 0 and 1) from the tracked point based on the current side */
+	    RectTrackingPoint.prototype.fractionValueFromPoint = function (p) {
+	        //find the fraction based on side
+	        if (this.side == common_1.Direction.Top) {
+	            return (p.x - this.rect.x) / this.rect.width;
+	        }
+	        else if (this.side == common_1.Direction.Right) {
+	            return (p.y - this.rect.y) / this.rect.height;
+	        }
+	        else if (this.side == common_1.Direction.Bottom) {
+	            return 1 - (p.x - this.rect.x) / this.rect.width;
+	        }
+	        else if (this.side == common_1.Direction.Left) {
+	            return 1 - (p.y - this.rect.y) / this.rect.height;
+	        }
+	        return 0; //unlikely, provided the side is valid
 	    };
 	    RectTrackingPoint.prototype.gravitateTowards = function (p, offset) {
 	        if (offset === void 0) { offset = 0; }
@@ -7436,6 +7550,8 @@ webpackJsonp([0],{
 	                }
 	            }
 	        }
+	        //find the fraction from the tracked point
+	        this.fraction = this.fractionValueFromPoint(this.trackedPoint);
 	        //apply the offset based on side
 	        if (this.side == common_1.Direction.Top) {
 	            return this.trackedPoint.offset(0, -offset);
@@ -7452,21 +7568,47 @@ webpackJsonp([0],{
 	        //assertion: the method should have applied offset and returned by now
 	        return this.trackedPoint;
 	    };
+	    RectTrackingPoint.prototype.inverse = function (distance) {
+	        var copyRect = this.rect.clone();
+	        var oppositeSide = common_1.oppositeDirection(this.side);
+	        //calculate the shift that is required for the new geometry
+	        var shift = new geometry_1.Point(0, 0);
+	        if (oppositeSide == common_1.Direction.Top) {
+	            shift.y -= (distance + this.rect.height);
+	        }
+	        else if (oppositeSide == common_1.Direction.Bottom) {
+	            shift.y += (distance + this.rect.height);
+	        }
+	        else if (oppositeSide == common_1.Direction.Left) {
+	            shift.x -= (distance + this.rect.width);
+	        }
+	        else if (oppositeSide == common_1.Direction.Right) {
+	            shift.x += (distance + this.rect.width);
+	        }
+	        copyRect.moveBy(shift);
+	        //return the inverse
+	        return new RectTrackingPoint(copyRect, oppositeSide, 1 - this.fraction);
+	    };
 	    return RectTrackingPoint;
 	}());
 	exports.RectTrackingPoint = RectTrackingPoint;
 	var CircleTrackingPoint = (function () {
 	    function CircleTrackingPoint(circle) {
 	        this.circle = circle;
+	        this.angle = 0;
 	    }
 	    CircleTrackingPoint.prototype.pointOnGeometry = function () {
-	        return this.trackedPoint;
+	        return this.circle.center.pointAtLength(this.angle, this.circle.radius);
 	    };
 	    CircleTrackingPoint.prototype.gravitateTowards = function (p, offset) {
 	        if (offset === void 0) { offset = 0; }
-	        var angleOfSegment = this.circle.center.angleOfSegment(p);
-	        this.trackedPoint = this.circle.center.pointAtLength(angleOfSegment, this.circle.radius);
+	        this.angle = this.circle.center.angleOfSegment(p);
+	        var trackedPoint = this.circle.center.pointAtLength(this.angle, this.circle.radius + offset);
 	        return this.trackedPoint;
+	    };
+	    CircleTrackingPoint.prototype.inverse = function (distance) {
+	        // this.circle.clone().moveBy(distance,distance);
+	        return new CircleTrackingPoint(this.circle);
 	    };
 	    return CircleTrackingPoint;
 	}());
@@ -7480,6 +7622,9 @@ webpackJsonp([0],{
 	    LineSegmentTrackingPoint.prototype.gravitateTowards = function (p, offset) {
 	        if (offset === void 0) { offset = 0; }
 	        return null; //TODO
+	    };
+	    LineSegmentTrackingPoint.prototype.inverse = function (distance) {
+	        return new LineSegmentTrackingPoint();
 	    };
 	    return LineSegmentTrackingPoint;
 	}());
@@ -10317,7 +10462,7 @@ webpackJsonp([0],{
 /***/ 103:
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"massive-area\" \n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<!--<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>-->\n\n\t<creation-drawer \n\t\t[workspace]=\"workspace\"\n\t\t[position]=\"creationDrawerLocation\"\n\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node\n\t\t\t[genericNode]=\"node\"\n\t\t\t[workspace]=\"workspace\"\n\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t(linkNodes)=\"linkNodes($event)\"\n\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t></generic-node>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<!--<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>-->\n\t\t<diagram-edge [edge]=\"edge\" [workspace]=\"workspace\"></diagram-edge>\n\t</ng-container>\n\n\t<multiple-selection \n\t\t[workspace]=\"workspace\" \n\t\t[active]=\"\n\t\t\tworkspace.selectionCount()>1 &&\n\t\t\tdraggingInteraction==null\"\n\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t></multiple-selection>\n\n</div>";
+	module.exports = "<div id=\"massive-area\" \n [style.width]=\"massiveArea.width+'px'\" \n [style.height]=\"massiveArea.height+'px'\" \n [style.left]=\"massiveArea.x+'px'\" \n [style.top]=\"massiveArea.y+'px'\"\n (mousedown)=\"mousedown($event)\"\n (mousemove)=\"mousemove($event)\"\n (mouseup)=\"mouseup($event)\"\n (dblclick)=\"doubleClickedArtboard($event)\"\n >\n\n\t<!--<h1 id=\"starter-tip\"\n\t[style.left.px]=\"massiveArea.width/2\"\n\t[style.top.px]=\"massiveArea.height/2\"\n\t>Double click anywhere to create a box</h1>-->\n\n\t<creation-drawer \n\t\t[workspace]=\"workspace\"\n\t\t[position]=\"creationDrawerLocation\"\n\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t></creation-drawer>\n\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t<!--<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>-->\n\t\t<diagram-edge [edge]=\"edge\" [workspace]=\"workspace\"></diagram-edge>\n\t</ng-container>\n\n\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t<generic-node\n\t\t\t[genericNode]=\"node\"\n\t\t\t[workspace]=\"workspace\"\n\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t(linkNodes)=\"linkNodes($event)\"\n\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t></generic-node>\n\t</ng-container>\n\n\t<multiple-selection \n\t\t[workspace]=\"workspace\" \n\t\t[active]=\"\n\t\t\tworkspace.selectionCount()>1 &&\n\t\t\tdraggingInteraction==null\"\n\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t></multiple-selection>\n\n</div>";
 
 /***/ },
 
@@ -11042,7 +11187,7 @@ webpackJsonp([0],{
 /***/ 120:
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<!--<linker [geometry]=\"node.rect\"></linker>-->\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.rect.topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.rect.topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<gizmo-edge \n\t*ngIf=\"soloSelected\" \n\t[workspace]=\"workspace\"\n\t[fromNode]=\"node\"\n>\n</gizmo-edge>\n\n<!--<div class=\"link-circle\" \n\t*ngIf=\"soloSelected\" \n\t(mousedown)=\"linkNodesByDragging($event)\"\n\t[style.left.px]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30).x\"\n\t[style.top.px]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30).y\"\n\t[style.width.px]=\"10\"\n\t[style.height.px]=\"10\">\n\n</div>\n\n<line-segment\n\t*ngIf=\"soloSelected\" \n\t[start]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition)\" \n\t[end]=\"node.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30)\"\n\t>\n</line-segment>-->\n";
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.rect.x\"\n[style.top.px]=\"node.rect.y\"\n[style.width.px]=\"node.rect.width\"\n[style.height.px]=\"node.rect.height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<!--<linker [geometry]=\"node.rect\"></linker>-->\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.rect\" [placement]=\"1\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"2\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"3\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"4\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"5\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"6\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"7\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.rect\" [placement]=\"8\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.rect.topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.rect.topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<gizmo-edge \n\t*ngIf=\"soloSelected\" \n\t[workspace]=\"workspace\"\n\t[fromNode]=\"node\"\n\t[cursorPosition]=\"workspace.cursorPosition\"\n\t(linkNodes)=\"linkNodes.emit($event)\"\n>\n</gizmo-edge>";
 
 /***/ },
 
@@ -12285,21 +12430,51 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(71);
 	var worksheet_1 = __webpack_require__(70);
 	var workspace_1 = __webpack_require__(88);
 	var link_nodes_1 = __webpack_require__(706);
+	var LINKER_EXTENSION_DISTANCE = 50;
 	var GizmoEdgeComponent = (function () {
 	    function GizmoEdgeComponent() {
 	        this.linkNodes = new core_1.EventEmitter();
+	        this.showGhostNode = false;
+	        this.linkingProcessUnderway = false;
 	    }
-	    GizmoEdgeComponent.prototype.ngOnChanges = function (changes) {
-	        console.debug("Change detected " + changes[0]);
-	    };
+	    //prepared edge and ghost node are not connected until after the link is made through command
 	    GizmoEdgeComponent.prototype.ngOnInit = function () {
-	        this.prepared = new worksheet_1.DiagramEdge();
+	        this.prepareNewEdgeAndNode();
+	    };
+	    GizmoEdgeComponent.prototype.ngOnChanges = function (changes) {
+	        if (changes['cursorPosition'] != null && !this.linkingProcessUnderway) {
+	            this.updateTrackingPointsBasedOnNewCursorPosition(changes['cursorPosition'].currentValue);
+	        }
+	    };
+	    GizmoEdgeComponent.prototype.updateTrackingPointsBasedOnNewCursorPosition = function (position) {
+	        var fromTrackingPoint = this.fromNode.getGeometry().getTrackingPoint();
+	        //gravitate towards the cursor Position
+	        var outlierPoint = fromTrackingPoint.gravitateTowards(position, LINKER_EXTENSION_DISTANCE);
+	        //set the new tracked point
+	        this.prepared.fromPoint = fromTrackingPoint;
+	        //find the new tracking point based on the outlier point and the side
 	    };
 	    GizmoEdgeComponent.prototype.linkNodesByDragging = function (event) {
 	        this.linkNodes.emit(new link_nodes_1.LinkNodesCommand(this.workspace, this.prepared, this.fromNode));
+	    };
+	    GizmoEdgeComponent.prototype.prepareNewEdgeAndNode = function () {
+	        this.prepared = new worksheet_1.DiagramEdge();
+	        this.prepared.from = this.fromNode;
+	        this.prepared.fromPoint = this.fromNode.getGeometry().getTrackingPoint();
+	        this.ghostNode = this.fromNode.clone(true);
+	    };
+	    GizmoEdgeComponent.prototype.beginningNodeLinkingProcess = function () {
+	        this.linkingProcessUnderway = true;
+	    };
+	    GizmoEdgeComponent.prototype.possibleNodeToLinkTo = function (node) {
+	    };
+	    GizmoEdgeComponent.prototype.finishedLinkingToNode = function (node) {
+	        this.prepareNewEdgeAndNode();
+	        this.linkingProcessUnderway = false;
 	    };
 	    __decorate([
 	        core_1.Input('workspace'), 
@@ -12309,6 +12484,10 @@ webpackJsonp([0],{
 	        core_1.Input('fromNode'), 
 	        __metadata('design:type', (typeof (_b = typeof worksheet_1.DiagramNode !== 'undefined' && worksheet_1.DiagramNode) === 'function' && _b) || Object)
 	    ], GizmoEdgeComponent.prototype, "fromNode", void 0);
+	    __decorate([
+	        core_1.Input('cursorPosition'), 
+	        __metadata('design:type', (typeof (_c = typeof geometry_1.Point !== 'undefined' && geometry_1.Point) === 'function' && _c) || Object)
+	    ], GizmoEdgeComponent.prototype, "cursorPosition", void 0);
 	    __decorate([
 	        core_1.Output('linkNodes'), 
 	        __metadata('design:type', Object)
@@ -12321,7 +12500,7 @@ webpackJsonp([0],{
 	        __metadata('design:paramtypes', [])
 	    ], GizmoEdgeComponent);
 	    return GizmoEdgeComponent;
-	    var _a, _b;
+	    var _a, _b, _c;
 	}());
 	exports.GizmoEdgeComponent = GizmoEdgeComponent;
 
@@ -12331,7 +12510,7 @@ webpackJsonp([0],{
 /***/ 705:
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"link-circle\" \n\t(mousedown)=\"linkNodesByDragging($event)\"\n\t[style.left.px]=\"fromNode.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30).x\"\n\t[style.top.px]=\"fromNode.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30).y\"\n\t[style.width.px]=\"10\"\n\t[style.height.px]=\"10\">\n\n</div>\n\n<line-segment\n\t[start]=\"fromNode.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition)\" \n\t[end]=\"fromNode.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30)\"\n\t>\n</line-segment>\n";
+	module.exports = "<div class=\"link-circle\" \n\t(mousedown)=\"linkNodesByDragging($event)\"\n\t[style.left.px]=\"fromNode.getGeometry().getTrackingPoint().gravitateTowards(cursorPosition,30).x\"\n\t[style.top.px]=\"fromNode.getGeometry().getTrackingPoint().gravitateTowards(cursorPosition,30).y\"\n\t[style.width.px]=\"10\"\n\t[style.height.px]=\"10\">\n\n</div>\n\n<line-segment\n\t[start]=\"fromNode.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition)\" \n\t[end]=\"fromNode.getGeometry().getTrackingPoint().gravitateTowards(workspace.cursorPosition,30)\"\n\t>\n</line-segment>\n";
 
 /***/ },
 

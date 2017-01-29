@@ -1,4 +1,4 @@
-import { Direction,linearInterpolation,LineEquation } from '../utility/common';
+import { Direction,linearInterpolation,LineEquation,oppositeDirection } from '../utility/common';
 import { Point,Rect,Circle,LineSegment,Geometry } from './geometry';
 
 /** Represents a data structure that can denote a point on a geometry */
@@ -8,9 +8,14 @@ export interface TrackingPoint{
 	/** 
 	 * Sets the configuration so that the tracked point exists nearest to the point being supplied. 
 	 * Additionally also returns said point 
-	 * @param offset specifies distance offset from the border this tracking point is on.
+	 * 'offset' specifies distance offset from the border this tracking point is on.
 	 */
 	gravitateTowards(p:Point,offset?:number):Point;
+	/** An inverse tracking point returns the equivalent opposite Tracking Point. 
+	 * Example: for rectangl midpoint on right will return tracking point of midpoint on left.
+	 * 'distance' specifies how much the new tracking point's geometry will be away from this one.
+	 */
+	inverse(distance:number):TrackingPoint;
 }
 
 /** A simple point. Empty suggests that this tracking point is not tracking anything(geometry) */
@@ -21,6 +26,12 @@ export class EmptyTrackingPoint implements TrackingPoint{
 	}
 	gravitateTowards(p:Point,offset=0):Point{
 		return this.point;
+	}
+
+	inverse(distance:number):TrackingPoint{
+		let clone=new EmptyTrackingPoint();
+		clone.point=new Point(this.point.x,this.point.y);
+		return clone;
 	}
 }
 
@@ -37,6 +48,10 @@ export class CenterTrackingPoint implements TrackingPoint{
 	}
 	gravitateTowards(p:Point,offset=0):Point{
 		return this.geometry.getBoundingBox().center();
+	}
+
+	inverse(distance:number):CenterTrackingPoint{
+		return new CenterTrackingPoint(this.geometry.clone().moveBy(new Point(distance,distance)));
 	}
 }
 
@@ -90,6 +105,21 @@ export class RectTrackingPoint implements TrackingPoint{
 		}
 
 		return linearInterpolation(startPoint,endPoint,fraction);
+	}
+
+	/** Find the fraction(between 0 and 1) from the tracked point based on the current side */
+	protected fractionValueFromPoint(p:Point):number{
+		//find the fraction based on side
+		if(this.side==Direction.Top){
+			return (p.x-this.rect.x)/this.rect.width;
+		}else if(this.side==Direction.Right){
+			return (p.y-this.rect.y)/this.rect.height;
+		}else if(this.side==Direction.Bottom){
+			return 1-(p.x-this.rect.x)/this.rect.width;
+		}else if(this.side==Direction.Left){
+			return 1-(p.y-this.rect.y)/this.rect.height;
+		}
+		return 0;//unlikely, provided the side is valid
 	}
 
 	gravitateTowards(p:Point,offset=0):Point{
@@ -154,6 +184,9 @@ export class RectTrackingPoint implements TrackingPoint{
 			}
 		}
 
+		//find the fraction from the tracked point
+		this.fraction=this.fractionValueFromPoint(this.trackedPoint);
+
 		//apply the offset based on side
 		if(this.side==Direction.Top){
 			return this.trackedPoint.offset(0,-offset);
@@ -168,25 +201,54 @@ export class RectTrackingPoint implements TrackingPoint{
 		//assertion: the method should have applied offset and returned by now
 		return this.trackedPoint;
 	}
+
+	inverse(distance:number):TrackingPoint{
+		let copyRect = this.rect.clone();
+		let oppositeSide = oppositeDirection(this.side);
+		
+		//calculate the shift that is required for the new geometry
+		let shift = new Point(0, 0);
+		if(oppositeSide==Direction.Top){
+			shift.y-=(distance+this.rect.height);
+		}else if(oppositeSide==Direction.Bottom){
+			shift.y+=(distance+this.rect.height);
+		}else if(oppositeSide==Direction.Left){
+			shift.x-=(distance+this.rect.width);
+		}else if(oppositeSide==Direction.Right){
+			shift.x+=(distance+this.rect.width);
+		}
+		copyRect.moveBy(shift);
+
+		//return the inverse
+		return new RectTrackingPoint(copyRect, oppositeSide, 1 - this.fraction);
+	}
 }
 
 export class CircleTrackingPoint implements TrackingPoint{
 	
 	private circle:Circle;
+	/**Angle in degrees for a 360 degree location */
+	private angle:number;
 	private trackedPoint:Point;
 
 	constructor(circle:Circle){
 		this.circle=circle;
+		this.angle=0;
 	}
 
 	pointOnGeometry():Point{
-		return this.trackedPoint;
+		return this.circle.center.pointAtLength(this.angle,this.circle.radius);
 	}
 
 	gravitateTowards(p:Point,offset=0):Point{
-		var angleOfSegment=this.circle.center.angleOfSegment(p);
-		this.trackedPoint=this.circle.center.pointAtLength(angleOfSegment,this.circle.radius);
+		this.angle=this.circle.center.angleOfSegment(p);
+		let trackedPoint=this.circle.center.pointAtLength(this.angle,this.circle.radius+offset);
 		return this.trackedPoint;
+	}
+
+	inverse(distance:number):TrackingPoint{
+		// this.circle.clone().moveBy(distance,distance);
+		return new CircleTrackingPoint(this.circle);
 	}
 }
 
@@ -201,5 +263,9 @@ export class LineSegmentTrackingPoint implements TrackingPoint{
 
 	gravitateTowards(p:Point,offset=0):Point{
 		return null;//TODO
+	}
+
+	inverse(distance:number):LineSegmentTrackingPoint{
+		return new LineSegmentTrackingPoint();
 	}
 }

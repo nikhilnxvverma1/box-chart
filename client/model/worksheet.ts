@@ -2,6 +2,7 @@ import { Geometry,Rect,LinkedPoint,Point,Circle } from './geometry';
 import { SemanticModel,ClassDefinition,InterfaceDefinition } from './semantic-model';
 import { TrackingPoint,CenterTrackingPoint } from './tracking-point';
 import { ObjectModel, ClassObjectData, InterfaceObjectData, Collection } from './object-model';
+import * as util from '../utility/common';
 
 //the following constants are used to identify objects of this data model in JSON
 export const WorksheetType="Worksheet";//TODO may not be required
@@ -84,6 +85,10 @@ export abstract class DiagramNode{
 	abstract getGeometry():Geometry;
 	/** Each diagram block has a certain cell requirement which can be found using this method */
 	abstract cellRequirement():number;//TODO remove
+	/** Creates a duplicate of this node with an optional shift and slightly different content. */
+	abstract clone(similarButDifferentContent?:boolean,offset?:Point):DiagramNode;
+	/** Based on type, a retangular specified bounding size sets the dimensions of this node. */
+	abstract setBoundingSize(rect:Rect):void;
 }
 
 /** 
@@ -142,8 +147,6 @@ export class DiagramEdge{
 	set toPoint(value:TrackingPoint){
 		this._toPoint=value;
 	}
-
-	
 }
 
 /** Identification for the type of generic node */
@@ -164,7 +167,7 @@ export enum GenericDiagramNodeType{
 }
 
 /** Returns a rectangle whose dimensions are based on the generic node type */
-export function getRectForGenericNode(nodeType:GenericDiagramNodeType,x=0,y=0){
+export function getRectForGenericNode(nodeType:GenericDiagramNodeType,x=0,y=0):Geometry{
 	var width=0;
 	var height=0;
 	switch(nodeType){
@@ -210,16 +213,18 @@ export class GenericDiagramNode extends DiagramNode{
 	private _type:GenericDiagramNodeType;
 	private _rect:Rect;
 	private _content:string;
+	private _geometry:Geometry;
 
 	constructor(type:GenericDiagramNodeType){
 		super();
 		this._type=type;
-		this._rect=getRectForGenericNode(this._type);
+		this._geometry=getRectForGenericNode(this._type);
+		// this._rect=getRectForGenericNode(this._type);//TODO replace with bounding box
 		this._content="Content";
 	}
 
 	getGeometry():Geometry{
-		return this._rect;
+		return this._geometry;
 	}
 	
 	cellRequirement():number{
@@ -238,6 +243,32 @@ export class GenericDiagramNode extends DiagramNode{
 		return this._content;
 	}
 
+	set content(value:string){
+		this._content=value;
+	}
+
+	clone(similarButDifferentContent?:boolean,offset?:Point):DiagramNode{
+		//prepare a content for the duplicate node
+		let newContent=this.content;
+		if (similarButDifferentContent != null && similarButDifferentContent == true) {
+			newContent=util.deriveSimilarButDifferentString(this.content);
+		}
+
+		//duplicate the node with the same type
+		let newNode=new GenericDiagramNode(this.type);
+		newNode.content=newContent;
+		newNode.selected=false;
+
+		//move it by offset if needed
+		if(offset!=null){
+			newNode.getGeometry().moveBy(offset);
+		}
+		return newNode;
+	}
+
+	setBoundingSize(rect:Rect):void{
+		//TODO
+	}
 }
 
 /** A rect diagram node used for holding class definition, its associated geometry and collapse flags for field and method blocks*/
@@ -264,6 +295,13 @@ export class ClassDiagramNode extends DiagramNode{
 		return 1 + fieldCells + methodCells;
 	}
 	
+	clone(similarButDifferentContent?:boolean,offset?:Point):DiagramNode{
+		return null;
+	}
+
+	setBoundingSize(rect:Rect):void{
+		this.rect=rect;
+	}
 }
 
 /** A rect diagram node used for holding interface definition, its associated geometry and collapse flag for method block*/
@@ -287,6 +325,12 @@ export class InterfaceDiagramNode extends DiagramNode{
 		return 1 + methodCells;
 	}
 
+	clone(similarButDifferentContent?:boolean,offset?:Point):DiagramNode{
+		return null;
+	}
+	setBoundingSize(rect:Rect):void{
+		this.rect=rect;
+	}
 }
 
 /** A single line comment block thats put in a rect */
@@ -303,6 +347,12 @@ export class SingleLineComment extends DiagramNode{
 		return 1;
 	}
 
+	clone(similarButDifferentContent?:boolean,offset?:Point):DiagramNode{
+		return null;
+	}
+	setBoundingSize(rect:Rect):void{
+		this.rect=rect;
+	}
 }
 
 /** A multi line comment block thats put in a rect */
@@ -319,6 +369,12 @@ export class MultiLineComment extends DiagramNode{
 		return this.lines.length;
 	}
 
+	clone(similarButDifferentContent?:boolean,offset?:Point):DiagramNode{
+		return null;
+	}
+	setBoundingSize(rect:Rect):void{
+		this.rect=rect;
+	}
 }
 
 export abstract class ObjectDiagram extends DiagramNode{
@@ -331,6 +387,12 @@ export abstract class ObjectDiagram extends DiagramNode{
 		return this.rect;
 	}
 
+	clone(similarButDifferentContent?:boolean,offset?:Point):DiagramNode{
+		return null;
+	}
+	setBoundingSize(rect:Rect):void{
+		this.rect=rect;
+	}
 }
 
 export class ClassObjectDiagram extends ObjectDiagram{

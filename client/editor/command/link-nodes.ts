@@ -46,3 +46,13 @@ export class LinkNodesCommand extends Command implements PressDragReleaseProcess
 		return "Link Nodes";
 	}
 }
+
+/** Listener interface for the node linking command */
+export interface NodeLinkingStatus{
+	/** Callback at the start of the linking process(when mouse/touch is down).*/
+	beginningNodeLinkingProcess():void;
+	/** Callback during the search for node in the linking process(when mouse/touch is dragged).*/
+	possibleNodeToLinkTo(node:DiagramNode):void;
+	/** Callback at the end of the linking process(when mouse/touch is up).*/
+	finishedLinkingToNode(node:DiagramNode):void;
+}

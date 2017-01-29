@@ -21,6 +21,11 @@
 		></creation-drawer>
 	<selection-box [workspace]="workspace"></selection-box>
 
+	<ng-container *ngFor="let edge of workspace.worksheet.diagramModel.edgeList">
+		<!--<line-segment [start]="edge.fromPoint.pointOnGeometry()" [end]="edge.toPoint.pointOnGeometry()"></line-segment>-->
+		<diagram-edge [edge]="edge" [workspace]="workspace"></diagram-edge>
+	</ng-container>
+
 	<ng-container *ngFor="let node of workspace.worksheet.diagramModel.nodeList">
 		<generic-node
 			[genericNode]="node"
@@ -30,11 +35,6 @@
 			(removeMe)="removeCurrentSelection()"
 			[soloSelected]="workspace.selectionContainsOnlyNode(node)"
 			></generic-node>
-	</ng-container>
-
-	<ng-container *ngFor="let edge of workspace.worksheet.diagramModel.edgeList">
-		<!--<line-segment [start]="edge.fromPoint.pointOnGeometry()" [end]="edge.toPoint.pointOnGeometry()"></line-segment>-->
-		<diagram-edge [edge]="edge" [workspace]="workspace"></diagram-edge>
 	</ng-container>
 
 	<multiple-selection 

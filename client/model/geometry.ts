@@ -101,15 +101,21 @@ export class Point{
 		return new Point(-1 * this.x , -1 * this.y );
 	}
 
-	/**Move by the difference in x and y axis specified by the point */
-	moveBy(point:Point):void{
+	/**Move by the difference in x and y axis specified by the point.Returns the same point for chaining */
+	moveBy(point:Point):Point{
 		this.x+=point.x;
 		this.y+=point.y;
+		return this;
 	}
 
 	/** Returns a new point shifted by specified numbers */
 	offset(dx:number,dy:number):Point{
 		return new Point(this.x + dx, this.y + dy);
+	}
+
+	/** Returns a deep copy */
+	clone():Point{
+		return new Point(this.x,this.y);
 	}
 }
 
@@ -135,8 +141,10 @@ export interface Geometry{
 	getBoundingBox():Rect;
 	/** Overlap check with a rectangle */
 	overlapsWithRect(rect:Rect):boolean;
-	/**Move by the difference in x and y axis specified by the point */
-	moveBy(point:Point):void;
+	/**Move by the difference in x and y axis specified by the point.Returns the same geometry to allow chaining */
+	moveBy(point:Point):Geometry;
+	/** Returns a deep copy of thie geometry. */
+	clone():Geometry;
 }
 
 export class Rect implements Geometry{
@@ -162,7 +170,7 @@ export class Rect implements Geometry{
 				p.y>=this.y && p.y<=(this.y + this.height);
 	}
 
-	getTrackingPoint(){
+	getTrackingPoint():RectTrackingPoint{
 		return new RectTrackingPoint(this);
 	}
 
@@ -207,9 +215,14 @@ export class Rect implements Geometry{
 		}
 	}
 
-	moveBy(point:Point):void{
+	moveBy(point:Point):Rect{
 		this.x+=point.x;
 		this.y+=point.y;
+		return this;
+	}
+
+	clone():Rect{
+		return new Rect(this.x,this.y,this.width,this.height);
 	}
 }
 
@@ -242,8 +255,14 @@ export class Circle implements Geometry{
 		//TODO line circle overlap check
 		return false;
 	}
-	moveBy(point:Point):void{
+
+	moveBy(point:Point):Circle{
 		this.center.moveBy(point);
+		return this;
+	}
+
+	clone():Circle{
+		return new Circle(this.center.clone(),this.radius);
 	}
 }
 
@@ -287,8 +306,13 @@ export class LineSegment implements Geometry{
 		return false;
 	}
 
-	moveBy(point:Point):void{
+	moveBy(point:Point):LineSegment{
 		this.start.moveBy(point);
 		this.end.moveBy(point);
+		return this;
+	}
+
+	clone():LineSegment{
+		return new LineSegment(this.start.clone(),this.end.clone());
 	}
 }
