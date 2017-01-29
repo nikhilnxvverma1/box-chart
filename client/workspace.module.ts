@@ -60,11 +60,11 @@ import { NodeBackground } from './helper/node-background.pipe';
 		InterfaceObjectDiagramComponent,
 		LinkedSegmentsComponent,
 		LinkerComponent,
+		GizmoEdgeComponent,
 		CreationDrawerComponent,
 		SelectionBoxComponent,
 		MultipleSelectionComponent,
 		DiagramEdgeComponent,
-		GizmoEdgeComponent
 		],
 	schemas: [ CUSTOM_ELEMENTS_SCHEMA ],
 	providers:[TransformService,InterpreterService,MockDataService]

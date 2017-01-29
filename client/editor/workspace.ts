@@ -10,7 +10,7 @@ export class Workspace{
 	private future:Command[]=[];
 	private _selection:DiagramModel;
 	creationDrawerIsOpen:boolean=false;
-	private _cursorPosition:Point;
+	private _cursorPosition:Point=new Point(0,0);
 
 	constructor(worksheet:Worksheet){
 		this._worksheet=worksheet;

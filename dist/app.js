@@ -8748,12 +8748,14 @@ webpackJsonp([0],[
 
 	"use strict";
 	var worksheet_1 = __webpack_require__(70);
+	var geometry_1 = __webpack_require__(71);
 	/** Current configuration of the workspace on account of user actions so far. */
 	var Workspace = (function () {
 	    function Workspace(worksheet) {
 	        this.history = [];
 	        this.future = [];
 	        this.creationDrawerIsOpen = false;
+	        this._cursorPosition = new geometry_1.Point(0, 0);
 	        this._worksheet = worksheet;
 	    }
 	    /** Pushes the command onto history. By specifying true as the second argument, it will also execute before pushing to history */
@@ -10915,11 +10917,11 @@ webpackJsonp([0],[
 	                interface_object_diagram_component_1.InterfaceObjectDiagramComponent,
 	                linked_segments_component_1.LinkedSegmentsComponent,
 	                linker_component_1.LinkerComponent,
+	                gizmo_edge_component_1.GizmoEdgeComponent,
 	                creation_drawer_component_1.CreationDrawerComponent,
 	                selection_box_component_1.SelectionBoxComponent,
 	                multiple_selection_component_1.MultipleSelectionComponent,
 	                diagram_edge_component_1.DiagramEdgeComponent,
-	                gizmo_edge_component_1.GizmoEdgeComponent
 	            ],
 	            schemas: [core_1.CUSTOM_ELEMENTS_SCHEMA],
 	            providers: [transform_service_1.TransformService, interpreter_service_1.InterpreterService, mock_data_service_1.MockDataService]
@@ -11333,7 +11335,7 @@ webpackJsonp([0],[
 /* 120 */
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.geometry.getBoundingBox().x\"\n[style.top.px]=\"node.geometry.getBoundingBox().y\"\n[style.width.px]=\"node.geometry.getBoundingBox().width\"\n[style.height.px]=\"node.geometry.getBoundingBox().height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- Linker associated with this box-->\n<!--<linker [geometry]=\"node.geometry.getBoundingBox()\"></linker>-->\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"1\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"2\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"3\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"4\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"5\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"6\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"7\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"8\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<gizmo-edge \n\t*ngIf=\"soloSelected\" \n\t[workspace]=\"workspace\"\n\t[fromNode]=\"node\"\n\t[cursorPosition]=\"workspace.cursorPosition\"\n\t(linkNodes)=\"linkNodes.emit($event)\"\n>\n</gizmo-edge>";
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.geometry.getBoundingBox().x\"\n[style.top.px]=\"node.geometry.getBoundingBox().y\"\n[style.width.px]=\"node.geometry.getBoundingBox().width\"\n[style.height.px]=\"node.geometry.getBoundingBox().height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.type==1\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.type==2||node.type==4\" cx=\"50%\" cy=\"50%\" rx=\"50%\" ry=\"50%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\" [style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"1\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"2\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"3\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"4\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"5\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"6\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"7\" \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"8\"  \n*ngIf=\"soloSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<!-- Gizmo Edge associated with this Node-->\n<gizmo-edge \n\t*ngIf=\"soloSelected\" \n\t[workspace]=\"workspace\"\n\t[fromNode]=\"node\"\n\t[positionOfTheCursor]=\"workspace.cursorPosition\"\n\t(linkNodes)=\"linkNodes.emit($event)\"\n>\n</gizmo-edge>";
 
 /***/ },
 /* 121 */
@@ -11869,7 +11871,7 @@ webpackJsonp([0],[
 	var GizmoEdgeComponent = (function () {
 	    function GizmoEdgeComponent() {
 	        this.linkNodes = new core_1.EventEmitter();
-	        /** Controls how far the linking extension will be made */
+	        // Controls how far the linking extension will be made 
 	        this.linkerExtensionDistance = 50;
 	        this.showGhostNode = false;
 	        this.linkingProcessUnderway = false;
@@ -11879,8 +11881,10 @@ webpackJsonp([0],[
 	        this.prepareNewEdgeAndNode();
 	    };
 	    GizmoEdgeComponent.prototype.ngOnChanges = function (changes) {
-	        if (changes['cursorPosition'] != null && !this.linkingProcessUnderway) {
-	            this.updateTrackingPointsBasedOnNewCursorPosition(changes['cursorPosition'].currentValue);
+	        if (!this.linkingProcessUnderway) {
+	            if (changes['positionOfTheCursor'] != null) {
+	                this.updateTrackingPointsBasedOnNewCursorPosition(changes['positionOfTheCursor'].currentValue);
+	            }
 	        }
 	    };
 	    GizmoEdgeComponent.prototype.updateTrackingPointsBasedOnNewCursorPosition = function (position) {
@@ -11919,9 +11923,9 @@ webpackJsonp([0],[
 	        __metadata('design:type', (typeof (_b = typeof worksheet_1.GenericDiagramNode !== 'undefined' && worksheet_1.GenericDiagramNode) === 'function' && _b) || Object)
 	    ], GizmoEdgeComponent.prototype, "fromNode", void 0);
 	    __decorate([
-	        core_1.Input('cursorPosition'), 
+	        core_1.Input('positionOfTheCursor'), 
 	        __metadata('design:type', (typeof (_c = typeof geometry_1.Point !== 'undefined' && geometry_1.Point) === 'function' && _c) || Object)
-	    ], GizmoEdgeComponent.prototype, "cursorPosition", void 0);
+	    ], GizmoEdgeComponent.prototype, "pos", void 0);
 	    __decorate([
 	        core_1.Output('linkNodes'), 
 	        __metadata('design:type', Object)
@@ -11990,7 +11994,7 @@ webpackJsonp([0],[
 /* 143 */
 /***/ function(module, exports) {
 
-	module.exports = "<!--<div class=\"link-circle\" \n\t(mousedown)=\"linkNodesByDragging($event)\"\n\t[style.left.px]=\"fromNode.geometry.getTrackingPoint().gravitateTowards(cursorPosition,30).x\"\n\t[style.top.px]=\"fromNode.geometry.getTrackingPoint().gravitateTowards(cursorPosition,30).y\"\n\t[style.width.px]=\"10\"\n\t[style.height.px]=\"10\">\n\n</div>\n\n<line-segment\n\t[start]=\"fromNode.geometry.getTrackingPoint().gravitateTowards(workspace.cursorPosition)\" \n\t[end]=\"fromNode.geometry.getTrackingPoint().gravitateTowards(workspace.cursorPosition,30)\"\n\t>\n</line-segment>-->\ngizmo edge";
+	module.exports = "<div class=\"link-circle\" \n\t(mousedown)=\"linkNodesByDragging($event)\"\n\t[style.left.px]=\"fromNode.geometry.getTrackingPoint().gravitateTowards(pos,30).x\"\n\t[style.top.px]=\"fromNode.geometry.getTrackingPoint().gravitateTowards(pos,30).y\"\n\t[style.width.px]=\"10\"\n\t[style.height.px]=\"10\">\n\n</div>\n\n<line-segment\n\t[start]=\"fromNode.geometry.getTrackingPoint().gravitateTowards(pos)\" \n\t[end]=\"fromNode.geometry.getTrackingPoint().gravitateTowards(pos,30)\"\n\t>\n</line-segment>";
 
 /***/ },
 /* 144 */

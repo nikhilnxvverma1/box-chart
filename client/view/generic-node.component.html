@@ -21,9 +21,6 @@
 	<div class="node-content" [style.color]="node.foreground.hashCode()" >{{node.content}}</div>
 </div>
 
-<!-- Linker associated with this box-->
-<!--<linker [geometry]="node.geometry.getBoundingBox()"></linker>-->
-
 <!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->
 <!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->
 <resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="1" 
@@ -84,11 +81,12 @@
 
 </div>
 
+<!-- Gizmo Edge associated with this Node-->
 <gizmo-edge 
 	*ngIf="soloSelected" 
 	[workspace]="workspace"
 	[fromNode]="node"
-	[cursorPosition]="workspace.cursorPosition"
+	[positionOfTheCursor]="workspace.cursorPosition"
 	(linkNodes)="linkNodes.emit($event)"
 >
 </gizmo-edge>

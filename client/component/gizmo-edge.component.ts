@@ -10,13 +10,15 @@ import { LinkNodesCommand,NodeLinkingStatus } from '../editor/command/link-nodes
   templateUrl: '../view/gizmo-edge.component.html',
 })
 export class GizmoEdgeComponent implements OnChanges,OnInit,NodeLinkingStatus{
+	
 	@Input('workspace') workspace:Workspace;
 	@Input('fromNode') fromNode:GenericDiagramNode;
-	@Input('cursorPosition') cursorPosition:Point;
-
+	//angular 2 bug: calling a model 'cursorPosition' somehow prevents ngOnInit from getting called. Go figure.
+	// @Input('cursorPosition') cursorPosition:Point;
+	@Input('positionOfTheCursor') pos:Point;
 	@Output('linkNodes') linkNodes=new EventEmitter<LinkNodesCommand>();
 
-	/** Controls how far the linking extension will be made */
+	// Controls how far the linking extension will be made 
 	linkerExtensionDistance:number=50;
 	//edge that is ready to be linked to another node (used in making the gizmo)
 	prepared:DiagramEdge;
@@ -32,8 +34,10 @@ export class GizmoEdgeComponent implements OnChanges,OnInit,NodeLinkingStatus{
 	}
 
 	ngOnChanges(changes:SimpleChanges){
-		if (changes['cursorPosition'] != null && !this.linkingProcessUnderway) {
-			this.updateTrackingPointsBasedOnNewCursorPosition(changes['cursorPosition'].currentValue);
+		if(!this.linkingProcessUnderway){
+			if (changes['positionOfTheCursor'] != null ) {
+				this.updateTrackingPointsBasedOnNewCursorPosition(changes['positionOfTheCursor'].currentValue);
+			}
 		}
 	}
 
