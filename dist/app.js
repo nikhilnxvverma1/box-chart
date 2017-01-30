@@ -6,7 +6,17 @@ webpackJsonp([0],[
 	var platform_browser_dynamic_1 = __webpack_require__(1);
 	var app_module_1 = __webpack_require__(23);
 	__webpack_require__(152);
-	platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
+	if (window.hasOwnProperty('Office')) {
+	    // Application-specific initialization code goes into a function that is
+	    // assigned to the Office.initialize event and runs after the Office.js initializes.
+	    // Bootstrapping of the AppModule must come AFTER Office has initialized.
+	    Office.initialize = function (reason) {
+	        platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
+	    };
+	}
+	else {
+	    platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
+	}
 
 
 /***/ },
@@ -8283,9 +8293,9 @@ webpackJsonp([0],[
 
 /***/ },
 /* 80 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
-	module.exports = "<input type=\"text\" [(ngModel)]=\"loginForm.username\"/>\n<input type=\"password\" [(ngModel)]=\"loginForm.password\"/>\n<a href=\"#\" (click)=\"attemptLogin()\">Login</a>\n<div><a routerLink=\"/signup\">Sign Up</a></div>\n\n<img src=\"" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../assets/creation-drawer-icons/circle-generic-icon.svg\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + "\" alt=\"Circle icon\">";
+	module.exports = "<input type=\"text\" [(ngModel)]=\"loginForm.username\"/>\n<input type=\"password\" [(ngModel)]=\"loginForm.password\"/>\n<a href=\"#\" (click)=\"attemptLogin()\">Login</a>\n<div><a routerLink=\"/signup\">Sign Up</a></div>\n\n<!--<img src=\"../assets/creation-drawer-icons/circle-generic-icon.svg\" alt=\"Circle icon\">-->";
 
 /***/ },
 /* 81 */
