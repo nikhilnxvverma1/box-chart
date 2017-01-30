@@ -11,6 +11,9 @@ import { Worksheet,DiagramModel } from '../model/worksheet';
 
 const SPACE_KEY=32;
 const Z_KEY=90;
+const ONE_KEY=49;
+const EQUALS_KEY=187;
+const DASH_KEY=189;
 
 @Component({
     selector: 'workspace',
@@ -94,13 +97,16 @@ export class WorkspaceComponent implements OnInit,PostOperationNotification{
     keydown(event:KeyboardEvent){
         if(event.keyCode==SPACE_KEY){
             this.windowMovementAllowed=true;
-        }else if(event.keyCode==Z_KEY && event.metaKey){//cmd + z
+        }
 
+		if(event.keyCode==Z_KEY && event.metaKey){//cmd + z
 			if(event.shiftKey){//cmd+shift+z
 				this.workspace.redo();
 			}else{
 				this.workspace.undo();
 			}
+		}else if(event.keyCode==ONE_KEY){
+			this.artboard.toggleOpenCreationDrawer();
 		}
     }
 
@@ -109,6 +115,11 @@ export class WorkspaceComponent implements OnInit,PostOperationNotification{
             this.windowMovementAllowed=false;
         }
     }
+
+	keypress(event:KeyboardEvent){
+        
+    }
+
 
     mousedown(event:MouseEvent){
         this.dragEntered=true;

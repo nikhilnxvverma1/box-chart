@@ -2,6 +2,7 @@
 	[focus]="true"
 	(window:keydown)="keydown($event)"
 	(window:keyup)="keyup($event)"
+	(window:keypress)="keypress($event)"
 	(window:resize)="resize($event)"
 	[style.cursor]="windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'"
 	>

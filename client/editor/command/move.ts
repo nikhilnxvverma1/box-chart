@@ -37,7 +37,7 @@ export class MoveCommand extends Command implements PressDragReleaseProcessor{
 	handleMouseDrag(event:MouseEvent):void{
 		//subtle  change in position
 		let dx = -(this.lastPosition.x - event.clientX);
-		let dy = -(this.lastPosition.x - event.clientY);
+		let dy = -(this.lastPosition.y - event.clientY);
 		//record the cumalative difference
 		this.displacement.x += dx;
 		this.displacement.y += dy;

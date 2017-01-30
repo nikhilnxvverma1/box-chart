@@ -1,5 +1,5 @@
 import { Component,Input,Output,EventEmitter,OnInit,ElementRef,ContentChild } from '@angular/core';
-import { ApplicationRef,NgZone } from '@angular/core';
+import { ApplicationRef } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { animate,trigger,state,transition,style } from '@angular/core';
 import { Rect } from '../model/geometry';
@@ -49,8 +49,7 @@ export class ArtboardComponent implements OnInit{
 	constructor(
 		private mockDataService:MockDataService,
 		private interpreter:InterpreterService,
-		private appRef:ApplicationRef,
-		private zone:NgZone,
+		private appRef:ApplicationRef
 		 ){
 		this.massiveArea=new Rect(0,0,ArtboardWidth,ArtboardHeight);
 	}
@@ -85,9 +84,22 @@ export class ArtboardComponent implements OnInit{
 	}
 
 	doubleClickedArtboard(event:MouseEvent){
-		this.creationDrawerLocation=new Point(event.offsetX-creationDrawer.WIDTH/2,event.offsetY-creationDrawer.HEIGHT/2);
+		// this.creationDrawerLocation=new Point(event.offsetX-creationDrawer.WIDTH/2,event.offsetY-creationDrawer.HEIGHT/2);
+		// this.workspace.creationDrawerIsOpen=true;
+		this.openCreationDrawerAt(new Point(event.offsetX,event.offsetY));
+	}
+
+	openCreationDrawerAt(point:Point){
+		this.creationDrawerLocation=new Point(point.x-creationDrawer.WIDTH/2,point.y-creationDrawer.HEIGHT/2);
 		this.workspace.creationDrawerIsOpen=true;
-		console.debug("artboard double clicked");
+	}
+
+	toggleOpenCreationDrawer(){
+		if(this.workspace.creationDrawerIsOpen){
+			this.workspace.creationDrawerIsOpen=false;
+		}else{
+			this.openCreationDrawerAt(new Point(ArtboardWidth/2,ArtboardHeight/2));
+		}
 	}
   
 	mousedown(event:MouseEvent){

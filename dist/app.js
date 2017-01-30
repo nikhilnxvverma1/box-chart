@@ -8443,6 +8443,9 @@ webpackJsonp([0],[
 	var workspace_1 = __webpack_require__(96);
 	var SPACE_KEY = 32;
 	var Z_KEY = 90;
+	var ONE_KEY = 49;
+	var EQUALS_KEY = 187;
+	var DASH_KEY = 189;
 	var WorkspaceComponent = (function () {
 	    function WorkspaceComponent(route, worksheetService) {
 	        this.route = route;
@@ -8486,7 +8489,7 @@ webpackJsonp([0],[
 	        if (event.keyCode == SPACE_KEY) {
 	            this.windowMovementAllowed = true;
 	        }
-	        else if (event.keyCode == Z_KEY && event.metaKey) {
+	        if (event.keyCode == Z_KEY && event.metaKey) {
 	            if (event.shiftKey) {
 	                this.workspace.redo();
 	            }
@@ -8494,11 +8497,16 @@ webpackJsonp([0],[
 	                this.workspace.undo();
 	            }
 	        }
+	        else if (event.keyCode == ONE_KEY) {
+	            this.artboard.toggleOpenCreationDrawer();
+	        }
 	    };
 	    WorkspaceComponent.prototype.keyup = function (event) {
 	        if (event.keyCode == SPACE_KEY) {
 	            this.windowMovementAllowed = false;
 	        }
+	    };
+	    WorkspaceComponent.prototype.keypress = function (event) {
 	    };
 	    WorkspaceComponent.prototype.mousedown = function (event) {
 	        this.dragEntered = true;
@@ -8780,11 +8788,10 @@ webpackJsonp([0],[
 	exports.ArtboardWidth = 3200;
 	exports.ArtboardHeight = (2 / 3) * exports.ArtboardWidth;
 	var ArtboardComponent = (function () {
-	    function ArtboardComponent(mockDataService, interpreter, appRef, zone) {
+	    function ArtboardComponent(mockDataService, interpreter, appRef) {
 	        this.mockDataService = mockDataService;
 	        this.interpreter = interpreter;
 	        this.appRef = appRef;
-	        this.zone = zone;
 	        this.rectList = [];
 	        this.diagramticComponentList = [];
 	        this.mousedownEvent = new core_1.EventEmitter();
@@ -8818,9 +8825,21 @@ webpackJsonp([0],[
 	        console.log(jsonModel);
 	    };
 	    ArtboardComponent.prototype.doubleClickedArtboard = function (event) {
-	        this.creationDrawerLocation = new geometry_2.Point(event.offsetX - creationDrawer.WIDTH / 2, event.offsetY - creationDrawer.HEIGHT / 2);
+	        // this.creationDrawerLocation=new Point(event.offsetX-creationDrawer.WIDTH/2,event.offsetY-creationDrawer.HEIGHT/2);
+	        // this.workspace.creationDrawerIsOpen=true;
+	        this.openCreationDrawerAt(new geometry_2.Point(event.offsetX, event.offsetY));
+	    };
+	    ArtboardComponent.prototype.openCreationDrawerAt = function (point) {
+	        this.creationDrawerLocation = new geometry_2.Point(point.x - creationDrawer.WIDTH / 2, point.y - creationDrawer.HEIGHT / 2);
 	        this.workspace.creationDrawerIsOpen = true;
-	        console.debug("artboard double clicked");
+	    };
+	    ArtboardComponent.prototype.toggleOpenCreationDrawer = function () {
+	        if (this.workspace.creationDrawerIsOpen) {
+	            this.workspace.creationDrawerIsOpen = false;
+	        }
+	        else {
+	            this.openCreationDrawerAt(new geometry_2.Point(exports.ArtboardWidth / 2, exports.ArtboardHeight / 2));
+	        }
 	    };
 	    ArtboardComponent.prototype.mousedown = function (event) {
 	        //toggle creation drawer to false to close it (done using bindings)
@@ -8931,10 +8950,10 @@ webpackJsonp([0],[
 	            styles: [__webpack_require__(110)],
 	            template: __webpack_require__(111),
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_d = typeof mock_data_service_1.MockDataService !== 'undefined' && mock_data_service_1.MockDataService) === 'function' && _d) || Object, (typeof (_e = typeof interpreter_service_1.InterpreterService !== 'undefined' && interpreter_service_1.InterpreterService) === 'function' && _e) || Object, (typeof (_f = typeof core_2.ApplicationRef !== 'undefined' && core_2.ApplicationRef) === 'function' && _f) || Object, (typeof (_g = typeof core_2.NgZone !== 'undefined' && core_2.NgZone) === 'function' && _g) || Object])
+	        __metadata('design:paramtypes', [(typeof (_d = typeof mock_data_service_1.MockDataService !== 'undefined' && mock_data_service_1.MockDataService) === 'function' && _d) || Object, (typeof (_e = typeof interpreter_service_1.InterpreterService !== 'undefined' && interpreter_service_1.InterpreterService) === 'function' && _e) || Object, (typeof (_f = typeof core_2.ApplicationRef !== 'undefined' && core_2.ApplicationRef) === 'function' && _f) || Object])
 	    ], ArtboardComponent);
 	    return ArtboardComponent;
-	    var _a, _b, _c, _d, _e, _f, _g;
+	    var _a, _b, _c, _d, _e, _f;
 	}());
 	exports.ArtboardComponent = ArtboardComponent;
 
@@ -9795,7 +9814,7 @@ webpackJsonp([0],[
 	    MoveCommand.prototype.handleMouseDrag = function (event) {
 	        //subtle  change in position
 	        var dx = -(this.lastPosition.x - event.clientX);
-	        var dy = -(this.lastPosition.x - event.clientY);
+	        var dy = -(this.lastPosition.y - event.clientY);
 	        //record the cumalative difference
 	        this.displacement.x += dx;
 	        this.displacement.y += dy;
@@ -11304,7 +11323,7 @@ webpackJsonp([0],[
 /* 113 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t\t[workspace]=\"workspace\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t\n\t\t<li>{{autoSaveStatusString()}}</li>\n\t</ul>\n</div>\n";
+	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:keypress)=\"keypress($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t\t[workspace]=\"workspace\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t\n\t\t<li>{{autoSaveStatusString()}}</li>\n\t</ul>\n</div>\n";
 
 /***/ },
 /* 114 */
