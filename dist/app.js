@@ -8283,9 +8283,9 @@ webpackJsonp([0],[
 
 /***/ },
 /* 80 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<input type=\"text\" [(ngModel)]=\"loginForm.username\"/>\n<input type=\"password\" [(ngModel)]=\"loginForm.password\"/>\n<a href=\"#\" (click)=\"attemptLogin()\">Login</a>\n<div><a routerLink=\"/signup\">Sign Up</a></div>\n\n<!--<img src=\"assets/creation-drawer-icons/circle-generic-icon.svg\" alt=\"Circle icon\">-->";
+	module.exports = "<input type=\"text\" [(ngModel)]=\"loginForm.username\"/>\n<input type=\"password\" [(ngModel)]=\"loginForm.password\"/>\n<a href=\"#\" (click)=\"attemptLogin()\">Login</a>\n<div><a routerLink=\"/signup\">Sign Up</a></div>\n\n<img src=\"" + __webpack_require__(!(function webpackMissingModule() { var e = new Error("Cannot find module \"../assets/creation-drawer-icons/circle-generic-icon.svg\""); e.code = 'MODULE_NOT_FOUND'; throw e; }())) + "\" alt=\"Circle icon\">";
 
 /***/ },
 /* 81 */

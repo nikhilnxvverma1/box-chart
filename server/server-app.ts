@@ -44,8 +44,11 @@ export class ServerApp {
 		this.configureAPIRoutes();
 		
 		//static resources (we go two levels out because transpile js is one level deep)
-		// this.app.use('/',express.static(path.join(__dirname,'../../','dist')));
-		this.app.use('/', express.static(path.join(__dirname, '../', 'dist')));//for one level
+		if(production){
+			this.app.use('/',express.static(path.join(__dirname,'../../','dist')));
+		}else{
+			this.app.use('/', express.static(path.join(__dirname, '../', 'dist')));//for one level
+		}
 
 		//all other routes are handled by angular
 		this.app.get('/*', this._homePage);//this should be in the end
