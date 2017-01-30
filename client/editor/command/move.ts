@@ -11,6 +11,9 @@ export class MoveCommand extends Command implements PressDragReleaseProcessor{
 	private _displacement=new Point(0,0);
 	private commitToWorkspaceOnCompletion:boolean;
 
+	//manual calculation of changes in position for each mouse movement
+	private lastPosition:Point;
+
 	constructor(workspace:Workspace,target:DiagramModel,commitToWorkspaceOnCompletion=true){
 		super();
 		this._workspace=workspace;
@@ -27,16 +30,22 @@ export class MoveCommand extends Command implements PressDragReleaseProcessor{
 	}
 
 	handleMousePress(event:MouseEvent):void{
+		this.lastPosition=new Point(event.clientX,event.clientY);
+		this._displacement=new Point(0,0);
 	}
 	
 	handleMouseDrag(event:MouseEvent):void{
+		//subtle  change in position
+		let dx = -(this.lastPosition.x - event.clientX);
+		let dy = -(this.lastPosition.x - event.clientY);
 		//record the cumalative difference
-		this.displacement.x+=event.movementX;
-		this.displacement.y+=event.movementY;
+		this.displacement.x += dx;
+		this.displacement.y += dy;
+		this.lastPosition = new Point(event.clientX, event.clientY);
 
 		//move all nodes by marginal change in mouse position
 		for(let node of this.target.nodeList){
-			node.geometry.moveBy(new Point(event.movementX,event.movementY));
+			node.geometry.moveBy(new Point(dx,dy));
 		}
 	}
 

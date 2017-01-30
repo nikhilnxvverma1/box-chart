@@ -1,4 +1,5 @@
 import { Component,Input,Output,EventEmitter,OnInit,ElementRef,ContentChild } from '@angular/core';
+import { ApplicationRef,NgZone } from '@angular/core';
 import { ViewChild } from '@angular/core';
 import { animate,trigger,state,transition,style } from '@angular/core';
 import { Rect } from '../model/geometry';
@@ -45,7 +46,12 @@ export class ArtboardComponent implements OnInit{
 	private creationDrawerLocation:Point=new Point(ArtboardWidth/2,ArtboardHeight/2);
 	private draggingInteraction:PressDragReleaseProcessor;
 
-	constructor(private mockDataService:MockDataService,private interpreter:InterpreterService ){
+	constructor(
+		private mockDataService:MockDataService,
+		private interpreter:InterpreterService,
+		private appRef:ApplicationRef,
+		private zone:NgZone,
+		 ){
 		this.massiveArea=new Rect(0,0,ArtboardWidth,ArtboardHeight);
 	}
 
@@ -81,6 +87,7 @@ export class ArtboardComponent implements OnInit{
 	doubleClickedArtboard(event:MouseEvent){
 		this.creationDrawerLocation=new Point(event.offsetX-creationDrawer.WIDTH/2,event.offsetY-creationDrawer.HEIGHT/2);
 		this.workspace.creationDrawerIsOpen=true;
+		console.debug("artboard double clicked");
 	}
   
 	mousedown(event:MouseEvent){
@@ -93,6 +100,8 @@ export class ArtboardComponent implements OnInit{
 		}else{
 			this.selectionBox.mousePressed(event);
 		}
+		this.appRef.tick();
+		console.debug("artboard mouse down");
 	}
 
 	mousemove(event:MouseEvent){
@@ -108,6 +117,9 @@ export class ArtboardComponent implements OnInit{
 		}else{
 			this.selectionBox.mouseMoved(event);
 		}
+		this.appRef.tick();
+		// console.debug("artboard mouse moved to "+this.workspace.cursorPosition.toString());
+		console.debug("artboard mouse moved to ");
 	}
 
 	mouseup(event:MouseEvent){
@@ -118,6 +130,8 @@ export class ArtboardComponent implements OnInit{
 			this.selectionBox.mouseReleased(event);
 		}
 		this.draggingInteraction=null;
+		this.appRef.tick();
+		console.debug("artboard mouse up");
 	}
 
 	setDragInteractionIfEmpty(dragProcessor:PressDragReleaseProcessor){

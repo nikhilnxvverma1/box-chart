@@ -11,6 +11,7 @@ import { DashboardModule } from './dashboard.module';
 import { WorkspaceModule } from './workspace.module';
 import { AccountComponent } from './component/account.component';
 import { UserService } from './utility/user.service';
+import { LocationStrategy, HashLocationStrategy } from '@angular/common';
 
 @NgModule({
 	imports:[ 
@@ -27,7 +28,7 @@ import { UserService } from './utility/user.service';
 		SignupComponent,
 		AccountComponent
 		],
-	providers:[UserService],
+	providers:[UserService,{provide: LocationStrategy, useClass: HashLocationStrategy}],
 	bootstrap:    [ AppComponent ]
 })
 export class AppModule { }

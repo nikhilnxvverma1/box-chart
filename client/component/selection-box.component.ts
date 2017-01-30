@@ -17,6 +17,9 @@ export class SelectionBoxComponent {
 	private active = false;
 	private originalPress: Point;
 	private difference: Point;
+	
+	//manual calculation of changes in position for each mouse movement
+	private lastPosition:Point;
 
 	mousePressed(event: MouseEvent): void {
 
@@ -29,13 +32,15 @@ export class SelectionBoxComponent {
 		this.rect.height = 0;
 		this.difference = new Point(0, 0);
 		this.originalPress = new Point(this.rect.x, this.rect.y);
+		this.lastPosition=new Point(event.clientX,event.clientY);
 	}
 
 	mouseMoved(event: MouseEvent): void {
 		if (this.active) {
 
-			this.difference.x += event.movementX;
-			this.difference.y += event.movementY;
+			this.difference.x -= this.lastPosition.x - event.clientX;
+			this.difference.y -= this.lastPosition.y - event.clientY;
+			this.lastPosition = new Point(event.clientX, event.clientY);
 
 			if (this.difference.x < 0) {
 				this.rect.x = this.originalPress.x + this.difference.x;

@@ -229,17 +229,13 @@ export class ServerApp {
 
 		this.schemaService.ensureDatabaseSchema();
 		let port=3000;//TODO normalize ports by environment variables        
-		if(production){
-			var privateKey = fs.readFileSync( '/root/.ssl/typediagram.com.key' );
-			var certificate = fs.readFileSync( '/root/.ssl/typediagram_com.crt' );
-			let options:https.ServerOptions={
-				key:privateKey,
-				cert:certificate
-			}
-			https.createServer(options,this.app).listen(port)
-		}else{
-			this.app.listen(port); 
+		var privateKey = fs.readFileSync( __dirname+'/dev-purposes-certs/rootCA.key' );
+		var certificate = fs.readFileSync( __dirname+'/dev-purposes-certs/rootCA.pem' );
+		let options:https.ServerOptions={
+			key:privateKey,
+			cert:certificate
 		}
+		https.createServer(options,this.app).listen(port)
 	}
 
     private _homePage(req: express.Request, res: express.Response) {
@@ -264,4 +260,4 @@ export function jsonHeader(response:express.Response):express.Response{
 	return response;
 }
 
-const production=true;//TODO quick and dirty solution to managing in the production environment
+const production=false;//TODO quick and dirty solution to managing in the production environment

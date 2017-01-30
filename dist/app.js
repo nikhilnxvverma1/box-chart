@@ -6,17 +6,10 @@ webpackJsonp([0],[
 	var platform_browser_dynamic_1 = __webpack_require__(1);
 	var app_module_1 = __webpack_require__(23);
 	__webpack_require__(152);
-	if (window.hasOwnProperty('Office')) {
-	    // Application-specific initialization code goes into a function that is
-	    // assigned to the Office.initialize event and runs after the Office.js initializes.
-	    // Bootstrapping of the AppModule must come AFTER Office has initialized.
-	    Office.initialize = function (reason) {
-	        platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
-	    };
-	}
-	else {
-	    platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
-	}
+	// Office.initialize = function () {
+	// 	platformBrowserDynamic().bootstrapModule(AppModule);
+	// };
+	platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
 
 
 /***/ },
@@ -67,6 +60,7 @@ webpackJsonp([0],[
 	var dashboard_module_1 = __webpack_require__(81);
 	var account_component_1 = __webpack_require__(77);
 	var user_service_1 = __webpack_require__(66);
+	var common_1 = __webpack_require__(22);
 	var AppModule = (function () {
 	    function AppModule() {
 	    }
@@ -86,7 +80,7 @@ webpackJsonp([0],[
 	                signup_component_1.SignupComponent,
 	                account_component_1.AccountComponent
 	            ],
-	            providers: [user_service_1.UserService],
+	            providers: [user_service_1.UserService, { provide: common_1.LocationStrategy, useClass: common_1.HashLocationStrategy }],
 	            bootstrap: [app_component_1.AppComponent]
 	        }), 
 	        __metadata('design:paramtypes', [])
@@ -5937,7 +5931,6 @@ webpackJsonp([0],[
 	                    { path: '', component: home_component_1.HomeComponent },
 	                    { path: 'signup', component: signup_component_1.SignupComponent },
 	                    { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
-	                    //   { path: 'worksheet',  component: WorkspaceComponent },
 	                    { path: 'account', component: account_component_1.AccountComponent },
 	                ], { useHash: true })
 	            ],
@@ -8295,7 +8288,7 @@ webpackJsonp([0],[
 /* 80 */
 /***/ function(module, exports) {
 
-	module.exports = "<input type=\"text\" [(ngModel)]=\"loginForm.username\"/>\n<input type=\"password\" [(ngModel)]=\"loginForm.password\"/>\n<a (click)=\"attemptLogin()\">Login</a>\n<div><a routerLink=\"/signup\">Sign Up</a></div>\n\n<!--<img src=\"../assets/creation-drawer-icons/circle-generic-icon.svg\" alt=\"Circle icon\">-->";
+	module.exports = "<input type=\"text\" [(ngModel)]=\"loginForm.username\"/>\n<input type=\"password\" [(ngModel)]=\"loginForm.password\"/>\n<a (click)=\"attemptLogin()\">Login here</a>\n<div><a routerLink=\"/signup\">Sign Up</a></div>\n\n<!--<img src=\"../assets/creation-drawer-icons/circle-generic-icon.svg\" alt=\"Circle icon\">-->";
 
 /***/ },
 /* 81 */
@@ -8772,6 +8765,7 @@ webpackJsonp([0],[
 	};
 	var core_1 = __webpack_require__(3);
 	var core_2 = __webpack_require__(3);
+	var core_3 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(71);
 	var geometry_2 = __webpack_require__(71);
 	var mock_data_service_1 = __webpack_require__(90);
@@ -8786,9 +8780,11 @@ webpackJsonp([0],[
 	exports.ArtboardWidth = 3200;
 	exports.ArtboardHeight = (2 / 3) * exports.ArtboardWidth;
 	var ArtboardComponent = (function () {
-	    function ArtboardComponent(mockDataService, interpreter) {
+	    function ArtboardComponent(mockDataService, interpreter, appRef, zone) {
 	        this.mockDataService = mockDataService;
 	        this.interpreter = interpreter;
+	        this.appRef = appRef;
+	        this.zone = zone;
 	        this.rectList = [];
 	        this.diagramticComponentList = [];
 	        this.mousedownEvent = new core_1.EventEmitter();
@@ -8824,6 +8820,7 @@ webpackJsonp([0],[
 	    ArtboardComponent.prototype.doubleClickedArtboard = function (event) {
 	        this.creationDrawerLocation = new geometry_2.Point(event.offsetX - creationDrawer.WIDTH / 2, event.offsetY - creationDrawer.HEIGHT / 2);
 	        this.workspace.creationDrawerIsOpen = true;
+	        console.debug("artboard double clicked");
 	    };
 	    ArtboardComponent.prototype.mousedown = function (event) {
 	        //toggle creation drawer to false to close it (done using bindings)
@@ -8835,6 +8832,8 @@ webpackJsonp([0],[
 	        else {
 	            this.selectionBox.mousePressed(event);
 	        }
+	        this.appRef.tick();
+	        console.debug("artboard mouse down");
 	    };
 	    ArtboardComponent.prototype.mousemove = function (event) {
 	        this.mousemoveEvent.emit(event);
@@ -8849,6 +8848,9 @@ webpackJsonp([0],[
 	        else {
 	            this.selectionBox.mouseMoved(event);
 	        }
+	        this.appRef.tick();
+	        // console.debug("artboard mouse moved to "+this.workspace.cursorPosition.toString());
+	        console.debug("artboard mouse moved to ");
 	    };
 	    ArtboardComponent.prototype.mouseup = function (event) {
 	        this.mouseupEvent.emit(event);
@@ -8859,6 +8861,8 @@ webpackJsonp([0],[
 	            this.selectionBox.mouseReleased(event);
 	        }
 	        this.draggingInteraction = null;
+	        this.appRef.tick();
+	        console.debug("artboard mouse up");
 	    };
 	    ArtboardComponent.prototype.setDragInteractionIfEmpty = function (dragProcessor) {
 	        if (this.draggingInteraction == null) {
@@ -8898,7 +8902,7 @@ webpackJsonp([0],[
 	        }
 	    };
 	    __decorate([
-	        core_2.ViewChild(selection_box_component_1.SelectionBoxComponent), 
+	        core_3.ViewChild(selection_box_component_1.SelectionBoxComponent), 
 	        __metadata('design:type', (typeof (_a = typeof selection_box_component_1.SelectionBoxComponent !== 'undefined' && selection_box_component_1.SelectionBoxComponent) === 'function' && _a) || Object)
 	    ], ArtboardComponent.prototype, "selectionBox", void 0);
 	    __decorate([
@@ -8918,7 +8922,7 @@ webpackJsonp([0],[
 	        __metadata('design:type', Object)
 	    ], ArtboardComponent.prototype, "mouseupEvent", void 0);
 	    __decorate([
-	        core_2.ViewChild(auto_completion_component_1.AutoCompletionComponent), 
+	        core_3.ViewChild(auto_completion_component_1.AutoCompletionComponent), 
 	        __metadata('design:type', (typeof (_c = typeof auto_completion_component_1.AutoCompletionComponent !== 'undefined' && auto_completion_component_1.AutoCompletionComponent) === 'function' && _c) || Object)
 	    ], ArtboardComponent.prototype, "autoCompletion", void 0);
 	    ArtboardComponent = __decorate([
@@ -8927,10 +8931,10 @@ webpackJsonp([0],[
 	            styles: [__webpack_require__(110)],
 	            template: __webpack_require__(111),
 	        }), 
-	        __metadata('design:paramtypes', [(typeof (_d = typeof mock_data_service_1.MockDataService !== 'undefined' && mock_data_service_1.MockDataService) === 'function' && _d) || Object, (typeof (_e = typeof interpreter_service_1.InterpreterService !== 'undefined' && interpreter_service_1.InterpreterService) === 'function' && _e) || Object])
+	        __metadata('design:paramtypes', [(typeof (_d = typeof mock_data_service_1.MockDataService !== 'undefined' && mock_data_service_1.MockDataService) === 'function' && _d) || Object, (typeof (_e = typeof interpreter_service_1.InterpreterService !== 'undefined' && interpreter_service_1.InterpreterService) === 'function' && _e) || Object, (typeof (_f = typeof core_2.ApplicationRef !== 'undefined' && core_2.ApplicationRef) === 'function' && _f) || Object, (typeof (_g = typeof core_2.NgZone !== 'undefined' && core_2.NgZone) === 'function' && _g) || Object])
 	    ], ArtboardComponent);
 	    return ArtboardComponent;
-	    var _a, _b, _c, _d, _e;
+	    var _a, _b, _c, _d, _e, _f, _g;
 	}());
 	exports.ArtboardComponent = ArtboardComponent;
 
@@ -9785,15 +9789,21 @@ webpackJsonp([0],[
 	        configurable: true
 	    });
 	    MoveCommand.prototype.handleMousePress = function (event) {
+	        this.lastPosition = new geometry_1.Point(event.clientX, event.clientY);
+	        this._displacement = new geometry_1.Point(0, 0);
 	    };
 	    MoveCommand.prototype.handleMouseDrag = function (event) {
+	        //subtle  change in position
+	        var dx = -(this.lastPosition.x - event.clientX);
+	        var dy = -(this.lastPosition.x - event.clientY);
 	        //record the cumalative difference
-	        this.displacement.x += event.movementX;
-	        this.displacement.y += event.movementY;
+	        this.displacement.x += dx;
+	        this.displacement.y += dy;
+	        this.lastPosition = new geometry_1.Point(event.clientX, event.clientY);
 	        //move all nodes by marginal change in mouse position
 	        for (var _i = 0, _a = this.target.nodeList; _i < _a.length; _i++) {
 	            var node = _a[_i];
-	            node.geometry.moveBy(new geometry_1.Point(event.movementX, event.movementY));
+	            node.geometry.moveBy(new geometry_1.Point(dx, dy));
 	        }
 	    };
 	    MoveCommand.prototype.handleMouseRelease = function (event) {
@@ -11106,11 +11116,13 @@ webpackJsonp([0],[
 	        this.rect.height = 0;
 	        this.difference = new geometry_1.Point(0, 0);
 	        this.originalPress = new geometry_1.Point(this.rect.x, this.rect.y);
+	        this.lastPosition = new geometry_1.Point(event.clientX, event.clientY);
 	    };
 	    SelectionBoxComponent.prototype.mouseMoved = function (event) {
 	        if (this.active) {
-	            this.difference.x += event.movementX;
-	            this.difference.y += event.movementY;
+	            this.difference.x -= this.lastPosition.x - event.clientX;
+	            this.difference.y -= this.lastPosition.y - event.clientY;
+	            this.lastPosition = new geometry_1.Point(event.clientX, event.clientY);
 	            if (this.difference.x < 0) {
 	                this.rect.x = this.originalPress.x + this.difference.x;
 	                this.rect.width = this.difference.x * -1;
