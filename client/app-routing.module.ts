@@ -17,7 +17,7 @@ import { AccountComponent } from './component/account.component';
       { path: 'dashboard',  component: DashboardComponent },
     //   { path: 'worksheet',  component: WorkspaceComponent },
       { path: 'account',  component: AccountComponent },
-    ])
+    ],{useHash:true})
   ],
   exports: [
     RouterModule

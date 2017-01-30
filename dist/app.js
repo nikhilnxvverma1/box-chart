@@ -5939,7 +5939,7 @@ webpackJsonp([0],[
 	                    { path: 'dashboard', component: dashboard_component_1.DashboardComponent },
 	                    //   { path: 'worksheet',  component: WorkspaceComponent },
 	                    { path: 'account', component: account_component_1.AccountComponent },
-	                ])
+	                ], { useHash: true })
 	            ],
 	            exports: [
 	                router_1.RouterModule
@@ -8295,7 +8295,7 @@ webpackJsonp([0],[
 /* 80 */
 /***/ function(module, exports) {
 
-	module.exports = "<input type=\"text\" [(ngModel)]=\"loginForm.username\"/>\n<input type=\"password\" [(ngModel)]=\"loginForm.password\"/>\n<a href=\"#\" (click)=\"attemptLogin()\">Login</a>\n<div><a routerLink=\"/signup\">Sign Up</a></div>\n\n<!--<img src=\"../assets/creation-drawer-icons/circle-generic-icon.svg\" alt=\"Circle icon\">-->";
+	module.exports = "<input type=\"text\" [(ngModel)]=\"loginForm.username\"/>\n<input type=\"password\" [(ngModel)]=\"loginForm.password\"/>\n<a (click)=\"attemptLogin()\">Login</a>\n<div><a routerLink=\"/signup\">Sign Up</a></div>\n\n<!--<img src=\"../assets/creation-drawer-icons/circle-generic-icon.svg\" alt=\"Circle icon\">-->";
 
 /***/ },
 /* 81 */
