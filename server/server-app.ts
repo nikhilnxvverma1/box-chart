@@ -227,8 +227,8 @@ export class ServerApp {
 		this.schemaService.ensureDatabaseSchema();
 		let port=3000;//TODO normalize ports by environment variables        
 		if(production){
-			var privateKey = fs.readFileSync( 'privatekey.pem' );
-			var certificate = fs.readFileSync( 'certificate.pem' );
+			var privateKey = fs.readFileSync( '/root/.ssl/typediagram.com.key' );
+			var certificate = fs.readFileSync( '/root/.ssl/typediagram_com.crt' );
 			let options:https.ServerOptions={
 				key:privateKey,
 				cert:certificate
