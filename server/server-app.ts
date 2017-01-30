@@ -10,7 +10,7 @@ import { AccountService,AuthenticationResult } from './account.backend';
 import { LoginAttempt,SignupAttempt } from './shared-codes';
 import * as statusCode from './status-code';
 import { WorksheetBackend } from './worksheet.backend';
-import { WorksheetAccess } from './shared-codes';
+import { Access } from './shared-codes';
 
 export class ServerApp {
     
@@ -160,14 +160,14 @@ export class ServerApp {
 			}
 		});
 
-		//remove new worksheet and associate with user
+		//get the worksheet thats associated with user
 		this.app.get('/api/get-worksheet', (req:express.Request, res:express.Response) => {
 			winston.debug("Getting existing worksheet from logged in user");
 			//get user in session
 			let loggedInUser=(<any>req).session.user;
 			if(!loggedInUser){
 				let loginRequired={
-					'access':WorksheetAccess.LoginRequired, 
+					'access':Access.LoginRequired, 
 				}
 				jsonHeader(res).status(401).send(JSON.stringify(loginRequired));
 			}else{
@@ -175,9 +175,9 @@ export class ServerApp {
 				let worksheetRid=req.query['worksheetRid'];
 				this.worksheetBackend.getWorksheetForUserIfAuthorized(loggedInUser,worksheetRid).
 				then((accessResult:any)=>{
-					if(accessResult.access==WorksheetAccess.Granted){
+					if(accessResult.access==Access.Granted){
 						jsonHeader(res).status(200).send(JSON.stringify(accessResult));
-					}else if(accessResult.access=WorksheetAccess.Denied){
+					}else if(accessResult.access=Access.Denied){
 						jsonHeader(res).status(403).send(JSON.stringify(accessResult));
 					}else{
 						jsonHeader(res).status(500).send('Access to worksheet unrecognized');
@@ -188,6 +188,31 @@ export class ServerApp {
 			}
 		});
 
+		//update the diagram model for a given worksheet (if authorized)
+		this.app.post('/api/update-diagram-model', (req:express.Request, res:express.Response) => {
+			winston.debug("updating diagram model for worksheet");
+			//get user in session
+			let loggedInUser=(<any>req).session.user;
+			if(!loggedInUser){
+				jsonHeader(res).status(401).send(JSON.stringify(false));
+			}else{
+				//get the url params for the worksheet and get it for the logged in user
+				let worksheetRid=(<any>req).body.worksheetRid;
+				let diagramModel=(<any>req).body.diagramModel;
+				this.worksheetBackend.updateDiagramModelForUserIfAuthorized(loggedInUser,worksheetRid,diagramModel).
+				then((accessResult:any)=>{
+					if(accessResult.access==Access.Granted){
+						jsonHeader(res).status(200).send(JSON.stringify(accessResult.success));
+					}else if(accessResult.access=Access.Denied){
+						jsonHeader(res).status(403).send(JSON.stringify(false));
+					}else{
+						jsonHeader(res).status(500).send('Access to worksheet unrecognized');
+					}
+				}).catch((error:Error)=>{
+					jsonHeader(res).status(500).send('Something went wrong while finding worksheet');
+				})
+			}
+		});
 	}
 
     public startServer() {//this method is called after setRoutes()

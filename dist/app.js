@@ -6172,12 +6172,12 @@ webpackJsonp([0],{
 	})(exports.SignupAttempt || (exports.SignupAttempt = {}));
 	var SignupAttempt = exports.SignupAttempt;
 	/** Identifies the nature of access when requested for a worksheet */
-	(function (WorksheetAccess) {
-	    WorksheetAccess[WorksheetAccess["Granted"] = 1] = "Granted";
-	    WorksheetAccess[WorksheetAccess["Denied"] = 2] = "Denied";
-	    WorksheetAccess[WorksheetAccess["LoginRequired"] = 3] = "LoginRequired";
-	})(exports.WorksheetAccess || (exports.WorksheetAccess = {}));
-	var WorksheetAccess = exports.WorksheetAccess;
+	(function (Access) {
+	    Access[Access["Granted"] = 1] = "Granted";
+	    Access[Access["Denied"] = 2] = "Denied";
+	    Access[Access["LoginRequired"] = 3] = "LoginRequired";
+	})(exports.Access || (exports.Access = {}));
+	var Access = exports.Access;
 
 
 /***/ },
@@ -8159,7 +8159,6 @@ webpackJsonp([0],{
 	var sidebar_component_1 = __webpack_require__(78);
 	var artboard_component_1 = __webpack_require__(81);
 	var workspace_1 = __webpack_require__(88);
-	var worksheet_1 = __webpack_require__(70);
 	var SPACE_KEY = 32;
 	var Z_KEY = 90;
 	var WorkspaceComponent = (function () {
@@ -8167,6 +8166,8 @@ webpackJsonp([0],{
 	        this.route = route;
 	        this.worksheetService = worksheetService;
 	        this.windowMovementAllowed = false; //allowed only when space is held
+	        this.autosaveStatus = AutoSaveStatus.Saved;
+	        this.autosaveTimerId = null;
 	        this.dragEntered = false;
 	        this.startX = 0;
 	        this.startY = 0;
@@ -8182,7 +8183,7 @@ webpackJsonp([0],{
 	            //find worksheet using service
 	            _this.worksheetService.getWorksheet(rid).subscribe(function (worksheet) {
 	                _this.workspace = new workspace_1.Workspace(worksheet);
-	                _this.workspace.worksheet.diagramModel = new worksheet_1.DiagramModel(); //TODO remove after integration
+	                _this.workspace.postOperationListener = _this;
 	            });
 	        });
 	        //'window' here refers to the window object
@@ -8252,6 +8253,54 @@ webpackJsonp([0],{
 	        this.movingWindow.width = window.innerWidth; //TODO what if the scale is different?
 	        this.movingWindow.height = window.innerHeight;
 	    };
+	    WorkspaceComponent.prototype.commandExecuted = function (command) {
+	        this.autoSave();
+	    };
+	    WorkspaceComponent.prototype.commandUnexecuted = function (command) {
+	        this.autoSave();
+	    };
+	    WorkspaceComponent.prototype.autoSave = function () {
+	        var _this = this;
+	        //issue request to the server after a timeout to update the DiagramModel there
+	        this.autosaveStatus = AutoSaveStatus.Unsaved;
+	        if (this.autosaveTimerId != null) {
+	            clearTimeout(this.autosaveTimerId);
+	        }
+	        this.autosaveTimerId = setTimeout(function () { _this.saveNow(); }, 1000);
+	    };
+	    WorkspaceComponent.prototype.saveNow = function () {
+	        var _this = this;
+	        this.autosaveStatus = AutoSaveStatus.Saving;
+	        this.worksheetService.updateDiagramModel(this.workspace.worksheet.rid, this.workspace.worksheet.diagramModel.toJSON()).
+	            subscribe(function (pass) {
+	            if (pass) {
+	                _this.autosaveStatus = AutoSaveStatus.Saved;
+	            }
+	            else {
+	                _this.autosaveStatus = AutoSaveStatus.ServerError;
+	            }
+	        }, function (error) {
+	            _this.autosaveStatus = AutoSaveStatus.ServerError;
+	        });
+	    };
+	    WorkspaceComponent.prototype.autoSaveStatusString = function () {
+	        if (this.autosaveStatus == AutoSaveStatus.Unsaved) {
+	            return "Unsaved";
+	        }
+	        else if (this.autosaveStatus == AutoSaveStatus.Saving) {
+	            return "Saving...";
+	        }
+	        else if (this.autosaveStatus == AutoSaveStatus.Saved) {
+	            return "Saved";
+	        }
+	        else if (this.autosaveStatus == AutoSaveStatus.ServerError) {
+	            return "Server Error";
+	        }
+	        else if (this.autosaveStatus == AutoSaveStatus.CantConnectToServer) {
+	            return "Cant Connect to Server";
+	        }
+	        return "";
+	    };
 	    __decorate([
 	        core_1.ViewChild(sidebar_component_1.SidebarComponent), 
 	        __metadata('design:type', (typeof (_a = typeof sidebar_component_1.SidebarComponent !== 'undefined' && sidebar_component_1.SidebarComponent) === 'function' && _a) || Object)
@@ -8284,6 +8333,14 @@ webpackJsonp([0],{
 	    var _a, _b, _c, _d;
 	}());
 	exports.WorkspaceComponent = WorkspaceComponent;
+	var AutoSaveStatus;
+	(function (AutoSaveStatus) {
+	    AutoSaveStatus[AutoSaveStatus["Unsaved"] = 1] = "Unsaved";
+	    AutoSaveStatus[AutoSaveStatus["Saving"] = 2] = "Saving";
+	    AutoSaveStatus[AutoSaveStatus["Saved"] = 3] = "Saved";
+	    AutoSaveStatus[AutoSaveStatus["ServerError"] = 4] = "ServerError";
+	    AutoSaveStatus[AutoSaveStatus["CantConnectToServer"] = 5] = "CantConnectToServer";
+	})(AutoSaveStatus || (AutoSaveStatus = {}));
 
 
 /***/ },
@@ -9013,6 +9070,10 @@ webpackJsonp([0],{
 	        if (execute) {
 	            command.execute();
 	        }
+	        else if (this.postOperationListener != null) {
+	            //if command is not executed, it must be notified when we are committing
+	            this.postOperationListener.commandExecuted(command);
+	        }
 	        this.history.push(command);
 	        this.future.splice(0, this.future.length);
 	        console.debug(command.getName() + " committed");
@@ -9025,6 +9086,8 @@ webpackJsonp([0],{
 	        var latestCommand = this.history.pop();
 	        latestCommand.unExecute(); //undo it
 	        this.future.push(latestCommand);
+	        //notify listener 
+	        this.postOperationListener.commandUnexecuted(latestCommand);
 	    };
 	    Workspace.prototype.redo = function () {
 	        if (this.future.length == 0) {
@@ -9034,6 +9097,8 @@ webpackJsonp([0],{
 	        var undoneCommand = this.future.pop();
 	        undoneCommand.execute(); //redo it back
 	        this.history.push(undoneCommand);
+	        //notify listener 
+	        this.postOperationListener.commandExecuted(undoneCommand);
 	    };
 	    Object.defineProperty(Workspace.prototype, "worksheet", {
 	        get: function () {
@@ -9185,16 +9250,13 @@ webpackJsonp([0],{
 	        this.commandList[MOVE] = new move_1.MoveCommand(workspace, target, false);
 	    }
 	    DragAndDropCommand.prototype.handleMousePress = function (event) {
-	        console.debug("Drag and drop command presed");
 	        this.commandList[CREATE].execute();
 	        this.commandList[MOVE].handleMousePress(event);
 	    };
 	    DragAndDropCommand.prototype.handleMouseDrag = function (event) {
-	        console.debug("Drag and drop command dragged");
 	        this.commandList[MOVE].handleMouseDrag(event);
 	    };
 	    DragAndDropCommand.prototype.handleMouseRelease = function (event) {
-	        console.debug("Drag and drop command released");
 	        //get Workspace reference from either command
 	        // let workspace=(<CreateCommand>this.commandList[CREATE]).workspace;
 	        var workspace = this.commandList[CREATE].workspace;
@@ -9382,10 +9444,8 @@ webpackJsonp([0],{
 	        configurable: true
 	    });
 	    MoveCommand.prototype.handleMousePress = function (event) {
-	        console.debug("Move command presed");
 	    };
 	    MoveCommand.prototype.handleMouseDrag = function (event) {
-	        console.debug("Move command dragged");
 	        //record the cumalative difference
 	        this.displacement.x += event.movementX;
 	        this.displacement.y += event.movementY;
@@ -9396,7 +9456,6 @@ webpackJsonp([0],{
 	        }
 	    };
 	    MoveCommand.prototype.handleMouseRelease = function (event) {
-	        console.debug("Move command released");
 	        if (!this.displacement.isZero() && this.commitToWorkspaceOnCompletion) {
 	            this.workspace.commit(this);
 	        }
@@ -10905,7 +10964,7 @@ webpackJsonp([0],{
 /***/ 105:
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t\t[workspace]=\"workspace\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t<li>Area</li>\n\t\t<li>Overview</li>\n\t</ul>\n</div>\n";
+	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t\t[workspace]=\"workspace\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t\n\t\t<li>{{autoSaveStatusString()}}</li>\n\t</ul>\n</div>\n";
 
 /***/ },
 
@@ -13058,6 +13117,7 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(3);
 	var worksheet_1 = __webpack_require__(70);
+	var worksheet_2 = __webpack_require__(70);
 	var http_1 = __webpack_require__(28);
 	var shared_codes_1 = __webpack_require__(67);
 	var WorksheetService = (function () {
@@ -13076,16 +13136,28 @@ webpackJsonp([0],{
 	    };
 	    WorksheetService.prototype.worksheetAccess = function (response) {
 	        var json = response.json();
-	        if (json.access != shared_codes_1.WorksheetAccess.Granted) {
+	        if (json.access != shared_codes_1.Access.Granted) {
 	            return null;
 	        }
 	        var worksheet = new worksheet_1.Worksheet();
 	        worksheet.title = json.worksheet.title;
 	        worksheet.description = json.worksheet.description;
 	        worksheet.rid = json.worksheet['@rid'];
+	        worksheet.diagramModel = new worksheet_2.DiagramModel();
 	        return worksheet;
 	    };
+	    /** Updates the diagram model for the given worksheet rid. */
+	    WorksheetService.prototype.updateDiagramModel = function (worksheetRid, diagramModelInJson) {
+	        var body = {
+	            "worksheetRid": worksheetRid,
+	            "diagramModel": diagramModelInJson
+	        };
+	        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
+	        var options = new http_1.RequestOptions({ headers: headers });
+	        return this.http.post(WorksheetService.UPDATE_DIAGRAM_MODEL_URL, body, options).map(function (res) { return res.json(); });
+	    };
 	    WorksheetService.WORKSHEET_URL = "api/get-worksheet";
+	    WorksheetService.UPDATE_DIAGRAM_MODEL_URL = "api/update-diagram-model";
 	    WorksheetService = __decorate([
 	        core_1.Injectable(), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof http_1.Http !== 'undefined' && http_1.Http) === 'function' && _a) || Object])

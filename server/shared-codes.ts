@@ -22,7 +22,7 @@ export enum SignupAttempt{
 }
 
 /** Identifies the nature of access when requested for a worksheet */
-export enum WorksheetAccess{
+export enum Access{
 	Granted=1,
 	Denied=2,
 	LoginRequired=3

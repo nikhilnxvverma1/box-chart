@@ -5,7 +5,8 @@ import { WorksheetService } from '../utility/worksheet.service';
 import { Point,Rect } from '../model/geometry';
 import { SidebarComponent } from './sidebar.component';
 import { ArtboardComponent } from './artboard.component';
-import { Workspace } from '../editor/workspace';
+import { Workspace,PostOperationNotification } from '../editor/workspace';
+import { Command } from '../editor/command/command';
 import { Worksheet,DiagramModel } from '../model/worksheet';
 
 const SPACE_KEY=32;
@@ -28,12 +29,14 @@ const Z_KEY=90;
         ])
     ]
 })
-export class WorkspaceComponent implements OnInit{
+export class WorkspaceComponent implements OnInit,PostOperationNotification{
 
     //moving window is a virtual rect that moves across the massive area of the artboard
     private movingWindow:Rect;
     private windowMovementAllowed=false;//allowed only when space is held
 	private workspace:Workspace;
+	private autosaveStatus=AutoSaveStatus.Saved;
+	private autosaveTimerId:NodeJS.Timer=null;
     private dragEntered=false;
     private startX=0;
     private startY=0;
@@ -61,7 +64,7 @@ export class WorkspaceComponent implements OnInit{
 			//find worksheet using service
 			this.worksheetService.getWorksheet(rid).subscribe((worksheet)=>{
 				this.workspace=new Workspace(worksheet);
-				this.workspace.worksheet.diagramModel=new DiagramModel();//TODO remove after integration
+				this.workspace.postOperationListener=this;
 			})
 		});
 
@@ -148,4 +151,60 @@ export class WorkspaceComponent implements OnInit{
         this.movingWindow.width=window.innerWidth;//TODO what if the scale is different?
         this.movingWindow.height=window.innerHeight;
     }
+
+	commandExecuted(command:Command):void{
+		this.autoSave();
+	}
+	
+	commandUnexecuted(command:Command):void{
+		this.autoSave();
+	}
+
+	private autoSave(){
+		//issue request to the server after a timeout to update the DiagramModel there
+		this.autosaveStatus=AutoSaveStatus.Unsaved;
+		if(this.autosaveTimerId!=null){
+			clearTimeout(this.autosaveTimerId);
+		}
+		this.autosaveTimerId=setTimeout(()=>{this.saveNow()},1000);
+	}
+
+	private saveNow(){
+		this.autosaveStatus=AutoSaveStatus.Saving;
+		this.worksheetService.updateDiagramModel(
+			this.workspace.worksheet.rid,
+			this.workspace.worksheet.diagramModel.toJSON()).
+			subscribe((pass:boolean)=>{
+				if(pass){
+					this.autosaveStatus=AutoSaveStatus.Saved;
+				}else{
+					this.autosaveStatus=AutoSaveStatus.ServerError;
+				}
+			},(error:Error)=>{
+				this.autosaveStatus=AutoSaveStatus.ServerError;
+			});
+	}
+
+	private autoSaveStatusString():string{
+		if(this.autosaveStatus==AutoSaveStatus.Unsaved){
+			return "Unsaved";
+		}else if(this.autosaveStatus==AutoSaveStatus.Saving){
+			return "Saving...";
+		}else if(this.autosaveStatus==AutoSaveStatus.Saved){
+			return "Saved";
+		}else if(this.autosaveStatus==AutoSaveStatus.ServerError){
+			return "Server Error";
+		}else if(this.autosaveStatus==AutoSaveStatus.CantConnectToServer){
+			return "Cant Connect to Server";
+		}
+		return "";
+	}
+}
+
+enum AutoSaveStatus{
+	Unsaved=1,
+	Saving=2,
+	Saved=3,
+	ServerError=4,
+	CantConnectToServer=5
 }

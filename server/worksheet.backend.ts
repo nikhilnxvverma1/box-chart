@@ -1,7 +1,7 @@
 import ojs= require('orientjs');
 import winston=require('winston');
 import Promise=require('bluebird');
-import { WorksheetAccess } from './shared-codes';
+import { Access } from './shared-codes';
 
 /** Intermediate service that talks to the database for all worksheet related queries */
 export class WorksheetBackend{
@@ -86,16 +86,51 @@ export class WorksheetBackend{
 				//return granted and worksheet if found
 				let accessResult:any={};
 				if(foundWorksheet!=null){
-					accessResult.access=WorksheetAccess.Granted;
+					accessResult.access=Access.Granted;
 					accessResult.worksheet=foundWorksheet;
 				}else{//else return access denied (403 is sent also by the calling code.
-					accessResult.access=WorksheetAccess.Denied;
+					accessResult.access=Access.Denied;
 				}
 				return accessResult;
 			});
 	}
-}
 
-export class DashboardPayload{
-	//TODO
+	/** Updates the diagram model for a worksheet if the current logged in user is authorized */
+	updateDiagramModelForUserIfAuthorized(user:any,worksheetRid:string,diagramModel:string):Promise<any>{
+		return this.getWorksheetsForUser(user).
+			then((worksheetList:any[])=>{
+				//check if requested worksheet rid is in that list
+				let foundWorksheet:any=null;
+				for(let worksheet of worksheetList){
+					if(worksheet['@rid'].toString()==worksheetRid){
+						foundWorksheet=worksheet;
+						break;
+					}
+				}
+
+				//if worksheet is found , update it
+				if(foundWorksheet!=null){
+					return this.updateDiagramModelForWorksheet(worksheetRid,diagramModel);
+				}else{//else return access denied by returning false (403 is sent also by the calling code.
+					return { access:Access.Denied };
+				}
+			});
+	}
+
+	/** Updates the diagram model for a worksheet NO authorization check*/
+	private updateDiagramModelForWorksheet(worksheetRid:string,diagramModel:any):Promise<any>{
+		return this.db.query('update '+worksheetRid+' set diagramModel = :diagramModel,modificationDate=sysdate() return count',{
+			 params:{
+				 diagramModel:diagramModel
+				}
+			}).all().
+		then((updatedRecordsCount:any[])=>{
+			//we only check for the one record that belongs to the logged in user
+			if(updatedRecordsCount[0]==1){
+				return { access:Access.Granted, success:true };
+			}else{
+				return { access:Access.Granted, success:false };
+			}
+		});
+	}
 }

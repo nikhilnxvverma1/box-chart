@@ -27,11 +27,9 @@ export class MoveCommand extends Command implements PressDragReleaseProcessor{
 	}
 
 	handleMousePress(event:MouseEvent):void{
-		console.debug("Move command presed");
 	}
 	
 	handleMouseDrag(event:MouseEvent):void{
-		console.debug("Move command dragged");
 		//record the cumalative difference
 		this.displacement.x+=event.movementX;
 		this.displacement.y+=event.movementY;
@@ -43,7 +41,6 @@ export class MoveCommand extends Command implements PressDragReleaseProcessor{
 	}
 
 	handleMouseRelease(event:MouseEvent):void{
-		console.debug("Move command released");
 		if(!this.displacement.isZero() && this.commitToWorkspaceOnCompletion){
 			this.workspace.commit(this);
 		}

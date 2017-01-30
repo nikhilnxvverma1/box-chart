@@ -74,7 +74,8 @@ export class SchemaService{
 				{name:"title",type:"String"},
 				{name:"description",type:"String"},
 				{name:"creationDate",type:"Date"},
-				{name:"modificationDate",type:"Date"}
+				{name:"modificationDate",type:"Date"},
+				{name:"diagramModel",type:"String"}
 				]);
 		}).catch((error:Error)=>{
 			winston.log("error","Error occurred while adding properties to 'Worksheet' class "+error.message);

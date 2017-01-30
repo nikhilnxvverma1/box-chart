@@ -20,18 +20,15 @@ export class DragAndDropCommand extends CompositeCommand implements PressDragRel
 	}
 
 	handleMousePress(event:MouseEvent):void{
-		console.debug("Drag and drop command presed");
 		this.commandList[CREATE].execute();
 		(<MoveCommand>this.commandList[MOVE]).handleMousePress(event);
 	}
 	
 	handleMouseDrag(event:MouseEvent):void{
-		console.debug("Drag and drop command dragged");
 		(<MoveCommand>this.commandList[MOVE]).handleMouseDrag(event);
 	}
 
 	handleMouseRelease(event:MouseEvent):void{
-		console.debug("Drag and drop command released");
 
 		//get Workspace reference from either command
 		// let workspace=(<CreateCommand>this.commandList[CREATE]).workspace;

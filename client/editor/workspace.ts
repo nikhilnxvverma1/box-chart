@@ -11,6 +11,7 @@ export class Workspace{
 	private _selection:DiagramModel;
 	creationDrawerIsOpen:boolean=false;
 	private _cursorPosition:Point=new Point(0,0);
+	postOperationListener:PostOperationNotification;
 
 	constructor(worksheet:Worksheet){
 		this._worksheet=worksheet;
@@ -20,6 +21,9 @@ export class Workspace{
 	commit(command:Command,execute:boolean=false){
 		if(execute){
 			command.execute();
+		}else if(this.postOperationListener!=null){
+			//if command is not executed, it must be notified when we are committing
+			this.postOperationListener.commandExecuted(command);
 		}
 		this.history.push(command);
 		this.future.splice(0,this.future.length);
@@ -36,6 +40,9 @@ export class Workspace{
 		let latestCommand=this.history.pop();
 		latestCommand.unExecute();//undo it
 		this.future.push(latestCommand);
+
+		//notify listener 
+		this.postOperationListener.commandUnexecuted(latestCommand);
 	}
 
 	redo(){
@@ -47,6 +54,9 @@ export class Workspace{
 		let undoneCommand=this.future.pop();
 		undoneCommand.execute();//redo it back
 		this.history.push(undoneCommand);
+
+		//notify listener 
+		this.postOperationListener.commandExecuted(undoneCommand);
 	}
 
 	get worksheet():Worksheet{
@@ -170,4 +180,10 @@ export class Workspace{
 	selectionContainsOnlyEdge(edge:DiagramEdge):boolean{
 		return this._selection!=null && this._selection.edgeList.length==1 && this._selection.containsEdge(edge);
 	}
+}
+
+/** Callback after a command is executed, unExecuted */
+export interface PostOperationNotification{
+	commandExecuted(command:Command):void;
+	commandUnexecuted(command:Command):void;
 }
