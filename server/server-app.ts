@@ -1,4 +1,7 @@
 import express = require('express');
+import http = require('http');
+import https = require('https');
+import fs = require('fs');
 import connect = require('connect');
 import bodyParser = require("body-parser");
 import path = require('path');
@@ -222,13 +225,28 @@ export class ServerApp {
 		// this._app.set('view engine','jade');
 
 		this.schemaService.ensureDatabaseSchema();
-		this.app.listen(3000); //TODO normalize ports by environment variables        
+		let port=3000;//TODO normalize ports by environment variables        
+		if(production){
+			var privateKey = fs.readFileSync( 'privatekey.pem' );
+			var certificate = fs.readFileSync( 'certificate.pem' );
+			let options:https.ServerOptions={
+				key:privateKey,
+				cert:certificate
+			}
+			https.createServer(options,this.app).listen(port)
+		}else{
+			this.app.listen(port); 
+		}
 	}
 
     private _homePage(req: express.Request, res: express.Response) {
 
-		// var pathToIndexPage=path.join(__dirname,'../../','dist/','index.html'); //a static index file from 'dist' folder
-		var pathToIndexPage=path.join(__dirname,'../','dist/','index.html'); //only one level
+		let pathToIndexPage:string;
+		if(production){
+			pathToIndexPage=path.join(__dirname,'../../','dist/','index.html'); //a static index file from 'dist' folder
+		}else{
+			pathToIndexPage=path.join(__dirname,'../','dist/','index.html'); //only one level (to support vs code debugging tasks)
+		}
 		winston.log('info',"Server refreshed index file: "+pathToIndexPage);
         res.sendFile(pathToIndexPage);
     }
@@ -242,3 +260,5 @@ export function jsonHeader(response:express.Response):express.Response{
 	response.setHeader('Content-Type', 'application/json');
 	return response;
 }
+
+const production=true;//TODO quick and dirty solution to managing in the production environment
