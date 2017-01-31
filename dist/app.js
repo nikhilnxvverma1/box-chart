@@ -6453,6 +6453,30 @@ webpackJsonp([0],[
 	    return DiagramNode;
 	}());
 	exports.DiagramNode = DiagramNode;
+	(function (DashStyle) {
+	    DashStyle[DashStyle["Solid"] = 1] = "Solid";
+	    DashStyle[DashStyle["Dashed"] = 2] = "Dashed";
+	    DashStyle[DashStyle["Dotted"] = 3] = "Dotted";
+	})(exports.DashStyle || (exports.DashStyle = {}));
+	var DashStyle = exports.DashStyle;
+	(function (EndpointStyle) {
+	    EndpointStyle[EndpointStyle["None"] = 1] = "None";
+	    EndpointStyle[EndpointStyle["EmptyArrow"] = 2] = "EmptyArrow";
+	    EndpointStyle[EndpointStyle["FilledArrow"] = 3] = "FilledArrow";
+	    EndpointStyle[EndpointStyle["EmptyDiamond"] = 4] = "EmptyDiamond";
+	    EndpointStyle[EndpointStyle["FilledDiamond"] = 5] = "FilledDiamond";
+	})(exports.EndpointStyle || (exports.EndpointStyle = {}));
+	var EndpointStyle = exports.EndpointStyle;
+	var LineStyle = (function () {
+	    function LineStyle() {
+	        this.color = new Color(0, 0, 0);
+	        this.dashStyle = DashStyle.Dotted;
+	        this.fromEndpoint = EndpointStyle.None;
+	        this.toEndpoint = EndpointStyle.None;
+	    }
+	    return LineStyle;
+	}());
+	exports.LineStyle = LineStyle;
 	/**
 	 * An edge in the diagram graph connecting two nodes. Geometrically, it houses the tracking point of the geometry of the two nodes.
 	 * Additionally(and optionally) it also contains label and intermediate points that may be required for denoting linked line segments.
@@ -6461,6 +6485,8 @@ webpackJsonp([0],[
 	    function DiagramEdge() {
 	        /** Used exclusively as a flag to tell weather this node is selected or not. IMPORTANT only 'Workspace' class should toggle this. */
 	        this.selected = false;
+	        /** Presentational attributes of this edge */
+	        this.style = new LineStyle();
 	    }
 	    Object.defineProperty(DiagramEdge.prototype, "from", {
 	        get: function () {
@@ -11859,6 +11885,7 @@ webpackJsonp([0],[
 	};
 	var core_1 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(71);
+	var worksheet_1 = __webpack_require__(70);
 	var LineSegmentComponent = (function () {
 	    function LineSegmentComponent() {
 	    }
@@ -11890,6 +11917,18 @@ webpackJsonp([0],[
 	    LineSegmentComponent.prototype.withinBounds = function (point) {
 	        return point.minus(this.topLeft());
 	    };
+	    LineSegmentComponent.prototype.strokeDashArray = function () {
+	        if (this.dashStyle == worksheet_1.DashStyle.Solid) {
+	            return "0";
+	        }
+	        else if (this.dashStyle == worksheet_1.DashStyle.Dashed) {
+	            return "7";
+	        }
+	        else if (this.dashStyle == worksheet_1.DashStyle.Dotted) {
+	            return "3, 7";
+	        }
+	        return "0";
+	    };
 	    __decorate([
 	        core_1.Input('start'), 
 	        __metadata('design:type', (typeof (_a = typeof geometry_1.Point !== 'undefined' && geometry_1.Point) === 'function' && _a) || Object)
@@ -11898,6 +11937,22 @@ webpackJsonp([0],[
 	        core_1.Input('end'), 
 	        __metadata('design:type', (typeof (_b = typeof geometry_1.Point !== 'undefined' && geometry_1.Point) === 'function' && _b) || Object)
 	    ], LineSegmentComponent.prototype, "end", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', (typeof (_c = typeof worksheet_1.Color !== 'undefined' && worksheet_1.Color) === 'function' && _c) || Object)
+	    ], LineSegmentComponent.prototype, "color", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', (typeof (_d = typeof worksheet_1.DashStyle !== 'undefined' && worksheet_1.DashStyle) === 'function' && _d) || Object)
+	    ], LineSegmentComponent.prototype, "dashStyle", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', (typeof (_e = typeof worksheet_1.EndpointStyle !== 'undefined' && worksheet_1.EndpointStyle) === 'function' && _e) || Object)
+	    ], LineSegmentComponent.prototype, "startStyle", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', (typeof (_f = typeof worksheet_1.EndpointStyle !== 'undefined' && worksheet_1.EndpointStyle) === 'function' && _f) || Object)
+	    ], LineSegmentComponent.prototype, "endStyle", void 0);
 	    LineSegmentComponent = __decorate([
 	        core_1.Component({
 	            selector: 'line-segment',
@@ -11906,7 +11961,7 @@ webpackJsonp([0],[
 	        __metadata('design:paramtypes', [])
 	    ], LineSegmentComponent);
 	    return LineSegmentComponent;
-	    var _a, _b;
+	    var _a, _b, _c, _d, _e, _f;
 	}());
 	exports.LineSegmentComponent = LineSegmentComponent;
 
@@ -11915,7 +11970,7 @@ webpackJsonp([0],[
 /* 124 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<svg \n\t[style.left.px]=\"topLeft().x\" \n\t[style.top.px]=\"topLeft().y\"\n\t[style.position]=\"'absolute'\"\n \t[attr.height]=\"boundingHeight()\"\n\t[attr.width]=\"boundingWidth()\">\n  <svg:line [attr.x1]=\"withinBounds(start).x\"\n\t[attr.y1]=\"withinBounds(start).y\"\n\t[attr.x2]=\"withinBounds(end).x\"\n\t[attr.y2]=\"withinBounds(end).y\"\n\t[ngStyle]=\"{'stroke':'rgb(255,0,0)', 'stroke-width':2}\"\n\t/>\n</svg>\n";
+	module.exports = "\n<svg \n\t[style.left.px]=\"topLeft().x\" \n\t[style.top.px]=\"topLeft().y\"\n\t[style.position]=\"'absolute'\"\n \t[attr.height]=\"boundingHeight()\"\n\t[attr.width]=\"boundingWidth()\">\n  <svg:line [attr.x1]=\"withinBounds(start).x\"\n\t[attr.y1]=\"withinBounds(start).y\"\n\t[attr.x2]=\"withinBounds(end).x\"\n\t[attr.y2]=\"withinBounds(end).y\"\n\t[attr.stroke-dasharray]=\"strokeDashArray()\"\n\t[style.stroke]=\"color.hashCode()\"\n\t[ngStyle]=\"{'stroke-width':2}\"\n\t/>\n</svg>\n";
 
 /***/ },
 /* 125 */
@@ -12370,7 +12425,7 @@ webpackJsonp([0],[
 /* 142 */
 /***/ function(module, exports) {
 
-	module.exports = "<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>";
+	module.exports = "<line-segment \n\t[start]=\"edge.fromPoint.pointOnGeometry()\"\n\t[end]=\"edge.toPoint.pointOnGeometry()\"\n\t[color]=\"edge.style.color\"\n\t[dashStyle]=\"edge.style.dashStyle\"\n\t[startStyle]=\"edge.style.fromEndpoint\"\n\t[endStyle]=\"edge.style.toEndpoint\"\n\t></line-segment>";
 
 /***/ },
 /* 143 */
@@ -12623,7 +12678,7 @@ webpackJsonp([0],[
 /* 145 */
 /***/ function(module, exports) {
 
-	module.exports = "<ng-container *ngIf=\"prepared!=null && prepared.fromPoint!=null && prepared.toPoint!=null\">\n\t<line-segment\n\t\t[start]=\"prepared.fromPoint.pointOnGeometry()\" \n\t\t[end]=\"prepared.toPoint.pointOnGeometry()\"\n\t\t>\n\t</line-segment>\n\n\t<div class=\"link-circle\" \n\t\t(mousedown)=\"linkNodesByDragging($event)\"\n\t\t[style.left.px]=\"prepared.toPoint.pointOnGeometry().x\"\n\t\t[style.top.px]=\"prepared.toPoint.pointOnGeometry().y\"\n\t\t[style.width.px]=\"10\"\n\t\t[style.height.px]=\"10\">\n\n\t</div>\n</ng-container>";
+	module.exports = "<ng-container *ngIf=\"prepared!=null && prepared.fromPoint!=null && prepared.toPoint!=null\">\n\t<line-segment\n\t\t[start]=\"prepared.fromPoint.pointOnGeometry()\" \n\t\t[end]=\"prepared.toPoint.pointOnGeometry()\"\n\t\t[color]=\"prepared.style.color\"\n\t\t[dashStyle]=\"prepared.style.dashStyle\"\n\t\t[startStyle]=\"prepared.style.fromEndpoint\"\n\t\t[endStyle]=\"prepared.style.toEndpoint\"\n\t\t>\n\t</line-segment>\n\n\t<div class=\"link-circle\" \n\t\t(mousedown)=\"linkNodesByDragging($event)\"\n\t\t[style.left.px]=\"prepared.toPoint.pointOnGeometry().x\"\n\t\t[style.top.px]=\"prepared.toPoint.pointOnGeometry().y\"\n\t\t[style.width.px]=\"10\"\n\t\t[style.height.px]=\"10\">\n\n\t</div>\n</ng-container>";
 
 /***/ },
 /* 146 */

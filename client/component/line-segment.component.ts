@@ -1,5 +1,6 @@
 import { Component,Input } from '@angular/core';
 import { Point } from '../model/geometry';
+import { Color,DashStyle,EndpointStyle } from '../model/worksheet';
 
 @Component({
   selector: 'line-segment',
@@ -8,6 +9,10 @@ import { Point } from '../model/geometry';
 export class LineSegmentComponent {
 	@Input('start') start:Point;
 	@Input('end') end:Point;
+	@Input() color:Color;
+	@Input() dashStyle:DashStyle;
+	@Input() startStyle:EndpointStyle;
+	@Input() endStyle:EndpointStyle;
 
 	private transformationMatrix(){
 		let xMid=this.start.distance(this.end)/2;
@@ -43,5 +48,16 @@ export class LineSegmentComponent {
 
 	private withinBounds(point:Point):Point{
 		return point.minus(this.topLeft());
+	}
+
+	private strokeDashArray():string{
+		if(this.dashStyle==DashStyle.Solid){
+			return "0";
+		}else if(this.dashStyle==DashStyle.Dashed){
+			return "7"
+		}else if(this.dashStyle==DashStyle.Dotted){
+			return "3, 7"
+		}
+		return "0"
 	}
 }

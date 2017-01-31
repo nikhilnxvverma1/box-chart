@@ -1,1 +1,8 @@
-<line-segment [start]="edge.fromPoint.pointOnGeometry()" [end]="edge.toPoint.pointOnGeometry()"></line-segment>
+<line-segment 
+	[start]="edge.fromPoint.pointOnGeometry()"
+	[end]="edge.toPoint.pointOnGeometry()"
+	[color]="edge.style.color"
+	[dashStyle]="edge.style.dashStyle"
+	[startStyle]="edge.style.fromEndpoint"
+	[endStyle]="edge.style.toEndpoint"
+	></line-segment>

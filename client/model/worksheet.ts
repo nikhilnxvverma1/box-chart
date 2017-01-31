@@ -121,7 +121,28 @@ export abstract class DiagramNode{
 	abstract get type():DiagramNodeType;
 }
 
-/** 
+export enum DashStyle{
+	Solid=1,
+	Dashed=2,
+	Dotted=3
+}
+
+export enum EndpointStyle{
+	None=1,
+	EmptyArrow=2,
+	FilledArrow=3,
+	EmptyDiamond=4,
+	FilledDiamond=5
+}
+
+export class LineStyle {
+	color: Color = new Color(0, 0, 0);
+	dashStyle: DashStyle = DashStyle.Dotted;
+	fromEndpoint: EndpointStyle = EndpointStyle.None;
+	toEndpoint: EndpointStyle = EndpointStyle.None;
+}
+
+/**
  * An edge in the diagram graph connecting two nodes. Geometrically, it houses the tracking point of the geometry of the two nodes.
  * Additionally(and optionally) it also contains label and intermediate points that may be required for denoting linked line segments.
  */
@@ -138,6 +159,9 @@ export class DiagramEdge{
 
 	/**Optional label on edge*/
 	label:string;
+
+	/** Presentational attributes of this edge */
+	style: LineStyle = new LineStyle();
 
 	/** The start of a doubly linked list of points that make up the line segments */
 	private _intermediatePointStart:LinkedPoint;

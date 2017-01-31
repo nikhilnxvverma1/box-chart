@@ -9,6 +9,8 @@
 	[attr.y1]="withinBounds(start).y"
 	[attr.x2]="withinBounds(end).x"
 	[attr.y2]="withinBounds(end).y"
-	[ngStyle]="{'stroke':'rgb(255,0,0)', 'stroke-width':2}"
+	[attr.stroke-dasharray]="strokeDashArray()"
+	[style.stroke]="color.hashCode()"
+	[ngStyle]="{'stroke-width':2}"
 	/>
 </svg>
