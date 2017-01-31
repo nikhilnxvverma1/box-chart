@@ -193,7 +193,10 @@ export function printList(list:any[]){
 }
 
 export function deriveSimilarButDifferentString(content:string):string{
-	return content;//TODO
+	if(isNaN(parseInt(content, 10) )){
+		return content;
+	}
+	return Math.floor(Math.random()*100)+"";
 }
 
 /**Removes an item from a generic list, and logs an error if the item wasn't found */

@@ -100,7 +100,7 @@ export class WorkspaceComponent implements OnInit,PostOperationNotification{
             this.windowMovementAllowed=true;
         }
 
-		if(event.keyCode==Z_KEY && event.ctrlKey){//cmd + z
+		if(event.keyCode==Z_KEY && (event.metaKey||event.metaKey)){//cmd + z
 			if(event.shiftKey){//cmd+shift+z
 				this.workspace.redo();
 			}else{
@@ -150,13 +150,17 @@ export class WorkspaceComponent implements OnInit,PostOperationNotification{
                 this.movingWindow.y+=dy;
             }
             this.positionArtboardBasis(this.movingWindow);
-        }
+			this.workspace.currentlyPanning=true;
+        }else{
+			this.workspace.currentlyPanning=false;
+		}
         this.lastX=event.clientX;
         this.lastY=event.clientY;
     }
 
     mouseup(event:MouseEvent){
         this.dragEntered=false;
+		this.workspace.currentlyPanning=false;
     }
 
     resize(event:Event){
@@ -200,11 +204,13 @@ export class WorkspaceComponent implements OnInit,PostOperationNotification{
 
 	private autoSaveStatusString():string{
 		if(this.autosaveStatus==AutoSaveStatus.Unsaved){
-			return "Unsaved";
+			// return "Unsaved";
+			return "*";
 		}else if(this.autosaveStatus==AutoSaveStatus.Saving){
 			return "Saving...";
 		}else if(this.autosaveStatus==AutoSaveStatus.Saved){
-			return "Saved";
+			// return "Saved";
+			return "";
 		}else if(this.autosaveStatus==AutoSaveStatus.ServerError){
 			return "Server Error";
 		}else if(this.autosaveStatus==AutoSaveStatus.CantConnectToServer){

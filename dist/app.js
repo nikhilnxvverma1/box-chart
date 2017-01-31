@@ -7472,11 +7472,13 @@ webpackJsonp([0],{
 	            var projection = lineEquation.intersectionWith(lineEquation.getPerpendicularFrom(p));
 	            return projection;
 	        }
-	        //TODO the code below is buggy for different quadrants
-	        var x1 = this.start.x;
-	        var y1 = this.start.y;
-	        var x2 = this.end.x;
-	        var y2 = this.end.y;
+	        //the code below expects x1 y1 to be in the left
+	        var left = this.start.x < this.end.x ? this.start : this.end;
+	        var right = this.start.x >= this.end.x ? this.start : this.end;
+	        var x1 = left.x;
+	        var y1 = left.y;
+	        var x2 = right.x;
+	        var y2 = right.y;
 	        var x3 = p.x;
 	        var y3 = p.y;
 	        var px = x2 - x1, py = y2 - y1, dAB = px * px + py * py;
@@ -7687,7 +7689,10 @@ webpackJsonp([0],{
 	}
 	exports.printList = printList;
 	function deriveSimilarButDifferentString(content) {
-	    return content; //TODO
+	    if (isNaN(parseInt(content, 10))) {
+	        return content;
+	    }
+	    return Math.floor(Math.random() * 100) + "";
 	}
 	exports.deriveSimilarButDifferentString = deriveSimilarButDifferentString;
 	/**Removes an item from a generic list, and logs an error if the item wasn't found */
@@ -8828,7 +8833,7 @@ webpackJsonp([0],{
 	        if (event.keyCode == SPACE_KEY) {
 	            this.windowMovementAllowed = true;
 	        }
-	        if (event.keyCode == Z_KEY && event.ctrlKey) {
+	        if (event.keyCode == Z_KEY && (event.metaKey || event.metaKey)) {
 	            if (event.shiftKey) {
 	                this.workspace.redo();
 	            }
@@ -8871,12 +8876,17 @@ webpackJsonp([0],{
 	                this.movingWindow.y += dy;
 	            }
 	            this.positionArtboardBasis(this.movingWindow);
+	            this.workspace.currentlyPanning = true;
+	        }
+	        else {
+	            this.workspace.currentlyPanning = false;
 	        }
 	        this.lastX = event.clientX;
 	        this.lastY = event.clientY;
 	    };
 	    WorkspaceComponent.prototype.mouseup = function (event) {
 	        this.dragEntered = false;
+	        this.workspace.currentlyPanning = false;
 	    };
 	    WorkspaceComponent.prototype.resize = function (event) {
 	        console.log("Window resize changing moving window size");
@@ -8915,13 +8925,15 @@ webpackJsonp([0],{
 	    };
 	    WorkspaceComponent.prototype.autoSaveStatusString = function () {
 	        if (this.autosaveStatus == AutoSaveStatus.Unsaved) {
-	            return "Unsaved";
+	            // return "Unsaved";
+	            return "*";
 	        }
 	        else if (this.autosaveStatus == AutoSaveStatus.Saving) {
 	            return "Saving...";
 	        }
 	        else if (this.autosaveStatus == AutoSaveStatus.Saved) {
-	            return "Saved";
+	            // return "Saved";
+	            return "";
 	        }
 	        else if (this.autosaveStatus == AutoSaveStatus.ServerError) {
 	            return "Server Error";
@@ -9824,6 +9836,7 @@ webpackJsonp([0],{
 	        this.creationDrawerIsOpen = false;
 	        this.edgeStyleOptionsIsOpen = false;
 	        this.contentEditingIsOpen = false;
+	        this.currentlyPanning = false;
 	        this._cursorPosition = new geometry_1.Point(0, 0);
 	        this._worksheet = worksheet;
 	    }
@@ -11545,7 +11558,7 @@ webpackJsonp([0],{
 	        this.lastPosition = new geometry_1.Point(event.clientX, event.clientY);
 	    };
 	    SelectionBoxComponent.prototype.mouseMoved = function (event) {
-	        if (this.active) {
+	        if (this.active && !this.workspace.currentlyPanning) {
 	            this.difference.x -= this.lastPosition.x - event.clientX;
 	            this.difference.y -= this.lastPosition.y - event.clientY;
 	            this.lastPosition = new geometry_1.Point(event.clientX, event.clientY);
@@ -11749,7 +11762,7 @@ webpackJsonp([0],{
 /***/ 113:
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:keypress)=\"keypress($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t\t[workspace]=\"workspace\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t\n\t\t<li>{{autoSaveStatusString()}}</li>\n\t</ul>\n</div>\n";
+	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:keypress)=\"keypress($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t\t[workspace]=\"workspace\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<a id=\"back-to-dashboard\" [routerLink]=\"'../../../dashboard'\">\n\t\tBack {{autoSaveStatusString()}}\n\t</a>\n\t<!--<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t\n\t\t<li>{{autoSaveStatusString()}}</li>\n\t</ul>-->\n</div>\n";
 
 /***/ },
 
@@ -11769,6 +11782,7 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var platform_browser_1 = __webpack_require__(21);
 	var forms_1 = __webpack_require__(24);
+	var router_1 = __webpack_require__(32);
 	var workspace_component_1 = __webpack_require__(84);
 	var artboard_component_1 = __webpack_require__(89);
 	var sidebar_component_1 = __webpack_require__(86);
@@ -11808,6 +11822,7 @@ webpackJsonp([0],{
 	            imports: [
 	                platform_browser_1.BrowserModule,
 	                forms_1.FormsModule,
+	                router_1.RouterModule,
 	            ],
 	            declarations: [
 	                focus_directive_1.FocusDirective,
@@ -13561,7 +13576,7 @@ webpackJsonp([0],{
 	
 	
 	// module
-	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.3);\n  position: absolute;\n  z-index: 11; }\n\n#creation-drawer-list {\n  list-style-type: none; }\n\n#creation-drawer-list li {\n  width: 100%;\n  height: 50px; }\n\n#edge-style-list {\n  list-style-type: none;\n  padding: 0px;\n  margin: 0px; }\n\n#edge-style-list li {\n  height: 50px;\n  text-align: center; }\n\n#edge-style-list li:hover {\n  background: lightgrey; }\n\n#remove-list-item {\n  background: #E54F4F;\n  color: #FFF;\n  text-align: center;\n  padding-top: 15px;\n  height: 30px; }\n\n#remove-list-item:hover {\n  background: #930101; }\n\n#creation-drawer-list li {\n  display: inline;\n  padding-right: 30px; }\n\n#multiple-selection-container {\n  border: 1px solid blue;\n  position: absolute;\n  z-index: 11;\n  pointer-events: none; }\n\n.node-content-input {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  font-size: 1.3em; }\n\n.selected {\n  border-color: #2BA3FC;\n  color: #2BA3FC; }\n\n.medium-bubble {\n  border-radius: 50%;\n  position: absolute;\n  width: 15px;\n  height: 15px;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%);\n  z-index: 100; }\n\n.remove-operation {\n  background: red;\n  cursor: pointer; }\n\n.edit-operation {\n  background: cornflowerblue;\n  cursor: pointer; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  position: relative;\n  text-align: center;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%); }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n", ""]);
+	exports.push([module.id, ".generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.3);\n  position: absolute;\n  z-index: 11; }\n\n#creation-drawer-list {\n  list-style-type: none; }\n\n#creation-drawer-list li {\n  width: 100%;\n  height: 50px; }\n\n#edge-style-list {\n  list-style-type: none;\n  padding: 0px;\n  margin: 0px; }\n\n#edge-style-list li {\n  height: 50px;\n  text-align: center; }\n\n#edge-style-list li:hover {\n  background: lightgrey; }\n\n#remove-list-item {\n  background: #E54F4F;\n  color: #FFF;\n  text-align: center;\n  padding-top: 15px;\n  height: 30px; }\n\n#remove-list-item:hover {\n  background: #930101; }\n\n#creation-drawer-list li {\n  display: inline;\n  padding-right: 30px; }\n\n#multiple-selection-container {\n  border: 1px solid blue;\n  position: absolute;\n  z-index: 11;\n  pointer-events: none; }\n\n#back-to-dashboard {\n  position: absolute;\n  top: 20px;\n  left: 20px;\n  color: gray; }\n\n.node-content-input {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  font-size: 1.3em; }\n\n.selected {\n  border-color: #2BA3FC;\n  color: #2BA3FC; }\n\n.medium-bubble {\n  border-radius: 50%;\n  position: absolute;\n  width: 15px;\n  height: 15px;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%);\n  z-index: 100; }\n\n.remove-operation {\n  background: red;\n  cursor: pointer; }\n\n.edit-operation {\n  background: cornflowerblue;\n  cursor: pointer; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  position: relative;\n  text-align: center;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%); }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n", ""]);
 	
 	// exports
 

@@ -39,6 +39,7 @@ import { NodeBackground } from './helper/node-background.pipe';
 	imports:[ 
 		BrowserModule,
 		FormsModule,
+		RouterModule,
 	],
 	declarations: [
 		FocusDirective,

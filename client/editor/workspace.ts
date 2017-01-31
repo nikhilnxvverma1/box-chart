@@ -12,6 +12,7 @@ export class Workspace{
 	creationDrawerIsOpen:boolean=false;
 	edgeStyleOptionsIsOpen=false;
 	contentEditingIsOpen=false;
+	currentlyPanning=false;
 	private _cursorPosition:Point=new Point(0,0);
 	postOperationListener:PostOperationNotification;
 

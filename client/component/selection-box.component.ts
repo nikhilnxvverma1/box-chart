@@ -36,7 +36,7 @@ export class SelectionBoxComponent {
 	}
 
 	mouseMoved(event: MouseEvent): void {
-		if (this.active) {
+		if (this.active && !this.workspace.currentlyPanning) {
 
 			this.difference.x -= this.lastPosition.x - event.clientX;
 			this.difference.y -= this.lastPosition.y - event.clientY;

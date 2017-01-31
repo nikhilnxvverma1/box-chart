@@ -556,11 +556,14 @@ export class LineSegment implements Geometry{
 			return projection;
 		}
 
-		//TODO the code below is buggy for different quadrants
-		let x1 = this.start.x;
-		let y1 = this.start.y;
-		let x2 = this.end.x;
-		let y2 = this.end.y;
+		//the code below expects x1 y1 to be in the left
+		let left=this.start.x<this.end.x?this.start:this.end;
+		let right=this.start.x>=this.end.x?this.start:this.end;
+
+		let x1 = left.x;
+		let y1 = left.y;
+		let x2 = right.x;
+		let y2 = right.y;
 		let x3 = p.x;
 		let y3 = p.y;
 		let px = x2 - x1, py = y2 - y1, dAB = px * px + py * py;
