@@ -1,6 +1,6 @@
 import { Command } from './command';
 import { Workspace } from '../workspace';
-import { Direction,PressDragReleaseProcessor } from '../../utility/common';
+import { Direction,PressDragReleaseProcessor,removeFromList } from '../../utility/common';
 import { DiagramModel,DiagramNode,DiagramEdge } from '../../model/worksheet';
 import { Point } from '../../model/geometry';
 
@@ -60,6 +60,10 @@ export class RemoveCommand extends Command {
 			}else{
 				console.error("Edge to remove already doesn't exist");
 			}
+
+			edge.from.outgoingEdges.push(edge);
+			edge.to.incomingEdges.push(edge);
+
 		}
 	}
 
@@ -82,6 +86,9 @@ export class RemoveCommand extends Command {
 			}else{
 				console.error("Edge already exists in list");
 			}
+
+			removeFromList(edge,edge.from.outgoingEdges,"edge not found in outgoingEdges");
+			removeFromList(edge,edge.from.incomingEdges,"edge not found in incomingEdges");
 		}
 	}
 

@@ -11386,6 +11386,7 @@ webpackJsonp([0],{
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var command_1 = __webpack_require__(98);
+	var common_1 = __webpack_require__(72);
 	var RemoveCommand = (function (_super) {
 	    __extends(RemoveCommand, _super);
 	    function RemoveCommand(workspace, target) {
@@ -11441,6 +11442,8 @@ webpackJsonp([0],{
 	            else {
 	                console.error("Edge to remove already doesn't exist");
 	            }
+	            edge.from.outgoingEdges.push(edge);
+	            edge.to.incomingEdges.push(edge);
 	        }
 	    };
 	    RemoveCommand.prototype.unExecute = function () {
@@ -11465,6 +11468,8 @@ webpackJsonp([0],{
 	            else {
 	                console.error("Edge already exists in list");
 	            }
+	            common_1.removeFromList(edge, edge.from.outgoingEdges, "edge not found in outgoingEdges");
+	            common_1.removeFromList(edge, edge.from.incomingEdges, "edge not found in incomingEdges");
 	        }
 	    };
 	    RemoveCommand.prototype.getName = function () {
