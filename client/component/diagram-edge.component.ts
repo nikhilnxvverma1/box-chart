@@ -11,6 +11,7 @@ const EDGE_SELECTION_COLOR=new Color(152,185,231);
 export class DiagramEdgeComponent  {
 	@Input('workspace') workspace:Workspace;
 	@Input('edge') edge:DiagramEdge;
+	@Input("soloSelected") soloSelected:boolean;
 
 	edgeColor():Color{
 		if(this.edge.selected){

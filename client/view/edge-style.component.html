@@ -1,0 +1,10 @@
+<ng-container *ngIf="edge!=null">
+
+	<div class="link-circle" 
+		(mousedown)="linkNodesByDragging($event)"
+		[style.left.px]="follow.x"
+		[style.top.px]="follow.y"
+		[style.width.px]="10"
+		[style.height.px]="10">
+	</div>
+</ng-container>

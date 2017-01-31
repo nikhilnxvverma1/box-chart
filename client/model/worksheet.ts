@@ -201,7 +201,7 @@ export class DiagramEdge{
 		this._toPoint=value;
 	}
 
-	get line():LineSegment{
+	get lineSegment():LineSegment{
 		return new LineSegment(this.fromPoint.pointOnGeometry(),this.toPoint.pointOnGeometry());
 	}
 

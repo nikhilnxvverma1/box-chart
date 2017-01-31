@@ -56,7 +56,7 @@ export interface PressDragReleaseProcessor{
 	handleMouseRelease(event:MouseEvent):void;
 }
 
-/** Holds the equation of the line in the form ax + bx + c = 0 */
+/** Holds the equation of the line in the form ax + by + c = 0 */
 export class LineEquation{
 	private a:number;
 	private b:number;
@@ -81,6 +81,28 @@ export class LineEquation{
 			this.b=-1;
 			this.c=end.y - m * end.x;
 		}
+	}
+
+	/**@deprecated Creates and returns a line equation that is perpendicular to this line equation.*/
+	getPerpendicularFrom(p:Point):LineEquation{
+		//slope of perpendicular will be -1/m;
+		let perpendicular=new LineEquation(new Point(0,0),new Point(0,0));
+		if(this.a!=0 && this.b!=0){
+			let m = -(this.b / this.a);
+			let c = p.y - m * p.x;
+			perpendicular.a = -m;
+			perpendicular.b = 1;
+			perpendicular.c = -c;
+		} else if (this.a == 0) {//horizontal line so, return vertical line;
+			perpendicular.a = 1;
+			perpendicular.b = 0;
+			perpendicular.c = -p.x;
+		} else {//vertical line so, return horizontal line;
+			perpendicular.a = 0;
+			perpendicular.b = 1;
+			perpendicular.c = -p.y;
+		}
+		return perpendicular;
 	}
 
 	/** Finds the perpendicular distance of a point from this line */

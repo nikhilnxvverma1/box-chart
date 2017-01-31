@@ -430,7 +430,7 @@ export class LineSegment implements Geometry{
 	}
 
 	getTrackingPoint():TrackingPoint{
-		return new LineSegmentTrackingPoint();
+		return new LineSegmentTrackingPoint(this);
 	}
 
 	getBoundingBox():Rect{
@@ -497,6 +497,20 @@ export class LineSegment implements Geometry{
 		this.end.moveBy(shift);
 		return this;
 	}
+
+	/** Returns the orthogonal projection of a point on this line segment, which might cross bounds*/
+	orthogonalProjection(p:Point):Point{
+		let x1 = this.start.x;
+		let y1 = this.start.y;
+		let x2 = this.end.x;
+		let y2 = this.end.y;
+		let x3 = p.x;
+		let y3 = p.y;
+		let px = x2 - x1, py = y2 - y1, dAB = px * px + py * py;
+		let u = ((x3 - x1) * px + (y3 - y1) * py) / dAB;
+		let x = x1 + u * px, y = y1 + u * py;
+		return new Point(x, y);
+}
 
 	toJSON():any{
 		let json:any={};

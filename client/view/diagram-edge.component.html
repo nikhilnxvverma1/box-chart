@@ -6,3 +6,11 @@
 	[startStyle]="edge.style.fromEndpoint"
 	[endStyle]="edge.style.toEndpoint"
 	></line-segment>
+
+<edge-style 
+	*ngIf="soloSelected" 
+	[workspace]="workspace"
+	[edge]="edge"
+	[positionOfTheCursor]="workspace.cursorPosition"
+>
+</edge-style>

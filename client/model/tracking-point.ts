@@ -341,16 +341,43 @@ export class LineSegmentTrackingPoint implements TrackingPoint{
 	lineSegment:LineSegment;
 	fraction:number;
 
+	constructor(lineSegment:LineSegment){
+		this.lineSegment=lineSegment;
+	}
+
 	pointOnGeometry():Point{
 		return linearInterpolation(this.lineSegment.start,this.lineSegment.end,this.fraction);
 	}
 
 	gravitateTowards(p:Point,offset=0):Point{
-		return null;//TODO
+		
+		//find projection of p on this line segment
+		let projection=this.lineSegment.orthogonalProjection(p);
+
+		//find parametric fraction based on this projection point
+		let p1 = this.lineSegment.start;
+		let p2 = this.lineSegment.end;
+
+		let lx = p1.x < p2.x ? p1.x : p2.x;
+		let ly = p1.y < p2.y ? p1.y : p2.y;
+
+		let mx = p1.x > p2.x ? p1.x : p2.x;
+		let my = p1.y > p2.y ? p1.y : p2.y;
+
+		if(mx-lx!=0){
+			this.fraction=(projection.x-lx)/(mx-lx);
+		}else{
+			this.fraction=(projection.y-ly)/(my-ly);
+		}
+
+		//cap between 0 and 1
+		this.fraction = this.fraction < 0 ? 0 : this.fraction > 1 ? 1 : this.fraction;
+
+		return linearInterpolation(this.lineSegment.start,this.lineSegment.end,this.fraction);
 	}
 
 	inverse(distance:number):LineSegmentTrackingPoint{
-		return new LineSegmentTrackingPoint();
+		return new LineSegmentTrackingPoint(this.lineSegment);
 	}
 
 	getGeometry():LineSegment{
