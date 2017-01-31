@@ -81,12 +81,14 @@
 
 </div>
 
+<!--[workspace]="workspace"-->
 <!-- Gizmo Edge associated with this Node-->
 <gizmo-edge 
 	*ngIf="soloSelected" 
-	[workspace]="workspace"
 	[fromNode]="node"
 	[positionOfTheCursor]="workspace.cursorPosition"
+	[prepared]="prepared"
+	[ghostNode]="ghostNode"
 	(linkNodes)="linkNodes.emit($event)"
 >
 </gizmo-edge>

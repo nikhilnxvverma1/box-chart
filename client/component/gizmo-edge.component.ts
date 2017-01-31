@@ -11,54 +11,59 @@ import { LinkNodesCommand,NodeLinkingStatus } from '../editor/command/link-nodes
 })
 export class GizmoEdgeComponent implements OnChanges,OnInit,NodeLinkingStatus{
 	
-	@Input('workspace') workspace:Workspace;
-	@Input('fromNode') fromNode:GenericDiagramNode;
+	// @Input() workspace:Workspace;
+	@Input() fromNode:GenericDiagramNode;
 	//angular 2 bug: calling a model 'cursorPosition' somehow prevents ngOnInit from getting called. Go figure.
 	// @Input('cursorPosition') cursorPosition:Point;
-	@Input('positionOfTheCursor') pos:Point;
-	@Output('linkNodes') linkNodes=new EventEmitter<LinkNodesCommand>();
+	@Input() positionOfTheCursor:Point;
+	@Output() linkNodes=new EventEmitter<LinkNodesCommand>();
 
 	// Controls how far the linking extension will be made 
 	linkerExtensionDistance:number=50;
 	//edge that is ready to be linked to another node (used in making the gizmo)
-	prepared:DiagramEdge;
+	@Input() prepared:DiagramEdge=null;
 	//if new nodes is created using the linker, this node is used
-	ghostNode:GenericDiagramNode;
+	@Input() ghostNode:GenericDiagramNode;
 	showGhostNode:boolean=false;
 	private linkingProcessUnderway=false;
 
 	//prepared edge and ghost node are not connected until after the link is made through command
 
 	ngOnInit(){
-		this.prepareNewEdgeAndNode();
+		// this.prepareNewEdgeAndNode();
 	}
 
 	ngOnChanges(changes:SimpleChanges){
 		if(!this.linkingProcessUnderway){
-			if (changes['positionOfTheCursor'] != null ) {
+			// if (changes['positionOfTheCursor'] != null ) {
+			if (changes['positionOfTheCursor'] != null ) {//only because of an angular 2 bug
 				this.updateTrackingPointsBasedOnNewCursorPosition(changes['positionOfTheCursor'].currentValue);
 			}
+		}else{
+			console.debug("Node is being linked");
 		}
 	}
 
 	updateTrackingPointsBasedOnNewCursorPosition(position:Point){
+		console.debug("Updating prepared edge");
 		//set a new tracking point on the from
 		this.prepared.fromPoint=this.fromNode.geometry.getTrackingPoint();
 
 		//gravitate towards the cursor Position
 		let outlierPoint=this.prepared.fromPoint.gravitateTowards(position,this.linkerExtensionDistance);
 
-		//find the to tracking point by getting the inverse of from tracking point
-		this.prepared.toPoint=this.prepared.toPoint.inverse(this.linkerExtensionDistance);
+		//find the to tracking point by getting the inverse of 'from' tracking point
+		this.prepared.toPoint=this.prepared.fromPoint.inverse(this.linkerExtensionDistance);
 
 		this.ghostNode.geometry=this.prepared.toPoint.getGeometry();
 	}
 
 	linkNodesByDragging(event:MouseEvent){
-		this.linkNodes.emit(new LinkNodesCommand(this.workspace,this.prepared,this.fromNode));
+		// this.linkNodes.emit(new LinkNodesCommand(this.workspace,this.prepared,this.fromNode));
 	}
 
 	private prepareNewEdgeAndNode(){
+		console.debug("Setting new prepared edge");
 		this.prepared=new DiagramEdge();
 		this.prepared.from=this.fromNode;
 		this.prepared.fromPoint=this.fromNode.geometry.getTrackingPoint();
@@ -70,7 +75,11 @@ export class GizmoEdgeComponent implements OnChanges,OnInit,NodeLinkingStatus{
 	}
 
 	possibleNodeToLinkTo(node:DiagramNode):void{
-
+		if(node==this.ghostNode){
+			this.showGhostNode=true;
+		}else{
+			this.showGhostNode=false;
+		}
 	}
 
 	finishedLinkingToNode(node:DiagramNode):void{

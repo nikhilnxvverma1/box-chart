@@ -1,4 +1,4 @@
-import { Component,Input,Output,EventEmitter,ViewChildren,QueryList } from '@angular/core';
+import { Component,Input,Output,EventEmitter,ViewChildren,QueryList,OnInit } from '@angular/core';
 import { animate,trigger,state,style,transition } from '@angular/core';
 import { Rect } from '../model/geometry';
 import { Workspace } from '../editor/workspace';
@@ -26,7 +26,7 @@ const SELECTION_COLOR='#2BA3FC';
 		])
 	]
 })
-export class GenericNodeComponent {
+export class GenericNodeComponent implements OnInit{
 
 	@Input('workspace') workspace:Workspace;
 	@Input("soloSelected") soloSelected:boolean;
@@ -35,6 +35,14 @@ export class GenericNodeComponent {
 	@Output('linkNodes') linkNodes=new EventEmitter<LinkNodesCommand>();
 	@Output() removeMe=new EventEmitter<DiagramNode>();
 	@ViewChildren(ResizeHandleComponent) resizeHandlers:QueryList<ResizeHandleComponent>;
+
+	prepared:DiagramEdge;
+	ghostNode:GenericDiagramNode;
+
+	ngOnInit(){
+		this.prepareNewEdgeAndNode();
+	}
+
 
 	registerDragIntention(){
 		this.requestDragging.emit(this.node);
@@ -52,5 +60,13 @@ export class GenericNodeComponent {
 
 	strokeColor(){
 		return this.node.selected ? SELECTION_COLOR : this.node.stroke.hashCode();
+	}
+
+	private prepareNewEdgeAndNode(){
+		console.debug("Setting new prepared edge in generic node component");
+		this.prepared=new DiagramEdge();
+		this.prepared.from=this.node;
+		this.prepared.fromPoint=this.node.geometry.getTrackingPoint();
+		this.ghostNode=this.node.clone(true);
 	}
 }

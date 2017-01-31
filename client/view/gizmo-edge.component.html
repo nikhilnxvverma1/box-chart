@@ -1,14 +1,16 @@
-<div class="link-circle" 
-	(mousedown)="linkNodesByDragging($event)"
-	[style.left.px]="fromNode.geometry.getTrackingPoint().gravitateTowards(pos,30).x"
-	[style.top.px]="fromNode.geometry.getTrackingPoint().gravitateTowards(pos,30).y"
-	[style.width.px]="10"
-	[style.height.px]="10">
+<ng-container *ngIf="prepared!=null && prepared.fromPoint!=null && prepared.toPoint!=null">
+	<line-segment
+		[start]="prepared.fromPoint.pointOnGeometry()" 
+		[end]="prepared.toPoint.pointOnGeometry()"
+		>
+	</line-segment>
 
-</div>
+	<div class="link-circle" 
+		(mousedown)="linkNodesByDragging($event)"
+		[style.left.px]="prepared.toPoint.pointOnGeometry().x"
+		[style.top.px]="prepared.toPoint.pointOnGeometry().y"
+		[style.width.px]="10"
+		[style.height.px]="10">
 
-<line-segment
-	[start]="fromNode.geometry.getTrackingPoint().gravitateTowards(pos)" 
-	[end]="fromNode.geometry.getTrackingPoint().gravitateTowards(pos,30)"
-	>
-</line-segment>
+	</div>
+</ng-container>

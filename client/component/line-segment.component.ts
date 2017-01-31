@@ -27,12 +27,12 @@ export class LineSegmentComponent {
 
 	private boundingWidth():number{
 		let value = Math.abs(this.start.x - this.end.x);
-		return value <= 1 ? 3 : value;
+		return value <= 1 ? 2 : value;
 	}
 
 	private boundingHeight(){
 		let value = Math.abs(this.start.y - this.end.y);
-		return value <= 1 ? 3 : value;
+		return value <= 1 ? 2 : value;
 	}
 
 	private topLeft():Point{

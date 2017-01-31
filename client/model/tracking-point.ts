@@ -260,13 +260,13 @@ export class RectTrackingPoint implements TrackingPoint{
 		//calculate the shift that is required for the new geometry
 		let shift = new Point(0, 0);
 		if(oppositeSide==Direction.Top){
-			shift.y-=(distance+this.rect.height);
-		}else if(oppositeSide==Direction.Bottom){
 			shift.y+=(distance+this.rect.height);
+		}else if(oppositeSide==Direction.Bottom){
+			shift.y-=(distance+this.rect.height);
 		}else if(oppositeSide==Direction.Left){
-			shift.x-=(distance+this.rect.width);
-		}else if(oppositeSide==Direction.Right){
 			shift.x+=(distance+this.rect.width);
+		}else if(oppositeSide==Direction.Right){
+			shift.x-=(distance+this.rect.width);
 		}
 		copyRect.moveBy(shift);
 
