@@ -113,7 +113,6 @@ export class ArtboardComponent implements OnInit{
 			this.selectionBox.mousePressed(event);
 		}
 		this.appRef.tick();
-		console.debug("artboard mouse down");
 	}
 
 	mousemove(event:MouseEvent){
@@ -130,8 +129,6 @@ export class ArtboardComponent implements OnInit{
 			this.selectionBox.mouseMoved(event);
 		}
 		this.appRef.tick();
-		// console.debug("artboard mouse moved to "+this.workspace.cursorPosition.toString());
-		console.debug("artboard mouse moved to ");
 	}
 
 	mouseup(event:MouseEvent){
@@ -143,7 +140,6 @@ export class ArtboardComponent implements OnInit{
 		}
 		this.draggingInteraction=null;
 		this.appRef.tick();
-		console.debug("artboard mouse up");
 	}
 
 	setDragInteractionIfEmpty(dragProcessor:PressDragReleaseProcessor){

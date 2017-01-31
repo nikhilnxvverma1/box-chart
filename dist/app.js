@@ -8852,7 +8852,6 @@ webpackJsonp([0],[
 	            this.selectionBox.mousePressed(event);
 	        }
 	        this.appRef.tick();
-	        console.debug("artboard mouse down");
 	    };
 	    ArtboardComponent.prototype.mousemove = function (event) {
 	        this.mousemoveEvent.emit(event);
@@ -8868,8 +8867,6 @@ webpackJsonp([0],[
 	            this.selectionBox.mouseMoved(event);
 	        }
 	        this.appRef.tick();
-	        // console.debug("artboard mouse moved to "+this.workspace.cursorPosition.toString());
-	        console.debug("artboard mouse moved to ");
 	    };
 	    ArtboardComponent.prototype.mouseup = function (event) {
 	        this.mouseupEvent.emit(event);
@@ -8881,7 +8878,6 @@ webpackJsonp([0],[
 	        }
 	        this.draggingInteraction = null;
 	        this.appRef.tick();
-	        console.debug("artboard mouse up");
 	    };
 	    ArtboardComponent.prototype.setDragInteractionIfEmpty = function (dragProcessor) {
 	        if (this.draggingInteraction == null) {
@@ -11847,11 +11843,28 @@ webpackJsonp([0],[
 	        var yMid = 1; //TODO purely hardcoded based on the value in the stylesheet for line-segment class
 	        var degree = this.start.angleOfSegment(this.end);
 	        var radians = Math.PI * degree / 180;
-	        return "matrix(" +
+	        var transformProperty = "matrix(" +
 	            Math.cos(radians) + "," + Math.sin(radians) + "," +
 	            -Math.sin(radians) + "," + Math.cos(radians) + "," +
 	            -xMid + "," + -yMid
 	            + ")";
+	        return transformProperty;
+	    };
+	    LineSegmentComponent.prototype.boundingWidth = function () {
+	        var value = Math.abs(this.start.x - this.end.x);
+	        return value <= 1 ? 3 : value;
+	    };
+	    LineSegmentComponent.prototype.boundingHeight = function () {
+	        var value = Math.abs(this.start.y - this.end.y);
+	        return value <= 1 ? 3 : value;
+	    };
+	    LineSegmentComponent.prototype.topLeft = function () {
+	        var lx = this.start.x < this.end.x ? this.start.x : this.end.x;
+	        var ly = this.start.y < this.end.y ? this.start.y : this.end.y;
+	        return new geometry_1.Point(lx, ly);
+	    };
+	    LineSegmentComponent.prototype.withinBounds = function (point) {
+	        return point.minus(this.topLeft());
 	    };
 	    __decorate([
 	        core_1.Input('start'), 
@@ -11878,7 +11891,7 @@ webpackJsonp([0],[
 /* 124 */
 /***/ function(module, exports) {
 
-	module.exports = "<div \n\tclass=\"line-segment\" \n\t[style.left.px]=\"(start.x+end.x)/2\" \n\t[style.top.px]=\"(start.y+end.y)/2\"\n\t[style.width.px]=\"start.distance(end)\"\n\t[style.-webkit-transform]=\"transformationMatrix()\"\n\t[style.-ms-transform]=\"transformationMatrix()\"\n\t[style.transform]=\"transformationMatrix()\">\n\t<!--<div class=\"line-segment-text\" >\n\t\t<span contenteditable=\"true\">Editable</span>\n\t</div>-->\n</div>";
+	module.exports = "\n<svg \n\t[style.left.px]=\"topLeft().x\" \n\t[style.top.px]=\"topLeft().y\"\n\t[style.position]=\"'absolute'\"\n \t[attr.height]=\"boundingHeight()\"\n\t[attr.width]=\"boundingWidth()\">\n  <svg:line [attr.x1]=\"withinBounds(start).x\"\n\t[attr.y1]=\"withinBounds(start).y\"\n\t[attr.x2]=\"withinBounds(end).x\"\n\t[attr.y2]=\"withinBounds(end).y\"\n\t[ngStyle]=\"{'stroke':'rgb(255,0,0)', 'stroke-width':2}\"\n\t/>\n</svg>\n";
 
 /***/ },
 /* 125 */
