@@ -145,7 +145,6 @@ export class DiagramEdge{
 
 	set from(value:DiagramNode){
 		this._from=value;
-		this._fromPoint=new CenterTrackingPoint(value.geometry);
 	}
 
 	get to():DiagramNode{
@@ -154,7 +153,6 @@ export class DiagramEdge{
 
 	set to(value:DiagramNode){
 		this._to=value;
-		this._toPoint=new CenterTrackingPoint(value.geometry);
 	}
 
 	get fromPoint():TrackingPoint{

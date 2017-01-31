@@ -11,7 +11,7 @@ import { LinkNodesCommand,NodeLinkingStatus } from '../editor/command/link-nodes
 })
 export class GizmoEdgeComponent implements OnChanges,OnInit,NodeLinkingStatus{
 	
-	// @Input() workspace:Workspace;
+	@Input() workspace:Workspace;
 	@Input() fromNode:GenericDiagramNode;
 	//angular 2 bug: calling a model 'cursorPosition' somehow prevents ngOnInit from getting called. Go figure.
 	// @Input('cursorPosition') cursorPosition:Point;
@@ -34,32 +34,33 @@ export class GizmoEdgeComponent implements OnChanges,OnInit,NodeLinkingStatus{
 	}
 
 	ngOnChanges(changes:SimpleChanges){
-		if(!this.linkingProcessUnderway){
-			// if (changes['positionOfTheCursor'] != null ) {
-			if (changes['positionOfTheCursor'] != null ) {//only because of an angular 2 bug
-				this.updateTrackingPointsBasedOnNewCursorPosition(changes['positionOfTheCursor'].currentValue);
-			}
-		}else{
-			console.debug("Node is being linked");
+		
+		if (changes['positionOfTheCursor'] != null ) {//only because of an angular 2 bug
+			this.updateTrackingPointsBasedOnNewCursorPosition(changes['positionOfTheCursor'].currentValue);
+			
 		}
+
 	}
 
 	updateTrackingPointsBasedOnNewCursorPosition(position:Point){
-		console.debug("Updating prepared edge");
+
 		//set a new tracking point on the from
 		this.prepared.fromPoint=this.fromNode.geometry.getTrackingPoint();
 
 		//gravitate towards the cursor Position
 		let outlierPoint=this.prepared.fromPoint.gravitateTowards(position,this.linkerExtensionDistance);
 
-		//find the to tracking point by getting the inverse of 'from' tracking point
-		this.prepared.toPoint=this.prepared.fromPoint.inverse(this.linkerExtensionDistance);
+		if(!this.linkingProcessUnderway){
 
-		this.ghostNode.geometry=this.prepared.toPoint.getGeometry();
+			//find the to tracking point by getting the inverse of 'from' tracking point
+			this.prepared.toPoint=this.prepared.fromPoint.inverse(this.linkerExtensionDistance);
+			this.ghostNode.geometry=this.prepared.toPoint.getGeometry();
+		}
+
 	}
 
 	linkNodesByDragging(event:MouseEvent){
-		// this.linkNodes.emit(new LinkNodesCommand(this.workspace,this.prepared,this.fromNode));
+		this.linkNodes.emit(new LinkNodesCommand(this.workspace,this.prepared,this.ghostNode,this));
 	}
 
 	private prepareNewEdgeAndNode(){
