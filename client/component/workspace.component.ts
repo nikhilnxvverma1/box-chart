@@ -99,7 +99,7 @@ export class WorkspaceComponent implements OnInit,PostOperationNotification{
             this.windowMovementAllowed=true;
         }
 
-		if(event.keyCode==Z_KEY && event.metaKey){//cmd + z
+		if(event.keyCode==Z_KEY && event.ctrlKey){//cmd + z
 			if(event.shiftKey){//cmd+shift+z
 				this.workspace.redo();
 			}else{

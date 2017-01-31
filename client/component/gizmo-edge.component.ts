@@ -17,6 +17,7 @@ export class GizmoEdgeComponent implements OnChanges,OnInit,NodeLinkingStatus{
 	// @Input('cursorPosition') cursorPosition:Point;
 	@Input() positionOfTheCursor:Point;
 	@Output() linkNodes=new EventEmitter<LinkNodesCommand>();
+	@Output() requireNewEdgeAndGhost=new EventEmitter();
 
 	// Controls how far the linking extension will be made 
 	linkerExtensionDistance:number=50;
@@ -84,7 +85,7 @@ export class GizmoEdgeComponent implements OnChanges,OnInit,NodeLinkingStatus{
 	}
 
 	finishedLinkingToNode(node:DiagramNode):void{
-		this.prepareNewEdgeAndNode();
+		this.requireNewEdgeAndGhost.emit();
 		this.linkingProcessUnderway=false;
 	}
 }

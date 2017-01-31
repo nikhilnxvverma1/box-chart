@@ -1,6 +1,6 @@
 import { Command } from './command';
 import { Workspace } from '../workspace';
-import { PressDragReleaseProcessor } from '../../utility/common';
+import { PressDragReleaseProcessor,removeFromList } from '../../utility/common';
 import { DiagramModel,DiagramNode,DiagramEdge } from '../../model/worksheet';
 import { Point } from '../../model/geometry';
 
@@ -64,10 +64,15 @@ export class LinkNodesCommand extends Command implements PressDragReleaseProcess
 		if(endpoint==this.ghostNode){
 			//ghost node is now new node in node list
 			diagramModel.nodeList.push(this.ghostNode);
+		}else{
+			//get a new tracking point from the existing node
+			this.prepared.toPoint=endpoint.geometry.getTrackingPoint();
 		}
 
 		//make the connection and push to edge list
 		this.prepared.to=endpoint;
+		endpoint.incomingEdges.push(this.prepared);
+		this.prepared.from.outgoingEdges.push(this.prepared);
 		diagramModel.edgeList.push(this.prepared);
 
 		//the endpoint's tracking point now will gravitate Towards the 'from' node's tracking point
@@ -116,30 +121,25 @@ export class LinkNodesCommand extends Command implements PressDragReleaseProcess
 			//add a new node(which was the ghost)
 			diagramModel.nodeList.push(this.ghostNode);
 		}
-		//add prepared edge to edge list
+		//add prepared edge to edge list and make connections
 		diagramModel.edgeList.push(this.prepared);
+		this.prepared.to.incomingEdges.push(this.prepared);
+		this.prepared.from.outgoingEdges.push(this.prepared)
 	}
 
 	unExecute():void{
 		let diagramModel=this.workspace.worksheet.diagramModel;
 		
 		//remove prepared edge from edge list
-		let index=diagramModel.edgeList.indexOf(this.prepared);
-		if(index!=-1){
-			diagramModel.edgeList.splice(index,1);
-		}else{
-			console.error("Edge is already not in edge list");
-		}
+		removeFromList(this.prepared,diagramModel.edgeList,"Edge is already not in edge list");
 
 		if(this.prepared.to==this.ghostNode){
 			//remove the newly created ghost node too
-			index=diagramModel.nodeList.indexOf(this.ghostNode);
-			if(index!=-1){
-				diagramModel.nodeList.splice(index,1);
-			}else{
-				console.error("ghost Node is already not in node list");
-			}
+			removeFromList(this.ghostNode,diagramModel.nodeList,"ghost Node is already not in node list");
 		}
+		//remove connections
+		removeFromList(this.prepared,this.prepared.to.incomingEdges,"incoming edge not found in transient list");
+		removeFromList(this.prepared,this.prepared.to.outgoingEdges,"outgoing edge not found in transient list");
 	}
 
 	getName():string{

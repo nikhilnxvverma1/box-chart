@@ -105,6 +105,12 @@ export abstract class DiagramNode{
 	stroke=new Color(0,0,0,0);
 	/** Gives the geometrical shape for this diagram block */
 	geometry?:Geometry;
+
+	/** Transient list of all edges to which this node is a 'to' node */
+	incomingEdges:DiagramEdge[]=[];
+	/** Transient list of all edges to which this node is a 'from' node */
+	outgoingEdges:DiagramEdge[]=[];
+
 	/** Creates a duplicate of this node with an optional shift and slightly different content. */
 	abstract clone(similarButDifferentContent?:boolean,offset?:Point):DiagramNode;
 	/** Based on type, a retangular specified bounding size sets the dimensions of this node. */

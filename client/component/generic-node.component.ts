@@ -40,7 +40,7 @@ export class GenericNodeComponent implements OnInit{
 	ghostNode:GenericDiagramNode;
 
 	ngOnInit(){
-		this.prepareNewEdgeAndNode();
+		this.prepareNewEdgeAndGhost();
 	}
 
 
@@ -62,7 +62,7 @@ export class GenericNodeComponent implements OnInit{
 		return this.node.selected ? SELECTION_COLOR : this.node.stroke.hashCode();
 	}
 
-	private prepareNewEdgeAndNode(){
+	private prepareNewEdgeAndGhost(){
 		console.debug("Setting new prepared edge in generic node component");
 		this.prepared=new DiagramEdge();
 		this.prepared.from=this.node;

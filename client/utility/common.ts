@@ -170,3 +170,15 @@ export function printList(list:any[]){
 export function deriveSimilarButDifferentString(content:string):string{
 	return content;//TODO
 }
+
+/**Removes an item from a generic list, and logs an error if the item wasn't found */
+export function removeFromList(item:any,list:any[],logError?:string):boolean{
+	let index=list.indexOf(item);
+	if(index!=-1){
+		list.splice(index,1);
+		return true;
+	}else if(logError!=null){
+		console.error(logError);
+	}
+	return false;
+}
