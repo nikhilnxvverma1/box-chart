@@ -1,4 +1,4 @@
-import { Geometry,GeometryType,Rect,LinkedPoint,Point,Circle } from './geometry';
+import { Geometry, GeometryType, Rect, LinkedPoint, Point, Circle, LineSegment } from './geometry';
 import { SemanticModel,ClassDefinition,InterfaceDefinition } from './semantic-model';
 import { TrackingPoint,CenterTrackingPoint } from './tracking-point';
 import { ObjectModel, ClassObjectData, InterfaceObjectData, Collection } from './object-model';
@@ -137,7 +137,7 @@ export enum EndpointStyle{
 
 export class LineStyle {
 	color: Color = new Color(0, 0, 0);
-	dashStyle: DashStyle = DashStyle.Dotted;
+	dashStyle: DashStyle = DashStyle.Solid;
 	fromEndpoint: EndpointStyle = EndpointStyle.None;
 	toEndpoint: EndpointStyle = EndpointStyle.None;
 }
@@ -199,6 +199,10 @@ export class DiagramEdge{
 
 	set toPoint(value:TrackingPoint){
 		this._toPoint=value;
+	}
+
+	get line():LineSegment{
+		return new LineSegment(this.fromPoint.pointOnGeometry(),this.toPoint.pointOnGeometry());
 	}
 
 	toJSON():any{

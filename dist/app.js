@@ -6470,7 +6470,7 @@ webpackJsonp([0],[
 	var LineStyle = (function () {
 	    function LineStyle() {
 	        this.color = new Color(0, 0, 0);
-	        this.dashStyle = DashStyle.Dotted;
+	        this.dashStyle = DashStyle.Solid;
 	        this.fromEndpoint = EndpointStyle.None;
 	        this.toEndpoint = EndpointStyle.None;
 	    }
@@ -6524,6 +6524,13 @@ webpackJsonp([0],[
 	        },
 	        set: function (value) {
 	            this._toPoint = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(DiagramEdge.prototype, "line", {
+	        get: function () {
+	            return new geometry_1.LineSegment(this.fromPoint.pointOnGeometry(), this.toPoint.pointOnGeometry());
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -7100,6 +7107,14 @@ webpackJsonp([0],[
 	    Point.prototype.minus = function (point) {
 	        return new Point(this.x - point.x, this.y - point.y);
 	    };
+	    /**Checks if this point lies between the diagonal bounds created two given points*/
+	    Point.prototype.between = function (p1, p2) {
+	        var lx = p1.x < p2.x ? p1.x : p2.x;
+	        var ly = p1.y < p2.y ? p1.y : p2.y;
+	        var mx = p1.x > p2.x ? p1.x : p2.x;
+	        var my = p1.y > p2.y ? p1.y : p2.y;
+	        return this.x >= lx && this.y >= ly && this.y <= mx && this.y <= my;
+	    };
 	    Point.prototype.toJSON = function () {
 	        var json = {};
 	        json.type = this.type;
@@ -7160,6 +7175,18 @@ webpackJsonp([0],[
 	    };
 	    Rect.prototype.center = function () {
 	        return new Point(this.x + this.width / 2, this.y + this.height / 2);
+	    };
+	    Rect.prototype.leftSide = function () {
+	        return new common_1.LineEquation(this.topLeft(), this.bottomLeft());
+	    };
+	    Rect.prototype.rightSide = function () {
+	        return new common_1.LineEquation(this.topRight(), this.bottomRight());
+	    };
+	    Rect.prototype.topSide = function () {
+	        return new common_1.LineEquation(this.topLeft(), this.topRight());
+	    };
+	    Rect.prototype.bottomSide = function () {
+	        return new common_1.LineEquation(this.bottomLeft(), this.bottomRight());
 	    };
 	    Rect.prototype.getBoundingBox = function () {
 	        return new Rect(this.x, this.y, this.width, this.height);
@@ -7297,7 +7324,28 @@ webpackJsonp([0],[
 	        return new Rect(lx, ly, hx - lx, hy - ly);
 	    };
 	    LineSegment.prototype.overlapsWithRect = function (rect) {
-	        //TODO line rect overlap check
+	        //endpoint containment check
+	        if (rect.contains(this.start) || rect.contains(this.end)) {
+	            return true;
+	        }
+	        // line rect overlap check
+	        var lineEquation = new common_1.LineEquation(this.start, this.end);
+	        var p = rect.leftSide().intersectionWith(lineEquation);
+	        if (p != null && p.between(this.start, this.end) && p.withinYSpan(rect.topLeft().y, rect.bottomLeft().y)) {
+	            return true;
+	        }
+	        p = rect.rightSide().intersectionWith(lineEquation);
+	        if (p != null && p.between(this.start, this.end) && p.withinYSpan(rect.topRight().y, rect.bottomRight().y)) {
+	            return true;
+	        }
+	        p = rect.topSide().intersectionWith(lineEquation);
+	        if (p != null && p.between(this.start, this.end) && p.withinXSpan(rect.topLeft().x, rect.topRight().x)) {
+	            return true;
+	        }
+	        p = rect.bottomSide().intersectionWith(lineEquation);
+	        if (p != null && p.between(this.start, this.end) && p.withinXSpan(rect.bottomLeft().x, rect.bottomRight().x)) {
+	            return true;
+	        }
 	        return false;
 	    };
 	    LineSegment.prototype.moveBy = function (point) {
@@ -11212,6 +11260,14 @@ webpackJsonp([0],[
 	                count++;
 	            }
 	        }
+	        //select all overlapping edges
+	        for (var _b = 0, _c = this.workspace.worksheet.diagramModel.edgeList; _b < _c.length; _b++) {
+	            var edge = _c[_b];
+	            if (edge.line.overlapsWithRect(this.rect)) {
+	                this.workspace.addEdgeToSelection(edge);
+	                count++;
+	            }
+	        }
 	        return count;
 	    };
 	    __decorate([
@@ -11970,7 +12026,7 @@ webpackJsonp([0],[
 /* 124 */
 /***/ function(module, exports) {
 
-	module.exports = "\n<svg \n\t[style.left.px]=\"topLeft().x\" \n\t[style.top.px]=\"topLeft().y\"\n\t[style.position]=\"'absolute'\"\n \t[attr.height]=\"boundingHeight()\"\n\t[attr.width]=\"boundingWidth()\">\n  <svg:line [attr.x1]=\"withinBounds(start).x\"\n\t[attr.y1]=\"withinBounds(start).y\"\n\t[attr.x2]=\"withinBounds(end).x\"\n\t[attr.y2]=\"withinBounds(end).y\"\n\t[attr.stroke-dasharray]=\"strokeDashArray()\"\n\t[style.stroke]=\"color.hashCode()\"\n\t[ngStyle]=\"{'stroke-width':2}\"\n\t/>\n</svg>\n";
+	module.exports = "\n<svg \n\t[style.pointer-events]=\"'none'\"\n\t[style.left.px]=\"topLeft().x\" \n\t[style.top.px]=\"topLeft().y\"\n\t[style.position]=\"'absolute'\"\n \t[attr.height]=\"boundingHeight()\"\n\t[attr.width]=\"boundingWidth()\">\n  <svg:line [attr.x1]=\"withinBounds(start).x\"\n\t[attr.y1]=\"withinBounds(start).y\"\n\t[attr.x2]=\"withinBounds(end).x\"\n\t[attr.y2]=\"withinBounds(end).y\"\n\t[attr.stroke-dasharray]=\"strokeDashArray()\"\n\t[style.stroke]=\"color.hashCode()\"\n\t[ngStyle]=\"{'stroke-width':2}\"\n\t/>\n</svg>\n";
 
 /***/ },
 /* 125 */
@@ -12397,9 +12453,18 @@ webpackJsonp([0],[
 	var core_1 = __webpack_require__(3);
 	var worksheet_1 = __webpack_require__(70);
 	var workspace_1 = __webpack_require__(96);
+	var EDGE_SELECTION_COLOR = new worksheet_1.Color(152, 185, 231);
 	var DiagramEdgeComponent = (function () {
 	    function DiagramEdgeComponent() {
 	    }
+	    DiagramEdgeComponent.prototype.edgeColor = function () {
+	        if (this.edge.selected) {
+	            return EDGE_SELECTION_COLOR;
+	        }
+	        else {
+	            return this.edge.style.color;
+	        }
+	    };
 	    __decorate([
 	        core_1.Input('workspace'), 
 	        __metadata('design:type', (typeof (_a = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _a) || Object)
@@ -12425,7 +12490,7 @@ webpackJsonp([0],[
 /* 142 */
 /***/ function(module, exports) {
 
-	module.exports = "<line-segment \n\t[start]=\"edge.fromPoint.pointOnGeometry()\"\n\t[end]=\"edge.toPoint.pointOnGeometry()\"\n\t[color]=\"edge.style.color\"\n\t[dashStyle]=\"edge.style.dashStyle\"\n\t[startStyle]=\"edge.style.fromEndpoint\"\n\t[endStyle]=\"edge.style.toEndpoint\"\n\t></line-segment>";
+	module.exports = "<line-segment \n\t[start]=\"edge.fromPoint.pointOnGeometry()\"\n\t[end]=\"edge.toPoint.pointOnGeometry()\"\n\t[color]=\"edgeColor()\"\n\t[dashStyle]=\"edge.style.dashStyle\"\n\t[startStyle]=\"edge.style.fromEndpoint\"\n\t[endStyle]=\"edge.style.toEndpoint\"\n\t></line-segment>";
 
 /***/ },
 /* 143 */

@@ -79,6 +79,14 @@ export class SelectionBoxComponent {
 			}
 		}
 
+		//select all overlapping edges
+		for(let edge of this.workspace.worksheet.diagramModel.edgeList){
+			if(edge.line.overlapsWithRect(this.rect)){
+				this.workspace.addEdgeToSelection(edge);
+				count++;
+			}
+		}
+
 		return count;
 	}
 }

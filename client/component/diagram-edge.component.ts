@@ -1,8 +1,9 @@
 import { Component,Input } from '@angular/core';
 import { Point } from '../model/geometry';
-import { DiagramEdge } from '../model/worksheet';
+import { DiagramEdge,Color } from '../model/worksheet';
 import { Workspace } from '../editor/workspace';
 
+const EDGE_SELECTION_COLOR=new Color(152,185,231);
 @Component({
   selector: 'diagram-edge',
   templateUrl: '../view/diagram-edge.component.html',
@@ -10,4 +11,12 @@ import { Workspace } from '../editor/workspace';
 export class DiagramEdgeComponent  {
 	@Input('workspace') workspace:Workspace;
 	@Input('edge') edge:DiagramEdge;
+
+	edgeColor():Color{
+		if(this.edge.selected){
+			return EDGE_SELECTION_COLOR;
+		}else{
+			return this.edge.style.color;
+		}
+	}
 }

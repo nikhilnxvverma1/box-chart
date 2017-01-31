@@ -186,6 +186,17 @@ export class Point implements Geometry{
 		return new Point(this.x - point.x, this.y - point.y);
 	}
 
+	/**Checks if this point lies between the diagonal bounds created two given points*/
+	between(p1:Point,p2:Point):boolean{
+		let lx = p1.x < p2.x ? p1.x : p2.x;
+		let ly = p1.y < p2.y ? p1.y : p2.y;
+
+		let mx = p1.x > p2.x ? p1.x : p2.x;
+		let my = p1.y > p2.y ? p1.y : p2.y;
+
+		return this.x >= lx && this.y >= ly && this.y <= mx && this.y <= my;
+	}
+
 	toJSON():any{
 		let json:any={};
 		json.type=this.type;
@@ -259,6 +270,22 @@ export class Rect implements Geometry{
 
 	center():Point{
 		return new Point(this.x+this.width/2,this.y+this.height/2);
+	}
+
+	leftSide():LineEquation{
+		return new LineEquation(this.topLeft(),this.bottomLeft());
+	}
+
+	rightSide():LineEquation{
+		return new LineEquation(this.topRight(),this.bottomRight());
+	}
+
+	topSide():LineEquation{
+		return new LineEquation(this.topLeft(),this.topRight());
+	}
+
+	bottomSide():LineEquation{
+		return new LineEquation(this.bottomLeft(),this.bottomRight());
 	}
 
 	getBoundingBox():Rect{
@@ -415,7 +442,34 @@ export class LineSegment implements Geometry{
 	}
 
 	overlapsWithRect(rect:Rect):boolean{
-		//TODO line rect overlap check
+		//endpoint containment check
+		if(rect.contains(this.start) || rect.contains(this.end)){
+			return true;
+		}
+
+		// line rect overlap check
+		let lineEquation=new LineEquation(this.start,this.end);
+
+		let p=rect.leftSide().intersectionWith(lineEquation);
+		if(p!=null && p.between(this.start,this.end) && p.withinYSpan(rect.topLeft().y,rect.bottomLeft().y)){
+			return true;
+		}
+
+		p=rect.rightSide().intersectionWith(lineEquation);
+		if(p!=null && p.between(this.start,this.end) && p.withinYSpan(rect.topRight().y,rect.bottomRight().y)){
+			return true;
+		}
+
+		p=rect.topSide().intersectionWith(lineEquation);
+		if(p!=null && p.between(this.start,this.end) && p.withinXSpan(rect.topLeft().x,rect.topRight().x)){
+			return true;
+		}
+
+		p=rect.bottomSide().intersectionWith(lineEquation);
+		if(p!=null && p.between(this.start,this.end) && p.withinXSpan(rect.bottomLeft().x,rect.bottomRight().x)){
+			return true;
+		}
+
 		return false;
 	}
 
