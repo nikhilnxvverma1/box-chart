@@ -22,7 +22,9 @@ export class Workspace{
 	commit(command:Command,execute:boolean=false){
 		if(execute){
 			command.execute();
-		}else if(this.postOperationListener!=null){
+		}
+		
+		if(this.postOperationListener!=null){
 			//if command is not executed, it must be notified when we are committing
 			this.postOperationListener.commandExecuted(command);
 		}

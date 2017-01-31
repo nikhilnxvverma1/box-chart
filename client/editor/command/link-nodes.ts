@@ -72,6 +72,7 @@ export class LinkNodesCommand extends Command implements PressDragReleaseProcess
 		//make the connection and push to edge list
 		this.prepared.to=endpoint;
 		endpoint.incomingEdges.push(this.prepared);
+		
 		this.prepared.from.outgoingEdges.push(this.prepared);
 		diagramModel.edgeList.push(this.prepared);
 

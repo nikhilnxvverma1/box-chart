@@ -34,7 +34,11 @@ export class WorksheetService{
 		worksheet.title=json.worksheet.title;
 		worksheet.description=json.worksheet.description;
 		worksheet.rid=json.worksheet['@rid'];
-		worksheet.diagramModel=new DiagramModel();
+		let jsonDataString=json.worksheet["diagramModel"];
+		console.debug(jsonDataString);
+		let jsonData=JSON.parse(jsonDataString);
+		worksheet.diagramModel=this.unpackDiagramModelFromJson(jsonData);
+		// worksheet.diagramModel=new DiagramModel();
 		return worksheet;
 	}
 
@@ -49,5 +53,44 @@ export class WorksheetService{
 		return this.http.post(WorksheetService.UPDATE_DIAGRAM_MODEL_URL,body,options).map((res:Response)=>{return res.json()});
 	}
 
+	unpackDiagramModelFromJson(json:any):DiagramModel{
+		let diagramModel=new DiagramModel();
+		for(let jsonNode of json.nodeList){
+			diagramModel.nodeList.push(DiagramNode.objectFromJSON(jsonNode));
+		}
+
+		for(let jsonEdge of json.edgeList){
+			let from=this.nodeWithId(jsonEdge.fromId,diagramModel.nodeList);
+			let to=this.nodeWithId(jsonEdge.toId,diagramModel.nodeList);
+			
+			let edge=DiagramEdge.objectFromJSON(jsonEdge);
+			edge.from=from;
+			from.outgoingEdges.push(edge);
+			// from.geometry=edge.fromPoint.getGeometry();
+			let fromTrackingPoint=from.geometry.getTrackingPoint();
+			fromTrackingPoint.copyInformationFrom(edge.fromPoint);
+			edge.fromPoint=fromTrackingPoint;
+
+			edge.to=to;
+			to.incomingEdges.push(edge);
+			// to.geometry=edge.toPoint.getGeometry();
+			let toTrackingPoint=to.geometry.getTrackingPoint();
+			toTrackingPoint.copyInformationFrom(edge.toPoint);
+			edge.toPoint=toTrackingPoint;
+
+			diagramModel.edgeList.push(edge);
+
+		}
+		return diagramModel;
+	}
+
+	private nodeWithId(id:number,list:DiagramNode[]):DiagramNode{
+		for(let node of list){
+			if(node.id==id){
+				return node;
+			}
+		}
+		return null;
+	}
 	
 }

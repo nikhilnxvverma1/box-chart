@@ -29,11 +29,32 @@ export interface TrackingPoint{
 	/** Returns the geometry tracked by this tracking point */
 	getGeometry():Geometry;
 
+	/** Copies compatible information from another tracking point */
+	copyInformationFrom(that:TrackingPoint):void;
+
 	/**Returns the type of tracking point this object is */
 	type:TrackingPointType;
 
 	/** Returns the json representation of this tracking point which includes type*/
 	toJSON():any;
+
+	/**Builds this object from a json representation.Returns the same object for chaining */
+	fromJSON(json:any):TrackingPoint;
+}
+
+export function trackingPointFromJSON(json:any):TrackingPoint{
+	if(json.type==TrackingPointType.Empty){
+		
+	}else if(json.type==TrackingPointType.Center){
+		return new EmptyTrackingPoint(new Point(0,0)).fromJSON(json);
+	}else if(json.type==TrackingPointType.Rect){
+		return new RectTrackingPoint(new Rect(0,0,0,0)).fromJSON(json);
+	}else if(json.type==TrackingPointType.Circle){
+		return new CircleTrackingPoint(new Circle(new Point(0,0),0)).fromJSON(json);
+	}else if(json.type==TrackingPointType.LineSegment){
+		return new LineSegmentTrackingPoint(new LineSegment(new Point(0,0),new Point(0,0))).fromJSON(json);
+	}
+	return null;
 }
 
 /** A simple point. Empty suggests that this tracking point is not tracking anything(geometry) */
@@ -59,6 +80,12 @@ export class EmptyTrackingPoint implements TrackingPoint{
 		return this.point;
 	}
 
+	copyInformationFrom(that:TrackingPoint):void{
+		if(that.type==TrackingPointType.Empty){
+			this.point=(<EmptyTrackingPoint>that).point;
+		}
+	}
+
 	get type():TrackingPointType{
 		return TrackingPointType.Empty;
 	}
@@ -68,6 +95,10 @@ export class EmptyTrackingPoint implements TrackingPoint{
 		json.type=this.type;
 		json.point=JSON.stringify(this.point);
 		return json;
+	}
+
+	fromJSON(json:any):EmptyTrackingPoint{
+		return this;
 	}
 }
 
@@ -94,6 +125,12 @@ export class CenterTrackingPoint implements TrackingPoint{
 		return this.geometry;
 	}
 
+	copyInformationFrom(that:TrackingPoint):void{
+		if(that.type==TrackingPointType.Circle){
+			this.geometry=(<CenterTrackingPoint>that).geometry;
+		}
+	}
+
 	get type():TrackingPointType{
 		return TrackingPointType.Circle;
 	}
@@ -103,6 +140,10 @@ export class CenterTrackingPoint implements TrackingPoint{
 		json.type=this.type;
 		json.point=JSON.stringify(this.geometry);
 		return json;
+	}
+
+	fromJSON(json:any):CenterTrackingPoint{
+		return this;
 	}
 }
 
@@ -278,6 +319,17 @@ export class RectTrackingPoint implements TrackingPoint{
 		return this.rect;
 	}
 
+	copyInformationFrom(that:TrackingPoint):void{
+		if(that.type==TrackingPointType.Rect){
+			this.rect.x=(<RectTrackingPoint>that).rect.x;
+			this.rect.y=(<RectTrackingPoint>that).rect.y;
+			this.rect.width=(<RectTrackingPoint>that).rect.width;
+			this.rect.height=(<RectTrackingPoint>that).rect.height;
+			this.fraction=(<RectTrackingPoint>that).fraction;
+			this.side=(<RectTrackingPoint>that).side;
+		}
+	}
+
 	get type():TrackingPointType{
 		return TrackingPointType.Rect;
 	}
@@ -289,6 +341,13 @@ export class RectTrackingPoint implements TrackingPoint{
 		json.fraction=this.fraction;
 		json.side=this.side;
 		return json;
+	}
+
+	fromJSON(json:any):RectTrackingPoint{
+		this.rect.fromJSON(json.rect);
+		this.fraction=json.fraction;
+		this.side=json.side;
+		return this;
 	}
 }
 
@@ -323,6 +382,13 @@ export class CircleTrackingPoint implements TrackingPoint{
 		return this.circle;
 	}
 
+	copyInformationFrom(that:TrackingPoint):void{
+		if(that.type==TrackingPointType.Circle){
+			this.circle.center=(<CircleTrackingPoint>that).circle.center;
+			this.angle=(<CircleTrackingPoint>that).angle;
+		}
+	}
+
 	get type():TrackingPointType{
 		return TrackingPointType.Circle;
 	}
@@ -333,6 +399,12 @@ export class CircleTrackingPoint implements TrackingPoint{
 		json.angle=this.angle;
 		json.circle=this.circle;
 		return json;
+	}
+
+	fromJSON(json:any):CircleTrackingPoint{
+		this.angle=json.angle;
+		this.circle.fromJSON(json);
+		return this;
 	}
 }
 
@@ -384,6 +456,14 @@ export class LineSegmentTrackingPoint implements TrackingPoint{
 		return this.lineSegment;
 	}
 
+	copyInformationFrom(that:TrackingPoint):void{
+		if(that.type==TrackingPointType.LineSegment){
+			this.lineSegment.start=(<LineSegmentTrackingPoint>that).lineSegment.start;
+			this.lineSegment.end=(<LineSegmentTrackingPoint>that).lineSegment.end;
+			this.fraction=(<LineSegmentTrackingPoint>that).fraction;
+		}
+	}
+
 	get type():TrackingPointType{
 		return TrackingPointType.LineSegment;
 	}
@@ -394,5 +474,11 @@ export class LineSegmentTrackingPoint implements TrackingPoint{
 		json.lineSegment=this.lineSegment;
 		json.fraction=this.fraction;
 		return json;
+	}
+
+	fromJSON(json:any):LineSegmentTrackingPoint{
+		this.fraction=json.fraction;
+		this.lineSegment.fromJSON(json.lineSegment);
+		return this;
 	}
 }

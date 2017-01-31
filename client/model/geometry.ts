@@ -23,6 +23,23 @@ export interface Geometry{
 	type:GeometryType;
 	/**Returns JSON representation of this class object */
 	toJSON():any;
+	/**Builds this object from a json representation.Returns the same object for chaining */
+	fromJSON(json:any):Geometry;
+
+	
+}
+
+export function geometryFromJSON(json:any):Geometry{
+	if(json.type==GeometryType.Point){
+		return new Point(0,0).fromJSON(json);
+	}else if(json.type==GeometryType.Rect){
+		return new Rect(0,0,0,0).fromJSON(json);
+	}else if(json.type==GeometryType.Circle){
+		return new Circle(new Point(0,0),0).fromJSON(json);
+	}else if(json.type==GeometryType.LineSegment){
+		return new LineSegment(new Point(0,0),new Point(0,0)).fromJSON(json);
+	}
+	return null;
 }
 
 /** Geometry type specifies the type of geometry */
@@ -204,6 +221,12 @@ export class Point implements Geometry{
 		json.y=this.y;
 		return json;
 	}
+
+	fromJSON(json:any):Point{
+		this.x=json.x;
+		this.y=json.y;
+		return this;
+	}
 }
 
 /** Stores 2D position and holds links to previous and next point in series */
@@ -342,6 +365,14 @@ export class Rect implements Geometry{
 		json.height=this.height;
 		return json;
 	}
+
+	fromJSON(json:any):Rect{
+		this.x=json.x;
+		this.y=json.y;
+		this.width=json.width;
+		this.height=json.height;
+		return this;
+	}
 }
 
 export class Circle implements Geometry{
@@ -403,6 +434,12 @@ export class Circle implements Geometry{
 		json.center=this.center.toJSON();
 		json.radius=this.radius;
 		return json;
+	}
+
+	fromJSON(json:any):Circle{
+		this.center.fromJSON(json.center);
+		this.radius=json.radius;
+		return this;
 	}
 }
 
@@ -539,5 +576,11 @@ export class LineSegment implements Geometry{
 		json.start=this.start.toJSON();
 		json.end=this.end.toJSON();
 		return json;
+	}
+
+	fromJSON(json:any):LineSegment{
+		this.start.fromJSON(json.start);
+		this.end.fromJSON(json.end);
+		return this;
 	}
 }

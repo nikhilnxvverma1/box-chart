@@ -6308,6 +6308,7 @@ webpackJsonp([0],{
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var geometry_1 = __webpack_require__(71);
+	var tracking_point_1 = __webpack_require__(74);
 	var util = __webpack_require__(72);
 	/** Containment of all worksheet related data is maintained in the model. */
 	var Worksheet = (function () {
@@ -6355,7 +6356,7 @@ webpackJsonp([0],{
 	            edge.id = autoId++;
 	            json.edgeList.push(edge.toJSON());
 	        }
-	        return json;
+	        return JSON.stringify(json);
 	    };
 	    return DiagramModel;
 	}());
@@ -6375,6 +6376,24 @@ webpackJsonp([0],{
 	    /** Returns the a hashcode equivalent string like #2343A4 */
 	    Color.prototype.hashCode = function () {
 	        return "#" + this.red.toString(16) + this.green.toString(16) + this.blue.toString(16);
+	    };
+	    Color.prototype.toJSON = function () {
+	        var json = {};
+	        json.red = this.red;
+	        json.green = this.green;
+	        json.blue = this.blue;
+	        json.alpha = this.alpha;
+	        return json;
+	    };
+	    Color.prototype.fromJSON = function (json) {
+	        this.red = json.red;
+	        this.green = json.green;
+	        this.blue = json.blue;
+	        this.alpha = json.alpha;
+	        return this;
+	    };
+	    Color.objectFromJSON = function (json) {
+	        return new Color().fromJSON(json);
 	    };
 	    return Color;
 	}());
@@ -6409,6 +6428,12 @@ webpackJsonp([0],{
 	        enumerable: true,
 	        configurable: true
 	    });
+	    DiagramNode.objectFromJSON = function (json) {
+	        if (json.type == DiagramNodeType.GenericDiagramNode) {
+	            return new GenericDiagramNode(json.shapeType).fromJSON(json);
+	        }
+	        return null;
+	    };
 	    return DiagramNode;
 	}());
 	exports.DiagramNode = DiagramNode;
@@ -6440,6 +6465,24 @@ webpackJsonp([0],{
 	        copy.fromEndpoint = this.fromEndpoint;
 	        copy.toEndpoint = this.toEndpoint;
 	        return copy;
+	    };
+	    LineStyle.prototype.toJSON = function () {
+	        var json = {};
+	        json.color = this.color.toJSON();
+	        json.dashStyle = this.dashStyle;
+	        json.fromEndpoint = this.fromEndpoint;
+	        json.toEndpoint = this.toEndpoint;
+	        return json;
+	    };
+	    LineStyle.prototype.fromJSON = function (json) {
+	        this.color.fromJSON(json.color);
+	        this.dashStyle = json.dashStyle;
+	        this.fromEndpoint = json.fromEndpoint;
+	        this.toEndpoint = json.toEndpoint;
+	        return this;
+	    };
+	    LineStyle.objectFromJSON = function (json) {
+	        return new LineStyle().fromJSON(json);
 	    };
 	    return LineStyle;
 	}());
@@ -6508,9 +6551,21 @@ webpackJsonp([0],{
 	        json.label = this.label;
 	        json.fromId = this.from.id;
 	        json.toId = this.to.id;
-	        json.fromPoint = this.fromPoint;
-	        json.toPoint = this.toPoint;
+	        json.fromPoint = this.fromPoint.toJSON();
+	        json.toPoint = this.toPoint.toJSON();
+	        json.style = this.style.toJSON();
 	        return json;
+	    };
+	    DiagramEdge.prototype.fromJSON = function (json) {
+	        this.id = json.id;
+	        this.label = json.label;
+	        this.fromPoint = tracking_point_1.trackingPointFromJSON(json.fromPoint);
+	        this.toPoint = tracking_point_1.trackingPointFromJSON(json.toPoint);
+	        this.style.fromJSON(json.style);
+	        return this;
+	    };
+	    DiagramEdge.objectFromJSON = function (json) {
+	        return new DiagramEdge().fromJSON(json);
 	    };
 	    return DiagramEdge;
 	}());
@@ -6707,13 +6762,23 @@ webpackJsonp([0],{
 	        json.type = this.type;
 	        json.id = this.id;
 	        json.label = this.label;
-	        json.background = this.background;
-	        json.foreground = this.foreground;
-	        json.stroke = this.stroke;
+	        json.background = this.background.toJSON();
+	        json.foreground = this.foreground.toJSON();
+	        json.stroke = this.stroke.toJSON();
 	        json.geometry = this.geometry.toJSON();
 	        json.shapeType = this.shapeType;
 	        json.content = this.content;
 	        return json;
+	    };
+	    GenericDiagramNode.prototype.fromJSON = function (json) {
+	        this.id = json.id;
+	        this.label = json.label;
+	        this.background.fromJSON(json.background);
+	        this.foreground.fromJSON(json.foreground);
+	        this.stroke.fromJSON(json.stroke);
+	        this.geometry = geometry_1.geometryFromJSON(json.geometry);
+	        this.content = json.content;
+	        return this;
 	    };
 	    GenericDiagramNode.prototype.jsonReplacer = function (key, value) {
 	    };
@@ -6750,6 +6815,9 @@ webpackJsonp([0],{
 	    ClassDiagramNode.prototype.toJSON = function () {
 	        return JSON.stringify(this);
 	    };
+	    ClassDiagramNode.prototype.fromJSON = function (json) {
+	        return this;
+	    };
 	    Object.defineProperty(ClassDiagramNode.prototype, "type", {
 	        get: function () {
 	            return DiagramNodeType.GenericDiagramNode;
@@ -6785,6 +6853,9 @@ webpackJsonp([0],{
 	    InterfaceDiagramNode.prototype.toJSON = function () {
 	        return JSON.stringify(this);
 	    };
+	    InterfaceDiagramNode.prototype.fromJSON = function (json) {
+	        return this;
+	    };
 	    Object.defineProperty(InterfaceDiagramNode.prototype, "type", {
 	        get: function () {
 	            return DiagramNodeType.GenericDiagramNode;
@@ -6815,6 +6886,9 @@ webpackJsonp([0],{
 	    };
 	    SingleLineComment.prototype.toJSON = function () {
 	        return JSON.stringify(this);
+	    };
+	    SingleLineComment.prototype.fromJSON = function (json) {
+	        return this;
 	    };
 	    Object.defineProperty(SingleLineComment.prototype, "type", {
 	        get: function () {
@@ -6847,6 +6921,9 @@ webpackJsonp([0],{
 	    };
 	    MultiLineComment.prototype.toJSON = function () {
 	        return JSON.stringify(this);
+	    };
+	    MultiLineComment.prototype.fromJSON = function (json) {
+	        return this;
 	    };
 	    Object.defineProperty(MultiLineComment.prototype, "type", {
 	        get: function () {
@@ -6889,6 +6966,9 @@ webpackJsonp([0],{
 	    ClassObjectDiagram.prototype.toJSON = function () {
 	        return JSON.stringify(this);
 	    };
+	    ClassObjectDiagram.prototype.fromJSON = function (json) {
+	        return this;
+	    };
 	    Object.defineProperty(ClassObjectDiagram.prototype, "type", {
 	        get: function () {
 	            return DiagramNodeType.GenericDiagramNode;
@@ -6910,6 +6990,9 @@ webpackJsonp([0],{
 	    };
 	    InterfaceObjectDiagram.prototype.toJSON = function () {
 	        return JSON.stringify(this);
+	    };
+	    InterfaceObjectDiagram.prototype.fromJSON = function (json) {
+	        return this;
 	    };
 	    Object.defineProperty(InterfaceObjectDiagram.prototype, "type", {
 	        get: function () {
@@ -6936,6 +7019,22 @@ webpackJsonp([0],{
 	};
 	var common_1 = __webpack_require__(72);
 	var tracking_point_1 = __webpack_require__(74);
+	function geometryFromJSON(json) {
+	    if (json.type == GeometryType.Point) {
+	        return new Point(0, 0).fromJSON(json);
+	    }
+	    else if (json.type == GeometryType.Rect) {
+	        return new Rect(0, 0, 0, 0).fromJSON(json);
+	    }
+	    else if (json.type == GeometryType.Circle) {
+	        return new Circle(new Point(0, 0), 0).fromJSON(json);
+	    }
+	    else if (json.type == GeometryType.LineSegment) {
+	        return new LineSegment(new Point(0, 0), new Point(0, 0)).fromJSON(json);
+	    }
+	    return null;
+	}
+	exports.geometryFromJSON = geometryFromJSON;
 	/** Geometry type specifies the type of geometry */
 	(function (GeometryType) {
 	    GeometryType[GeometryType["Point"] = 1] = "Point";
@@ -7090,6 +7189,11 @@ webpackJsonp([0],{
 	        json.y = this.y;
 	        return json;
 	    };
+	    Point.prototype.fromJSON = function (json) {
+	        this.x = json.x;
+	        this.y = json.y;
+	        return this;
+	    };
 	    return Point;
 	}());
 	exports.Point = Point;
@@ -7210,6 +7314,13 @@ webpackJsonp([0],{
 	        json.height = this.height;
 	        return json;
 	    };
+	    Rect.prototype.fromJSON = function (json) {
+	        this.x = json.x;
+	        this.y = json.y;
+	        this.width = json.width;
+	        this.height = json.height;
+	        return this;
+	    };
 	    return Rect;
 	}());
 	exports.Rect = Rect;
@@ -7262,6 +7373,11 @@ webpackJsonp([0],{
 	        json.center = this.center.toJSON();
 	        json.radius = this.radius;
 	        return json;
+	    };
+	    Circle.prototype.fromJSON = function (json) {
+	        this.center.fromJSON(json.center);
+	        this.radius = json.radius;
+	        return this;
 	    };
 	    return Circle;
 	}());
@@ -7375,6 +7491,11 @@ webpackJsonp([0],{
 	        json.start = this.start.toJSON();
 	        json.end = this.end.toJSON();
 	        return json;
+	    };
+	    LineSegment.prototype.fromJSON = function (json) {
+	        this.start.fromJSON(json.start);
+	        this.end.fromJSON(json.end);
+	        return this;
 	    };
 	    LineSegment.closeEnoughDistance = 10;
 	    return LineSegment;
@@ -7865,6 +7986,24 @@ webpackJsonp([0],{
 	    TrackingPointType[TrackingPointType["LineSegment"] = 5] = "LineSegment";
 	})(exports.TrackingPointType || (exports.TrackingPointType = {}));
 	var TrackingPointType = exports.TrackingPointType;
+	function trackingPointFromJSON(json) {
+	    if (json.type == TrackingPointType.Empty) {
+	    }
+	    else if (json.type == TrackingPointType.Center) {
+	        return new EmptyTrackingPoint(new geometry_1.Point(0, 0)).fromJSON(json);
+	    }
+	    else if (json.type == TrackingPointType.Rect) {
+	        return new RectTrackingPoint(new geometry_1.Rect(0, 0, 0, 0)).fromJSON(json);
+	    }
+	    else if (json.type == TrackingPointType.Circle) {
+	        return new CircleTrackingPoint(new geometry_1.Circle(new geometry_1.Point(0, 0), 0)).fromJSON(json);
+	    }
+	    else if (json.type == TrackingPointType.LineSegment) {
+	        return new LineSegmentTrackingPoint(new geometry_1.LineSegment(new geometry_1.Point(0, 0), new geometry_1.Point(0, 0))).fromJSON(json);
+	    }
+	    return null;
+	}
+	exports.trackingPointFromJSON = trackingPointFromJSON;
 	/** A simple point. Empty suggests that this tracking point is not tracking anything(geometry) */
 	var EmptyTrackingPoint = (function () {
 	    function EmptyTrackingPoint(point) {
@@ -7883,6 +8022,11 @@ webpackJsonp([0],{
 	    EmptyTrackingPoint.prototype.getGeometry = function () {
 	        return this.point;
 	    };
+	    EmptyTrackingPoint.prototype.copyInformationFrom = function (that) {
+	        if (that.type == TrackingPointType.Empty) {
+	            this.point = that.point;
+	        }
+	    };
 	    Object.defineProperty(EmptyTrackingPoint.prototype, "type", {
 	        get: function () {
 	            return TrackingPointType.Empty;
@@ -7895,6 +8039,9 @@ webpackJsonp([0],{
 	        json.type = this.type;
 	        json.point = JSON.stringify(this.point);
 	        return json;
+	    };
+	    EmptyTrackingPoint.prototype.fromJSON = function (json) {
+	        return this;
 	    };
 	    return EmptyTrackingPoint;
 	}());
@@ -7917,6 +8064,11 @@ webpackJsonp([0],{
 	    CenterTrackingPoint.prototype.getGeometry = function () {
 	        return this.geometry;
 	    };
+	    CenterTrackingPoint.prototype.copyInformationFrom = function (that) {
+	        if (that.type == TrackingPointType.Circle) {
+	            this.geometry = that.geometry;
+	        }
+	    };
 	    Object.defineProperty(CenterTrackingPoint.prototype, "type", {
 	        get: function () {
 	            return TrackingPointType.Circle;
@@ -7929,6 +8081,9 @@ webpackJsonp([0],{
 	        json.type = this.type;
 	        json.point = JSON.stringify(this.geometry);
 	        return json;
+	    };
+	    CenterTrackingPoint.prototype.fromJSON = function (json) {
+	        return this;
 	    };
 	    return CenterTrackingPoint;
 	}());
@@ -8107,6 +8262,16 @@ webpackJsonp([0],{
 	    RectTrackingPoint.prototype.getGeometry = function () {
 	        return this.rect;
 	    };
+	    RectTrackingPoint.prototype.copyInformationFrom = function (that) {
+	        if (that.type == TrackingPointType.Rect) {
+	            this.rect.x = that.rect.x;
+	            this.rect.y = that.rect.y;
+	            this.rect.width = that.rect.width;
+	            this.rect.height = that.rect.height;
+	            this.fraction = that.fraction;
+	            this.side = that.side;
+	        }
+	    };
 	    Object.defineProperty(RectTrackingPoint.prototype, "type", {
 	        get: function () {
 	            return TrackingPointType.Rect;
@@ -8121,6 +8286,12 @@ webpackJsonp([0],{
 	        json.fraction = this.fraction;
 	        json.side = this.side;
 	        return json;
+	    };
+	    RectTrackingPoint.prototype.fromJSON = function (json) {
+	        this.rect.fromJSON(json.rect);
+	        this.fraction = json.fraction;
+	        this.side = json.side;
+	        return this;
 	    };
 	    return RectTrackingPoint;
 	}());
@@ -8146,6 +8317,12 @@ webpackJsonp([0],{
 	    CircleTrackingPoint.prototype.getGeometry = function () {
 	        return this.circle;
 	    };
+	    CircleTrackingPoint.prototype.copyInformationFrom = function (that) {
+	        if (that.type == TrackingPointType.Circle) {
+	            this.circle.center = that.circle.center;
+	            this.angle = that.angle;
+	        }
+	    };
 	    Object.defineProperty(CircleTrackingPoint.prototype, "type", {
 	        get: function () {
 	            return TrackingPointType.Circle;
@@ -8159,6 +8336,11 @@ webpackJsonp([0],{
 	        json.angle = this.angle;
 	        json.circle = this.circle;
 	        return json;
+	    };
+	    CircleTrackingPoint.prototype.fromJSON = function (json) {
+	        this.angle = json.angle;
+	        this.circle.fromJSON(json);
+	        return this;
 	    };
 	    return CircleTrackingPoint;
 	}());
@@ -8197,6 +8379,13 @@ webpackJsonp([0],{
 	    LineSegmentTrackingPoint.prototype.getGeometry = function () {
 	        return this.lineSegment;
 	    };
+	    LineSegmentTrackingPoint.prototype.copyInformationFrom = function (that) {
+	        if (that.type == TrackingPointType.LineSegment) {
+	            this.lineSegment.start = that.lineSegment.start;
+	            this.lineSegment.end = that.lineSegment.end;
+	            this.fraction = that.fraction;
+	        }
+	    };
 	    Object.defineProperty(LineSegmentTrackingPoint.prototype, "type", {
 	        get: function () {
 	            return TrackingPointType.LineSegment;
@@ -8210,6 +8399,11 @@ webpackJsonp([0],{
 	        json.lineSegment = this.lineSegment;
 	        json.fraction = this.fraction;
 	        return json;
+	    };
+	    LineSegmentTrackingPoint.prototype.fromJSON = function (json) {
+	        this.fraction = json.fraction;
+	        this.lineSegment.fromJSON(json.lineSegment);
+	        return this;
 	    };
 	    return LineSegmentTrackingPoint;
 	}());
@@ -8818,7 +9012,11 @@ webpackJsonp([0],{
 	        worksheet.title = json.worksheet.title;
 	        worksheet.description = json.worksheet.description;
 	        worksheet.rid = json.worksheet['@rid'];
-	        worksheet.diagramModel = new worksheet_2.DiagramModel();
+	        var jsonDataString = json.worksheet["diagramModel"];
+	        console.debug(jsonDataString);
+	        var jsonData = JSON.parse(jsonDataString);
+	        worksheet.diagramModel = this.unpackDiagramModelFromJson(jsonData);
+	        // worksheet.diagramModel=new DiagramModel();
 	        return worksheet;
 	    };
 	    /** Updates the diagram model for the given worksheet rid. */
@@ -8830,6 +9028,42 @@ webpackJsonp([0],{
 	        var headers = new http_1.Headers({ 'Content-Type': 'application/json' });
 	        var options = new http_1.RequestOptions({ headers: headers });
 	        return this.http.post(WorksheetService.UPDATE_DIAGRAM_MODEL_URL, body, options).map(function (res) { return res.json(); });
+	    };
+	    WorksheetService.prototype.unpackDiagramModelFromJson = function (json) {
+	        var diagramModel = new worksheet_2.DiagramModel();
+	        for (var _i = 0, _a = json.nodeList; _i < _a.length; _i++) {
+	            var jsonNode = _a[_i];
+	            diagramModel.nodeList.push(worksheet_2.DiagramNode.objectFromJSON(jsonNode));
+	        }
+	        for (var _b = 0, _c = json.edgeList; _b < _c.length; _b++) {
+	            var jsonEdge = _c[_b];
+	            var from = this.nodeWithId(jsonEdge.fromId, diagramModel.nodeList);
+	            var to = this.nodeWithId(jsonEdge.toId, diagramModel.nodeList);
+	            var edge = worksheet_2.DiagramEdge.objectFromJSON(jsonEdge);
+	            edge.from = from;
+	            from.outgoingEdges.push(edge);
+	            // from.geometry=edge.fromPoint.getGeometry();
+	            var fromTrackingPoint = from.geometry.getTrackingPoint();
+	            fromTrackingPoint.copyInformationFrom(edge.fromPoint);
+	            edge.fromPoint = fromTrackingPoint;
+	            edge.to = to;
+	            to.incomingEdges.push(edge);
+	            // to.geometry=edge.toPoint.getGeometry();
+	            var toTrackingPoint = to.geometry.getTrackingPoint();
+	            toTrackingPoint.copyInformationFrom(edge.toPoint);
+	            edge.toPoint = toTrackingPoint;
+	            diagramModel.edgeList.push(edge);
+	        }
+	        return diagramModel;
+	    };
+	    WorksheetService.prototype.nodeWithId = function (id, list) {
+	        for (var _i = 0, list_1 = list; _i < list_1.length; _i++) {
+	            var node = list_1[_i];
+	            if (node.id == id) {
+	                return node;
+	            }
+	        }
+	        return null;
 	    };
 	    WorksheetService.WORKSHEET_URL = "api/get-worksheet";
 	    WorksheetService.UPDATE_DIAGRAM_MODEL_URL = "api/update-diagram-model";
@@ -9591,7 +9825,7 @@ webpackJsonp([0],{
 	        if (execute) {
 	            command.execute();
 	        }
-	        else if (this.postOperationListener != null) {
+	        if (this.postOperationListener != null) {
 	            //if command is not executed, it must be notified when we are committing
 	            this.postOperationListener.commandExecuted(command);
 	        }

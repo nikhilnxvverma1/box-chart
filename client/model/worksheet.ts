@@ -1,6 +1,6 @@
-import { Geometry, GeometryType, Rect, LinkedPoint, Point, Circle, LineSegment } from './geometry';
+import { Geometry, GeometryType, Rect, LinkedPoint, Point, Circle, LineSegment, geometryFromJSON } from './geometry';
 import { SemanticModel,ClassDefinition,InterfaceDefinition } from './semantic-model';
-import { TrackingPoint,CenterTrackingPoint } from './tracking-point';
+import { TrackingPoint,CenterTrackingPoint,trackingPointFromJSON } from './tracking-point';
 import { ObjectModel, ClassObjectData, InterfaceObjectData, Collection } from './object-model';
 import * as util from '../utility/common';
 
@@ -56,7 +56,7 @@ export class DiagramModel{
 			edge.id=autoId++;
 			json.edgeList.push(edge.toJSON());
 		}
-		return json;
+		return JSON.stringify(json);
 	}
 }
 
@@ -77,6 +77,27 @@ export class Color{
 	/** Returns the a hashcode equivalent string like #2343A4 */
 	hashCode():string{
 		return "#"+this.red.toString(16)+this.green.toString(16)+this.blue.toString(16);
+	}
+
+	toJSON():any{
+		let json:any={};
+		json.red=this.red;
+		json.green=this.green;
+		json.blue=this.blue;
+		json.alpha=this.alpha;
+		return json;
+	}
+
+	fromJSON(json:any):Color{
+		this.red=json.red;
+		this.green=json.green;
+		this.blue=json.blue;
+		this.alpha=json.alpha;
+		return this;
+	}
+
+	static objectFromJSON(json:any):Color{
+		return new Color().fromJSON(json);
 	}
 }
 
@@ -117,8 +138,17 @@ export abstract class DiagramNode{
 	abstract setBoundingSize(rect:Rect):void;
 	/** Returns JSON representation for this node */
 	abstract toJSON():any;
+	/**Builds this object from a json representation.Returns the same object for chaining */
+	abstract fromJSON(json:any):DiagramNode;
 	/** Identifies the type of node */
 	abstract get type():DiagramNodeType;
+
+	static objectFromJSON(json:any):DiagramNode{
+		if(json.type==DiagramNodeType.GenericDiagramNode){
+			return new GenericDiagramNode(json.shapeType).fromJSON(json);
+		}
+		return null;
+	}
 }
 
 export enum DashStyle{
@@ -148,6 +178,27 @@ export class LineStyle {
 		copy.fromEndpoint=this.fromEndpoint;
 		copy.toEndpoint=this.toEndpoint;
 		return copy;
+	}
+
+	toJSON():any{
+		let json:any={};
+		json.color=this.color.toJSON();
+		json.dashStyle=this.dashStyle;
+		json.fromEndpoint=this.fromEndpoint;
+		json.toEndpoint=this.toEndpoint;
+		return json;
+	}
+
+	fromJSON(json:any):LineStyle{
+		this.color.fromJSON(json.color);
+		this.dashStyle=json.dashStyle;
+		this.fromEndpoint=json.fromEndpoint;
+		this.toEndpoint=json.toEndpoint;
+		return this;
+	}
+
+	static objectFromJSON(json:any):LineStyle{
+		return new LineStyle().fromJSON(json);
 	}
 }
 
@@ -220,9 +271,23 @@ export class DiagramEdge{
 		json.label=this.label;
 		json.fromId=this.from.id;
 		json.toId=this.to.id;
-		json.fromPoint=this.fromPoint;
-		json.toPoint=this.toPoint;
+		json.fromPoint=this.fromPoint.toJSON();
+		json.toPoint=this.toPoint.toJSON();
+		json.style=this.style.toJSON();
 		return json;
+	}
+
+	fromJSON(json:any):DiagramEdge{
+		this.id=json.id;
+		this.label=json.label;
+		this.fromPoint=trackingPointFromJSON(json.fromPoint);
+		this.toPoint=trackingPointFromJSON(json.toPoint);
+		this.style.fromJSON(json.style);
+		return this;
+	}
+
+	static objectFromJSON(json:any):DiagramEdge{
+		return new DiagramEdge().fromJSON(json);
 	}
 }
 
@@ -423,13 +488,24 @@ export class GenericDiagramNode extends DiagramNode{
 		json.type=this.type;
 		json.id=this.id;
 		json.label=this.label;
-		json.background=this.background;
-		json.foreground=this.foreground;
-		json.stroke=this.stroke;
+		json.background=this.background.toJSON();
+		json.foreground=this.foreground.toJSON();
+		json.stroke=this.stroke.toJSON();
 		json.geometry=this.geometry.toJSON();
 		json.shapeType=this.shapeType;
 		json.content=this.content;
 		return json;
+	}
+
+	fromJSON(json:any):GenericDiagramNode{
+		this.id=json.id;
+		this.label=json.label;
+		this.background.fromJSON(json.background);
+		this.foreground.fromJSON(json.foreground);
+		this.stroke.fromJSON(json.stroke);
+		this.geometry=geometryFromJSON(json.geometry);
+		this.content=json.content;
+		return this;
 	}
 
 	private jsonReplacer(key:string,value:any):any{
@@ -477,6 +553,10 @@ export class ClassDiagramNode extends DiagramNode{
 		return JSON.stringify(this);
 	}
 
+	fromJSON(json:any):DiagramNode{
+		return this;
+	}
+
 	get type():DiagramNodeType{
 		return DiagramNodeType.GenericDiagramNode;
 	}
@@ -514,6 +594,10 @@ export class InterfaceDiagramNode extends DiagramNode{
 		return JSON.stringify(this);
 	}
 
+	fromJSON(json:any):DiagramNode{
+		return this;
+	}
+
 	get type():DiagramNodeType{
 		return DiagramNodeType.GenericDiagramNode;
 	}
@@ -544,6 +628,10 @@ export class SingleLineComment extends DiagramNode{
 		return JSON.stringify(this);
 	}
 
+	fromJSON(json:any):DiagramNode{
+		return this;
+	}
+
 	get type():DiagramNodeType{
 		return DiagramNodeType.GenericDiagramNode;
 	}
@@ -572,6 +660,10 @@ export class MultiLineComment extends DiagramNode{
 
 	toJSON():any{
 		return JSON.stringify(this);
+	}
+
+	fromJSON(json:any):DiagramNode{
+		return this;
 	}
 
 	get type():DiagramNodeType{
@@ -614,6 +706,11 @@ export class ClassObjectDiagram extends ObjectDiagram{
 	toJSON():any{
 		return JSON.stringify(this);
 	}
+
+	fromJSON(json:any):DiagramNode{
+		return this;
+	}
+
 	get type():DiagramNodeType{
 		return DiagramNodeType.GenericDiagramNode;
 	}
@@ -629,6 +726,10 @@ export class InterfaceObjectDiagram extends ObjectDiagram{
 
 	toJSON():any{
 		return JSON.stringify(this);
+	}
+
+	fromJSON(json:any):DiagramNode{
+		return this;
 	}
 
 	get type():DiagramNodeType{
