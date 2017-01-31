@@ -19,7 +19,8 @@
 		<rect *ngIf="node.shapeType==8" x="0" y="0" width="100%" height="100%" transform="skewX(-20)" [style.fill]="node.background.hashCode()" [style.stroke]="strokeColor()" [style.stroke-width]="3"/>
 	</svg>
 	<div class="node-content"
-		[attr.contenteditable]="editingAllowed"
+		[style.left.px]="node.geometry.getBoundingBox().width/2"
+		[style.top.px]="node.geometry.getBoundingBox().height/2"
 		[style.color]="node.foreground.hashCode()" >{{node.content}}</div>
 </div>
 

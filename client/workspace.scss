@@ -41,7 +41,8 @@ $linker-color:#344353;
 	position:absolute;
 	width:15px;
 	height:15px;
-	transform-origin: center;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 }
 
 .remove-operation{
@@ -57,7 +58,10 @@ $linker-color:#344353;
 }
 
 .node-content{
+	position: relative;
 	text-align: center;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 }
 
 .selected-block{

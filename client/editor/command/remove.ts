@@ -88,7 +88,7 @@ export class RemoveCommand extends Command {
 			}
 
 			removeFromList(edge,edge.from.outgoingEdges,"edge not found in outgoingEdges");
-			removeFromList(edge,edge.from.incomingEdges,"edge not found in incomingEdges");
+			removeFromList(edge,edge.to.incomingEdges,"edge not found in incomingEdges");
 		}
 	}
 

@@ -140,7 +140,7 @@ export class LinkNodesCommand extends Command implements PressDragReleaseProcess
 		}
 		//remove connections
 		removeFromList(this.prepared,this.prepared.to.incomingEdges,"incoming edge not found in transient list");
-		removeFromList(this.prepared,this.prepared.to.outgoingEdges,"outgoing edge not found in transient list");
+		removeFromList(this.prepared,this.prepared.from.outgoingEdges,"outgoing edge not found in transient list");
 	}
 
 	getName():string{
