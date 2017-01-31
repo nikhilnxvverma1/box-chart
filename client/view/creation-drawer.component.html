@@ -5,9 +5,20 @@
 	[style.top.px]="position.y"
 	[@isDrawerOpen]="workspace.creationDrawerIsOpen?'open':'closed'" >
 
-	<ul>
-		<li *ngFor="let item of creationDrawerList" (mousedown)="provideDragAndDropFor(item,$event)">
-			<img [attr.src]="'assets/'+item.iconFilename"> {{item.name}}
+	<ul id="creation-drawer-list">
+		<li (mousedown)="provideDragAndDropFor(creationDrawerList[0],$event)">
+			<!--Rectangle-->
+			<svg width="50" height="35" >
+				<rect x="1%" y="1%" width="99%" height="99%" [style.fill]="'#FFF'" [style.stroke]="'#000'" [style.stroke-width]="2"/>
+			</svg>
+		</li>
+		<li (mousedown)="provideDragAndDropFor(creationDrawerList[1],$event)">
+			<!--Circle-->
+			<svg width="35" height="35" >
+				<ellipse cx="50%" cy="50%" rx="49%" ry="49%" [style.fill]="'#FFF'" [style.stroke]="'#000'" [style.stroke-width]="2"/>
+			</svg>
 		</li>
 	</ul>
+
+
 </div>

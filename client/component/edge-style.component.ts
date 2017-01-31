@@ -9,7 +9,7 @@ import { RemoveCommand } from '../editor/command/remove';
 import { ChangeEdgeStyleCommand } from '../editor/command/change-edge-style';
 
 const WIDTH=200;
-const HEIGHT=250;
+const HEIGHT=220;
 
 
 @Component({

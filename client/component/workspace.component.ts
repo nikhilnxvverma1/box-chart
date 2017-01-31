@@ -11,6 +11,7 @@ import { Worksheet,DiagramModel } from '../model/worksheet';
 
 const SPACE_KEY=32;
 const Z_KEY=90;
+const A_KEY=65;
 const ONE_KEY=49;
 const EQUALS_KEY=187;
 const DASH_KEY=189;
@@ -105,7 +106,7 @@ export class WorkspaceComponent implements OnInit,PostOperationNotification{
 			}else{
 				this.workspace.undo();
 			}
-		}else if(event.keyCode==ONE_KEY){
+		}else if(event.keyCode==A_KEY||event.keyCode==ONE_KEY){
 			this.artboard.toggleOpenCreationDrawer();
 		}
     }

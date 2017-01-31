@@ -7,7 +7,7 @@ import { DragAndDropCommand } from '../editor/command/drag-and-drop';
 import { CreationDrawerItem,creationDrawerList } from '../editor/creation-item';
 
 export const WIDTH=200;
-export const HEIGHT=250;
+export const HEIGHT=70;
 
 @Component({
   selector: 'creation-drawer',

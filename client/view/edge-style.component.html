@@ -17,10 +17,24 @@
 	[style.left.px]="follow.x"
 	[style.top.px]="follow.y"
 	[@styleOptionsOpen]="workspace.edgeStyleOptionsIsOpen?'open':'closed'" >
-	<ul>
-		<li (mousedown)="removeEdge($event)">Remove</li>
-		<li (mousedown)="changeDashing(1,$event)">solid</li>
-		<li (mousedown)="changeDashing(2,$event)">dashed</li>
-		<li (mousedown)="changeDashing(3,$event)">dotted</li>
+	<ul id="edge-style-list">
+		<li id="remove-list-item" (mousedown)="removeEdge($event)">
+			Remove
+		</li>
+		<li (mousedown)="changeDashing(1,$event)">
+			<svg width="100%" height="50" >
+				<line stroke-dasharray="0" [style.stroke]="'#000'" x1="10%" y1="25" x2="90%" y2="25"></line>
+			</svg>
+		</li>
+		<li (mousedown)="changeDashing(2,$event)">
+			<svg width="100%" height="50" >
+				<line stroke-dasharray="7" [style.stroke]="'#000'" x1="10%" y1="25" x2="90%" y2="25"></line>
+			</svg>
+		</li>
+		<li (mousedown)="changeDashing(3,$event)">
+			<svg width="100%" height="50" >
+				<line stroke-dasharray="3 7" [style.stroke]="'#000'" x1="10%" y1="25" x2="90%" y2="25"></line>
+			</svg>
+		</li>
 	</ul>
 </div>
