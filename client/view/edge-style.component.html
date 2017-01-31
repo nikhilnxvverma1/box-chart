@@ -1,10 +1,25 @@
 <ng-container *ngIf="edge!=null">
 
 	<div class="link-circle" 
-		(mousedown)="linkNodesByDragging($event)"
+		(mousedown)="openStyleOptions($event)"
 		[style.left.px]="follow.x"
 		[style.top.px]="follow.y"
 		[style.width.px]="10"
 		[style.height.px]="10">
 	</div>
 </ng-container>
+
+<div 
+	class="drop-shadowed-pop-up"
+	[style.width.px]="200"
+	[style.height.px]="250"
+	[style.left.px]="follow.x"
+	[style.top.px]="follow.y"
+	[@styleOptionsOpen]="workspace.styleOptionsIsOpen?'open':'closed'" >
+	<ul>
+		<li>one</li>
+		<li>rwo</li>
+		<li>the</li>
+		<li>four</li>
+	</ul>
+</div>

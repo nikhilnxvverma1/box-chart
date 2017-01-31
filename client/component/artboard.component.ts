@@ -105,6 +105,7 @@ export class ArtboardComponent implements OnInit{
 	mousedown(event:MouseEvent){
 		//toggle creation drawer to false to close it (done using bindings)
 		this.workspace.creationDrawerIsOpen=false;
+		this.workspace.styleOptionsIsOpen=false;
 
 		this.mousedownEvent.emit(event);
 		if(this.draggingInteraction!=null){

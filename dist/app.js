@@ -8964,6 +8964,7 @@ webpackJsonp([0],{
 	    ArtboardComponent.prototype.mousedown = function (event) {
 	        //toggle creation drawer to false to close it (done using bindings)
 	        this.workspace.creationDrawerIsOpen = false;
+	        this.workspace.styleOptionsIsOpen = false;
 	        this.mousedownEvent.emit(event);
 	        if (this.draggingInteraction != null) {
 	            this.draggingInteraction.handleMousePress(event);
@@ -9552,6 +9553,7 @@ webpackJsonp([0],{
 	        this.history = [];
 	        this.future = [];
 	        this.creationDrawerIsOpen = false;
+	        this.styleOptionsIsOpen = false;
 	        this._cursorPosition = new geometry_1.Point(0, 0);
 	        this._worksheet = worksheet;
 	    }
@@ -13548,9 +13550,12 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
+	var core_2 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(71);
 	var worksheet_1 = __webpack_require__(70);
 	var workspace_1 = __webpack_require__(96);
+	var WIDTH = 200;
+	var HEIGHT = 250;
 	var EdgeStyleComponent = (function () {
 	    function EdgeStyleComponent() {
 	        this.follow = new geometry_1.Point(0, 0);
@@ -13562,7 +13567,11 @@ webpackJsonp([0],{
 	    };
 	    EdgeStyleComponent.prototype.followPoint = function (p) {
 	        this.follow = this.edge.lineSegment.getTrackingPoint().gravitateTowards(p, 30);
-	        console.debug("follow:" + this.follow.toString());
+	    };
+	    EdgeStyleComponent.prototype.openStyleOptions = function (event) {
+	        this.workspace.styleOptionsIsOpen = true;
+	        console.debug("Opened style options");
+	        event.stopPropagation();
 	    };
 	    __decorate([
 	        core_1.Input(), 
@@ -13580,6 +13589,20 @@ webpackJsonp([0],{
 	        core_1.Component({
 	            selector: 'edge-style',
 	            template: __webpack_require__(716),
+	            animations: [
+	                core_2.trigger('styleOptionsOpen', [
+	                    core_2.state('open', core_2.style({
+	                        width: WIDTH + "px",
+	                        height: HEIGHT + "px"
+	                    })),
+	                    core_2.state('closed', core_2.style({
+	                        width: 0 + "px",
+	                        height: 0 + "px"
+	                    })),
+	                    core_2.transition('open => closed', core_2.animate('100ms ease-in')),
+	                    core_2.transition('closed => open', core_2.animate('200ms ease-out'))
+	                ])
+	            ]
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], EdgeStyleComponent);
@@ -13594,7 +13617,7 @@ webpackJsonp([0],{
 /***/ 716:
 /***/ function(module, exports) {
 
-	module.exports = "<ng-container *ngIf=\"edge!=null\">\n\n\t<div class=\"link-circle\" \n\t\t(mousedown)=\"linkNodesByDragging($event)\"\n\t\t[style.left.px]=\"follow.x\"\n\t\t[style.top.px]=\"follow.y\"\n\t\t[style.width.px]=\"10\"\n\t\t[style.height.px]=\"10\">\n\t</div>\n</ng-container>";
+	module.exports = "<ng-container *ngIf=\"edge!=null\">\n\n\t<div class=\"link-circle\" \n\t\t(mousedown)=\"openStyleOptions($event)\"\n\t\t[style.left.px]=\"follow.x\"\n\t\t[style.top.px]=\"follow.y\"\n\t\t[style.width.px]=\"10\"\n\t\t[style.height.px]=\"10\">\n\t</div>\n</ng-container>\n\n<div \n\tclass=\"drop-shadowed-pop-up\"\n\t[style.width.px]=\"200\"\n\t[style.height.px]=\"250\"\n\t[style.left.px]=\"follow.x\"\n\t[style.top.px]=\"follow.y\"\n\t[@styleOptionsOpen]=\"workspace.styleOptionsIsOpen?'open':'closed'\" >\n\t<ul>\n\t\t<li>one</li>\n\t\t<li>rwo</li>\n\t\t<li>the</li>\n\t\t<li>four</li>\n\t</ul>\n</div>";
 
 /***/ }
 
