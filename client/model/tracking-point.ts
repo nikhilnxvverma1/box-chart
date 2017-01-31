@@ -400,13 +400,13 @@ export class CircleTrackingPoint implements TrackingPoint{
 		let json:any={};
 		json.type=this.type;
 		json.angle=this.angle;
-		json.circle=this.circle;
+		json.circle=this.circle.toJSON();
 		return json;
 	}
 
 	fromJSON(json:any):CircleTrackingPoint{
 		this.angle=json.angle;
-		this.circle.fromJSON(json);
+		this.circle.fromJSON(json.circle);
 		return this;
 	}
 }
