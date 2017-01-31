@@ -3,8 +3,10 @@ import { OnChanges,OnInit } from '@angular/core';
 import { animate,trigger,state,style,transition } from '@angular/core';
 import { Point } from '../model/geometry';
 import { DiagramEdge,DiagramNode,GenericDiagramNode } from '../model/worksheet';
+import { LineStyle,DashStyle,EndpointStyle } from '../model/worksheet';
 import { Workspace } from '../editor/workspace';
-import { LinkNodesCommand,NodeLinkingStatus } from '../editor/command/link-nodes';
+import { RemoveCommand } from '../editor/command/remove';
+import { ChangeEdgeStyleCommand } from '../editor/command/change-edge-style';
 
 const WIDTH=200;
 const HEIGHT=250;
@@ -49,8 +51,25 @@ export class EdgeStyleComponent implements OnChanges{
 	}
 
 	openStyleOptions(event:MouseEvent){
-		this.workspace.styleOptionsIsOpen=true;
+		this.workspace.edgeStyleOptionsIsOpen=true;
 		console.debug("Opened style options");
+		event.stopPropagation();
+	}
+
+	removeEdge(event:MouseEvent){
+		console.debug("Removing edge from diagram model");
+		this.workspace.edgeStyleOptionsIsOpen=true;
+		this.workspace.commit(new RemoveCommand(this.workspace,this.workspace.copySelection()),true);
+		this.workspace.clearSelection();
+	}
+
+	changeDashing(dashStyle:DashStyle,event:MouseEvent){
+		let newStyle=this.edge.style.clone();
+		newStyle.dashStyle=dashStyle;
+		this.workspace.commit(new ChangeEdgeStyleCommand(this.edge,newStyle),true);
+	}
+
+	preventClosingOfOptions(event:MouseEvent){
 		event.stopPropagation();
 	}
 }

@@ -10,7 +10,7 @@ export class Workspace{
 	private future:Command[]=[];
 	private _selection:DiagramModel;
 	creationDrawerIsOpen:boolean=false;
-	styleOptionsIsOpen=false;
+	edgeStyleOptionsIsOpen=false;
 	private _cursorPosition:Point=new Point(0,0);
 	postOperationListener:PostOperationNotification;
 
@@ -174,12 +174,12 @@ export class Workspace{
 
 	/** Returns true if argument is the only node selected (O(1)) */
 	selectionContainsOnlyNode(node:DiagramNode):boolean{
-		return this._selection!=null && this._selection.nodeList.length==1 && this._selection.containsNode(node);
+		return this._selection!=null &&  this._selection.edgeList.length==0 && this._selection.nodeList.length==1 && this._selection.containsNode(node);
 	}
 
 	/** Returns true if argument is the only Edge selected  (O(1)) */
 	selectionContainsOnlyEdge(edge:DiagramEdge):boolean{
-		return this._selection!=null && this._selection.edgeList.length==1 && this._selection.containsEdge(edge);
+		return this._selection!=null && this._selection.nodeList.length==0 && this._selection.edgeList.length==1 && this._selection.containsEdge(edge);
 	}
 }
 

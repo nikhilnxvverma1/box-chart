@@ -498,8 +498,29 @@ export class LineSegment implements Geometry{
 		return this;
 	}
 
-	/** Returns the orthogonal projection of a point on this line segment, which might cross bounds*/
+	isHorizontal():boolean{
+		return this.start.y==this.end.y;
+	}
+
+	isVertical():boolean{
+		return this.start.x==this.end.x;
+	}
+
+	equation():LineEquation{
+		return new LineEquation(this.start,this.end);
+	}
+
+	/** Returns the orthogonal projection of a point on this line segment, which might cross bounds.*/
 	orthogonalProjection(p:Point):Point{
+
+		//fallback to line equation class
+		if(this.isHorizontal() || this.isVertical()){
+			let lineEquation=this.equation();
+			let projection=lineEquation.intersectionWith(lineEquation.getPerpendicularFrom(p));
+			return projection;
+		}
+
+		//TODO the code below is buggy for different quadrants
 		let x1 = this.start.x;
 		let y1 = this.start.y;
 		let x2 = this.end.x;

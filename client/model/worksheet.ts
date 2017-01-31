@@ -140,6 +140,15 @@ export class LineStyle {
 	dashStyle: DashStyle = DashStyle.Solid;
 	fromEndpoint: EndpointStyle = EndpointStyle.None;
 	toEndpoint: EndpointStyle = EndpointStyle.None;
+
+	clone():LineStyle{
+		let copy=new LineStyle();
+		copy.color=new Color(this.color.red,this.color.green,this.color.blue);
+		copy.dashStyle=this.dashStyle;
+		copy.fromEndpoint=this.fromEndpoint;
+		copy.toEndpoint=this.toEndpoint;
+		return copy;
+	}
 }
 
 /**

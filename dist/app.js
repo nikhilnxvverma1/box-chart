@@ -6433,6 +6433,14 @@ webpackJsonp([0],{
 	        this.fromEndpoint = EndpointStyle.None;
 	        this.toEndpoint = EndpointStyle.None;
 	    }
+	    LineStyle.prototype.clone = function () {
+	        var copy = new LineStyle();
+	        copy.color = new Color(this.color.red, this.color.green, this.color.blue);
+	        copy.dashStyle = this.dashStyle;
+	        copy.fromEndpoint = this.fromEndpoint;
+	        copy.toEndpoint = this.toEndpoint;
+	        return copy;
+	    };
 	    return LineStyle;
 	}());
 	exports.LineStyle = LineStyle;
@@ -7332,8 +7340,24 @@ webpackJsonp([0],{
 	        this.end.moveBy(shift);
 	        return this;
 	    };
-	    /** Returns the orthogonal projection of a point on this line segment, which might cross bounds*/
+	    LineSegment.prototype.isHorizontal = function () {
+	        return this.start.y == this.end.y;
+	    };
+	    LineSegment.prototype.isVertical = function () {
+	        return this.start.x == this.end.x;
+	    };
+	    LineSegment.prototype.equation = function () {
+	        return new common_1.LineEquation(this.start, this.end);
+	    };
+	    /** Returns the orthogonal projection of a point on this line segment, which might cross bounds.*/
 	    LineSegment.prototype.orthogonalProjection = function (p) {
+	        //fallback to line equation class
+	        if (this.isHorizontal() || this.isVertical()) {
+	            var lineEquation = this.equation();
+	            var projection = lineEquation.intersectionWith(lineEquation.getPerpendicularFrom(p));
+	            return projection;
+	        }
+	        //TODO the code below is buggy for different quadrants
 	        var x1 = this.start.x;
 	        var y1 = this.start.y;
 	        var x2 = this.end.x;
@@ -7428,7 +7452,10 @@ webpackJsonp([0],{
 	            this.c = end.y - m * end.x;
 	        }
 	    }
-	    /**@deprecated Creates and returns a line equation that is perpendicular to this line equation.*/
+	    /**
+	     * Creates and returns a line equation that is perpendicular to this line equation.
+	     * CAUTION: at its current state, this method only works for vertical and horizontal lines.
+	    */
 	    LineEquation.prototype.getPerpendicularFrom = function (p) {
 	        //slope of perpendicular will be -1/m;
 	        var perpendicular = new LineEquation(new geometry_1.Point(0, 0), new geometry_1.Point(0, 0));
@@ -8964,7 +8991,7 @@ webpackJsonp([0],{
 	    ArtboardComponent.prototype.mousedown = function (event) {
 	        //toggle creation drawer to false to close it (done using bindings)
 	        this.workspace.creationDrawerIsOpen = false;
-	        this.workspace.styleOptionsIsOpen = false;
+	        this.workspace.edgeStyleOptionsIsOpen = false;
 	        this.mousedownEvent.emit(event);
 	        if (this.draggingInteraction != null) {
 	            this.draggingInteraction.handleMousePress(event);
@@ -9026,6 +9053,7 @@ webpackJsonp([0],{
 	        if (this.workspace.selectionCount() > 0) {
 	            console.debug("Issueing remove command for current selection");
 	            this.workspace.commit(new remove_1.RemoveCommand(this.workspace, this.workspace.copySelection()), true);
+	            this.workspace.clearSelection();
 	        }
 	    };
 	    ArtboardComponent.prototype.register = function (listener) {
@@ -9553,7 +9581,7 @@ webpackJsonp([0],{
 	        this.history = [];
 	        this.future = [];
 	        this.creationDrawerIsOpen = false;
-	        this.styleOptionsIsOpen = false;
+	        this.edgeStyleOptionsIsOpen = false;
 	        this._cursorPosition = new geometry_1.Point(0, 0);
 	        this._worksheet = worksheet;
 	    }
@@ -9706,11 +9734,11 @@ webpackJsonp([0],{
 	    };
 	    /** Returns true if argument is the only node selected (O(1)) */
 	    Workspace.prototype.selectionContainsOnlyNode = function (node) {
-	        return this._selection != null && this._selection.nodeList.length == 1 && this._selection.containsNode(node);
+	        return this._selection != null && this._selection.edgeList.length == 0 && this._selection.nodeList.length == 1 && this._selection.containsNode(node);
 	    };
 	    /** Returns true if argument is the only Edge selected  (O(1)) */
 	    Workspace.prototype.selectionContainsOnlyEdge = function (edge) {
-	        return this._selection != null && this._selection.edgeList.length == 1 && this._selection.containsEdge(edge);
+	        return this._selection != null && this._selection.nodeList.length == 0 && this._selection.edgeList.length == 1 && this._selection.containsEdge(edge);
 	    };
 	    return Workspace;
 	}());
@@ -13554,6 +13582,8 @@ webpackJsonp([0],{
 	var geometry_1 = __webpack_require__(71);
 	var worksheet_1 = __webpack_require__(70);
 	var workspace_1 = __webpack_require__(96);
+	var remove_1 = __webpack_require__(109);
+	var change_edge_style_1 = __webpack_require__(717);
 	var WIDTH = 200;
 	var HEIGHT = 250;
 	var EdgeStyleComponent = (function () {
@@ -13569,8 +13599,22 @@ webpackJsonp([0],{
 	        this.follow = this.edge.lineSegment.getTrackingPoint().gravitateTowards(p, 30);
 	    };
 	    EdgeStyleComponent.prototype.openStyleOptions = function (event) {
-	        this.workspace.styleOptionsIsOpen = true;
+	        this.workspace.edgeStyleOptionsIsOpen = true;
 	        console.debug("Opened style options");
+	        event.stopPropagation();
+	    };
+	    EdgeStyleComponent.prototype.removeEdge = function (event) {
+	        console.debug("Removing edge from diagram model");
+	        this.workspace.edgeStyleOptionsIsOpen = true;
+	        this.workspace.commit(new remove_1.RemoveCommand(this.workspace, this.workspace.copySelection()), true);
+	        this.workspace.clearSelection();
+	    };
+	    EdgeStyleComponent.prototype.changeDashing = function (dashStyle, event) {
+	        var newStyle = this.edge.style.clone();
+	        newStyle.dashStyle = dashStyle;
+	        this.workspace.commit(new change_edge_style_1.ChangeEdgeStyleCommand(this.edge, newStyle), true);
+	    };
+	    EdgeStyleComponent.prototype.preventClosingOfOptions = function (event) {
 	        event.stopPropagation();
 	    };
 	    __decorate([
@@ -13617,7 +13661,41 @@ webpackJsonp([0],{
 /***/ 716:
 /***/ function(module, exports) {
 
-	module.exports = "<ng-container *ngIf=\"edge!=null\">\n\n\t<div class=\"link-circle\" \n\t\t(mousedown)=\"openStyleOptions($event)\"\n\t\t[style.left.px]=\"follow.x\"\n\t\t[style.top.px]=\"follow.y\"\n\t\t[style.width.px]=\"10\"\n\t\t[style.height.px]=\"10\">\n\t</div>\n</ng-container>\n\n<div \n\tclass=\"drop-shadowed-pop-up\"\n\t[style.width.px]=\"200\"\n\t[style.height.px]=\"250\"\n\t[style.left.px]=\"follow.x\"\n\t[style.top.px]=\"follow.y\"\n\t[@styleOptionsOpen]=\"workspace.styleOptionsIsOpen?'open':'closed'\" >\n\t<ul>\n\t\t<li>one</li>\n\t\t<li>rwo</li>\n\t\t<li>the</li>\n\t\t<li>four</li>\n\t</ul>\n</div>";
+	module.exports = "<ng-container *ngIf=\"edge!=null\">\n\n\t<div class=\"link-circle\" \n\t\t(mousedown)=\"openStyleOptions($event)\"\n\t\t[style.left.px]=\"follow.x\"\n\t\t[style.top.px]=\"follow.y\"\n\t\t[style.width.px]=\"10\"\n\t\t[style.height.px]=\"10\">\n\t</div>\n</ng-container>\n\n<div \n\tclass=\"drop-shadowed-pop-up\"\n\t(mousedown)=\"preventClosingOfOptions($event)\"\n\t[style.width.px]=\"200\"\n\t[style.height.px]=\"250\"\n\t[style.left.px]=\"follow.x\"\n\t[style.top.px]=\"follow.y\"\n\t[@styleOptionsOpen]=\"workspace.edgeStyleOptionsIsOpen?'open':'closed'\" >\n\t<ul>\n\t\t<li (mousedown)=\"removeEdge($event)\">Remove</li>\n\t\t<li (mousedown)=\"changeDashing(1,$event)\">solid</li>\n\t\t<li (mousedown)=\"changeDashing(2,$event)\">dashed</li>\n\t\t<li (mousedown)=\"changeDashing(3,$event)\">dotted</li>\n\t</ul>\n</div>";
+
+/***/ },
+
+/***/ 717:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var command_1 = __webpack_require__(98);
+	var ChangeEdgeStyleCommand = (function (_super) {
+	    __extends(ChangeEdgeStyleCommand, _super);
+	    function ChangeEdgeStyleCommand(edge, newStyle) {
+	        _super.call(this);
+	        this.edge = edge;
+	        this.oldStyle = this.edge.style.clone();
+	        this.newStyle = newStyle;
+	    }
+	    ChangeEdgeStyleCommand.prototype.execute = function () {
+	        this.edge.style = this.newStyle;
+	    };
+	    ChangeEdgeStyleCommand.prototype.unExecute = function () {
+	        this.edge.style = this.oldStyle;
+	    };
+	    ChangeEdgeStyleCommand.prototype.getName = function () {
+	        return "Change edge style";
+	    };
+	    return ChangeEdgeStyleCommand;
+	}(command_1.Command));
+	exports.ChangeEdgeStyleCommand = ChangeEdgeStyleCommand;
+
 
 /***/ }
 

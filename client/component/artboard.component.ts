@@ -105,7 +105,7 @@ export class ArtboardComponent implements OnInit{
 	mousedown(event:MouseEvent){
 		//toggle creation drawer to false to close it (done using bindings)
 		this.workspace.creationDrawerIsOpen=false;
-		this.workspace.styleOptionsIsOpen=false;
+		this.workspace.edgeStyleOptionsIsOpen=false;
 
 		this.mousedownEvent.emit(event);
 		if(this.draggingInteraction!=null){
@@ -174,6 +174,7 @@ export class ArtboardComponent implements OnInit{
 		if(this.workspace.selectionCount()>0){
 			console.debug("Issueing remove command for current selection");
 			this.workspace.commit(new RemoveCommand(this.workspace,this.workspace.copySelection()),true);
+			this.workspace.clearSelection();
 		}
 	}
 

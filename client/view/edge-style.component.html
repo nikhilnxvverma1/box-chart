@@ -11,15 +11,16 @@
 
 <div 
 	class="drop-shadowed-pop-up"
+	(mousedown)="preventClosingOfOptions($event)"
 	[style.width.px]="200"
 	[style.height.px]="250"
 	[style.left.px]="follow.x"
 	[style.top.px]="follow.y"
-	[@styleOptionsOpen]="workspace.styleOptionsIsOpen?'open':'closed'" >
+	[@styleOptionsOpen]="workspace.edgeStyleOptionsIsOpen?'open':'closed'" >
 	<ul>
-		<li>one</li>
-		<li>rwo</li>
-		<li>the</li>
-		<li>four</li>
+		<li (mousedown)="removeEdge($event)">Remove</li>
+		<li (mousedown)="changeDashing(1,$event)">solid</li>
+		<li (mousedown)="changeDashing(2,$event)">dashed</li>
+		<li (mousedown)="changeDashing(3,$event)">dotted</li>
 	</ul>
 </div>

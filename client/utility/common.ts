@@ -83,7 +83,10 @@ export class LineEquation{
 		}
 	}
 
-	/**@deprecated Creates and returns a line equation that is perpendicular to this line equation.*/
+	/** 
+	 * Creates and returns a line equation that is perpendicular to this line equation.
+	 * CAUTION: at its current state, this method only works for vertical and horizontal lines.
+	*/
 	getPerpendicularFrom(p:Point):LineEquation{
 		//slope of perpendicular will be -1/m;
 		let perpendicular=new LineEquation(new Point(0,0),new Point(0,0));
