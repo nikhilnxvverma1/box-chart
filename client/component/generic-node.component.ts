@@ -42,7 +42,7 @@ const HEIGHT=70;
     ])
 	]
 })
-export class GenericNodeComponent implements OnInit,OnChanges{
+export class GenericNodeComponent implements OnInit{//,OnChanges
 
 	@Input('workspace') workspace:Workspace;
 	@Input("soloSelected") soloSelected:boolean;
@@ -62,11 +62,11 @@ export class GenericNodeComponent implements OnInit,OnChanges{
 		this.editedContent=this.node.content;
 	}
 
-	ngOnChanges(changes:SimpleChanges){
-		if (changes['soloSelected'] != null ) {
-			this.workspace.contentEditingIsOpen=false;//redundant
-		}
-	}
+	// ngOnChanges(changes:SimpleChanges){
+	// 	if (changes['soloSelected'] != null ) {
+	// 		this.workspace.contentEditingIsOpen=false;//redundant
+	// 	}
+	// }
 
 	registerDragIntention(){
 		if(!this.workspace.contentEditingIsOpen){

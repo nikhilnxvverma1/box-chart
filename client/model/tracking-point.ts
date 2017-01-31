@@ -356,7 +356,6 @@ export class CircleTrackingPoint implements TrackingPoint{
 	private circle:Circle;
 	/**Angle in degrees for a 360 degree location */
 	private angle:number;
-	private trackedPoint:Point;
 
 	constructor(circle:Circle){
 		this.circle=circle;
@@ -370,12 +369,16 @@ export class CircleTrackingPoint implements TrackingPoint{
 	gravitateTowards(p:Point,offset=0):Point{
 		this.angle=this.circle.center.angleOfSegment(p);
 		let trackedPoint=this.circle.center.pointAtLength(this.angle,this.circle.radius+offset);
-		return this.trackedPoint;
+		return trackedPoint;
 	}
 
-	inverse(distance:number):TrackingPoint{
-		// this.circle.clone().moveBy(distance,distance);
-		return new CircleTrackingPoint(this.circle);
+	inverse(distance:number):CircleTrackingPoint{
+		let copyCircle=this.circle.clone();
+		copyCircle.center=this.circle.center.pointAtLength(this.angle,
+			this.circle.radius+distance+copyCircle.radius);
+		let inverse=new CircleTrackingPoint(copyCircle);
+		inverse.angle=(this.angle+180)%360;
+		return inverse;
 	}
 
 	getGeometry():Circle{

@@ -6702,8 +6702,8 @@ webpackJsonp([0],{
 	                height = 30;
 	                break;
 	            case GenericDiagramNodeType.Circle:
-	                width = 100;
-	                height = 100;
+	                width = 50;
+	                height = 50;
 	                break;
 	            case GenericDiagramNodeType.Diamond:
 	                width = 100;
@@ -8308,11 +8308,14 @@ webpackJsonp([0],{
 	        if (offset === void 0) { offset = 0; }
 	        this.angle = this.circle.center.angleOfSegment(p);
 	        var trackedPoint = this.circle.center.pointAtLength(this.angle, this.circle.radius + offset);
-	        return this.trackedPoint;
+	        return trackedPoint;
 	    };
 	    CircleTrackingPoint.prototype.inverse = function (distance) {
-	        // this.circle.clone().moveBy(distance,distance);
-	        return new CircleTrackingPoint(this.circle);
+	        var copyCircle = this.circle.clone();
+	        copyCircle.center = this.circle.center.pointAtLength(this.angle, this.circle.radius + distance + copyCircle.radius);
+	        var inverse = new CircleTrackingPoint(copyCircle);
+	        inverse.angle = (this.angle + 180) % 360;
+	        return inverse;
 	    };
 	    CircleTrackingPoint.prototype.getGeometry = function () {
 	        return this.circle;
@@ -9013,10 +9016,14 @@ webpackJsonp([0],{
 	        worksheet.description = json.worksheet.description;
 	        worksheet.rid = json.worksheet['@rid'];
 	        var jsonDataString = json.worksheet["diagramModel"];
-	        console.debug(jsonDataString);
-	        var jsonData = JSON.parse(jsonDataString);
-	        worksheet.diagramModel = this.unpackDiagramModelFromJson(jsonData);
-	        // worksheet.diagramModel=new DiagramModel();
+	        // console.debug(jsonDataString);
+	        if (jsonDataString != null && jsonDataString.trim() != '') {
+	            var jsonData = JSON.parse(jsonDataString);
+	            worksheet.diagramModel = this.unpackDiagramModelFromJson(jsonData);
+	        }
+	        else {
+	            worksheet.diagramModel = new worksheet_2.DiagramModel();
+	        }
 	        return worksheet;
 	    };
 	    /** Updates the diagram model for the given worksheet rid. */
@@ -10274,14 +10281,15 @@ webpackJsonp([0],{
 	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Rectangle)); }
 	    },
 	    {
-	        name: "RoundedRectangle",
-	        iconFilename: "rounded-rectangle-generic-icon.svg",
-	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.RoundedRectangle)); }
-	    },
-	    {
 	        name: "Circle",
 	        iconFilename: "circle-generic-icon.svg",
 	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Circle)); }
+	    },
+	];
+	var extra = [{
+	        name: "RoundedRectangle",
+	        iconFilename: "rounded-rectangle-generic-icon.svg",
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.RoundedRectangle)); }
 	    },
 	    {
 	        name: "Parallelogram",
@@ -12186,11 +12194,11 @@ webpackJsonp([0],{
 	        this.prepareNewEdgeAndGhost();
 	        this.editedContent = this.node.content;
 	    };
-	    GenericNodeComponent.prototype.ngOnChanges = function (changes) {
-	        if (changes['soloSelected'] != null) {
-	            this.workspace.contentEditingIsOpen = false; //redundant
-	        }
-	    };
+	    // ngOnChanges(changes:SimpleChanges){
+	    // 	if (changes['soloSelected'] != null ) {
+	    // 		this.workspace.contentEditingIsOpen=false;//redundant
+	    // 	}
+	    // }
 	    GenericNodeComponent.prototype.registerDragIntention = function () {
 	        if (!this.workspace.contentEditingIsOpen) {
 	            this.requestDragging.emit(this.node);
@@ -12230,6 +12238,7 @@ webpackJsonp([0],{
 	        }
 	    };
 	    __decorate([
+	        //,OnChanges
 	        core_1.Input('workspace'), 
 	        __metadata('design:type', (typeof (_a = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _a) || Object)
 	    ], GenericNodeComponent.prototype, "workspace", void 0);

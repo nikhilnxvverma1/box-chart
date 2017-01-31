@@ -27,14 +27,16 @@ export let creationDrawerList:CreationDrawerItem[]=[
 		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GenericDiagramNodeType.Rectangle));}
 	},
 	{
-		name:"RoundedRectangle",
-		iconFilename:"rounded-rectangle-generic-icon.svg",
-		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GenericDiagramNodeType.RoundedRectangle));}
-	},
-	{
 		name:"Circle",
 		iconFilename:"circle-generic-icon.svg",
 		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GenericDiagramNodeType.Circle));}
+	},
+];
+
+let extra=[{
+		name:"RoundedRectangle",
+		iconFilename:"rounded-rectangle-generic-icon.svg",
+		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GenericDiagramNodeType.RoundedRectangle));}
 	},
 	{
 		name:"Parallelogram",

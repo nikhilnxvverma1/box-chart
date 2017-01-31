@@ -34,11 +34,14 @@ export class WorksheetService{
 		worksheet.title=json.worksheet.title;
 		worksheet.description=json.worksheet.description;
 		worksheet.rid=json.worksheet['@rid'];
-		let jsonDataString=json.worksheet["diagramModel"];
-		console.debug(jsonDataString);
-		let jsonData=JSON.parse(jsonDataString);
-		worksheet.diagramModel=this.unpackDiagramModelFromJson(jsonData);
-		// worksheet.diagramModel=new DiagramModel();
+		let jsonDataString:string=json.worksheet["diagramModel"];
+		// console.debug(jsonDataString);
+		if(jsonDataString!=null && jsonDataString.trim()!=''){
+			let jsonData=JSON.parse(jsonDataString);
+			worksheet.diagramModel=this.unpackDiagramModelFromJson(jsonData);
+		}else{
+			worksheet.diagramModel=new DiagramModel();
+		}
 		return worksheet;
 	}
 
