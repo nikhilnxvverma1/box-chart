@@ -18,7 +18,9 @@
 		<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->
 		<rect *ngIf="node.shapeType==8" x="0" y="0" width="100%" height="100%" transform="skewX(-20)" [style.fill]="node.background.hashCode()" [style.stroke]="strokeColor()" [style.stroke-width]="3"/>
 	</svg>
-	<div class="node-content" [style.color]="node.foreground.hashCode()" >{{node.content}}</div>
+	<div class="node-content"
+		[attr.contenteditable]="editingAllowed"
+		[style.color]="node.foreground.hashCode()" >{{node.content}}</div>
 </div>
 
 <!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->
@@ -81,9 +83,32 @@
 
 </div>
 
+<div 
+	*ngIf="soloSelected" 
+	class="medium-bubble remove-operation"
+	(mousedown)="editContent($event)"
+	[style.left.px]="node.geometry.getBoundingBox().topLeft().offset(-10,0).x"
+	[style.top.px]="node.geometry.getBoundingBox().topLeft().offset(0,-10).y"
+	><!--TODO try to externalize offset values (10)-->
+
+</div>
+
+<div 
+	*ngIf="soloSelected" 
+	class="drop-shadowed-pop-up"
+	(mousedown)="preventClosingOfOptions($event)"
+	[attr.contenteditable]="'true'"
+	[style.width.px]="200"
+	[style.height.px]="250"
+	[style.left.px]="node.geometry.getBoundingBox().topLeft().offset(-10,0).x"
+	[style.top.px]="node.geometry.getBoundingBox().topLeft().offset(0,-10).y"
+	[@contentEditingOpen]="workspace.contentEditingIsOpen?'open':'closed'" >
+	<input type="text" (keydown)="changeContent($event)" [(ngModel)]="editedContent"/>
+</div>
+
 <!-- Gizmo Edge associated with this Node-->
 <gizmo-edge 
-	*ngIf="soloSelected" 
+	*ngIf="soloSelected  && !nodeMoving" 
 	[workspace]="workspace"
 	[fromNode]="node"
 	[positionOfTheCursor]="workspace.cursorPosition"

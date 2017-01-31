@@ -11,6 +11,7 @@ export class Workspace{
 	private _selection:DiagramModel;
 	creationDrawerIsOpen:boolean=false;
 	edgeStyleOptionsIsOpen=false;
+	contentEditingIsOpen=false;
 	private _cursorPosition:Point=new Point(0,0);
 	postOperationListener:PostOperationNotification;
 

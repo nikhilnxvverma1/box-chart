@@ -66,14 +66,12 @@ export class WorksheetService{
 			let edge=DiagramEdge.objectFromJSON(jsonEdge);
 			edge.from=from;
 			from.outgoingEdges.push(edge);
-			// from.geometry=edge.fromPoint.getGeometry();
 			let fromTrackingPoint=from.geometry.getTrackingPoint();
 			fromTrackingPoint.copyInformationFrom(edge.fromPoint);
 			edge.fromPoint=fromTrackingPoint;
 
 			edge.to=to;
 			to.incomingEdges.push(edge);
-			// to.geometry=edge.toPoint.getGeometry();
 			let toTrackingPoint=to.geometry.getTrackingPoint();
 			toTrackingPoint.copyInformationFrom(edge.toPoint);
 			edge.toPoint=toTrackingPoint;
