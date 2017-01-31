@@ -106,7 +106,8 @@ export class WorkspaceComponent implements OnInit,PostOperationNotification{
 			}else{
 				this.workspace.undo();
 			}
-		}else if(event.keyCode==A_KEY||event.keyCode==ONE_KEY){
+		} else if ((event.keyCode == A_KEY || event.keyCode == ONE_KEY) && 
+			!this.workspace.contentEditingIsOpen) {
 			this.artboard.toggleOpenCreationDrawer();
 		}
     }

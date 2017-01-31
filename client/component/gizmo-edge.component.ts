@@ -20,7 +20,7 @@ export class GizmoEdgeComponent implements OnChanges,OnInit,NodeLinkingStatus{
 	@Output() requireNewEdgeAndGhost=new EventEmitter();
 
 	// Controls how far the linking extension will be made 
-	linkerExtensionDistance:number=50;
+	linkerExtensionDistance:number=70;
 	//edge that is ready to be linked to another node (used in making the gizmo)
 	@Input() prepared:DiagramEdge=null;
 	//if new nodes is created using the linker, this node is used

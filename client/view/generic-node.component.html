@@ -24,55 +24,59 @@
 		[style.color]="node.foreground.hashCode()" >{{node.content}}</div>
 </div>
 
-<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->
-<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->
-<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="1" 
-*ngIf="soloSelected" 
-(requestDragging)="registerDragIntention($event)" 
-(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
-</resize-handle>
+<ng-container *ngIf="false">
 
-<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="2"  
-*ngIf="soloSelected" 
-(requestDragging)="registerDragIntention($event)" 
-(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
-</resize-handle>
+	<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->
+	<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->
+	<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="1" 
+	*ngIf="soloSelected" 
+	(requestDragging)="registerDragIntention($event)" 
+	(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
+	</resize-handle>
 
-<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="3"  
-*ngIf="soloSelected" 
-(requestDragging)="registerDragIntention($event)" 
-(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
-</resize-handle>
+	<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="2"  
+	*ngIf="soloSelected" 
+	(requestDragging)="registerDragIntention($event)" 
+	(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
+	</resize-handle>
 
-<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="4"  
-*ngIf="soloSelected" 
-(requestDragging)="registerDragIntention($event)" 
-(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
-</resize-handle>
+	<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="3"  
+	*ngIf="soloSelected" 
+	(requestDragging)="registerDragIntention($event)" 
+	(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
+	</resize-handle>
 
-<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="5"  
-*ngIf="soloSelected" 
-(requestDragging)="registerDragIntention($event)" 
-(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
-</resize-handle>
+	<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="4"  
+	*ngIf="soloSelected" 
+	(requestDragging)="registerDragIntention($event)" 
+	(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
+	</resize-handle>
 
-<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="6"  
-*ngIf="soloSelected" 
-(requestDragging)="registerDragIntention($event)" 
-(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
-</resize-handle>
+	<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="5"  
+	*ngIf="soloSelected" 
+	(requestDragging)="registerDragIntention($event)" 
+	(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
+	</resize-handle>
 
-<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="7" 
-*ngIf="soloSelected" 
-(requestDragging)="registerDragIntention($event)" 
-(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
-</resize-handle>
+	<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="6"  
+	*ngIf="soloSelected" 
+	(requestDragging)="registerDragIntention($event)" 
+	(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
+	</resize-handle>
 
-<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="8"  
-*ngIf="soloSelected" 
-(requestDragging)="registerDragIntention($event)" 
-(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
-</resize-handle>
+	<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="7" 
+	*ngIf="soloSelected" 
+	(requestDragging)="registerDragIntention($event)" 
+	(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
+	</resize-handle>
+
+	<resize-handle [rect]="node.geometry.getBoundingBox()" [placement]="8"  
+	*ngIf="soloSelected" 
+	(requestDragging)="registerDragIntention($event)" 
+	(updateAllResizeHandlers)="updateAllResizeHandlers($event)">
+	</resize-handle>
+
+</ng-container>
 
 <div 
 	*ngIf="soloSelected" 
@@ -86,7 +90,7 @@
 
 <div 
 	*ngIf="soloSelected" 
-	class="medium-bubble remove-operation"
+	class="medium-bubble edit-operation"
 	(mousedown)="editContent($event)"
 	[style.left.px]="node.geometry.getBoundingBox().topLeft().offset(-10,0).x"
 	[style.top.px]="node.geometry.getBoundingBox().topLeft().offset(0,-10).y"
@@ -98,13 +102,12 @@
 	*ngIf="soloSelected" 
 	class="drop-shadowed-pop-up"
 	(mousedown)="preventClosingOfOptions($event)"
-	[attr.contenteditable]="'true'"
 	[style.width.px]="200"
 	[style.height.px]="250"
 	[style.left.px]="node.geometry.getBoundingBox().topLeft().offset(-10,0).x"
 	[style.top.px]="node.geometry.getBoundingBox().topLeft().offset(0,-10).y"
 	[@contentEditingOpen]="workspace.contentEditingIsOpen?'open':'closed'" >
-	<input type="text" (keydown)="changeContent($event)" [(ngModel)]="editedContent"/>
+	<input class="node-content-input" type="text" (keydown)="changeContent($event)" [(ngModel)]="editedContent"/>
 </div>
 
 <!-- Gizmo Edge associated with this Node-->

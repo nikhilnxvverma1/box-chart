@@ -72,6 +72,13 @@ $linker-color:#344353;
 	pointer-events: none;//selection box should not block any events on the nodes behind it.
 }
 
+.node-content-input{
+	width: 100%;
+    height: 100%;
+    text-align: center;
+	font-size: 1.3em
+}
+
 .selected{
 	border-color:$selection-color;
 	color:$selection-color;
@@ -84,10 +91,16 @@ $linker-color:#344353;
 	height:15px;
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
+	z-index: 100;
 }
 
 .remove-operation{
 	background:red;//TODO SVG background 
+	cursor: pointer;
+}
+
+.edit-operation{
+	background:cornflowerblue;//TODO SVG background 
 	cursor: pointer;
 }
 
