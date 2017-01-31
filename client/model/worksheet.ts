@@ -419,12 +419,12 @@ export class GenericDiagramNode extends DiagramNode{
 		var height=0;
 		switch(nodeType){
 			case GenericDiagramNodeType.Rectangle:
-				width=200;
+				width=100;
 				height=30;
 				break;
 			case GenericDiagramNodeType.Circle:
-				width=50;
-				height=50;
+				width=30;
+				height=30;
 				break;
 			case GenericDiagramNodeType.Diamond:
 				width=100;

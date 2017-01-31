@@ -6698,12 +6698,12 @@ webpackJsonp([0],{
 	        var height = 0;
 	        switch (nodeType) {
 	            case GenericDiagramNodeType.Rectangle:
-	                width = 200;
+	                width = 100;
 	                height = 30;
 	                break;
 	            case GenericDiagramNodeType.Circle:
-	                width = 50;
-	                height = 50;
+	                width = 30;
+	                height = 30;
 	                break;
 	            case GenericDiagramNodeType.Diamond:
 	                width = 100;
@@ -7342,8 +7342,7 @@ webpackJsonp([0],{
 	        return new Rect(this.center.x - this.radius, this.center.y - this.radius, this.radius * 2, this.radius * 2);
 	    };
 	    Circle.prototype.overlapsWithRect = function (rect) {
-	        //TODO line circle overlap check
-	        return false;
+	        return rect.contains(this.center);
 	    };
 	    Circle.prototype.moveBy = function (point) {
 	        this.center.moveBy(point);
@@ -11736,7 +11735,7 @@ webpackJsonp([0],{
 /***/ 111:
 /***/ function(module, exports) {
 
-	module.exports = "<ng-container *ngIf=\"workspace!=null\">\n\t<div id=\"massive-area\" \n\t[style.width]=\"massiveArea.width+'px'\" \n\t[style.height]=\"massiveArea.height+'px'\" \n\t[style.left]=\"massiveArea.x+'px'\" \n\t[style.top]=\"massiveArea.y+'px'\"\n\t(mousedown)=\"mousedown($event)\"\n\t(mousemove)=\"mousemove($event)\"\n\t(mouseup)=\"mouseup($event)\"\n\t(dblclick)=\"doubleClickedArtboard($event)\"\n\t>\n\n\t\t<!--<h1 id=\"starter-tip\"\n\t\t[style.left.px]=\"massiveArea.width/2\"\n\t\t[style.top.px]=\"massiveArea.height/2\"\n\t\t>Double click anywhere to create a box</h1>-->\n\n\t\t\n\t\t\n\t\t<creation-drawer \n\t\t\t[workspace]=\"workspace\"\n\t\t\t[position]=\"creationDrawerLocation\"\n\t\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t\t></creation-drawer>\n\t\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t\t<!--<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>-->\n\t\t\t<diagram-edge\n\t\t\t\t[edge]=\"edge\"\n\t\t\t\t[workspace]=\"workspace\"\n\t\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyEdge(edge)\"\n\t\t\t\t></diagram-edge>\n\t\t</ng-container>\n\n\t\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t\t<generic-node\n\t\t\t\t[genericNode]=\"node\"\n\t\t\t\t[workspace]=\"workspace\"\n\t\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t\t(linkNodes)=\"linkNodes($event)\"\n\t\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t\t></generic-node>\n\t\t</ng-container>\n\n\t\t<multiple-selection \n\t\t\t[workspace]=\"workspace\" \n\t\t\t[active]=\"\n\t\t\t\tworkspace.selectionCount()>1 &&\n\t\t\t\tdraggingInteraction==null\"\n\t\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t\t></multiple-selection>\n\t</div>\n</ng-container>";
+	module.exports = "<ng-container *ngIf=\"workspace!=null\">\n\t<div id=\"massive-area\" \n\t[style.width]=\"massiveArea.width+'px'\" \n\t[style.height]=\"massiveArea.height+'px'\" \n\t[style.left]=\"massiveArea.x+'px'\" \n\t[style.top]=\"massiveArea.y+'px'\"\n\t(mousedown)=\"mousedown($event)\"\n\t(mousemove)=\"mousemove($event)\"\n\t(mouseup)=\"mouseup($event)\"\n\t(dblclick)=\"doubleClickedArtboard($event)\"\n\t>\n\n\t\t<!--<h1 id=\"starter-tip\"\n\t\t[style.left.px]=\"massiveArea.width/2\"\n\t\t[style.top.px]=\"massiveArea.height/2\"\n\t\t>Double click anywhere to create a box</h1>-->\n\n\t\t\n\t\t\n\t\t<creation-drawer \n\t\t\t[workspace]=\"workspace\"\n\t\t\t[position]=\"creationDrawerLocation\"\n\t\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t\t></creation-drawer>\n\t\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t\t<!--<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>-->\n\t\t\t<diagram-edge\n\t\t\t\t[edge]=\"edge\"\n\t\t\t\t[workspace]=\"workspace\"\n\t\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyEdge(edge)\"\n\t\t\t\t></diagram-edge>\n\t\t</ng-container>\n\n\t\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t\t<generic-node\n\t\t\t\t[genericNode]=\"node\"\n\t\t\t\t[workspace]=\"workspace\"\n\t\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t\t(linkNodes)=\"linkNodes($event)\"\n\t\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t\t></generic-node>\n\t\t</ng-container>\n\n\t\t<ng-container *ngIf=\"workspace.selection!=null\">\n\t\t\t<multiple-selection \n\t\t\t\t[workspace]=\"workspace\" \n\t\t\t\t[selectedNodes]=\"workspace.selection.nodeList\" \n\t\t\t\t[selectedEdges]=\"workspace.selection.edgeList\" \n\t\t\t\t[active]=\"\n\t\t\t\t\tworkspace.selectionCount()>1 &&\n\t\t\t\t\tdraggingInteraction==null\"\n\t\t\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t\t\t></multiple-selection>\n\t\t</ng-container>\n\t</div>\n</ng-container>";
 
 /***/ },
 
@@ -12773,9 +12772,10 @@ webpackJsonp([0],{
 	        this.rect = new geometry_1.Rect(1500, 900, 200, 300); //initial value only for debugging purposes
 	    }
 	    MultipleSelectionComponent.prototype.ngOnChanges = function (changes) {
-	        //if active flag changed from false to true,
-	        var activationChange = changes['active'];
-	        if (activationChange != null && activationChange.currentValue) {
+	        //if selected node changes or selected edges do
+	        var nodeChanges = changes['selectedNodes'];
+	        var edgeChanges = changes['selectedEdge'];
+	        if (this.active && (nodeChanges != null || edgeChanges != null)) {
 	            //compute and set the dimensions of the box
 	            this.setBoxDimensions();
 	        }
@@ -12802,7 +12802,23 @@ webpackJsonp([0],{
 	                highY = boundingBox.y + boundingBox.height;
 	            }
 	        }
-	        //TODO do the same thing with edges
+	        // do the same thing with edges
+	        for (var _b = 0, _c = this.workspace.selection.edgeList; _b < _c.length; _b++) {
+	            var edge = _c[_b];
+	            var boundingBox = edge.lineSegment.getBoundingBox();
+	            if (boundingBox.x < lowX) {
+	                lowX = boundingBox.x;
+	            }
+	            if (boundingBox.y < lowY) {
+	                lowY = boundingBox.y;
+	            }
+	            if ((boundingBox.x + boundingBox.width) > highX) {
+	                highX = boundingBox.x + boundingBox.width;
+	            }
+	            if ((boundingBox.y + boundingBox.height) > highY) {
+	                highY = boundingBox.y + boundingBox.height;
+	            }
+	        }
 	        //set the dimensions of the rect
 	        this.rect.x = lowX;
 	        this.rect.y = lowY;
@@ -12817,6 +12833,14 @@ webpackJsonp([0],{
 	        core_1.Input('active'), 
 	        __metadata('design:type', Object)
 	    ], MultipleSelectionComponent.prototype, "active", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Array)
+	    ], MultipleSelectionComponent.prototype, "selectedNodes", void 0);
+	    __decorate([
+	        core_1.Input(), 
+	        __metadata('design:type', Array)
+	    ], MultipleSelectionComponent.prototype, "selectedEdges", void 0);
 	    __decorate([
 	        core_1.Output(), 
 	        __metadata('design:type', Object)

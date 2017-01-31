@@ -44,12 +44,16 @@
 				></generic-node>
 		</ng-container>
 
-		<multiple-selection 
-			[workspace]="workspace" 
-			[active]="
-				workspace.selectionCount()>1 &&
-				draggingInteraction==null"
-			(removeUs)="removeCurrentSelection()"
-			></multiple-selection>
+		<ng-container *ngIf="workspace.selection!=null">
+			<multiple-selection 
+				[workspace]="workspace" 
+				[selectedNodes]="workspace.selection.nodeList" 
+				[selectedEdges]="workspace.selection.edgeList" 
+				[active]="
+					workspace.selectionCount()>1 &&
+					draggingInteraction==null"
+				(removeUs)="removeCurrentSelection()"
+				></multiple-selection>
+		</ng-container>
 	</div>
 </ng-container>

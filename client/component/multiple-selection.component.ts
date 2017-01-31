@@ -1,6 +1,7 @@
 import { Component, Input, Output, EventEmitter,OnChanges,SimpleChanges } from '@angular/core';
 import { animate, trigger, state, style, transition } from '@angular/core';
 import { Rect, Point } from '../model/geometry';
+import { DiagramNode,DiagramEdge } from '../model/worksheet';
 import { Direction } from '../utility/common';
 import { Workspace } from '../editor/workspace';
 
@@ -12,14 +13,17 @@ export class MultipleSelectionComponent implements OnChanges{
 
 	@Input('workspace') workspace: Workspace;
 	@Input('active') active = false;
+	@Input() selectedNodes:DiagramNode[];
+	@Input() selectedEdges:DiagramEdge[];
 	@Output() removeUs=new EventEmitter();
 	rect: Rect = new Rect(1500, 900, 200, 300);//initial value only for debugging purposes
 	
 	ngOnChanges(changes:SimpleChanges){
 		
-		//if active flag changed from false to true,
-		let activationChange=changes['active'];
-		if(activationChange!=null && activationChange.currentValue){
+		//if selected node changes or selected edges do
+		let nodeChanges=changes['selectedNodes'];
+		let edgeChanges=changes['selectedEdge'];
+		if(this.active && (nodeChanges!=null || edgeChanges!=null)){
 			//compute and set the dimensions of the box
 			this.setBoxDimensions();
 		}
@@ -49,7 +53,22 @@ export class MultipleSelectionComponent implements OnChanges{
 			}
 		}
 
-		//TODO do the same thing with edges
+		// do the same thing with edges
+		for (let edge of this.workspace.selection.edgeList) {
+			let boundingBox = edge.lineSegment.getBoundingBox();
+			if (boundingBox.x < lowX) {
+				lowX = boundingBox.x;
+			}
+			if (boundingBox.y < lowY) {
+				lowY = boundingBox.y;
+			}
+			if ((boundingBox.x + boundingBox.width) > highX) {
+				highX = boundingBox.x + boundingBox.width;
+			}
+			if ((boundingBox.y + boundingBox.height) > highY) {
+				highY = boundingBox.y + boundingBox.height;
+			}
+		}
 
 		//set the dimensions of the rect
 		this.rect.x = lowX;

@@ -401,8 +401,7 @@ export class Circle implements Geometry{
 	}
 
 	overlapsWithRect(rect:Rect):boolean{
-		//TODO line circle overlap check
-		return false;
+		return rect.contains(this.center);
 	}
 
 	moveBy(point:Point):Circle{
