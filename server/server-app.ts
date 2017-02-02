@@ -260,4 +260,4 @@ export function jsonHeader(response:express.Response):express.Response{
 	return response;
 }
 
-const production=true;//TODO quick and dirty solution to managing in the production environment
+const production=false;//TODO quick and dirty solution to managing in the production environment
