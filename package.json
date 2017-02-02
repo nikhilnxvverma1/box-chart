@@ -74,6 +74,7 @@
     "lodash": "^4.16.4",
     "null-loader": "^0.1.1",
     "protractor": "~4.0.14",
+	"url-loader": "^0.5.7",
     "raw-loader": "^0.5.1",
     "rimraf": "^2.5.4",
     "sass-loader": "^4.1.1",

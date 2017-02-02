@@ -229,10 +229,8 @@ export class ServerApp {
 
 		this.schemaService.ensureDatabaseSchema();
 		let port=3000;//TODO normalize ports by environment variables        
-		// var privateKey = fs.readFileSync( __dirname+'/dev-purposes-certs/rootCA.key' );
-		// var certificate = fs.readFileSync( __dirname+'/dev-purposes-certs/rootCA.pem' );
-		var privateKey = fs.readFileSync( '/root/.ssl/typediagram.com.key' );
-        var certificate = fs.readFileSync( '/root/.ssl/typediagram_com.crt' );
+		var privateKey = fs.readFileSync( __dirname+'/dev-purposes-certs/rootCA.key' );
+		var certificate = fs.readFileSync( __dirname+'/dev-purposes-certs/rootCA.pem' );
 		let options:https.ServerOptions={
 			key:privateKey,
 			cert:certificate
