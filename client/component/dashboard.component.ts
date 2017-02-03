@@ -11,6 +11,7 @@ import { Router,NavigationExtras } from '@angular/router';
 })
 export class DashboardComponent implements OnInit {
 
+	private searchTerm:string;
 	private worksheetList:Worksheet[]=[];
 
 	constructor(

@@ -1,15 +1,43 @@
-<a style="background: blue;color: white" (click)="router.navigate(['/account'])">Account</a>
-<a style="background: pink;color: white" (click)="logout()">Logout</a>
+<header>
+	<a routerLink="/dashboard">
+		<img src="../assets/logo.png" alt="Logo" class="header-logo">
+	</a>
+	<h1>Dashboard</h1>
+	<ul class="header-links-container horizontal-list no-list-style">
+		<li><a class="header-link" routerLink="/account">Account</a></li>
+		<li><a class="header-link" (click)="logout()">Logout</a></li>
+	</ul>
+</header>
 
-<h1>Worksheet list</h1>
+<ul class="centered-list gaps-on-sides" >
+	<li class="no-margin">
+		<div class="dashboard-options">
+			<input class="form-field wide" placeholder="Search" [(ngModel)]="searchTerm"/>
+			<div (click)="createNewWorksheet()" class="new-worksheet"><img src="../assets/plus.png" alt="New"><span>New</span></div>
+		</div>
+	</li>
+	<li class="no-margin" *ngFor="let worksheet of worksheetList">
+		<div class="worksheet-row">
+			<div class="worksheet-info">
+				<h3 [routerLink]="'worksheet/'+worksheet.rid" class="worksheet-title">{{worksheet.title}}</h3>
+				<h3 class="worksheet-description">{{worksheet.description}}</h3>
+			</div>
 
-<div class="worksheet-tag" *ngFor="let worksheet of worksheetList">
+			<ul class="horizontal-list spaced-out float-right">
+				<li><a class="dashboard-actions" (click)="edit"><img src="../assets/edit-icon.png" alt="Edit"></a></li>
+				<li><a class="dashboard-actions" (click)="removeWorksheet(worksheet)"><img src="../assets/trash-icon.png" alt="Delete"></a></li>
+			</ul>
+		</div>
+	</li>
+</ul>
+
 	<!--<a (click)="gotoWorksheet(worksheet)"><span>{{worksheet.title}}({{worksheet.rid}})</span></a> : -->
+<!--<div class="worksheet-tag" *ngFor="let worksheet of worksheetList">
 	<a [routerLink]="'worksheet/'+worksheet.rid"><span>{{worksheet.title}}({{worksheet.rid}})</span></a> : 
 	<span>{{worksheet.description}}</span> 
 	<a style="background: red;color: white" (click)="removeWorksheet(worksheet)">Remove</a>
-</div>
+</div>-->
 
-<div class="worksheet-tag">
+<!--<div class="worksheet-tag">
 	<a style="background: green;color: white" (click)="createNewWorksheet()">Create new worksheet</a>
-</div>
+</div>-->

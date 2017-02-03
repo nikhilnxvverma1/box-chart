@@ -1,5 +1,8 @@
 $selection-color:#2BA3FC;
 $linker-color:#344353;
+$primary-color:#D98BC3;
+$secondary-color:#2B93C1;
+$tertiary-color:#A576DA;
 
 body{
 	font-family: 'Source Sans Pro', sans-serif;
@@ -341,12 +344,98 @@ ul.header-links-container li{
 
 .header-link{
 	text-decoration: none;
-	color:#D98BC3;
+	color:$primary-color;
 	font-weight: bold;
 	cursor: pointer;
 }
 
 .header-link:hover{
-	color:#A576DA;
+	color:$tertiary-color;
+}
+
+ul.horizontal-list.spaced-out li{
+	padding-right:10px;
+}
+
+.dashboard-actions{
+	cursor:pointer;
+}
+
+.float-right{
+	float:right;
+}
+
+.worksheet-title{
+	color: $primary-color;
+	margin-bottom:5px;
+	margin-top:5px;
+	cursor:pointer;
+}
+
+.worksheet-title:hover{
+	color:$tertiary-color;
+}
+
+.worksheet-description{
+	color: $secondary-color;
+	font-weight: 300;
+	margin-top:0px;
+	margin-bottom:5px;
+}
+
+.worksheet-info{
+	padding-left:30px;
+	display: inline-block;
+}
+
+.worksheet-row{
+	border-bottom: 1px solid black;
+	text-align: left;
+	height:100px;
+	overflow-y:clip;
+}
+
+.gaps-on-sides{
+	margin-left:40px;
+	margin-right:40px;
+}
+
+.no-margin{
+	margin:0px;
+}
+
+ul.centered-list li.no-margin{
+	margin:0px;
+}
+
+.dashboard-options{
+	color:$tertiary-color;
+	text-align: left;
+	height: 60px;
+    border-bottom: 1px solid black;
+	padding-left:30px;
+}
+
+.wide{
+	width:40%;
+}
+
+.new-worksheet{
+	padding-right:40px;
+	float:right;
+	padding-right:40px;
+	cursor: pointer;
+}
+
+.new-worksheet img{
+	padding-right:20px;
+	position: relative;
+	top:10px;
+}
+
+.new-worksheet span{
+	font-size:1.3em;
+	position: relative;
+	top:10px;
 }
 
