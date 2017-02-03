@@ -3,6 +3,7 @@ $linker-color:#344353;
 
 body{
 	font-family: 'Source Sans Pro', sans-serif;
+	margin:0px;
 }
 
 .generic-block{
@@ -282,6 +283,7 @@ h1 {
 
 ul.centered-list{
 	text-align: center;
+	list-style: none;
 	padding:0px;
 }
 
@@ -299,4 +301,29 @@ ul.horizontal-list li{
 
 .big-padding-top{
 	padding-top:40px;
+}
+
+header{
+	width:100%;
+	background: #FFFFFF;
+	box-shadow: 0 2px 3px 0 rgba(0,0,0,0.50);
+	text-align:center;
+	height:80px;
+	line-height: 80px;
+	margin-bottom:70px;
+}
+
+header h1{
+	margin:0px;
+	font-size: 30px;
+	color: #6F6F6F;
+	font-weight: lighter;
+}
+
+.header-logo{
+	float:left;
+	width: auto;
+	height: 70%;
+	padding-left: 20px;
+	padding-top: 10px;
 }

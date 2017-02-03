@@ -30,7 +30,8 @@ export class LoginComponent {
 				};
 				this.router.navigate([""],navigationExtras);
 			}
-		}, (error:Error)=>{
+		}, (error:any)=>{
+			//TODO change this to handle errors and show them on the frontend
 			console.log("Error From Server: "+error.message);
 		});
 	}

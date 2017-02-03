@@ -1,29 +1,19 @@
-<h1>signup</h1>
+<header>
+	<a routerLink="/"><img src="../assets/logo.png" alt="Logo" class="header-logo"></a>
+	<h1>Create and account</h1>
+</header>
 
 
-<div>
-	<span>firstName:</span>
-	<input type="text" [(ngModel)]="user.firstName"/>
-</div>
+<ul class="centered-list">
+	<li><input type="text" placeholder="First Name" [(ngModel)]="user.firstName" class="form-field"/></li>
+	<li><input type="text" placeholder="Last Name" [(ngModel)]="user.lastName" class="form-field"/></li>
+	<li><input type="text" placeholder="Email" [(ngModel)]="user.email" class="form-field"/></li>
+	<li><input type="password" placeholder="Password" [(ngModel)]="user.password" class="form-field"/></li>
+	<li><input type="password" placeholder="Confirm Password" [(ngModel)]="confirmPassword" class="form-field"/></li>
+</ul>
 
-<div>
-	<span>lastName:</span>
-	<input type="text" [(ngModel)]="user.lastName"/>
-</div>
-
-<div>
-	<span>email:</span>
-	<input type="text" [(ngModel)]="user.email"/>
-</div>
-
-<div>
-	<span>password:</span>
-	<input type="password" [(ngModel)]="user.password"/>
-</div>
-
-<div>
-	<span>confirmPassword:</span>
-	<input type="password" [(ngModel)]="confirmPassword"/>
-</div>
-
-<a (click)="createUserAccount()">Sign Up</a>
+<ul class="centered-list horizontal-list no-list-style">
+	<li>
+		<a tabindex="4" class="button primary" (click)="createUserAccount()">Sign Up</a>
+	</li>
+</ul>
