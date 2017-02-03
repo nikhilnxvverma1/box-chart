@@ -25,4 +25,12 @@ export class AccountComponent implements OnInit{
 	saveAccountDetails(){
 		console.log("TODO Saving account Details");
 	}
+
+	private logout(){
+		this.userService.logout().subscribe((user:User)=>{
+			this.router.navigate(["/"]);
+		},(error:Error)=>{
+			console.error("Logging out user");//TODO show some friendly message to user
+		})
+	}
 }

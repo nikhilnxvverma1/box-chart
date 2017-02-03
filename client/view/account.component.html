@@ -1,30 +1,26 @@
-<a style="background: blue;color: white" (click)="router.navigate(['/dashboard'])">Dashboard</a>
+<header>
+	<a routerLink="/dashboard">
+		<img src="../assets/logo.png" alt="Logo" class="header-logo">
+	</a>
+	<h1>Account</h1>
+	<ul class="header-links-container horizontal-list no-list-style">
+		<li><a class="header-link" routerLink="/dashboard">Dashboard</a></li>
+		<li><a class="header-link" (click)="logout()">Logout</a></li>
+	</ul>
+</header>
+<ng-container *ngIf="user!=null">
+	<ul class="centered-list">
+		<li><input type="text" tabindex="1" placeholder="First Name" class="form-field" [(ngModel)]="user.firstName"/></li>
+		<li><input type="text" tabindex="2" placeholder="Last Name" class="form-field" [(ngModel)]="user.lastName"/></li>
+		<li><input type="text" tabindex="3" placeholder="Email" class="form-field" [(ngModel)]="user.email"/></li>
+		<li><input type="text" tabindex="4" placeholder="Gender" class="form-field" [(ngModel)]="user.gender"/></li>
+	</ul>
 
-<div>Account</div>
-
-<div *ngIf="user!=null">
-
-	<div>
-		<span>firstName:</span>
-		<input type="text" [(ngModel)]="user.firstName"/>
-	</div>
-
-	<div>
-		<span>lastName:</span>
-		<input type="text" [(ngModel)]="user.lastName"/>
-	</div>
-
-	<div>
-		<span>email:</span>
-		<input type="text" [(ngModel)]="user.email"/>
-	</div>
-
-	<div>
-		<span>gender:</span>
-		<input type="text" [(ngModel)]="user.gender"/>
-	</div>
-</div>
+	<ul class="centered-list horizontal-list no-list-style">
+		<li>
+			<a tabindex="5" class="button primary" (click)="saveAccountDetails()">Save</a>
+		</li>
+	</ul>
+</ng-container>
 
 <!--TODO allow changing password-->
-
-<a (click)="saveAccountDetails()">Save details</a>

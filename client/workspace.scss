@@ -318,6 +318,7 @@ header h1{
 	font-size: 30px;
 	color: #6F6F6F;
 	font-weight: lighter;
+	display: inline-block;
 }
 
 .header-logo{
@@ -327,3 +328,25 @@ header h1{
 	padding-left: 20px;
 	padding-top: 10px;
 }
+
+ul.header-links-container{
+	float:right;
+	margin:0px 20px 0px 0px;
+}
+
+ul.header-links-container li{
+	padding-right:10px;
+	
+}
+
+.header-link{
+	text-decoration: none;
+	color:#D98BC3;
+	font-weight: bold;
+	cursor: pointer;
+}
+
+.header-link:hover{
+	color:#A576DA;
+}
+
