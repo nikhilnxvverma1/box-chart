@@ -1,6 +1,10 @@
 $selection-color:#2BA3FC;
 $linker-color:#344353;
 
+body{
+	font-family: 'Source Sans Pro', sans-serif;
+}
+
 .generic-block{
 	position:absolute;
 	// background:white;
@@ -212,10 +216,6 @@ h1 {
 	z-index: -1;
 }
 
-.line-segment-text{
-	//TODO based on needs
-}
-
 #starter-tip{
 	color:grey;
 	position: absolute;
@@ -235,4 +235,68 @@ h1 {
 	background: red;
 	border:1px solid black;
 	transform:translate(-50%,-50%);
+}
+
+ .form-field{
+	background: #F8F8F8;
+	border: none;
+    height: 40px;
+    padding-left: 25px;
+	min-width: 200px;
+}
+
+.form-field:focus{
+	box-shadow: 0 0 3px 0 rgba(0,0,0,0.50);
+	outline:none;
+}
+
+.button{
+	color:white;
+	border-radius: 30px;
+	cursor: pointer;
+	text-decoration: none;
+	height:20px;
+	padding:10px;
+	font-size:1em;
+	display: inline-block;
+    text-align: center;
+	min-width: 70px;
+}
+
+.primary{
+	background-image: linear-gradient(19deg, #34A0AA 0%, #1879EF 100%);
+}
+
+.primary-complement{
+	background-image: linear-gradient(36deg, #9D40B3 0%, #DA8BC3 100%);
+}
+
+.full-width-center{
+	text-align: center;
+	width:100%;
+}
+
+.no-list-style{
+	list-style: none;
+}
+
+ul.centered-list{
+	text-align: center;
+	padding:0px;
+}
+
+ul.centered-list li{
+	margin:20px;
+}
+
+ul.horizontal-list li{
+	display: inline-block;
+}
+
+.big-padding-bottom{
+	padding-bottom:40px;
+}
+
+.big-padding-top{
+	padding-top:40px;
 }

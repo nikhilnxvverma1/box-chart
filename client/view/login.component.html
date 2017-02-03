@@ -1,6 +1,17 @@
-<input type="text" [(ngModel)]="loginForm.username"/>
-<input type="password" [(ngModel)]="loginForm.password"/>
-<a (click)="attemptLogin()">Login here</a>
-<div><a routerLink="/signup">Sign Up</a></div>
+<ul class="centered-list no-list-style">
+	<li>
+		<input tabindex="1" class="form-field" type="text" placeholder="Email" [(ngModel)]="loginForm.username"/>
+	</li>
+	<li>
+		<input tabindex="2" class="form-field" type="password" placeholder="Password" [(ngModel)]="loginForm.password"/>
+	</li>
+</ul>
 
-<img src="../assets/creation-drawer-icons/circle-generic-icon.svg" alt="Circle icon">
+<ul class="centered-list horizontal-list no-list-style">
+	<li>
+		<a tabindex="3" class="button primary-complement" (click)="attemptLogin()">Login</a>
+	</li>
+	<li>
+		<a tabindex="4" class="button primary" routerLink="/signup">Sign Up</a>
+	</li>
+</ul>
