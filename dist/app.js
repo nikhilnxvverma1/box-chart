@@ -1,12 +1,11 @@
-webpackJsonp([0],{
-
-/***/ 0:
+webpackJsonp([0],[
+/* 0 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
 	var platform_browser_dynamic_1 = __webpack_require__(1);
 	var app_module_1 = __webpack_require__(23);
-	__webpack_require__(157);
+	__webpack_require__(160);
 	// Office.initialize = function () {
 	// 	platformBrowserDynamic().bootstrapModule(AppModule);
 	// };
@@ -14,8 +13,29 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 23:
+/* 1 */,
+/* 2 */,
+/* 3 */,
+/* 4 */,
+/* 5 */,
+/* 6 */,
+/* 7 */,
+/* 8 */,
+/* 9 */,
+/* 10 */,
+/* 11 */,
+/* 12 */,
+/* 13 */,
+/* 14 */,
+/* 15 */,
+/* 16 */,
+/* 17 */,
+/* 18 */,
+/* 19 */,
+/* 20 */,
+/* 21 */,
+/* 22 */,
+/* 23 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -35,10 +55,10 @@ webpackJsonp([0],{
 	var app_component_1 = __webpack_require__(29);
 	var app_routing_module_1 = __webpack_require__(31);
 	var home_component_1 = __webpack_require__(62);
-	var login_component_1 = __webpack_require__(80);
+	var login_component_1 = __webpack_require__(83);
 	var signup_component_1 = __webpack_require__(65);
-	var dashboard_module_1 = __webpack_require__(82);
-	var account_component_1 = __webpack_require__(78);
+	var dashboard_module_1 = __webpack_require__(85);
+	var account_component_1 = __webpack_require__(81);
 	var user_service_1 = __webpack_require__(67);
 	var common_1 = __webpack_require__(22);
 	var AppModule = (function () {
@@ -71,8 +91,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 24:
+/* 24 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -5842,8 +5861,11 @@ webpackJsonp([0],{
 	}));
 
 /***/ },
-
-/***/ 29:
+/* 25 */,
+/* 26 */,
+/* 27 */,
+/* 28 */,
+/* 29 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5874,15 +5896,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 30:
+/* 30 */
 /***/ function(module, exports) {
 
 	module.exports = "<router-outlet></router-outlet>\n\n";
 
 /***/ },
-
-/***/ 31:
+/* 31 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5900,7 +5920,7 @@ webpackJsonp([0],{
 	var home_component_1 = __webpack_require__(62);
 	var signup_component_1 = __webpack_require__(65);
 	var dashboard_component_1 = __webpack_require__(70);
-	var account_component_1 = __webpack_require__(78);
+	var account_component_1 = __webpack_require__(81);
 	var AppRoutingModule = (function () {
 	    function AppRoutingModule() {
 	    }
@@ -5926,8 +5946,37 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 62:
+/* 32 */,
+/* 33 */,
+/* 34 */,
+/* 35 */,
+/* 36 */,
+/* 37 */,
+/* 38 */,
+/* 39 */,
+/* 40 */,
+/* 41 */,
+/* 42 */,
+/* 43 */,
+/* 44 */,
+/* 45 */,
+/* 46 */,
+/* 47 */,
+/* 48 */,
+/* 49 */,
+/* 50 */,
+/* 51 */,
+/* 52 */,
+/* 53 */,
+/* 54 */,
+/* 55 */,
+/* 56 */,
+/* 57 */,
+/* 58 */,
+/* 59 */,
+/* 60 */,
+/* 61 */,
+/* 62 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5964,22 +6013,19 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 63:
+/* 63 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "\n<div class=\"full-width-center big-padding-bottom big-padding-top\">\n\t<img src=\"" + __webpack_require__(64) + "\"/>\n</div>\n\n<!-- All the design stuff goes here-->\n<login></login>\n\n<!--login attempt-->\n<div *ngIf=\"(attemptType|async)=='login'\">\n\tLogin attempt : <span>{{attemptCode|async}}</span>\n</div>\n\n<!--signup attempt-->\n<div *ngIf=\"(attemptType|async)=='signup'\">\n\tSignup attempt : <span>{{attemptCode|async}}</span>\n</div>";
 
 /***/ },
-
-/***/ 64:
+/* 64 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "assets/logo.0699622c22550b41cb6e8aa52349133f.png";
 
 /***/ },
-
-/***/ 65:
+/* 65 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6038,8 +6084,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 66:
+/* 66 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6064,8 +6109,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 67:
+/* 67 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6155,8 +6199,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 68:
+/* 68 */
 /***/ function(module, exports) {
 
 	//IMPORTANT this file is shared between client and server but is duplicated in both places. 
@@ -6191,15 +6234,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 69:
+/* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<header>\n\t<a routerLink=\"/\"><img src=\"" + __webpack_require__(64) + "\" alt=\"Logo\" class=\"header-logo\"></a>\n\t<h1>Create and account</h1>\n</header>\n\n\n<ul class=\"centered-list\">\n\t<li><input type=\"text\" placeholder=\"First Name\" [(ngModel)]=\"user.firstName\" class=\"form-field\"/></li>\n\t<li><input type=\"text\" placeholder=\"Last Name\" [(ngModel)]=\"user.lastName\" class=\"form-field\"/></li>\n\t<li><input type=\"text\" placeholder=\"Email\" [(ngModel)]=\"user.email\" class=\"form-field\"/></li>\n\t<li><input type=\"password\" placeholder=\"Password\" [(ngModel)]=\"user.password\" class=\"form-field\"/></li>\n\t<li><input type=\"password\" placeholder=\"Confirm Password\" [(ngModel)]=\"confirmPassword\" class=\"form-field\"/></li>\n</ul>\n\n<ul class=\"centered-list horizontal-list no-list-style\">\n\t<li>\n\t\t<a tabindex=\"4\" class=\"button primary\" (click)=\"createUserAccount()\">Sign Up</a>\n\t</li>\n</ul>";
 
 /***/ },
-
-/***/ 70:
+/* 70 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6304,8 +6345,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 71:
+/* 71 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7014,8 +7054,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 72:
+/* 72 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7512,8 +7551,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 73:
+/* 73 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7718,8 +7756,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 74:
+/* 74 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7981,8 +8018,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 75:
+/* 75 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8425,8 +8461,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 76:
+/* 76 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8510,15 +8545,31 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 77:
+/* 77 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<header>\n\t<a routerLink=\"/dashboard\">\n\t\t<img src=\"" + __webpack_require__(64) + "\" alt=\"Logo\" class=\"header-logo\">\n\t</a>\n\t<h1>Dashboard</h1>\n\t<ul class=\"header-links-container horizontal-list no-list-style\">\n\t\t<li><a class=\"header-link\" routerLink=\"/account\">Account</a></li>\n\t\t<li><a class=\"header-link\" (click)=\"logout()\">Logout</a></li>\n\t</ul>\n</header>\n\n<ul class=\"centered-list gaps-on-sides\" >\n\t<li class=\"no-margin\">\n\t\t<div class=\"dashboard-options\">\n\t\t\t<input class=\"form-field wide\" placeholder=\"Search\" [(ngModel)]=\"searchTerm\"/>\n\t\t\t<div (click)=\"createNewWorksheet()\" class=\"new-worksheet\"><img src=\"" + __webpack_require__(722) + "\" alt=\"New\"><span>New</span></div>\n\t\t</div>\n\t</li>\n\t<li class=\"no-margin\" *ngFor=\"let worksheet of worksheetList\">\n\t\t<div class=\"worksheet-row\">\n\t\t\t<div class=\"worksheet-info\">\n\t\t\t\t<h3 [routerLink]=\"'worksheet/'+worksheet.rid\" class=\"worksheet-title\">{{worksheet.title}}</h3>\n\t\t\t\t<h3 class=\"worksheet-description\">{{worksheet.description}}</h3>\n\t\t\t</div>\n\n\t\t\t<ul class=\"horizontal-list spaced-out float-right\">\n\t\t\t\t<li><a class=\"dashboard-actions\" (click)=\"edit\"><img src=\"" + __webpack_require__(720) + "\" alt=\"Edit\"></a></li>\n\t\t\t\t<li><a class=\"dashboard-actions\" (click)=\"removeWorksheet(worksheet)\"><img src=\"" + __webpack_require__(721) + "\" alt=\"Delete\"></a></li>\n\t\t\t</ul>\n\t\t</div>\n\t</li>\n</ul>\n\n\t<!--<a (click)=\"gotoWorksheet(worksheet)\"><span>{{worksheet.title}}({{worksheet.rid}})</span></a> : -->\n<!--<div class=\"worksheet-tag\" *ngFor=\"let worksheet of worksheetList\">\n\t<a [routerLink]=\"'worksheet/'+worksheet.rid\"><span>{{worksheet.title}}({{worksheet.rid}})</span></a> : \n\t<span>{{worksheet.description}}</span> \n\t<a style=\"background: red;color: white\" (click)=\"removeWorksheet(worksheet)\">Remove</a>\n</div>-->\n\n<!--<div class=\"worksheet-tag\">\n\t<a style=\"background: green;color: white\" (click)=\"createNewWorksheet()\">Create new worksheet</a>\n</div>-->";
+	module.exports = "<header>\n\t<a routerLink=\"/dashboard\">\n\t\t<img src=\"" + __webpack_require__(64) + "\" alt=\"Logo\" class=\"header-logo\">\n\t</a>\n\t<h1>Dashboard</h1>\n\t<ul class=\"header-links-container horizontal-list no-list-style\">\n\t\t<li><a class=\"header-link\" routerLink=\"/account\">Account</a></li>\n\t\t<li><a class=\"header-link\" (click)=\"logout()\">Logout</a></li>\n\t</ul>\n</header>\n\n<ul class=\"centered-list gaps-on-sides\" >\n\t<li class=\"no-margin\">\n\t\t<div class=\"dashboard-options\">\n\t\t\t<input class=\"form-field wide\" placeholder=\"Search\" [(ngModel)]=\"searchTerm\"/>\n\t\t\t<div (click)=\"createNewWorksheet()\" class=\"new-worksheet\"><img src=\"" + __webpack_require__(78) + "\" alt=\"New\"><span>New</span></div>\n\t\t</div>\n\t</li>\n\t<li class=\"no-margin\" *ngFor=\"let worksheet of worksheetList\">\n\t\t<div class=\"worksheet-row\">\n\t\t\t<div class=\"worksheet-info\">\n\t\t\t\t<h3 [routerLink]=\"'worksheet/'+worksheet.rid\" class=\"worksheet-title\">{{worksheet.title}}</h3>\n\t\t\t\t<h3 class=\"worksheet-description\">{{worksheet.description}}</h3>\n\t\t\t</div>\n\n\t\t\t<ul class=\"horizontal-list spaced-out float-right\">\n\t\t\t\t<li><a class=\"dashboard-actions\" (click)=\"edit\"><img src=\"" + __webpack_require__(79) + "\" alt=\"Edit\"></a></li>\n\t\t\t\t<li><a class=\"dashboard-actions\" (click)=\"removeWorksheet(worksheet)\"><img src=\"" + __webpack_require__(80) + "\" alt=\"Delete\"></a></li>\n\t\t\t</ul>\n\t\t</div>\n\t</li>\n</ul>\n\n\t<!--<a (click)=\"gotoWorksheet(worksheet)\"><span>{{worksheet.title}}({{worksheet.rid}})</span></a> : -->\n<!--<div class=\"worksheet-tag\" *ngFor=\"let worksheet of worksheetList\">\n\t<a [routerLink]=\"'worksheet/'+worksheet.rid\"><span>{{worksheet.title}}({{worksheet.rid}})</span></a> : \n\t<span>{{worksheet.description}}</span> \n\t<a style=\"background: red;color: white\" (click)=\"removeWorksheet(worksheet)\">Remove</a>\n</div>-->\n\n<!--<div class=\"worksheet-tag\">\n\t<a style=\"background: green;color: white\" (click)=\"createNewWorksheet()\">Create new worksheet</a>\n</div>-->";
 
 /***/ },
+/* 78 */
+/***/ function(module, exports, __webpack_require__) {
 
-/***/ 78:
+	module.exports = __webpack_require__.p + "assets/plus.8e4dedc00192ef83d21de2bf7270270f.png";
+
+/***/ },
+/* 79 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "assets/edit-icon.345d813757fd9e28c937173ffea6b344.png";
+
+/***/ },
+/* 80 */
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "assets/trash-icon.1bfa4750ea8dfd6c5e316ab7ef9fe355.png";
+
+/***/ },
+/* 81 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8561,7 +8612,7 @@ webpackJsonp([0],{
 	    AccountComponent = __decorate([
 	        core_1.Component({
 	            selector: 'account',
-	            template: __webpack_require__(79),
+	            template: __webpack_require__(82),
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object])
 	    ], AccountComponent);
@@ -8572,15 +8623,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 79:
+/* 82 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<header>\n\t<a routerLink=\"/dashboard\">\n\t\t<img src=\"" + __webpack_require__(64) + "\" alt=\"Logo\" class=\"header-logo\">\n\t</a>\n\t<h1>Account</h1>\n\t<ul class=\"header-links-container horizontal-list no-list-style\">\n\t\t<li><a class=\"header-link\" routerLink=\"/dashboard\">Dashboard</a></li>\n\t\t<li><a class=\"header-link\" (click)=\"logout()\">Logout</a></li>\n\t</ul>\n</header>\n<ng-container *ngIf=\"user!=null\">\n\t<ul class=\"centered-list\">\n\t\t<li><input type=\"text\" tabindex=\"1\" placeholder=\"First Name\" class=\"form-field\" [(ngModel)]=\"user.firstName\"/></li>\n\t\t<li><input type=\"text\" tabindex=\"2\" placeholder=\"Last Name\" class=\"form-field\" [(ngModel)]=\"user.lastName\"/></li>\n\t\t<li><input type=\"text\" tabindex=\"3\" placeholder=\"Email\" class=\"form-field\" [(ngModel)]=\"user.email\"/></li>\n\t\t<li><input type=\"text\" tabindex=\"4\" placeholder=\"Gender\" class=\"form-field\" [(ngModel)]=\"user.gender\"/></li>\n\t</ul>\n\n\t<ul class=\"centered-list horizontal-list no-list-style\">\n\t\t<li>\n\t\t\t<a tabindex=\"5\" class=\"button primary\" (click)=\"saveAccountDetails()\">Save</a>\n\t\t</li>\n\t</ul>\n</ng-container>\n\n<!--TODO allow changing password-->";
 
 /***/ },
-
-/***/ 80:
+/* 83 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8628,7 +8677,7 @@ webpackJsonp([0],{
 	    LoginComponent = __decorate([
 	        core_1.Component({
 	            selector: 'login',
-	            template: __webpack_require__(81),
+	            template: __webpack_require__(84),
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_a = typeof user_service_1.UserService !== 'undefined' && user_service_1.UserService) === 'function' && _a) || Object, (typeof (_b = typeof router_1.Router !== 'undefined' && router_1.Router) === 'function' && _b) || Object])
 	    ], LoginComponent);
@@ -8639,15 +8688,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 81:
+/* 84 */
 /***/ function(module, exports) {
 
 	module.exports = "<ul class=\"centered-list no-list-style\">\n\t<li>\n\t\t<input tabindex=\"1\" class=\"form-field\" type=\"text\" placeholder=\"Email\" [(ngModel)]=\"loginForm.username\"/>\n\t</li>\n\t<li>\n\t\t<input tabindex=\"2\" class=\"form-field\" type=\"password\" placeholder=\"Password\" [(ngModel)]=\"loginForm.password\"/>\n\t</li>\n</ul>\n\n<ul class=\"centered-list horizontal-list no-list-style\">\n\t<li>\n\t\t<a tabindex=\"3\" class=\"button primary-complement\" (click)=\"attemptLogin()\">Login</a>\n\t</li>\n\t<li>\n\t\t<a tabindex=\"4\" class=\"button primary\" routerLink=\"/signup\">Sign Up</a>\n\t</li>\n</ul>\n";
 
 /***/ },
-
-/***/ 82:
+/* 85 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8663,10 +8710,10 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var platform_browser_1 = __webpack_require__(21);
 	var forms_1 = __webpack_require__(24);
-	var dashboard_routing_module_1 = __webpack_require__(83);
+	var dashboard_routing_module_1 = __webpack_require__(86);
 	var dashboard_component_1 = __webpack_require__(70);
-	var dashboard_container_component_1 = __webpack_require__(84);
-	var workspace_module_1 = __webpack_require__(115);
+	var dashboard_container_component_1 = __webpack_require__(87);
+	var workspace_module_1 = __webpack_require__(118);
 	var dashboard_service_1 = __webpack_require__(76);
 	var DashboardModule = (function () {
 	    function DashboardModule() {
@@ -8693,8 +8740,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 83:
+/* 86 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8710,8 +8756,8 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var router_1 = __webpack_require__(32);
 	var dashboard_component_1 = __webpack_require__(70);
-	var dashboard_container_component_1 = __webpack_require__(84);
-	var workspace_component_1 = __webpack_require__(85);
+	var dashboard_container_component_1 = __webpack_require__(87);
+	var workspace_component_1 = __webpack_require__(88);
 	var DashboardRoutingModule = (function () {
 	    function DashboardRoutingModule() {
 	    }
@@ -8747,8 +8793,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 84:
+/* 87 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8778,8 +8823,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 85:
+/* 88 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8795,11 +8839,11 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var core_2 = __webpack_require__(3);
 	var router_1 = __webpack_require__(32);
-	var worksheet_service_1 = __webpack_require__(86);
+	var worksheet_service_1 = __webpack_require__(89);
 	var geometry_1 = __webpack_require__(72);
-	var sidebar_component_1 = __webpack_require__(87);
-	var artboard_component_1 = __webpack_require__(90);
-	var workspace_1 = __webpack_require__(97);
+	var sidebar_component_1 = __webpack_require__(90);
+	var artboard_component_1 = __webpack_require__(93);
+	var workspace_1 = __webpack_require__(100);
 	var SPACE_KEY = 32;
 	var Z_KEY = 90;
 	var A_KEY = 65;
@@ -8970,8 +9014,8 @@ webpackJsonp([0],{
 	    WorkspaceComponent = __decorate([
 	        core_1.Component({
 	            selector: 'workspace',
-	            styles: [__webpack_require__(113)],
-	            template: __webpack_require__(114),
+	            styles: [__webpack_require__(116)],
+	            template: __webpack_require__(117),
 	            animations: [
 	                core_2.trigger('shiftMenuControls', [
 	                    core_2.state('unshifted', core_2.style({
@@ -9002,8 +9046,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 86:
+/* 89 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9112,8 +9155,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 87:
+/* 90 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9135,8 +9177,8 @@ webpackJsonp([0],{
 	    SidebarComponent = __decorate([
 	        core_1.Component({
 	            selector: 'sidebar',
-	            styles: [__webpack_require__(88)],
-	            template: __webpack_require__(89),
+	            styles: [__webpack_require__(91)],
+	            template: __webpack_require__(92),
 	            animations: [
 	                core_2.trigger('sidebarOpen', [
 	                    core_2.state('close', core_2.style({
@@ -9158,22 +9200,19 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 88:
+/* 91 */
 /***/ function(module, exports) {
 
 	module.exports = "#sidebar {\n  background: #8f42de;\n  color: whitesmoke;\n  width: 280px;\n  height: 100%;\n  position: absolute;\n  top: 0px; }\n"
 
 /***/ },
-
-/***/ 89:
+/* 92 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"sidebar\" [@sidebarOpen]=\"open?'open':'close'\">\n\t<h2>sidebar</h2>\n\t<i class=\"ms-Icon ms-Icon--Cancel\" aria-hidden=\"true\" (click)=\"open=false\"></i>\n\t\n</div>";
 
 /***/ },
-
-/***/ 90:
+/* 93 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9191,15 +9230,15 @@ webpackJsonp([0],{
 	var core_3 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(72);
 	var geometry_2 = __webpack_require__(72);
-	var mock_data_service_1 = __webpack_require__(91);
-	var auto_completion_component_1 = __webpack_require__(93);
-	var creationDrawer = __webpack_require__(96);
-	var interpreter_service_1 = __webpack_require__(104);
+	var mock_data_service_1 = __webpack_require__(94);
+	var auto_completion_component_1 = __webpack_require__(96);
+	var creationDrawer = __webpack_require__(99);
+	var interpreter_service_1 = __webpack_require__(107);
 	var worksheet_1 = __webpack_require__(71);
-	var workspace_1 = __webpack_require__(97);
-	var selection_box_component_1 = __webpack_require__(108);
-	var move_1 = __webpack_require__(101);
-	var remove_1 = __webpack_require__(110);
+	var workspace_1 = __webpack_require__(100);
+	var selection_box_component_1 = __webpack_require__(111);
+	var move_1 = __webpack_require__(104);
+	var remove_1 = __webpack_require__(113);
 	exports.ArtboardWidth = 3200;
 	exports.ArtboardHeight = (2 / 3) * exports.ArtboardWidth;
 	var ArtboardComponent = (function () {
@@ -9361,8 +9400,8 @@ webpackJsonp([0],{
 	    ArtboardComponent = __decorate([
 	        core_1.Component({
 	            selector: 'artboard',
-	            styles: [__webpack_require__(111)],
-	            template: __webpack_require__(112),
+	            styles: [__webpack_require__(114)],
+	            template: __webpack_require__(115),
 	        }), 
 	        __metadata('design:paramtypes', [(typeof (_d = typeof mock_data_service_1.MockDataService !== 'undefined' && mock_data_service_1.MockDataService) === 'function' && _d) || Object, (typeof (_e = typeof interpreter_service_1.InterpreterService !== 'undefined' && interpreter_service_1.InterpreterService) === 'function' && _e) || Object, (typeof (_f = typeof core_2.ApplicationRef !== 'undefined' && core_2.ApplicationRef) === 'function' && _f) || Object])
 	    ], ArtboardComponent);
@@ -9373,8 +9412,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 91:
+/* 94 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9390,8 +9428,8 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var semantic = __webpack_require__(74);
 	var worksheet = __webpack_require__(71);
-	var object = __webpack_require__(92);
-	var artboard_component_1 = __webpack_require__(90);
+	var object = __webpack_require__(95);
+	var artboard_component_1 = __webpack_require__(93);
 	var MockDataService = (function () {
 	    function MockDataService() {
 	    }
@@ -9488,8 +9526,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 92:
+/* 95 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9693,8 +9730,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 93:
+/* 96 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9710,7 +9746,7 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(72);
 	var semantic_model_1 = __webpack_require__(74);
-	var object_model_1 = __webpack_require__(92);
+	var object_model_1 = __webpack_require__(95);
 	var AutoCompletionComponent = (function () {
 	    function AutoCompletionComponent() {
 	        this.position = new geometry_1.Point(1200, 900);
@@ -9726,8 +9762,8 @@ webpackJsonp([0],{
 	    AutoCompletionComponent = __decorate([
 	        core_1.Component({
 	            selector: 'auto-completion',
-	            template: __webpack_require__(94),
-	            styles: [__webpack_require__(95)]
+	            template: __webpack_require__(97),
+	            styles: [__webpack_require__(98)]
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], AutoCompletionComponent);
@@ -9738,22 +9774,19 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 94:
+/* 97 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"auto-completion-box\"\n\t[style.left.px]=\"position.x\"\n\t[style.top.px]=\"position.y\"\n\t>\n\tSomeClassName\n</div>";
 
 /***/ },
-
-/***/ 95:
+/* 98 */
 /***/ function(module, exports) {
 
 	module.exports = "#auto-completion-box {\n  position: absolute;\n  background: #6f6f6f;\n  color: white;\n  width: 250px;\n  height: 200px;\n  overflow-x: hidden;\n  overflow-y: scroll; }\n"
 
 /***/ },
-
-/***/ 96:
+/* 99 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9769,9 +9802,9 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var core_2 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(72);
-	var workspace_1 = __webpack_require__(97);
-	var drag_and_drop_1 = __webpack_require__(98);
-	var creation_item_1 = __webpack_require__(102);
+	var workspace_1 = __webpack_require__(100);
+	var drag_and_drop_1 = __webpack_require__(101);
+	var creation_item_1 = __webpack_require__(105);
 	exports.WIDTH = 200;
 	exports.HEIGHT = 70;
 	var CreationDrawerComponent = (function () {
@@ -9810,7 +9843,7 @@ webpackJsonp([0],{
 	    CreationDrawerComponent = __decorate([
 	        core_1.Component({
 	            selector: 'creation-drawer',
-	            template: __webpack_require__(103),
+	            template: __webpack_require__(106),
 	            animations: [
 	                core_2.trigger('isDrawerOpen', [
 	                    core_2.state('open', core_2.style({
@@ -9837,8 +9870,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 97:
+/* 100 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10017,8 +10049,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 98:
+/* 101 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10027,9 +10058,9 @@ webpackJsonp([0],{
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var command_1 = __webpack_require__(99);
-	var create_1 = __webpack_require__(100);
-	var move_1 = __webpack_require__(101);
+	var command_1 = __webpack_require__(102);
+	var create_1 = __webpack_require__(103);
+	var move_1 = __webpack_require__(104);
 	//indices for the commands in the command list
 	var CREATE = 0;
 	var MOVE = 1;
@@ -10071,8 +10102,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 99:
+/* 102 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10117,8 +10147,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 100:
+/* 103 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10127,7 +10156,7 @@ webpackJsonp([0],{
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var command_1 = __webpack_require__(99);
+	var command_1 = __webpack_require__(102);
 	var CreateCommand = (function (_super) {
 	    __extends(CreateCommand, _super);
 	    function CreateCommand(workspace, target, startingPosition) {
@@ -10199,8 +10228,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 101:
+/* 104 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10209,7 +10237,7 @@ webpackJsonp([0],{
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var command_1 = __webpack_require__(99);
+	var command_1 = __webpack_require__(102);
 	var geometry_1 = __webpack_require__(72);
 	var MoveCommand = (function (_super) {
 	    __extends(MoveCommand, _super);
@@ -10281,8 +10309,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 102:
+/* 105 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10350,15 +10377,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 103:
+/* 106 */
 /***/ function(module, exports) {
 
 	module.exports = "<div \n\tclass=\"drop-shadowed-pop-up\"\n\tid=\"creation-pop-up\"\n\t[style.left.px]=\"position.x\"\n\t[style.top.px]=\"position.y\"\n\t[@isDrawerOpen]=\"workspace.creationDrawerIsOpen?'open':'closed'\" >\n\n\t<ul id=\"creation-drawer-list\">\n\t\t<li (mousedown)=\"provideDragAndDropFor(creationDrawerList[0],$event)\">\n\t\t\t<!--Rectangle-->\n\t\t\t<svg width=\"50\" height=\"35\" >\n\t\t\t\t<rect x=\"1%\" y=\"1%\" width=\"99%\" height=\"99%\" [style.fill]=\"'#FFF'\" [style.stroke]=\"'#000'\" [style.stroke-width]=\"2\"/>\n\t\t\t</svg>\n\t\t</li>\n\t\t<li (mousedown)=\"provideDragAndDropFor(creationDrawerList[1],$event)\">\n\t\t\t<!--Circle-->\n\t\t\t<svg width=\"35\" height=\"35\" >\n\t\t\t\t<ellipse cx=\"50%\" cy=\"50%\" rx=\"49%\" ry=\"49%\" [style.fill]=\"'#FFF'\" [style.stroke]=\"'#000'\" [style.stroke-width]=\"2\"/>\n\t\t\t</svg>\n\t\t</li>\n\t</ul>\n\n\n</div>";
 
 /***/ },
-
-/***/ 104:
+/* 107 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10372,8 +10397,8 @@ webpackJsonp([0],{
 	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 	};
 	var core_1 = __webpack_require__(3);
-	var lexer = __webpack_require__(105);
-	var parser = __webpack_require__(106);
+	var lexer = __webpack_require__(108);
+	var parser = __webpack_require__(109);
 	var InterpreterService = (function () {
 	    function InterpreterService() {
 	    }
@@ -10413,8 +10438,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 105:
+/* 108 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10662,13 +10686,12 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 106:
+/* 109 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var lexical_analyzer_1 = __webpack_require__(105);
-	var parser_table_1 = __webpack_require__(107);
+	var lexical_analyzer_1 = __webpack_require__(108);
+	var parser_table_1 = __webpack_require__(110);
 	var util = __webpack_require__(73);
 	/** Different types of syntax elements that can exists in a CFG */
 	(function (SyntaxElementType) {
@@ -11117,12 +11140,11 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 107:
+/* 110 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
-	var syntax_parser_1 = __webpack_require__(106);
+	var syntax_parser_1 = __webpack_require__(109);
 	var util = __webpack_require__(73);
 	/** Type of action in the parser table */
 	(function (ParserTableValueType) {
@@ -11539,8 +11561,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 108:
+/* 111 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11555,7 +11576,7 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(72);
-	var workspace_1 = __webpack_require__(97);
+	var workspace_1 = __webpack_require__(100);
 	var SelectionBoxComponent = (function () {
 	    function SelectionBoxComponent() {
 	        this.rect = new geometry_1.Rect(1500, 900, 200, 300); //initial value only for debugging purposes
@@ -11629,7 +11650,7 @@ webpackJsonp([0],{
 	    SelectionBoxComponent = __decorate([
 	        core_1.Component({
 	            selector: 'selection-box',
-	            template: __webpack_require__(109),
+	            template: __webpack_require__(112),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], SelectionBoxComponent);
@@ -11640,15 +11661,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 109:
+/* 112 */
 /***/ function(module, exports) {
 
 	module.exports = "<div \n\tid=\"selection-box\"\n\t[style.left.px]=\"rect.x\"\n\t[style.top.px]=\"rect.y\"\n\t[style.width.px]=\"rect.width\"\n\t[style.height.px]=\"rect.height\"\n\t[style.display]=\"active?'block':'none'\">\n\n</div>";
 
 /***/ },
-
-/***/ 110:
+/* 113 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11657,7 +11676,7 @@ webpackJsonp([0],{
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var command_1 = __webpack_require__(99);
+	var command_1 = __webpack_require__(102);
 	var common_1 = __webpack_require__(73);
 	var RemoveCommand = (function (_super) {
 	    __extends(RemoveCommand, _super);
@@ -11753,36 +11772,31 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 111:
+/* 114 */
 /***/ function(module, exports) {
 
 	module.exports = "#massive-area {\n  position: absolute; }\n\n#starter-tip {\n  position: absolute;\n  color: gray; }\n"
 
 /***/ },
-
-/***/ 112:
+/* 115 */
 /***/ function(module, exports) {
 
 	module.exports = "<ng-container *ngIf=\"workspace!=null\">\n\t<div id=\"massive-area\" \n\t[style.width]=\"massiveArea.width+'px'\" \n\t[style.height]=\"massiveArea.height+'px'\" \n\t[style.left]=\"massiveArea.x+'px'\" \n\t[style.top]=\"massiveArea.y+'px'\"\n\t(mousedown)=\"mousedown($event)\"\n\t(mousemove)=\"mousemove($event)\"\n\t(mouseup)=\"mouseup($event)\"\n\t(dblclick)=\"doubleClickedArtboard($event)\"\n\t>\n\n\t\t<!--<h1 id=\"starter-tip\"\n\t\t[style.left.px]=\"massiveArea.width/2\"\n\t\t[style.top.px]=\"massiveArea.height/2\"\n\t\t>Double click anywhere to create a box</h1>-->\n\n\t\t\n\t\t\n\t\t<creation-drawer \n\t\t\t[workspace]=\"workspace\"\n\t\t\t[position]=\"creationDrawerLocation\"\n\t\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t\t></creation-drawer>\n\t\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t\t<!--<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>-->\n\t\t\t<diagram-edge\n\t\t\t\t[edge]=\"edge\"\n\t\t\t\t[workspace]=\"workspace\"\n\t\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyEdge(edge)\"\n\t\t\t\t></diagram-edge>\n\t\t</ng-container>\n\n\t\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t\t<generic-node\n\t\t\t\t[genericNode]=\"node\"\n\t\t\t\t[workspace]=\"workspace\"\n\t\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t\t(linkNodes)=\"linkNodes($event)\"\n\t\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t\t></generic-node>\n\t\t</ng-container>\n\n\t\t<ng-container *ngIf=\"workspace.selection!=null\">\n\t\t\t<multiple-selection \n\t\t\t\t[workspace]=\"workspace\" \n\t\t\t\t[selectedNodes]=\"workspace.selection.nodeList\" \n\t\t\t\t[selectedEdges]=\"workspace.selection.edgeList\" \n\t\t\t\t[active]=\"\n\t\t\t\t\tworkspace.selectionCount()>1 &&\n\t\t\t\t\tdraggingInteraction==null\"\n\t\t\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t\t\t></multiple-selection>\n\t\t</ng-container>\n\t</div>\n</ng-container>";
 
 /***/ },
-
-/***/ 113:
+/* 116 */
 /***/ function(module, exports) {
 
 	module.exports = "#menu-controls {\n  position: absolute;\n  padding: 0px;\n  top: 10px; }\n  #menu-controls li {\n    color: blue;\n    cursor: pointer;\n    display: inline;\n    list-style: none; }\n  #menu-controls li:hover {\n    color: darkblue; }\n\n#container {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n"
 
 /***/ },
-
-/***/ 114:
+/* 117 */
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:keypress)=\"keypress($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t\t[workspace]=\"workspace\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<a id=\"back-to-dashboard\" [routerLink]=\"'../../../dashboard'\">\n\t\tBack {{autoSaveStatusString()}}\n\t</a>\n\t<!--<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t\n\t\t<li>{{autoSaveStatusString()}}</li>\n\t</ul>-->\n</div>\n";
 
 /***/ },
-
-/***/ 115:
+/* 118 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11799,37 +11813,37 @@ webpackJsonp([0],{
 	var platform_browser_1 = __webpack_require__(21);
 	var forms_1 = __webpack_require__(24);
 	var router_1 = __webpack_require__(32);
-	var workspace_component_1 = __webpack_require__(85);
-	var artboard_component_1 = __webpack_require__(90);
-	var sidebar_component_1 = __webpack_require__(87);
-	var area_component_1 = __webpack_require__(116);
-	var box_component_1 = __webpack_require__(118);
-	var generic_node_component_1 = __webpack_require__(122);
-	var line_segment_component_1 = __webpack_require__(125);
-	var resize_handle_component_1 = __webpack_require__(119);
-	var linker_component_1 = __webpack_require__(127);
-	var input_box_component_1 = __webpack_require__(129);
-	var auto_completion_component_1 = __webpack_require__(93);
-	var class_diagram_component_1 = __webpack_require__(131);
-	var class_object_diagram_component_1 = __webpack_require__(133);
-	var interface_diagram_component_1 = __webpack_require__(135);
-	var interface_object_diagram_component_1 = __webpack_require__(137);
-	var linked_segments_component_1 = __webpack_require__(139);
-	var creation_drawer_component_1 = __webpack_require__(96);
-	var selection_box_component_1 = __webpack_require__(108);
-	var multiple_selection_component_1 = __webpack_require__(141);
-	var diagram_edge_component_1 = __webpack_require__(143);
-	var gizmo_edge_component_1 = __webpack_require__(145);
-	var edge_style_component_1 = __webpack_require__(148);
-	var transform_service_1 = __webpack_require__(151);
-	var interpreter_service_1 = __webpack_require__(104);
-	var mock_data_service_1 = __webpack_require__(91);
-	var worksheet_service_1 = __webpack_require__(86);
-	var focus_directive_1 = __webpack_require__(152);
-	var my_rect_directive_1 = __webpack_require__(153);
-	var my_circle_directive_1 = __webpack_require__(154);
-	var access_symbol_pipe_1 = __webpack_require__(155);
-	var node_background_pipe_1 = __webpack_require__(156);
+	var workspace_component_1 = __webpack_require__(88);
+	var artboard_component_1 = __webpack_require__(93);
+	var sidebar_component_1 = __webpack_require__(90);
+	var area_component_1 = __webpack_require__(119);
+	var box_component_1 = __webpack_require__(121);
+	var generic_node_component_1 = __webpack_require__(125);
+	var line_segment_component_1 = __webpack_require__(128);
+	var resize_handle_component_1 = __webpack_require__(122);
+	var linker_component_1 = __webpack_require__(130);
+	var input_box_component_1 = __webpack_require__(132);
+	var auto_completion_component_1 = __webpack_require__(96);
+	var class_diagram_component_1 = __webpack_require__(134);
+	var class_object_diagram_component_1 = __webpack_require__(136);
+	var interface_diagram_component_1 = __webpack_require__(138);
+	var interface_object_diagram_component_1 = __webpack_require__(140);
+	var linked_segments_component_1 = __webpack_require__(142);
+	var creation_drawer_component_1 = __webpack_require__(99);
+	var selection_box_component_1 = __webpack_require__(111);
+	var multiple_selection_component_1 = __webpack_require__(144);
+	var diagram_edge_component_1 = __webpack_require__(146);
+	var gizmo_edge_component_1 = __webpack_require__(148);
+	var edge_style_component_1 = __webpack_require__(151);
+	var transform_service_1 = __webpack_require__(154);
+	var interpreter_service_1 = __webpack_require__(107);
+	var mock_data_service_1 = __webpack_require__(94);
+	var worksheet_service_1 = __webpack_require__(89);
+	var focus_directive_1 = __webpack_require__(155);
+	var my_rect_directive_1 = __webpack_require__(156);
+	var my_circle_directive_1 = __webpack_require__(157);
+	var access_symbol_pipe_1 = __webpack_require__(158);
+	var node_background_pipe_1 = __webpack_require__(159);
 	var WorkspaceModule = (function () {
 	    function WorkspaceModule() {
 	    }
@@ -11880,8 +11894,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 116:
+/* 119 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11901,7 +11914,7 @@ webpackJsonp([0],{
 	    AreaComponent = __decorate([
 	        core_1.Component({
 	            selector: 'area-highlight',
-	            template: __webpack_require__(117),
+	            template: __webpack_require__(120),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], AreaComponent);
@@ -11911,15 +11924,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 117:
+/* 120 */
 /***/ function(module, exports) {
 
 	module.exports = "<h1>TODO area</h1>";
 
 /***/ },
-
-/***/ 118:
+/* 121 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11935,7 +11946,7 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var core_2 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(72);
-	var resize_handle_component_1 = __webpack_require__(119);
+	var resize_handle_component_1 = __webpack_require__(122);
 	var BoxComponent = (function () {
 	    function BoxComponent() {
 	        this.requestDragging = new core_1.EventEmitter();
@@ -11973,7 +11984,7 @@ webpackJsonp([0],{
 	    BoxComponent = __decorate([
 	        core_1.Component({
 	            selector: 'box',
-	            template: __webpack_require__(121),
+	            template: __webpack_require__(124),
 	            animations: [
 	                core_2.trigger('selection', [
 	                    core_2.state('selected', core_2.style({
@@ -11996,8 +12007,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 119:
+/* 122 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12165,7 +12175,7 @@ webpackJsonp([0],{
 	    ResizeHandleComponent = __decorate([
 	        core_1.Component({
 	            selector: 'resize-handle',
-	            template: __webpack_require__(120)
+	            template: __webpack_require__(123)
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], ResizeHandleComponent);
@@ -12176,22 +12186,19 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 120:
+/* 123 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"handle-pick\"\n\t[style.left.px]=\"handle.x\"\n\t[style.top.px]=\"handle.y\"\n\t[style.width.px]=\"handle.width\"\n\t[style.height.px]=\"handle.height\"\n\t[style.cursor]=\"cursor\"\n\t(mousedown)=\"requestDragging.emit(this)\"\n\t></div>";
 
 /***/ },
-
-/***/ 121:
+/* 124 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"rect.x\"\n[style.top.px]=\"rect.y\"\n[style.width.px]=\"rect.width\"\n[style.height.px]=\"rect.height\"\n[@selection]=\"isSelected?'selected':'unselected'\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\"></div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
 
 /***/ },
-
-/***/ 122:
+/* 125 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12207,10 +12214,10 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var core_2 = __webpack_require__(3);
 	var core_3 = __webpack_require__(3);
-	var workspace_1 = __webpack_require__(97);
-	var resize_handle_component_1 = __webpack_require__(119);
+	var workspace_1 = __webpack_require__(100);
+	var resize_handle_component_1 = __webpack_require__(122);
 	var worksheet_1 = __webpack_require__(71);
-	var change_node_content_1 = __webpack_require__(123);
+	var change_node_content_1 = __webpack_require__(126);
 	//TODO move outside to a special 'variables' file 
 	var SELECTION_COLOR = '#2BA3FC';
 	var WIDTH = 200;
@@ -12301,7 +12308,7 @@ webpackJsonp([0],{
 	    GenericNodeComponent = __decorate([
 	        core_1.Component({
 	            selector: 'generic-node',
-	            template: __webpack_require__(124),
+	            template: __webpack_require__(127),
 	            animations: [
 	                core_3.trigger('selection', [
 	                    core_3.state('selected', core_3.style({
@@ -12336,8 +12343,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 123:
+/* 126 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12346,7 +12352,7 @@ webpackJsonp([0],{
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var command_1 = __webpack_require__(99);
+	var command_1 = __webpack_require__(102);
 	var ChangeNodeContentCommand = (function (_super) {
 	    __extends(ChangeNodeContentCommand, _super);
 	    function ChangeNodeContentCommand(node, newContent) {
@@ -12370,15 +12376,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 124:
+/* 127 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.geometry.getBoundingBox().x\"\n[style.top.px]=\"node.geometry.getBoundingBox().y\"\n[style.width.px]=\"node.geometry.getBoundingBox().width\"\n[style.height.px]=\"node.geometry.getBoundingBox().height\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"registerDragIntention()\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.shapeType==1\" x=\"1%\" y=\"1%\" width=\"99%\" height=\"99%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.shapeType==2||node.shapeType==4\" cx=\"50%\" cy=\"50%\" rx=\"49%\" ry=\"49%\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.shapeType==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.shapeType==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"node.background.hashCode()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\"\n\t\t[style.left.px]=\"node.geometry.getBoundingBox().width/2\"\n\t\t[style.top.px]=\"node.geometry.getBoundingBox().height/2\"\n\t\t[style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<ng-container *ngIf=\"false\">\n\n\t<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n\t<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"1\" \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"2\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"3\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"4\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"5\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"6\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"7\" \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"8\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n</ng-container>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble edit-operation\"\n\t(mousedown)=\"editContent($event)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topLeft().offset(-10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topLeft().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"drop-shadowed-pop-up\"\n\t(mousedown)=\"preventClosingOfOptions($event)\"\n\t[style.width.px]=\"200\"\n\t[style.height.px]=\"250\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topLeft().offset(-10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topLeft().offset(0,-10).y\"\n\t[@contentEditingOpen]=\"workspace.contentEditingIsOpen?'open':'closed'\" >\n\t<input class=\"node-content-input\" type=\"text\" (keydown)=\"changeContent($event)\" [(ngModel)]=\"editedContent\"/>\n</div>\n\n<!-- Gizmo Edge associated with this Node-->\n<gizmo-edge \n\t*ngIf=\"soloSelected  && !nodeMoving\" \n\t[workspace]=\"workspace\"\n\t[fromNode]=\"node\"\n\t[positionOfTheCursor]=\"workspace.cursorPosition\"\n\t[prepared]=\"prepared\"\n\t[ghostNode]=\"ghostNode\"\n\t(linkNodes)=\"linkNodes.emit($event)\"\n\t(requireNewEdgeAndGhost)=\"prepareNewEdgeAndGhost()\"\n>\n</gizmo-edge>";
 
 /***/ },
-
-/***/ 125:
+/* 128 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12464,7 +12468,7 @@ webpackJsonp([0],{
 	    LineSegmentComponent = __decorate([
 	        core_1.Component({
 	            selector: 'line-segment',
-	            template: __webpack_require__(126),
+	            template: __webpack_require__(129),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], LineSegmentComponent);
@@ -12475,15 +12479,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 126:
+/* 129 */
 /***/ function(module, exports) {
 
 	module.exports = "\n<svg \n\t[style.pointer-events]=\"'none'\"\n\t[style.left.px]=\"topLeft().x\" \n\t[style.top.px]=\"topLeft().y\"\n\t[style.position]=\"'absolute'\"\n \t[attr.height]=\"boundingHeight()\"\n\t[attr.width]=\"boundingWidth()\">\n  <svg:line [attr.x1]=\"withinBounds(start).x\"\n\t[attr.y1]=\"withinBounds(start).y\"\n\t[attr.x2]=\"withinBounds(end).x\"\n\t[attr.y2]=\"withinBounds(end).y\"\n\t[attr.stroke-dasharray]=\"strokeDashArray()\"\n\t[style.stroke]=\"color.hashCode()\"\n\t[ngStyle]=\"{'stroke-width':2}\"\n\t/>\n</svg>\n";
 
 /***/ },
-
-/***/ 127:
+/* 130 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12516,7 +12518,7 @@ webpackJsonp([0],{
 	    LinkerComponent = __decorate([
 	        core_1.Component({
 	            selector: 'linker',
-	            template: __webpack_require__(128),
+	            template: __webpack_require__(131),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], LinkerComponent);
@@ -12527,15 +12529,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 128:
+/* 131 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"link-circle\" \n\t[style.left.px]=\"link.center.x\"\n\t[style.top.px]=\"link.center.y\"\n\t[style.width.px]=\"link.radius*2\"\n\t[style.height.px]=\"link.radius*2\">\n\n</div>";
 
 /***/ },
-
-/***/ 129:
+/* 132 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12555,7 +12555,7 @@ webpackJsonp([0],{
 	    InputBoxComponent = __decorate([
 	        core_1.Component({
 	            selector: 'input-box',
-	            template: __webpack_require__(130),
+	            template: __webpack_require__(133),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], InputBoxComponent);
@@ -12565,15 +12565,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 130:
+/* 133 */
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
-
-/***/ 131:
+/* 134 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12609,7 +12607,7 @@ webpackJsonp([0],{
 	    ClassDiagramComponent = __decorate([
 	        core_1.Component({
 	            selector: 'class-diagram',
-	            template: __webpack_require__(132),
+	            template: __webpack_require__(135),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], ClassDiagramComponent);
@@ -12620,15 +12618,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 132:
+/* 135 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classDiagram.rect.x\"\n[style.top.px]=\"classDiagram.rect.y\"\n[style.width.px]=\"classDiagram.rect.width\"\n[style.height.px]=\"classDiagram.rect.height\"\n[style.selected-block]=\"classDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span [class.italic]=\"classDiagram.classDefinition.isAbstract\">{{classDiagram.classDefinition.name}}</span>\n\t</div>\n\n\t<div \n\t*ngFor=\"let fieldMember of classDiagram.classDefinition.fieldList \" \n\tclass=\"block-cell content-block-cell\"\n\tcontenteditable=\"true\"\n\t>\n\t\t{{fieldMember.accessSpecifier | accessSymbol}} {{fieldMember.variableDefinition.name}} : {{fieldMember.variableDefinition.type.getName()}}\n\t</div>\n\t<div class=\"solid-horizontal-line mini-top-bottom-margin\"> </div>\n\t<div *ngFor=\"let methodMember of classDiagram.classDefinition.methodList; let i=index\" \n\t\tclass=\"block-cell content-block-cell\"\n\t\tcontenteditable=\"true\"\n\t\t>\n\n\t\t{{methodMember.accessSpecifier | accessSymbol}} \n\t\t<span [class.italic]=\"methodMember.isAbstract\">\n\t\t{{methodMember.methodPrototype.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of methodMember.methodPrototype.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{methodMember.methodPrototype.returnType.getName()}}\n\t\t</span>\n\t</div>\n</div>";
 
 /***/ },
-
-/***/ 133:
+/* 136 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12664,7 +12660,7 @@ webpackJsonp([0],{
 	    ClassObjectComponent = __decorate([
 	        core_1.Component({
 	            selector: 'class-object-diagram',
-	            template: __webpack_require__(134),
+	            template: __webpack_require__(137),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], ClassObjectComponent);
@@ -12675,15 +12671,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 134:
+/* 137 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classObjectDiagram.rect.x\"\n[style.top.px]=\"classObjectDiagram.rect.y\"\n[style.width.px]=\"classObjectDiagram.rect.width\"\n[style.height.px]=\"classObjectDiagram.rect.height\"\n[style.selected-block]=\"classObjectDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span>{{classObjectDiagram.classObject.name}}</span>\n\t\t : \n\t\t<span class=\"bold\">{{classObjectDiagram.classObject.classDefinition.getName()}}</span>\n\t</div>\n\n\t<div *ngFor=\"let fieldData of classObjectDiagram.classObject.fieldDataList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{fieldData.variable.name}} \n\t\t=\n\t\t{{fieldData.data.stringRepresentation()}}\n\t</div>\n</div>";
 
 /***/ },
-
-/***/ 135:
+/* 138 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12719,7 +12713,7 @@ webpackJsonp([0],{
 	    InterfaceDiagramComponent = __decorate([
 	        core_1.Component({
 	            selector: 'interface-diagram',
-	            template: __webpack_require__(136),
+	            template: __webpack_require__(139),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], InterfaceDiagramComponent);
@@ -12730,15 +12724,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 136:
+/* 139 */
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"interfaceDiagram.rect.x\"\n[style.top.px]=\"interfaceDiagram.rect.y\"\n[style.width.px]=\"interfaceDiagram.rect.width\"\n[style.height.px]=\"interfaceDiagram.rect.height\"\n[style.selected-block]=\"interfaceDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<div class=\"header-decorater\"> &lt;&lt; Interface &gt;&gt; </div>\n\t\t<span>{{interfaceDiagram.interfaceDefinition.name}}</span>\n\t</div>\n\n\t<div *ngFor=\"let method of interfaceDiagram.interfaceDefinition.methodList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{method.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of method.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{method.returnType.getName()}}\n\t</div>\n</div>";
 
 /***/ },
-
-/***/ 137:
+/* 140 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12758,7 +12750,7 @@ webpackJsonp([0],{
 	    InterfaceObjectDiagramComponent = __decorate([
 	        core_1.Component({
 	            selector: 'interface-object-diagram',
-	            template: __webpack_require__(138),
+	            template: __webpack_require__(141),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], InterfaceObjectDiagramComponent);
@@ -12768,15 +12760,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 138:
+/* 141 */
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
-
-/***/ 139:
+/* 142 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12796,7 +12786,7 @@ webpackJsonp([0],{
 	    LinkedSegmentsComponent = __decorate([
 	        core_1.Component({
 	            selector: 'linked-segments',
-	            template: __webpack_require__(140),
+	            template: __webpack_require__(143),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], LinkedSegmentsComponent);
@@ -12806,15 +12796,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 140:
+/* 143 */
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
-
-/***/ 141:
+/* 144 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12829,7 +12817,7 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(72);
-	var workspace_1 = __webpack_require__(97);
+	var workspace_1 = __webpack_require__(100);
 	var MultipleSelectionComponent = (function () {
 	    function MultipleSelectionComponent() {
 	        this.active = false;
@@ -12913,7 +12901,7 @@ webpackJsonp([0],{
 	    MultipleSelectionComponent = __decorate([
 	        core_1.Component({
 	            selector: 'multiple-selection',
-	            template: __webpack_require__(142),
+	            template: __webpack_require__(145),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], MultipleSelectionComponent);
@@ -12924,15 +12912,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 142:
+/* 145 */
 /***/ function(module, exports) {
 
 	module.exports = "<div \n\tid=\"multiple-selection-container\"\n\t[style.left.px]=\"rect.x\"\n\t[style.top.px]=\"rect.y\"\n\t[style.width.px]=\"rect.width\"\n\t[style.height.px]=\"rect.height\"\n\t[style.display]=\"active?'block':'none'\">\n\n</div>\n\n<div \n\t*ngIf=\"active\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeUs.emit()\"\n\t[style.left.px]=\"rect.topRight().offset(10,0).x\"\n\t[style.top.px]=\"rect.topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>";
 
 /***/ },
-
-/***/ 143:
+/* 146 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12947,7 +12933,7 @@ webpackJsonp([0],{
 	};
 	var core_1 = __webpack_require__(3);
 	var worksheet_1 = __webpack_require__(71);
-	var workspace_1 = __webpack_require__(97);
+	var workspace_1 = __webpack_require__(100);
 	var EDGE_SELECTION_COLOR = new worksheet_1.Color(152, 185, 231);
 	var DiagramEdgeComponent = (function () {
 	    function DiagramEdgeComponent() {
@@ -12975,7 +12961,7 @@ webpackJsonp([0],{
 	    DiagramEdgeComponent = __decorate([
 	        core_1.Component({
 	            selector: 'diagram-edge',
-	            template: __webpack_require__(144),
+	            template: __webpack_require__(147),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], DiagramEdgeComponent);
@@ -12986,15 +12972,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 144:
+/* 147 */
 /***/ function(module, exports) {
 
 	module.exports = "<line-segment \n\t[start]=\"edge.fromPoint.pointOnGeometry()\"\n\t[end]=\"edge.toPoint.pointOnGeometry()\"\n\t[color]=\"edgeColor()\"\n\t[dashStyle]=\"edge.style.dashStyle\"\n\t[startStyle]=\"edge.style.fromEndpoint\"\n\t[endStyle]=\"edge.style.toEndpoint\"\n\t></line-segment>\n\n<edge-style \n\t*ngIf=\"soloSelected\" \n\t[workspace]=\"workspace\"\n\t[edge]=\"edge\"\n\t[positionOfTheCursor]=\"workspace.cursorPosition\"\n>\n</edge-style>";
 
 /***/ },
-
-/***/ 145:
+/* 148 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13010,8 +12994,8 @@ webpackJsonp([0],{
 	var core_1 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(72);
 	var worksheet_1 = __webpack_require__(71);
-	var workspace_1 = __webpack_require__(97);
-	var link_nodes_1 = __webpack_require__(146);
+	var workspace_1 = __webpack_require__(100);
+	var link_nodes_1 = __webpack_require__(149);
 	var GizmoEdgeComponent = (function () {
 	    function GizmoEdgeComponent() {
 	        this.linkNodes = new core_1.EventEmitter();
@@ -13099,7 +13083,7 @@ webpackJsonp([0],{
 	    GizmoEdgeComponent = __decorate([
 	        core_1.Component({
 	            selector: 'gizmo-edge',
-	            template: __webpack_require__(147),
+	            template: __webpack_require__(150),
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], GizmoEdgeComponent);
@@ -13110,8 +13094,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 146:
+/* 149 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13120,7 +13103,7 @@ webpackJsonp([0],{
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var command_1 = __webpack_require__(99);
+	var command_1 = __webpack_require__(102);
 	var common_1 = __webpack_require__(73);
 	var geometry_1 = __webpack_require__(72);
 	var LinkNodesCommand = (function (_super) {
@@ -13242,15 +13225,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 147:
+/* 150 */
 /***/ function(module, exports) {
 
 	module.exports = "<ng-container *ngIf=\"prepared!=null && prepared.fromPoint!=null && prepared.toPoint!=null\">\n\t<line-segment\n\t\t[start]=\"prepared.fromPoint.pointOnGeometry()\" \n\t\t[end]=\"prepared.toPoint.pointOnGeometry()\"\n\t\t[color]=\"prepared.style.color\"\n\t\t[dashStyle]=\"prepared.style.dashStyle\"\n\t\t[startStyle]=\"prepared.style.fromEndpoint\"\n\t\t[endStyle]=\"prepared.style.toEndpoint\"\n\t\t>\n\t</line-segment>\n\n\t<div class=\"link-circle\" \n\t\t(mousedown)=\"linkNodesByDragging($event)\"\n\t\t[style.left.px]=\"prepared.toPoint.pointOnGeometry().x\"\n\t\t[style.top.px]=\"prepared.toPoint.pointOnGeometry().y\"\n\t\t[style.width.px]=\"10\"\n\t\t[style.height.px]=\"10\">\n\n\t</div>\n</ng-container>";
 
 /***/ },
-
-/***/ 148:
+/* 151 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13267,9 +13248,9 @@ webpackJsonp([0],{
 	var core_2 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(72);
 	var worksheet_1 = __webpack_require__(71);
-	var workspace_1 = __webpack_require__(97);
-	var remove_1 = __webpack_require__(110);
-	var change_edge_style_1 = __webpack_require__(149);
+	var workspace_1 = __webpack_require__(100);
+	var remove_1 = __webpack_require__(113);
+	var change_edge_style_1 = __webpack_require__(152);
 	var WIDTH = 200;
 	var HEIGHT = 220;
 	var EdgeStyleComponent = (function () {
@@ -13318,7 +13299,7 @@ webpackJsonp([0],{
 	    EdgeStyleComponent = __decorate([
 	        core_1.Component({
 	            selector: 'edge-style',
-	            template: __webpack_require__(150),
+	            template: __webpack_require__(153),
 	            animations: [
 	                core_2.trigger('styleOptionsOpen', [
 	                    core_2.state('open', core_2.style({
@@ -13343,8 +13324,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 149:
+/* 152 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13353,7 +13333,7 @@ webpackJsonp([0],{
 	    function __() { this.constructor = d; }
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
-	var command_1 = __webpack_require__(99);
+	var command_1 = __webpack_require__(102);
 	var ChangeEdgeStyleCommand = (function (_super) {
 	    __extends(ChangeEdgeStyleCommand, _super);
 	    function ChangeEdgeStyleCommand(edge, newStyle) {
@@ -13377,15 +13357,13 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 150:
+/* 153 */
 /***/ function(module, exports) {
 
 	module.exports = "<ng-container *ngIf=\"edge!=null\">\n\n\t<div class=\"link-circle\" \n\t\t(mousedown)=\"openStyleOptions($event)\"\n\t\t[style.left.px]=\"follow.x\"\n\t\t[style.top.px]=\"follow.y\"\n\t\t[style.width.px]=\"10\"\n\t\t[style.height.px]=\"10\">\n\t</div>\n</ng-container>\n\n<div \n\tclass=\"drop-shadowed-pop-up\"\n\t(mousedown)=\"preventClosingOfOptions($event)\"\n\t[style.width.px]=\"200\"\n\t[style.height.px]=\"250\"\n\t[style.left.px]=\"follow.x\"\n\t[style.top.px]=\"follow.y\"\n\t[@styleOptionsOpen]=\"workspace.edgeStyleOptionsIsOpen?'open':'closed'\" >\n\t<ul id=\"edge-style-list\">\n\t\t<li id=\"remove-list-item\" (mousedown)=\"removeEdge($event)\">\n\t\t\tRemove\n\t\t</li>\n\t\t<li (mousedown)=\"changeDashing(1,$event)\">\n\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t<line stroke-dasharray=\"0\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t</svg>\n\t\t</li>\n\t\t<li (mousedown)=\"changeDashing(2,$event)\">\n\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t<line stroke-dasharray=\"7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t</svg>\n\t\t</li>\n\t\t<li (mousedown)=\"changeDashing(3,$event)\">\n\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t<line stroke-dasharray=\"3 7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t</svg>\n\t\t</li>\n\t</ul>\n</div>";
 
 /***/ },
-
-/***/ 151:
+/* 154 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13425,8 +13403,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 152:
+/* 155 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13468,8 +13445,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 153:
+/* 156 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13546,8 +13522,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 154:
+/* 157 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13625,8 +13600,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 155:
+/* 158 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13673,8 +13647,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 156:
+/* 159 */
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13725,17 +13698,16 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 157:
+/* 160 */
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
 	
 	// load the styles
-	var content = __webpack_require__(158);
+	var content = __webpack_require__(161);
 	if(typeof content === 'string') content = [[module.id, content, '']];
 	// add the styles to the DOM
-	var update = __webpack_require__(160)(content, {});
+	var update = __webpack_require__(163)(content, {});
 	if(content.locals) module.exports = content.locals;
 	// Hot Module Replacement
 	if(false) {
@@ -13752,11 +13724,10 @@ webpackJsonp([0],{
 	}
 
 /***/ },
-
-/***/ 158:
+/* 161 */
 /***/ function(module, exports, __webpack_require__) {
 
-	exports = module.exports = __webpack_require__(159)();
+	exports = module.exports = __webpack_require__(162)();
 	// imports
 	
 	
@@ -13767,8 +13738,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 159:
+/* 162 */
 /***/ function(module, exports) {
 
 	/*
@@ -13824,8 +13794,7 @@ webpackJsonp([0],{
 
 
 /***/ },
-
-/***/ 160:
+/* 163 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -14076,28 +14045,6 @@ webpackJsonp([0],{
 	}
 
 
-/***/ },
-
-/***/ 720:
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "assets/edit-icon.345d813757fd9e28c937173ffea6b344.png";
-
-/***/ },
-
-/***/ 721:
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "assets/trash-icon.1bfa4750ea8dfd6c5e316ab7ef9fe355.png";
-
-/***/ },
-
-/***/ 722:
-/***/ function(module, exports, __webpack_require__) {
-
-	module.exports = __webpack_require__.p + "assets/plus.8e4dedc00192ef83d21de2bf7270270f.png";
-
 /***/ }
-
-});
+]);
 //# sourceMappingURL=app.js.map

@@ -4,8 +4,9 @@
   "description": "A semantics aware software diagramming tool that is both minimal and intuitive",
   "scripts": {
     "start": "gulp",
-    "start:server": "gulp run:server",
-    "start:client": "gulp run:client",
+    "start:server": "gulp start:server",
+    "start:client": "gulp start:client",
+	"compile-sources": "gulp server-typescript",
     "webpack-dev": "webpack --watch --config config/webpack.dev.js",
     "e2e": "tsc && concurrently \"http-server -s\" \"protractor protractor.config.js\" --kill-others --success first",
     "lint": "tslint ./app/**/*.ts -t verbose",

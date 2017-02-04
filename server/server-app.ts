@@ -43,12 +43,8 @@ export class ServerApp {
 		this.app.use(session({secret:"fd34regafsd3r45qerafw3r4",saveUninitialized:true,resave:false}));
 		this.configureAPIRoutes();
 		
-		//static resources (we go two levels out because transpile js is one level deep)
-		if(production){
-			this.app.use('/',express.static(path.join(__dirname,'../../','dist')));
-		}else{
-			this.app.use('/', express.static(path.join(__dirname, '../', 'dist')));//for one level
-		}
+		//static resources (is amongst the main folders in the root of the project)
+		this.app.use('/', express.static(path.join(__dirname, '../', 'dist')));//for one level
 
 		//all other routes are handled by angular
 		this.app.get('/*', this._homePage);//this should be in the end
@@ -222,16 +218,14 @@ export class ServerApp {
 	}
 
     public startServer() {//this method is called after setRoutes()
-				
-        // Templating engine will NOT be used. Everything is handled in angular 2
-        // this._app.set('views',path.join(__dirname,'../','views'));
-		// this._app.set('view engine','jade');
 
 		this.schemaService.ensureDatabaseSchema();
-		let port=3000;//TODO normalize ports by environment variables        
-		//mind the path here for production
-		let pathToPrivateKey=path.join(__dirname,'../','/dev-purposes-certs/rootCA.key');
-		let pathToCertificateKey=path.join(__dirname,'../','/dev-purposes-certs/rootCA.pem');
+
+		//normalize ports by environment variables        
+		let port=process.env.PORT_TYPE_DIAGRAM||3000;
+		//Get the path for the key from the environment
+		let pathToPrivateKey=process.env.PRIVATE_KEY_TYPE_DIAGRAM;
+		let pathToCertificateKey=process.env.CERTIFICATE_KEY_TYPE_DIAGRAM;
 		var privateKey = fs.readFileSync( pathToPrivateKey);
 		var certificate = fs.readFileSync( pathToCertificateKey );
 		
@@ -245,11 +239,7 @@ export class ServerApp {
     private _homePage(req: express.Request, res: express.Response) {
 
 		let pathToIndexPage:string;
-		if(production){
-			pathToIndexPage=path.join(__dirname,'../../','dist/','index.html'); //a static index file from 'dist' folder
-		}else{
-			pathToIndexPage=path.join(__dirname,'../','dist/','index.html'); //only one level (to support vs code debugging tasks)
-		}
+		pathToIndexPage=path.join(__dirname,'../','dist/','index.html'); //amongst the main folders
 		winston.log('info',"Server refreshed index file: "+pathToIndexPage);
         res.sendFile(pathToIndexPage);
     }
@@ -264,4 +254,4 @@ export function jsonHeader(response:express.Response):express.Response{
 	return response;
 }
 
-const production=true;//TODO quick and dirty solution to managing in the production environment
+const production=process.env.NODE_ENV=='production';
