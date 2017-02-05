@@ -8850,6 +8850,7 @@ webpackJsonp([0],[
 	var ONE_KEY = 49;
 	var EQUALS_KEY = 187;
 	var DASH_KEY = 189;
+	var BACKSPACE_KEY = 8;
 	var WorkspaceComponent = (function () {
 	    function WorkspaceComponent(route, worksheetService) {
 	        this.route = route;
@@ -8904,6 +8905,9 @@ webpackJsonp([0],[
 	        else if ((event.keyCode == A_KEY || event.keyCode == ONE_KEY) &&
 	            !this.workspace.contentEditingIsOpen) {
 	            this.artboard.toggleOpenCreationDrawer();
+	        }
+	        else if (event.keyCode == BACKSPACE_KEY) {
+	            this.artboard.removeCurrentSelection();
 	        }
 	    };
 	    WorkspaceComponent.prototype.keyup = function (event) {
@@ -12270,7 +12274,7 @@ webpackJsonp([0],[
 	        if (event.keyCode == 13) {
 	            console.debug("User changed content to " + this.editedContent);
 	            this.workspace.contentEditingIsOpen = false;
-	            this.workspace.commit(new change_node_content_1.ChangeNodeContentCommand(this.node, this.editedContent), true);
+	            this.workspace.commit(new change_node_content_1.ChangeNodeContentCommand(this.node, this.editedContent, this.ghostNode), true);
 	        }
 	        else if (event.keyCode == 27) {
 	            this.workspace.contentEditingIsOpen = false;
@@ -12353,19 +12357,27 @@ webpackJsonp([0],[
 	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
 	};
 	var command_1 = __webpack_require__(102);
+	var util = __webpack_require__(73);
 	var ChangeNodeContentCommand = (function (_super) {
 	    __extends(ChangeNodeContentCommand, _super);
-	    function ChangeNodeContentCommand(node, newContent) {
+	    function ChangeNodeContentCommand(node, newContent, ghostNode) {
 	        _super.call(this);
 	        this.node = node;
 	        this.oldContent = this.node.content;
 	        this.newContent = newContent;
+	        this.ghostNode = ghostNode;
 	    }
 	    ChangeNodeContentCommand.prototype.execute = function () {
 	        this.node.content = this.newContent;
+	        if (this.ghostNode != null) {
+	            this.ghostNode.content = util.deriveSimilarButDifferentString(this.node.content);
+	        }
 	    };
 	    ChangeNodeContentCommand.prototype.unExecute = function () {
 	        this.node.content = this.oldContent;
+	        if (this.ghostNode != null) {
+	            this.ghostNode.content = util.deriveSimilarButDifferentString(this.node.content);
+	        }
 	    };
 	    ChangeNodeContentCommand.prototype.getName = function () {
 	        return "Change edge style";

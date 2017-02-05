@@ -15,6 +15,7 @@ const A_KEY=65;
 const ONE_KEY=49;
 const EQUALS_KEY=187;
 const DASH_KEY=189;
+const BACKSPACE_KEY=8;
 
 @Component({
     selector: 'workspace',
@@ -106,9 +107,11 @@ export class WorkspaceComponent implements OnInit,PostOperationNotification{
 			}else{
 				this.workspace.undo();
 			}
-		} else if ((event.keyCode == A_KEY || event.keyCode == ONE_KEY) && 
+		} else if ((event.keyCode == A_KEY || event.keyCode == ONE_KEY) && //open creation box
 			!this.workspace.contentEditingIsOpen) {
 			this.artboard.toggleOpenCreationDrawer();
+		} else if(event.keyCode==BACKSPACE_KEY){//delete selection
+			this.artboard.removeCurrentSelection();
 		}
     }
 

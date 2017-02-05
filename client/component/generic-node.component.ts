@@ -103,11 +103,11 @@ export class GenericNodeComponent implements OnInit{//,OnChanges
 	}
 
 	changeContent(event:KeyboardEvent){
-		if(event.keyCode==13){
+		if(event.keyCode==13){//commit
 			console.debug("User changed content to "+this.editedContent);
 			this.workspace.contentEditingIsOpen=false;
-			this.workspace.commit(new ChangeNodeContentCommand(this.node,this.editedContent),true);
-		}else if(event.keyCode==27){
+			this.workspace.commit(new ChangeNodeContentCommand(this.node,this.editedContent,this.ghostNode),true);
+		}else if(event.keyCode==27){//cancel
 			this.workspace.contentEditingIsOpen=false;
 		}
 	}
