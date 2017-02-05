@@ -73,7 +73,7 @@ export class SelectionBoxComponent {
 		if(!retainExisting){
 			//start afresh
 			this.workspace.clearSelection();
-		}else{
+		}else if(this.workspace.selection!=null){
 			count=this.workspace.selection.edgeList.length+
 				this.workspace.selection.nodeList.length;
 		}

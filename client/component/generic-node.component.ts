@@ -5,13 +5,16 @@ import { Point,Rect } from '../model/geometry';
 import { Workspace } from '../editor/workspace';
 import { Direction,PressDragReleaseProcessor } from '../utility/common';
 import { ResizeHandleComponent } from './resize-handle.component';
-import { DiagramNode,DiagramEdge,GenericDiagramNode } from '../model/worksheet';
+import { DiagramNode,DiagramEdge,GenericDiagramNode,InteractiveAppearance } from '../model/worksheet';
 import { LinkNodesCommand } from '../editor/command/link-nodes';
 import { ChangeNodeContentCommand } from '../editor/command/change-node-content';
 import { MoveListener } from '../editor/command/move';
 
 //TODO move outside to a special 'variables' file 
 const SELECTION_COLOR='#2BA3FC';
+const PULL_LINKER_FROM_COLOR='#2B93C1';
+const POINTING_LINKER_TO_COLOR='#D98BC3';
+const GHOST_COLOR='#D2D2D2';
 const WIDTH=200;
 const HEIGHT=70;
 
@@ -102,12 +105,28 @@ export class GenericNodeComponent implements OnInit,MoveListener{//,OnChanges
 		return this.node.selected ? SELECTION_COLOR : this.node.stroke.hashCode();
 	}
 
+	fillColor():string{
+		if(this.node.appearance==InteractiveAppearance.PullingLinkerFrom){
+			return PULL_LINKER_FROM_COLOR;
+		}else if(this.node.appearance==InteractiveAppearance.PointingLinkerTo){
+			return POINTING_LINKER_TO_COLOR;
+		}else if(this.node.appearance==InteractiveAppearance.Ghost){
+			return GHOST_COLOR;
+		}
+		return this.node.background.hashCode();
+	}
+
+	opacity():number{
+		return this.node.appearance==InteractiveAppearance.Ghost?0.2:1;
+	}
+
 	private prepareNewEdgeAndGhost(){
 		console.debug("Setting new prepared edge in generic node component");
 		this.prepared=new DiagramEdge();
 		this.prepared.from=this.node;
 		this.prepared.fromPoint=this.node.geometry.getTrackingPoint();
 		this.ghostNode=this.node.clone(true);
+		this.ghostNode.appearance=InteractiveAppearance.Ghost;
 	}
 
 	preventClosingOfOptions(event:MouseEvent){
@@ -136,4 +155,5 @@ export class GenericNodeComponent implements OnInit,MoveListener{//,OnChanges
 	moveEnded(displacementMade:boolean):void{
 		this.nodeMoving=false;
 	}
+
 }

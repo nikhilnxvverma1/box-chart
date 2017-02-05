@@ -1,7 +1,7 @@
 import { Component,Input,Output,EventEmitter,SimpleChanges } from '@angular/core';
 import { OnChanges,OnInit } from '@angular/core';
 import { Point } from '../model/geometry';
-import { DiagramEdge,DiagramNode,GenericDiagramNode } from '../model/worksheet';
+import { DiagramEdge,DiagramNode,GenericDiagramNode,InteractiveAppearance } from '../model/worksheet';
 import { Workspace } from '../editor/workspace';
 import { LinkNodesCommand,NodeLinkingStatus } from '../editor/command/link-nodes';
 
@@ -72,20 +72,43 @@ export class GizmoEdgeComponent implements OnChanges,OnInit,NodeLinkingStatus{
 		this.ghostNode=this.fromNode.clone(true);
 	}
 
+	mouseenter(event:MouseEvent){
+		if(!this.linkingProcessUnderway){
+			this.showGhostNode=true;
+		}
+	}
+
+	mouseleave(event:MouseEvent){
+		if(!this.linkingProcessUnderway){
+			this.showGhostNode=false;
+		}
+	}
+
 	beginningNodeLinkingProcess():void{
 		this.linkingProcessUnderway=true;
+		this.fromNode.appearance=InteractiveAppearance.PullingLinkerFrom;
 	}
 
 	possibleNodeToLinkTo(node:DiagramNode):void{
+		//all nodes except the from node should default back
+		this.workspace.worksheet.
+			diagramModel.setAppearanceOfAllNodesTo(InteractiveAppearance.Default);
+		this.fromNode.appearance=InteractiveAppearance.PullingLinkerFrom;
+
+		//control the appearance of nodes that is going to be linked to
 		if(node==this.ghostNode){
 			this.showGhostNode=true;
 		}else{
 			this.showGhostNode=false;
+			node.appearance=InteractiveAppearance.PointingLinkerTo;
 		}
 	}
 
 	finishedLinkingToNode(node:DiagramNode):void{
 		this.requireNewEdgeAndGhost.emit();
 		this.linkingProcessUnderway=false;
+		this.fromNode.appearance=InteractiveAppearance.Default;//redundant
+		this.workspace.worksheet.diagramModel.setAppearanceOfAllNodesTo(InteractiveAppearance.Default);
 	}
+
 }

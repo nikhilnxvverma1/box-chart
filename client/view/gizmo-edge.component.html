@@ -1,3 +1,11 @@
+<ng-container *ngIf="showGhostNode">
+	<!--Ghost Node should'nt block events on the gizmo-->
+	<generic-node
+				[genericNode]="ghostNode"
+				[workspace]="workspace"
+				[soloSelected]="false"
+				></generic-node>
+</ng-container>
 <ng-container *ngIf="prepared!=null && prepared.fromPoint!=null && prepared.toPoint!=null">
 	<line-segment
 		[start]="prepared.fromPoint.pointOnGeometry()" 
@@ -11,6 +19,8 @@
 
 	<div class="link-circle" 
 		(mousedown)="linkNodesByDragging($event)"
+		(mouseenter)="mouseenter($event)"
+		(mouseleave)="mouseleave($event)"
 		[style.left.px]="prepared.toPoint.pointOnGeometry().x"
 		[style.top.px]="prepared.toPoint.pointOnGeometry().y"
 		[style.width.px]="10"

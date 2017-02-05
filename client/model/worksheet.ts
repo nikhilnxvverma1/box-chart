@@ -58,6 +58,13 @@ export class DiagramModel{
 		}
 		return JSON.stringify(json);
 	}
+
+	/**Sets the apperance of all nodes to a particular type. */
+	setAppearanceOfAllNodesTo(appearance:InteractiveAppearance){
+		for(let node of this.nodeList){
+			node.appearance=appearance;
+		}
+	}
 }
 
 /** Specifies color in the range 0-255 for four channels. Default is white(255,255,255,255) */
@@ -107,6 +114,13 @@ export enum DiagramNodeType{
 	//TODO add more if needed, for now, everything is a GenericDiagramNode
 }
 
+export enum InteractiveAppearance{
+	Default=1,
+	PullingLinkerFrom=2,
+	PointingLinkerTo=3,
+	Ghost=4
+}
+
 /** 
  * A node in the diagram graph that contains both the incoming and outgoing edges.
  * A diagram node is also a visual block to display and additionally also holds geometry.
@@ -131,6 +145,9 @@ export abstract class DiagramNode{
 	incomingEdges:DiagramEdge[]=[];
 	/** Transient list of all edges to which this node is a 'from' node */
 	outgoingEdges:DiagramEdge[]=[];
+
+	/** A temporary and transient variable used for holding appearance of this node based on current interaction status.*/
+	appearance:InteractiveAppearance=InteractiveAppearance.Default;
 
 	/** Creates a duplicate of this node with an optional shift and slightly different content. */
 	abstract clone(similarButDifferentContent?:boolean,offset?:Point):DiagramNode;
