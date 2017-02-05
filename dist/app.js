@@ -1,5 +1,6 @@
-webpackJsonp([0],[
-/* 0 */
+webpackJsonp([0],{
+
+/***/ 0:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13,29 +14,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 1 */,
-/* 2 */,
-/* 3 */,
-/* 4 */,
-/* 5 */,
-/* 6 */,
-/* 7 */,
-/* 8 */,
-/* 9 */,
-/* 10 */,
-/* 11 */,
-/* 12 */,
-/* 13 */,
-/* 14 */,
-/* 15 */,
-/* 16 */,
-/* 17 */,
-/* 18 */,
-/* 19 */,
-/* 20 */,
-/* 21 */,
-/* 22 */,
-/* 23 */
+
+/***/ 23:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -91,7 +71,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 24 */
+
+/***/ 24:
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -5861,11 +5842,8 @@ webpackJsonp([0],[
 	}));
 
 /***/ },
-/* 25 */,
-/* 26 */,
-/* 27 */,
-/* 28 */,
-/* 29 */
+
+/***/ 29:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5896,13 +5874,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 30 */
+
+/***/ 30:
 /***/ function(module, exports) {
 
 	module.exports = "<router-outlet></router-outlet>\n\n";
 
 /***/ },
-/* 31 */
+
+/***/ 31:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -5946,37 +5926,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 32 */,
-/* 33 */,
-/* 34 */,
-/* 35 */,
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */,
-/* 47 */,
-/* 48 */,
-/* 49 */,
-/* 50 */,
-/* 51 */,
-/* 52 */,
-/* 53 */,
-/* 54 */,
-/* 55 */,
-/* 56 */,
-/* 57 */,
-/* 58 */,
-/* 59 */,
-/* 60 */,
-/* 61 */,
-/* 62 */
+
+/***/ 62:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6013,19 +5964,22 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 63 */
+
+/***/ 63:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "\n<div class=\"full-width-center big-padding-bottom big-padding-top\">\n\t<img src=\"" + __webpack_require__(64) + "\"/>\n</div>\n\n<!-- All the design stuff goes here-->\n<login></login>\n\n<!--login attempt-->\n<div *ngIf=\"(attemptType|async)=='login'\">\n\tLogin attempt : <span>{{attemptCode|async}}</span>\n</div>\n\n<!--signup attempt-->\n<div *ngIf=\"(attemptType|async)=='signup'\">\n\tSignup attempt : <span>{{attemptCode|async}}</span>\n</div>";
 
 /***/ },
-/* 64 */
+
+/***/ 64:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "assets/logo.0699622c22550b41cb6e8aa52349133f.png";
 
 /***/ },
-/* 65 */
+
+/***/ 65:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6084,7 +6038,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 66 */
+
+/***/ 66:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -6109,7 +6064,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 67 */
+
+/***/ 67:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6199,7 +6155,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 68 */
+
+/***/ 68:
 /***/ function(module, exports) {
 
 	//IMPORTANT this file is shared between client and server but is duplicated in both places. 
@@ -6234,13 +6191,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 69 */
+
+/***/ 69:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<header>\n\t<a routerLink=\"/\"><img src=\"" + __webpack_require__(64) + "\" alt=\"Logo\" class=\"header-logo\"></a>\n\t<h1>Create and account</h1>\n</header>\n\n\n<ul class=\"centered-list\">\n\t<li><input type=\"text\" placeholder=\"First Name\" [(ngModel)]=\"user.firstName\" class=\"form-field\"/></li>\n\t<li><input type=\"text\" placeholder=\"Last Name\" [(ngModel)]=\"user.lastName\" class=\"form-field\"/></li>\n\t<li><input type=\"text\" placeholder=\"Email\" [(ngModel)]=\"user.email\" class=\"form-field\"/></li>\n\t<li><input type=\"password\" placeholder=\"Password\" [(ngModel)]=\"user.password\" class=\"form-field\"/></li>\n\t<li><input type=\"password\" placeholder=\"Confirm Password\" [(ngModel)]=\"confirmPassword\" class=\"form-field\"/></li>\n</ul>\n\n<ul class=\"centered-list horizontal-list no-list-style\">\n\t<li>\n\t\t<a tabindex=\"4\" class=\"button primary\" (click)=\"createUserAccount()\">Sign Up</a>\n\t</li>\n</ul>";
 
 /***/ },
-/* 70 */
+
+/***/ 70:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6345,7 +6304,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 71 */
+
+/***/ 71:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -6692,6 +6652,8 @@ webpackJsonp([0],[
 	    __extends(GenericDiagramNode, _super);
 	    function GenericDiagramNode(type) {
 	        _super.call(this);
+	        this._doubleBorder = false;
+	        this._dashedBorder = false;
 	        this._shapeType = type;
 	        this._geometry = GenericDiagramNode.geometryForType(this._shapeType, new geometry_1.Point(0, 0));
 	        this._content = "Content";
@@ -6741,6 +6703,26 @@ webpackJsonp([0],[
 	    Object.defineProperty(GenericDiagramNode.prototype, "type", {
 	        get: function () {
 	            return DiagramNodeType.GenericDiagramNode;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(GenericDiagramNode.prototype, "doubleBorder", {
+	        get: function () {
+	            return this._doubleBorder;
+	        },
+	        set: function (value) {
+	            this._doubleBorder = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(GenericDiagramNode.prototype, "dashedBorder", {
+	        get: function () {
+	            return this._dashedBorder;
+	        },
+	        set: function (value) {
+	            this._dashedBorder = value;
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -6809,6 +6791,8 @@ webpackJsonp([0],[
 	        }
 	        //duplicate the node with the same type
 	        var newNode = new GenericDiagramNode(this.shapeType);
+	        newNode.dashedBorder = this.dashedBorder;
+	        newNode.doubleBorder = this.doubleBorder;
 	        newNode.content = newContent;
 	        newNode.selected = false;
 	        //move it by offset if needed
@@ -6831,6 +6815,8 @@ webpackJsonp([0],[
 	        json.geometry = this.geometry.toJSON();
 	        json.shapeType = this.shapeType;
 	        json.content = this.content;
+	        json.doubleBorder = this._doubleBorder;
+	        json.dashedBorder = this._dashedBorder;
 	        return json;
 	    };
 	    GenericDiagramNode.prototype.fromJSON = function (json) {
@@ -6841,6 +6827,8 @@ webpackJsonp([0],[
 	        this.stroke.fromJSON(json.stroke);
 	        this.geometry = geometry_1.geometryFromJSON(json.geometry);
 	        this.content = json.content;
+	        this._doubleBorder = json.doubleBorder == null ? false : json.doubleBorder;
+	        this._dashedBorder = json.dashedBorder == null ? false : json.dashedBorder;
 	        return this;
 	    };
 	    GenericDiagramNode.prototype.jsonReplacer = function (key, value) {
@@ -7070,7 +7058,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 72 */
+
+/***/ 72:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7567,7 +7556,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 73 */
+
+/***/ 73:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -7772,7 +7762,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 74 */
+
+/***/ 74:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8034,7 +8025,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 75 */
+
+/***/ 75:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8477,7 +8469,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 76 */
+
+/***/ 76:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8561,31 +8554,36 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 77 */
+
+/***/ 77:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<header>\n\t<a routerLink=\"/dashboard\">\n\t\t<img src=\"" + __webpack_require__(64) + "\" alt=\"Logo\" class=\"header-logo\">\n\t</a>\n\t<h1>Dashboard</h1>\n\t<ul class=\"header-links-container horizontal-list no-list-style\">\n\t\t<li><a class=\"header-link\" routerLink=\"/account\">Account</a></li>\n\t\t<li><a class=\"header-link\" (click)=\"logout()\">Logout</a></li>\n\t</ul>\n</header>\n\n<ul class=\"centered-list gaps-on-sides\" >\n\t<li class=\"no-margin\">\n\t\t<div class=\"dashboard-options\">\n\t\t\t<input class=\"form-field wide\" placeholder=\"Search\" [(ngModel)]=\"searchTerm\"/>\n\t\t\t<div (click)=\"createNewWorksheet()\" class=\"new-worksheet\"><img src=\"" + __webpack_require__(78) + "\" alt=\"New\"><span>New</span></div>\n\t\t</div>\n\t</li>\n\t<li class=\"no-margin\" *ngFor=\"let worksheet of worksheetList\">\n\t\t<div class=\"worksheet-row\">\n\t\t\t<div class=\"worksheet-info\">\n\t\t\t\t<h3 [routerLink]=\"'worksheet/'+worksheet.rid\" class=\"worksheet-title\">{{worksheet.title}}</h3>\n\t\t\t\t<h3 class=\"worksheet-description\">{{worksheet.description}}</h3>\n\t\t\t</div>\n\n\t\t\t<ul class=\"horizontal-list spaced-out float-right\">\n\t\t\t\t<li><a class=\"dashboard-actions\" (click)=\"edit\"><img src=\"" + __webpack_require__(79) + "\" alt=\"Edit\"></a></li>\n\t\t\t\t<li><a class=\"dashboard-actions\" (click)=\"removeWorksheet(worksheet)\"><img src=\"" + __webpack_require__(80) + "\" alt=\"Delete\"></a></li>\n\t\t\t</ul>\n\t\t</div>\n\t</li>\n</ul>\n\n\t<!--<a (click)=\"gotoWorksheet(worksheet)\"><span>{{worksheet.title}}({{worksheet.rid}})</span></a> : -->\n<!--<div class=\"worksheet-tag\" *ngFor=\"let worksheet of worksheetList\">\n\t<a [routerLink]=\"'worksheet/'+worksheet.rid\"><span>{{worksheet.title}}({{worksheet.rid}})</span></a> : \n\t<span>{{worksheet.description}}</span> \n\t<a style=\"background: red;color: white\" (click)=\"removeWorksheet(worksheet)\">Remove</a>\n</div>-->\n\n<!--<div class=\"worksheet-tag\">\n\t<a style=\"background: green;color: white\" (click)=\"createNewWorksheet()\">Create new worksheet</a>\n</div>-->";
 
 /***/ },
-/* 78 */
+
+/***/ 78:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "assets/plus.8e4dedc00192ef83d21de2bf7270270f.png";
 
 /***/ },
-/* 79 */
+
+/***/ 79:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "assets/edit-icon.345d813757fd9e28c937173ffea6b344.png";
 
 /***/ },
-/* 80 */
+
+/***/ 80:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "assets/trash-icon.1bfa4750ea8dfd6c5e316ab7ef9fe355.png";
 
 /***/ },
-/* 81 */
+
+/***/ 81:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8639,13 +8637,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 82 */
+
+/***/ 82:
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = "<header>\n\t<a routerLink=\"/dashboard\">\n\t\t<img src=\"" + __webpack_require__(64) + "\" alt=\"Logo\" class=\"header-logo\">\n\t</a>\n\t<h1>Account</h1>\n\t<ul class=\"header-links-container horizontal-list no-list-style\">\n\t\t<li><a class=\"header-link\" routerLink=\"/dashboard\">Dashboard</a></li>\n\t\t<li><a class=\"header-link\" (click)=\"logout()\">Logout</a></li>\n\t</ul>\n</header>\n<ng-container *ngIf=\"user!=null\">\n\t<ul class=\"centered-list\">\n\t\t<li><input type=\"text\" tabindex=\"1\" placeholder=\"First Name\" class=\"form-field\" [(ngModel)]=\"user.firstName\"/></li>\n\t\t<li><input type=\"text\" tabindex=\"2\" placeholder=\"Last Name\" class=\"form-field\" [(ngModel)]=\"user.lastName\"/></li>\n\t\t<li><input type=\"text\" tabindex=\"3\" placeholder=\"Email\" class=\"form-field\" [(ngModel)]=\"user.email\"/></li>\n\t\t<li><input type=\"text\" tabindex=\"4\" placeholder=\"Gender\" class=\"form-field\" [(ngModel)]=\"user.gender\"/></li>\n\t</ul>\n\n\t<ul class=\"centered-list horizontal-list no-list-style\">\n\t\t<li>\n\t\t\t<a tabindex=\"5\" class=\"button primary\" (click)=\"saveAccountDetails()\">Save</a>\n\t\t</li>\n\t</ul>\n</ng-container>\n\n<!--TODO allow changing password-->";
 
 /***/ },
-/* 83 */
+
+/***/ 83:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8704,13 +8704,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 84 */
+
+/***/ 84:
 /***/ function(module, exports) {
 
 	module.exports = "<ul class=\"centered-list no-list-style\">\n\t<li>\n\t\t<input tabindex=\"1\" class=\"form-field\" type=\"text\" placeholder=\"Email\" [(ngModel)]=\"loginForm.username\"/>\n\t</li>\n\t<li>\n\t\t<input tabindex=\"2\" class=\"form-field\" type=\"password\" placeholder=\"Password\" [(ngModel)]=\"loginForm.password\"/>\n\t</li>\n</ul>\n\n<ul class=\"centered-list horizontal-list no-list-style\">\n\t<li>\n\t\t<a tabindex=\"3\" class=\"button primary-complement\" (click)=\"attemptLogin()\">Login</a>\n\t</li>\n\t<li>\n\t\t<a tabindex=\"4\" class=\"button primary\" routerLink=\"/signup\">Sign Up</a>\n\t</li>\n</ul>\n";
 
 /***/ },
-/* 85 */
+
+/***/ 85:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8756,7 +8758,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 86 */
+
+/***/ 86:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8809,7 +8812,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 87 */
+
+/***/ 87:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -8839,7 +8843,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 88 */
+
+/***/ 88:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9066,7 +9071,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 89 */
+
+/***/ 89:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9175,7 +9181,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 90 */
+
+/***/ 90:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9220,19 +9227,22 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 91 */
+
+/***/ 91:
 /***/ function(module, exports) {
 
 	module.exports = "#sidebar {\n  background: #8f42de;\n  color: whitesmoke;\n  width: 280px;\n  height: 100%;\n  position: absolute;\n  top: 0px; }\n"
 
 /***/ },
-/* 92 */
+
+/***/ 92:
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"sidebar\" [@sidebarOpen]=\"open?'open':'close'\">\n\t<h2>sidebar</h2>\n\t<i class=\"ms-Icon ms-Icon--Cancel\" aria-hidden=\"true\" (click)=\"open=false\"></i>\n\t\n</div>";
 
 /***/ },
-/* 93 */
+
+/***/ 93:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9300,7 +9310,7 @@ webpackJsonp([0],[
 	        if (this.draggingInteraction != null) {
 	            this.draggingInteraction.handleMousePress(event);
 	        }
-	        else if (event.buttons != 0) {
+	        else {
 	            this.selectionBox.mousePressed(event);
 	        }
 	        this.appRef.tick();
@@ -9315,7 +9325,7 @@ webpackJsonp([0],[
 	        if (this.draggingInteraction != null) {
 	            this.draggingInteraction.handleMouseDrag(event);
 	        }
-	        else if (event.buttons != 0) {
+	        else {
 	            this.selectionBox.mouseMoved(event);
 	        }
 	        this.appRef.tick();
@@ -9325,7 +9335,7 @@ webpackJsonp([0],[
 	        if (this.draggingInteraction != null) {
 	            this.draggingInteraction.handleMouseRelease(event);
 	        }
-	        else if (event.buttons != 0) {
+	        else {
 	            this.selectionBox.mouseReleased(event);
 	        }
 	        this.draggingInteraction = null;
@@ -9409,7 +9419,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 94 */
+
+/***/ 94:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9523,7 +9534,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 95 */
+
+/***/ 95:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9727,7 +9739,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 96 */
+
+/***/ 96:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9771,19 +9784,22 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 97 */
+
+/***/ 97:
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"auto-completion-box\"\n\t[style.left.px]=\"position.x\"\n\t[style.top.px]=\"position.y\"\n\t>\n\tSomeClassName\n</div>";
 
 /***/ },
-/* 98 */
+
+/***/ 98:
 /***/ function(module, exports) {
 
 	module.exports = "#auto-completion-box {\n  position: absolute;\n  background: #6f6f6f;\n  color: white;\n  width: 250px;\n  height: 200px;\n  overflow-x: hidden;\n  overflow-y: scroll; }\n"
 
 /***/ },
-/* 99 */
+
+/***/ 99:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -9867,7 +9883,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 100 */
+
+/***/ 100:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10046,7 +10063,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 101 */
+
+/***/ 101:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10099,7 +10117,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 102 */
+
+/***/ 102:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10144,7 +10163,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 103 */
+
+/***/ 103:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10225,7 +10245,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 104 */
+
+/***/ 104:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10317,7 +10338,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 105 */
+
+/***/ 105:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10385,13 +10407,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 106 */
+
+/***/ 106:
 /***/ function(module, exports) {
 
 	module.exports = "<div \n\tclass=\"drop-shadowed-pop-up\"\n\tid=\"creation-pop-up\"\n\t[style.left.px]=\"position.x\"\n\t[style.top.px]=\"position.y\"\n\t[@isDrawerOpen]=\"workspace.creationDrawerIsOpen?'open':'closed'\" >\n\n\t<ul id=\"creation-drawer-list\">\n\t\t<li (mousedown)=\"provideDragAndDropFor(creationDrawerList[0],$event)\">\n\t\t\t<!--Rectangle-->\n\t\t\t<svg width=\"50\" height=\"35\" >\n\t\t\t\t<rect x=\"1%\" y=\"1%\" width=\"99%\" height=\"99%\" [style.fill]=\"'#FFF'\" [style.stroke]=\"'#000'\" [style.stroke-width]=\"2\"/>\n\t\t\t</svg>\n\t\t</li>\n\t\t<li (mousedown)=\"provideDragAndDropFor(creationDrawerList[1],$event)\">\n\t\t\t<!--Circle-->\n\t\t\t<svg width=\"35\" height=\"35\" >\n\t\t\t\t<ellipse cx=\"50%\" cy=\"50%\" rx=\"49%\" ry=\"49%\" [style.fill]=\"'#FFF'\" [style.stroke]=\"'#000'\" [style.stroke-width]=\"2\"/>\n\t\t\t</svg>\n\t\t</li>\n\t</ul>\n\n\n</div>";
 
 /***/ },
-/* 107 */
+
+/***/ 107:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -10446,7 +10470,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 108 */
+
+/***/ 108:
 /***/ function(module, exports) {
 
 	"use strict";
@@ -10694,7 +10719,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 109 */
+
+/***/ 109:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11148,7 +11174,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 110 */
+
+/***/ 110:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11569,7 +11596,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 111 */
+
+/***/ 111:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11592,6 +11620,9 @@ webpackJsonp([0],[
 	        this.active = false;
 	    }
 	    SelectionBoxComponent.prototype.mousePressed = function (event) {
+	        if (event.buttons == 0) {
+	            return;
+	        }
 	        if (!event.shiftKey) {
 	            this.workspace.clearSelection();
 	        }
@@ -11605,7 +11636,7 @@ webpackJsonp([0],[
 	        this.lastPosition = new geometry_1.Point(event.clientX, event.clientY);
 	    };
 	    SelectionBoxComponent.prototype.mouseMoved = function (event) {
-	        if (this.active && !this.workspace.currentlyPanning) {
+	        if (this.active && !this.workspace.currentlyPanning && event.buttons != 0) {
 	            this.difference.x -= this.lastPosition.x - event.clientX;
 	            this.difference.y -= this.lastPosition.y - event.clientY;
 	            this.lastPosition = new geometry_1.Point(event.clientX, event.clientY);
@@ -11677,13 +11708,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 112 */
+
+/***/ 112:
 /***/ function(module, exports) {
 
 	module.exports = "<div \n\tid=\"selection-box\"\n\t[style.left.px]=\"rect.x\"\n\t[style.top.px]=\"rect.y\"\n\t[style.width.px]=\"rect.width\"\n\t[style.height.px]=\"rect.height\"\n\t[style.display]=\"active?'block':'none'\">\n\n</div>";
 
 /***/ },
-/* 113 */
+
+/***/ 113:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11788,31 +11821,36 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 114 */
+
+/***/ 114:
 /***/ function(module, exports) {
 
 	module.exports = "#massive-area {\n  position: absolute; }\n\n#starter-tip {\n  position: absolute;\n  color: gray; }\n"
 
 /***/ },
-/* 115 */
+
+/***/ 115:
 /***/ function(module, exports) {
 
 	module.exports = "<ng-container *ngIf=\"workspace!=null\">\n\t<div id=\"massive-area\" \n\t[style.width]=\"massiveArea.width+'px'\" \n\t[style.height]=\"massiveArea.height+'px'\" \n\t[style.left]=\"massiveArea.x+'px'\" \n\t[style.top]=\"massiveArea.y+'px'\"\n\t(mousedown)=\"mousedown($event)\"\n\t(mousemove)=\"mousemove($event)\"\n\t(mouseup)=\"mouseup($event)\"\n\t(dblclick)=\"doubleClickedArtboard($event)\"\n\t>\n\n\t\t<creation-drawer \n\t\t\t[workspace]=\"workspace\"\n\t\t\t[position]=\"creationDrawerLocation\"\n\t\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t\t></creation-drawer>\n\t\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t\t<!--<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>-->\n\t\t\t<diagram-edge\n\t\t\t\t[edge]=\"edge\"\n\t\t\t\t[workspace]=\"workspace\"\n\t\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyEdge(edge)\"\n\t\t\t\t></diagram-edge>\n\t\t</ng-container>\n\n\t\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t\t<generic-node\n\t\t\t\t[genericNode]=\"node\"\n\t\t\t\t[workspace]=\"workspace\"\n\t\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t\t(linkNodes)=\"linkNodes($event)\"\n\t\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t\t></generic-node>\n\t\t</ng-container>\n\n\t\t<ng-container *ngIf=\"workspace.selection!=null\">\n\t\t\t<multiple-selection \n\t\t\t\t[workspace]=\"workspace\" \n\t\t\t\t[selectionCount]=\"workspace.selectionCount()\"\n\t\t\t\t[active]=\"\n\t\t\t\t\tworkspace.selectionCount()>1 &&\n\t\t\t\t\tdraggingInteraction==null\"\n\t\t\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t\t\t></multiple-selection>\n\t\t</ng-container>\n\t</div>\n</ng-container>";
 
 /***/ },
-/* 116 */
+
+/***/ 116:
 /***/ function(module, exports) {
 
 	module.exports = "#menu-controls {\n  position: absolute;\n  padding: 0px;\n  top: 10px; }\n  #menu-controls li {\n    color: blue;\n    cursor: pointer;\n    display: inline;\n    list-style: none; }\n  #menu-controls li:hover {\n    color: darkblue; }\n\n#container {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%;\n  overflow: hidden;\n  -webkit-touch-callout: none;\n  -webkit-user-select: none;\n  -khtml-user-select: none;\n  -moz-user-select: none;\n  -ms-user-select: none;\n  user-select: none; }\n"
 
 /***/ },
-/* 117 */
+
+/***/ 117:
 /***/ function(module, exports) {
 
 	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:keypress)=\"keypress($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\n\t<!-- Show starter tip only if there is nothing in the scene -->\n<!--[style.left.px]=\"massiveArea.width/2\"\n\t\t[style.top.px]=\"massiveArea.height/2\"-->\n\t\t<h1 id=\"starter-tip\"\n\t\t*ngIf=\"\n\t\tworkspace!=null &&\n\t\tworkspace.worksheet.diagramModel.edgeList.length==0 && \n\t\tworkspace.worksheet.diagramModel.nodeList.length==0\"\n\t\t>Press A or 1 to open the creation drawer</h1>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t\t[workspace]=\"workspace\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<a id=\"back-to-dashboard\" [routerLink]=\"'../../../dashboard'\">\n\t\tBack {{autoSaveStatusString()}}\n\t</a>\n\t<!--<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t\n\t\t<li>{{autoSaveStatusString()}}</li>\n\t</ul>-->\n</div>\n";
 
 /***/ },
-/* 118 */
+
+/***/ 118:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11910,7 +11948,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 119 */
+
+/***/ 119:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -11940,13 +11979,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 120 */
+
+/***/ 120:
 /***/ function(module, exports) {
 
 	module.exports = "<h1>TODO area</h1>";
 
 /***/ },
-/* 121 */
+
+/***/ 121:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12023,7 +12064,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 122 */
+
+/***/ 122:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12202,19 +12244,22 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 123 */
+
+/***/ 123:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"handle-pick\"\n\t[style.left.px]=\"handle.x\"\n\t[style.top.px]=\"handle.y\"\n\t[style.width.px]=\"handle.width\"\n\t[style.height.px]=\"handle.height\"\n\t[style.cursor]=\"cursor\"\n\t(mousedown)=\"requestDragging.emit(this)\"\n\t></div>";
 
 /***/ },
-/* 124 */
+
+/***/ 124:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"rect.x\"\n[style.top.px]=\"rect.y\"\n[style.width.px]=\"rect.width\"\n[style.height.px]=\"rect.height\"\n[@selection]=\"isSelected?'selected':'unselected'\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\"></div>\n\n<!-- Linker associated with this box-->\n<linker [geometry]=\"rect\"></linker>\n\n<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n<resize-handle [rect]=\"rect\" [placement]=\"1\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"2\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"3\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"4\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"5\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"6\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"7\" \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n\n<resize-handle [rect]=\"rect\" [placement]=\"8\"  \n*ngIf=\"isSelected\" \n(requestDragging)=\"registerDragIntention($event)\" \n(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n</resize-handle>\n";
 
 /***/ },
-/* 125 */
+
+/***/ 125:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12230,10 +12275,12 @@ webpackJsonp([0],[
 	var core_1 = __webpack_require__(3);
 	var core_2 = __webpack_require__(3);
 	var core_3 = __webpack_require__(3);
+	var core_4 = __webpack_require__(3);
 	var workspace_1 = __webpack_require__(100);
 	var resize_handle_component_1 = __webpack_require__(122);
 	var worksheet_1 = __webpack_require__(71);
 	var change_node_content_1 = __webpack_require__(126);
+	var change_node_outline_1 = __webpack_require__(723);
 	//TODO move outside to a special 'variables' file 
 	var SELECTION_COLOR = '#2BA3FC';
 	var PULL_LINKER_FROM_COLOR = '#2B93C1';
@@ -12241,6 +12288,7 @@ webpackJsonp([0],[
 	var GHOST_COLOR = '#D2D2D2';
 	var WIDTH = 200;
 	var HEIGHT = 70;
+	var DOUBLE_BORDER_FLAT_OFFSET = 5;
 	var GenericNodeComponent = (function () {
 	    function GenericNodeComponent() {
 	        this.requestDragging = new core_1.EventEmitter();
@@ -12283,7 +12331,51 @@ webpackJsonp([0],[
 	    GenericNodeComponent.prototype.editContent = function (event) {
 	        this.workspace.contentEditingIsOpen = true;
 	        this.editedContent = this.node.content;
+	        this.focusAndSelectEditableContent();
 	        event.stopPropagation();
+	    };
+	    GenericNodeComponent.prototype.focusAndSelectEditableContent = function () {
+	        //its possible that the input never got loaded in because its contingent on editability
+	        if (this.contentEditingField != null) {
+	            // focus on the input box and select the entire text inside
+	            this.contentEditingField.nativeElement.focus();
+	            this.contentEditingField.nativeElement.select();
+	        }
+	    };
+	    GenericNodeComponent.prototype.toggleOutline = function (event) {
+	        console.debug("Toggleing outline on this shape");
+	        // this.node.dashedBorder=!this.node.dashedBorder;
+	        var outlineStyle = this.getNextOutlineStyle();
+	        this.workspace.commit(new change_node_outline_1.ChangeNodeOutlineCommand(this.node, outlineStyle.doubleBorder, outlineStyle.dashedBorder, this.ghostNode), true);
+	        event.stopPropagation();
+	    };
+	    GenericNodeComponent.prototype.getNextOutlineStyle = function () {
+	        if (!this.node.doubleBorder && !this.node.dashedBorder) {
+	            return new OutlineStyle(false, true); //00 goes to 11
+	        }
+	        else if (!this.node.doubleBorder && this.node.dashedBorder) {
+	            return new OutlineStyle(true, false); //01 goes to 10
+	        }
+	        else if (this.node.doubleBorder && !this.node.dashedBorder) {
+	            return new OutlineStyle(true, true); //10 goes to 11
+	        }
+	        else {
+	            return new OutlineStyle(false, false); //11 goes to 00
+	        }
+	    };
+	    GenericNodeComponent.prototype.doubleBorderPercentForFlatOffsetInWidth = function () {
+	        return (DOUBLE_BORDER_FLAT_OFFSET / this.node.geometry.getBoundingBox().width) * 100 + "%";
+	    };
+	    GenericNodeComponent.prototype.doubleBorderPercentForFlatOffsetInHeight = function () {
+	        return (DOUBLE_BORDER_FLAT_OFFSET / this.node.geometry.getBoundingBox().height) * 100 + "%";
+	    };
+	    GenericNodeComponent.prototype.doubleBorderPercentForWidthWithFlatReduction = function () {
+	        return ((this.node.geometry.getBoundingBox().width - 2 * DOUBLE_BORDER_FLAT_OFFSET) /
+	            this.node.geometry.getBoundingBox().width) * 100 + "%";
+	    };
+	    GenericNodeComponent.prototype.doubleBorderPercentForHeightWithFlatReduction = function () {
+	        return ((this.node.geometry.getBoundingBox().height - 2 * DOUBLE_BORDER_FLAT_OFFSET) /
+	            this.node.geometry.getBoundingBox().height) * 100 + "%";
 	    };
 	    GenericNodeComponent.prototype.strokeColor = function () {
 	        return this.node.selected ? SELECTION_COLOR : this.node.stroke.hashCode();
@@ -12299,6 +12391,14 @@ webpackJsonp([0],[
 	            return GHOST_COLOR;
 	        }
 	        return this.node.background.hashCode();
+	    };
+	    GenericNodeComponent.prototype.strokeDashArray = function () {
+	        if (this.node.dashedBorder) {
+	            return "7";
+	        }
+	        else {
+	            return "0";
+	        }
 	    };
 	    GenericNodeComponent.prototype.opacity = function () {
 	        return this.node.appearance == worksheet_1.InteractiveAppearance.Ghost ? 0.2 : 1;
@@ -12358,48 +12458,60 @@ webpackJsonp([0],[
 	        __metadata('design:type', Object)
 	    ], GenericNodeComponent.prototype, "removeMe", void 0);
 	    __decorate([
-	        core_2.ViewChildren(resize_handle_component_1.ResizeHandleComponent), 
-	        __metadata('design:type', (typeof (_c = typeof core_2.QueryList !== 'undefined' && core_2.QueryList) === 'function' && _c) || Object)
+	        core_3.ViewChildren(resize_handle_component_1.ResizeHandleComponent), 
+	        __metadata('design:type', (typeof (_c = typeof core_3.QueryList !== 'undefined' && core_3.QueryList) === 'function' && _c) || Object)
 	    ], GenericNodeComponent.prototype, "resizeHandlers", void 0);
+	    __decorate([
+	        core_2.ViewChild('contentEditingField'), 
+	        __metadata('design:type', (typeof (_d = typeof core_2.ElementRef !== 'undefined' && core_2.ElementRef) === 'function' && _d) || Object)
+	    ], GenericNodeComponent.prototype, "contentEditingField", void 0);
 	    GenericNodeComponent = __decorate([
 	        core_1.Component({
 	            selector: 'generic-node',
 	            template: __webpack_require__(127),
 	            animations: [
-	                core_3.trigger('selection', [
-	                    core_3.state('selected', core_3.style({
+	                core_4.trigger('selection', [
+	                    core_4.state('selected', core_4.style({
 	                        borderColor: "#2BA3FC"
 	                    })),
-	                    core_3.state('unselected', core_3.style({
+	                    core_4.state('unselected', core_4.style({
 	                        borderColor: "black"
 	                    })),
-	                    core_3.transition('selected => unselected', core_3.animate('100ms ease-in')),
-	                    core_3.transition('unselected => selected', core_3.animate('100ms ease-out'))
+	                    core_4.transition('selected => unselected', core_4.animate('100ms ease-in')),
+	                    core_4.transition('unselected => selected', core_4.animate('100ms ease-out'))
 	                ]),
-	                core_3.trigger('contentEditingOpen', [
-	                    core_3.state('open', core_3.style({
+	                core_4.trigger('contentEditingOpen', [
+	                    core_4.state('open', core_4.style({
 	                        width: WIDTH + "px",
 	                        height: HEIGHT + "px"
 	                    })),
-	                    core_3.state('closed', core_3.style({
+	                    core_4.state('closed', core_4.style({
 	                        width: 0 + "px",
 	                        height: 0 + "px"
 	                    })),
-	                    core_3.transition('open => closed', core_3.animate('100ms ease-in')),
-	                    core_3.transition('closed => open', core_3.animate('200ms ease-out'))
+	                    core_4.transition('open => closed', core_4.animate('100ms ease-in')),
+	                    core_4.transition('closed => open', core_4.animate('200ms ease-out'))
 	                ])
 	            ]
 	        }), 
 	        __metadata('design:paramtypes', [])
 	    ], GenericNodeComponent);
 	    return GenericNodeComponent;
-	    var _a, _b, _c;
+	    var _a, _b, _c, _d;
 	}());
 	exports.GenericNodeComponent = GenericNodeComponent;
+	var OutlineStyle = (function () {
+	    function OutlineStyle(double, dashed) {
+	        this.doubleBorder = double;
+	        this.dashedBorder = dashed;
+	    }
+	    return OutlineStyle;
+	}());
 
 
 /***/ },
-/* 126 */
+
+/***/ 126:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12440,13 +12552,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 127 */
+
+/***/ 127:
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.geometry.getBoundingBox().x\"\n[style.top.px]=\"node.geometry.getBoundingBox().y\"\n[style.width.px]=\"node.geometry.getBoundingBox().width\"\n[style.height.px]=\"node.geometry.getBoundingBox().height\"\n[style.opacity]=\"opacity()\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"mousedown($event)\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.shapeType==1\" x=\"1%\" y=\"1%\" width=\"99%\" height=\"99%\" [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<ellipse *ngIf=\"node.shapeType==2||node.shapeType==4\" cx=\"50%\" cy=\"50%\" rx=\"49%\" ry=\"49%\" [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.shapeType==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\" [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.shapeType==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\" [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\"/>\n\t</svg>\n\t<div class=\"node-content\"\n\t\t[style.left.px]=\"node.geometry.getBoundingBox().width/2\"\n\t\t[style.top.px]=\"node.geometry.getBoundingBox().height/2\"\n\t\t[style.color]=\"node.foreground.hashCode()\" >{{node.content}}</div>\n</div>\n\n<ng-container *ngIf=\"false\">\n\n\t<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n\t<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"1\" \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"2\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"3\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"4\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"5\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"6\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"7\" \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"8\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n</ng-container>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble edit-operation\"\n\t(mousedown)=\"editContent($event)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topLeft().offset(-10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topLeft().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"drop-shadowed-pop-up\"\n\t(mousedown)=\"preventClosingOfOptions($event)\"\n\t[style.width.px]=\"200\"\n\t[style.height.px]=\"250\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topLeft().offset(-10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topLeft().offset(0,-10).y\"\n\t[@contentEditingOpen]=\"workspace.contentEditingIsOpen?'open':'closed'\" >\n\t<input class=\"node-content-input\" type=\"text\" (keydown)=\"changeContent($event)\" [(ngModel)]=\"editedContent\"/>\n</div>\n\n<!-- Gizmo Edge associated with this Node-->\n<gizmo-edge \n\t*ngIf=\"soloSelected  && !nodeMoving\" \n\t[workspace]=\"workspace\"\n\t[fromNode]=\"node\"\n\t[positionOfTheCursor]=\"workspace.cursorPosition\"\n\t[prepared]=\"prepared\"\n\t[ghostNode]=\"ghostNode\"\n\t(linkNodes)=\"linkNodes.emit($event)\"\n\t(requireNewEdgeAndGhost)=\"prepareNewEdgeAndGhost()\"\n>\n</gizmo-edge>";
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.geometry.getBoundingBox().x\"\n[style.top.px]=\"node.geometry.getBoundingBox().y\"\n[style.width.px]=\"node.geometry.getBoundingBox().width\"\n[style.height.px]=\"node.geometry.getBoundingBox().height\"\n[style.opacity]=\"opacity()\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"mousedown($event)\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.shapeType==1\" x=\"1%\" y=\"1%\" width=\"99%\" height=\"99%\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\" [attr.stroke-dasharray]=\"strokeDashArray()\"/>\n\t\t\n\t\t<!--Rectangle(1) double border if needed-->\n\t\t<rect *ngIf=\"node.shapeType==1 && node.doubleBorder\" \n\t\t\t[attr.x]=\"doubleBorderPercentForFlatOffsetInWidth()\"\n\t\t\t[attr.y]=\"doubleBorderPercentForFlatOffsetInHeight()\" \n\t\t\t[attr.width]=\"doubleBorderPercentForWidthWithFlatReduction()\"\n\t\t\t[attr.height]=\"doubleBorderPercentForHeightWithFlatReduction()\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"1\" [attr.stroke-dasharray]=\"0\"/>\n\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<!--TODO Ellipse should be on its own-->\n\t\t<ellipse *ngIf=\"node.shapeType==2||node.shapeType==4\" cx=\"50%\" cy=\"50%\" rx=\"49%\" ry=\"49%\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\" [attr.stroke-dasharray]=\"strokeDashArray()\"/>\n\n\t\t<!--Circle(2) or Ellipse(4) double border if needed-->\n\t\t<!--TODO Ellipse should be on its own-->\n\t\t<ellipse *ngIf=\"(node.shapeType==2||node.shapeType==4) && node.doubleBorder\" cx=\"50%\" cy=\"50%\" rx=\"40%\" ry=\"40%\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"1\" [attr.stroke-dasharray]=\"0\"/>\n\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.shapeType==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\" [attr.stroke-dasharray]=\"strokeDashArray()\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.shapeType==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\" [attr.stroke-dasharray]=\"strokeDashArray()\"/>\n\t</svg>\n\n\t<div class=\"node-content\"\n\t\t[style.left.px]=\"node.geometry.getBoundingBox().width/2\"\n\t\t[style.top.px]=\"node.geometry.getBoundingBox().height/2\"\n\t\t[style.color]=\"node.foreground.hashCode()\" >{{node.content}}\n\t</div>\n</div>\n\n<ng-container *ngIf=\"false\">\n\n\t<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n\t<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"1\" \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"2\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"3\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"4\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"5\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"6\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"7\" \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"8\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n</ng-container>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble edit-operation\"\n\t(mousedown)=\"editContent($event)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topLeft().offset(-10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topLeft().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble toggle-outline-operation\"\n\t(mousedown)=\"toggleOutline($event)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().bottomLeft().offset(-10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().bottomLeft().offset(0,10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"drop-shadowed-pop-up\"\n\t(mousedown)=\"preventClosingOfOptions($event)\"\n\t[style.width.px]=\"200\"\n\t[style.height.px]=\"250\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topLeft().offset(-10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topLeft().offset(0,-10).y\"\n\t[@contentEditingOpen]=\"workspace.contentEditingIsOpen?'open':'closed'\" >\n\t<input #contentEditingField class=\"node-content-input\" type=\"text\" (keydown)=\"changeContent($event)\" [(ngModel)]=\"editedContent\"/>\n</div>\n\n<!-- Gizmo Edge associated with this Node-->\n<gizmo-edge \n\t*ngIf=\"soloSelected  && !nodeMoving\" \n\t[workspace]=\"workspace\"\n\t[fromNode]=\"node\"\n\t[positionOfTheCursor]=\"workspace.cursorPosition\"\n\t[prepared]=\"prepared\"\n\t[ghostNode]=\"ghostNode\"\n\t(linkNodes)=\"linkNodes.emit($event)\"\n\t(requireNewEdgeAndGhost)=\"prepareNewEdgeAndGhost()\"\n>\n</gizmo-edge>";
 
 /***/ },
-/* 128 */
+
+/***/ 128:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12543,13 +12657,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 129 */
+
+/***/ 129:
 /***/ function(module, exports) {
 
 	module.exports = "\n<svg \n\t[style.pointer-events]=\"'none'\"\n\t[style.left.px]=\"topLeft().x\" \n\t[style.top.px]=\"topLeft().y\"\n\t[style.position]=\"'absolute'\"\n \t[attr.height]=\"boundingHeight()\"\n\t[attr.width]=\"boundingWidth()\">\n  <svg:line [attr.x1]=\"withinBounds(start).x\"\n\t[attr.y1]=\"withinBounds(start).y\"\n\t[attr.x2]=\"withinBounds(end).x\"\n\t[attr.y2]=\"withinBounds(end).y\"\n\t[attr.stroke-dasharray]=\"strokeDashArray()\"\n\t[style.stroke]=\"color.hashCode()\"\n\t[ngStyle]=\"{'stroke-width':2}\"\n\t/>\n</svg>\n";
 
 /***/ },
-/* 130 */
+
+/***/ 130:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12593,13 +12709,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 131 */
+
+/***/ 131:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"link-circle\" \n\t[style.left.px]=\"link.center.x\"\n\t[style.top.px]=\"link.center.y\"\n\t[style.width.px]=\"link.radius*2\"\n\t[style.height.px]=\"link.radius*2\">\n\n</div>";
 
 /***/ },
-/* 132 */
+
+/***/ 132:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12629,13 +12747,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 133 */
+
+/***/ 133:
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
-/* 134 */
+
+/***/ 134:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12682,13 +12802,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 135 */
+
+/***/ 135:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classDiagram.rect.x\"\n[style.top.px]=\"classDiagram.rect.y\"\n[style.width.px]=\"classDiagram.rect.width\"\n[style.height.px]=\"classDiagram.rect.height\"\n[style.selected-block]=\"classDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span [class.italic]=\"classDiagram.classDefinition.isAbstract\">{{classDiagram.classDefinition.name}}</span>\n\t</div>\n\n\t<div \n\t*ngFor=\"let fieldMember of classDiagram.classDefinition.fieldList \" \n\tclass=\"block-cell content-block-cell\"\n\tcontenteditable=\"true\"\n\t>\n\t\t{{fieldMember.accessSpecifier | accessSymbol}} {{fieldMember.variableDefinition.name}} : {{fieldMember.variableDefinition.type.getName()}}\n\t</div>\n\t<div class=\"solid-horizontal-line mini-top-bottom-margin\"> </div>\n\t<div *ngFor=\"let methodMember of classDiagram.classDefinition.methodList; let i=index\" \n\t\tclass=\"block-cell content-block-cell\"\n\t\tcontenteditable=\"true\"\n\t\t>\n\n\t\t{{methodMember.accessSpecifier | accessSymbol}} \n\t\t<span [class.italic]=\"methodMember.isAbstract\">\n\t\t{{methodMember.methodPrototype.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of methodMember.methodPrototype.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{methodMember.methodPrototype.returnType.getName()}}\n\t\t</span>\n\t</div>\n</div>";
 
 /***/ },
-/* 136 */
+
+/***/ 136:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12735,13 +12857,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 137 */
+
+/***/ 137:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"classObjectDiagram.rect.x\"\n[style.top.px]=\"classObjectDiagram.rect.y\"\n[style.width.px]=\"classObjectDiagram.rect.width\"\n[style.height.px]=\"classObjectDiagram.rect.height\"\n[style.selected-block]=\"classObjectDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<span>{{classObjectDiagram.classObject.name}}</span>\n\t\t : \n\t\t<span class=\"bold\">{{classObjectDiagram.classObject.classDefinition.getName()}}</span>\n\t</div>\n\n\t<div *ngFor=\"let fieldData of classObjectDiagram.classObject.fieldDataList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{fieldData.variable.name}} \n\t\t=\n\t\t{{fieldData.data.stringRepresentation()}}\n\t</div>\n</div>";
 
 /***/ },
-/* 138 */
+
+/***/ 138:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12788,13 +12912,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 139 */
+
+/***/ 139:
 /***/ function(module, exports) {
 
 	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"interfaceDiagram.rect.x\"\n[style.top.px]=\"interfaceDiagram.rect.y\"\n[style.width.px]=\"interfaceDiagram.rect.width\"\n[style.height.px]=\"interfaceDiagram.rect.height\"\n[style.selected-block]=\"interfaceDiagram.selected\" \n(click)=\"toggleSelection()\" \n(mousepress)=\"registerDragIntention(this)\">\n\n\t<div class=\"block-cell bottom-border-solid header-block-cell\">\n\t\t<div class=\"header-decorater\"> &lt;&lt; Interface &gt;&gt; </div>\n\t\t<span>{{interfaceDiagram.interfaceDefinition.name}}</span>\n\t</div>\n\n\t<div *ngFor=\"let method of interfaceDiagram.interfaceDefinition.methodList\" \n\t\tclass=\"block-cell content-block-cell\">\n\t\t+ \n\t\t{{method.identifier}} \n\t\t(\n\t\t\t<span *ngFor=\"let argument of method.argumentList\">\n\t\t\t\t{{argument.name}} : {{argument.type.getName()}}\n\t\t\t</span>\n\t\t)\n\t\t: {{method.returnType.getName()}}\n\t</div>\n</div>";
 
 /***/ },
-/* 140 */
+
+/***/ 140:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12824,13 +12950,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 141 */
+
+/***/ 141:
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
-/* 142 */
+
+/***/ 142:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12860,13 +12988,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 143 */
+
+/***/ 143:
 /***/ function(module, exports) {
 
 	module.exports = "TODO";
 
 /***/ },
-/* 144 */
+
+/***/ 144:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -12975,13 +13105,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 145 */
+
+/***/ 145:
 /***/ function(module, exports) {
 
 	module.exports = "<div \n\tid=\"multiple-selection-container\"\n\t[style.left.px]=\"rect.x\"\n\t[style.top.px]=\"rect.y\"\n\t[style.width.px]=\"rect.width\"\n\t[style.height.px]=\"rect.height\"\n\t[style.display]=\"active?'block':'none'\">\n\n</div>\n\n<div \n\t*ngIf=\"active\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeUs.emit()\"\n\t[style.left.px]=\"rect.topRight().offset(10,0).x\"\n\t[style.top.px]=\"rect.topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>";
 
 /***/ },
-/* 146 */
+
+/***/ 146:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13035,13 +13167,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 147 */
+
+/***/ 147:
 /***/ function(module, exports) {
 
 	module.exports = "<line-segment \n\t[start]=\"edge.fromPoint.pointOnGeometry()\"\n\t[end]=\"edge.toPoint.pointOnGeometry()\"\n\t[color]=\"edgeColor()\"\n\t[dashStyle]=\"edge.style.dashStyle\"\n\t[startStyle]=\"edge.style.fromEndpoint\"\n\t[endStyle]=\"edge.style.toEndpoint\"\n\t></line-segment>\n\n<edge-style \n\t*ngIf=\"soloSelected\" \n\t[workspace]=\"workspace\"\n\t[edge]=\"edge\"\n\t[positionOfTheCursor]=\"workspace.cursorPosition\"\n>\n</edge-style>";
 
 /***/ },
-/* 148 */
+
+/***/ 148:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13176,7 +13310,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 149 */
+
+/***/ 149:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13308,13 +13443,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 150 */
+
+/***/ 150:
 /***/ function(module, exports) {
 
 	module.exports = "<ng-container *ngIf=\"showGhostNode\">\n\t<!--Ghost Node should'nt block events on the gizmo-->\n\t<generic-node\n\t\t\t\t[genericNode]=\"ghostNode\"\n\t\t\t\t[workspace]=\"workspace\"\n\t\t\t\t[soloSelected]=\"false\"\n\t\t\t\t></generic-node>\n</ng-container>\n<ng-container *ngIf=\"prepared!=null && prepared.fromPoint!=null && prepared.toPoint!=null\">\n\t<line-segment\n\t\t[start]=\"prepared.fromPoint.pointOnGeometry()\" \n\t\t[end]=\"prepared.toPoint.pointOnGeometry()\"\n\t\t[color]=\"prepared.style.color\"\n\t\t[dashStyle]=\"prepared.style.dashStyle\"\n\t\t[startStyle]=\"prepared.style.fromEndpoint\"\n\t\t[endStyle]=\"prepared.style.toEndpoint\"\n\t\t>\n\t</line-segment>\n\n\t<div class=\"link-circle\" \n\t\t(mousedown)=\"linkNodesByDragging($event)\"\n\t\t(mouseenter)=\"mouseenter($event)\"\n\t\t(mouseleave)=\"mouseleave($event)\"\n\t\t[style.left.px]=\"prepared.toPoint.pointOnGeometry().x\"\n\t\t[style.top.px]=\"prepared.toPoint.pointOnGeometry().y\"\n\t\t[style.width.px]=\"10\"\n\t\t[style.height.px]=\"10\">\n\n\t</div>\n</ng-container>\n";
 
 /***/ },
-/* 151 */
+
+/***/ 151:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13407,7 +13544,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 152 */
+
+/***/ 152:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13440,13 +13578,15 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 153 */
+
+/***/ 153:
 /***/ function(module, exports) {
 
 	module.exports = "<ng-container *ngIf=\"edge!=null\">\n\n\t<div class=\"link-circle\" \n\t\t(mousedown)=\"openStyleOptions($event)\"\n\t\t[style.left.px]=\"follow.x\"\n\t\t[style.top.px]=\"follow.y\"\n\t\t[style.width.px]=\"10\"\n\t\t[style.height.px]=\"10\">\n\t</div>\n</ng-container>\n\n<div \n\tclass=\"drop-shadowed-pop-up\"\n\t(mousedown)=\"preventClosingOfOptions($event)\"\n\t[style.width.px]=\"200\"\n\t[style.height.px]=\"250\"\n\t[style.left.px]=\"follow.x\"\n\t[style.top.px]=\"follow.y\"\n\t[@styleOptionsOpen]=\"workspace.edgeStyleOptionsIsOpen?'open':'closed'\" >\n\t<ul id=\"edge-style-list\">\n\t\t<li id=\"remove-list-item\" (mousedown)=\"removeEdge($event)\">\n\t\t\tRemove\n\t\t</li>\n\t\t<li (mousedown)=\"changeDashing(1,$event)\">\n\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t<line stroke-dasharray=\"0\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t</svg>\n\t\t</li>\n\t\t<li (mousedown)=\"changeDashing(2,$event)\">\n\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t<line stroke-dasharray=\"7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t</svg>\n\t\t</li>\n\t\t<li (mousedown)=\"changeDashing(3,$event)\">\n\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t<line stroke-dasharray=\"3 7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t</svg>\n\t\t</li>\n\t</ul>\n</div>";
 
 /***/ },
-/* 154 */
+
+/***/ 154:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13486,7 +13626,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 155 */
+
+/***/ 155:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13528,7 +13669,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 156 */
+
+/***/ 156:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13605,7 +13747,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 157 */
+
+/***/ 157:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13683,7 +13826,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 158 */
+
+/***/ 158:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13730,7 +13874,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 159 */
+
+/***/ 159:
 /***/ function(module, exports, __webpack_require__) {
 
 	"use strict";
@@ -13781,7 +13926,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 160 */
+
+/***/ 160:
 /***/ function(module, exports, __webpack_require__) {
 
 	// style-loader: Adds some css to the DOM by adding a <style> tag
@@ -13807,7 +13953,8 @@ webpackJsonp([0],[
 	}
 
 /***/ },
-/* 161 */
+
+/***/ 161:
 /***/ function(module, exports, __webpack_require__) {
 
 	exports = module.exports = __webpack_require__(162)();
@@ -13815,13 +13962,14 @@ webpackJsonp([0],[
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: 'Source Sans Pro', sans-serif;\n  margin: 0px; }\n\n.generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.3);\n  position: absolute;\n  z-index: 11; }\n\n#creation-drawer-list {\n  list-style-type: none; }\n\n#creation-drawer-list li {\n  width: 100%;\n  height: 50px; }\n\n#edge-style-list {\n  list-style-type: none;\n  padding: 0px;\n  margin: 0px; }\n\n#edge-style-list li {\n  height: 50px;\n  text-align: center; }\n\n#edge-style-list li:hover {\n  background: lightgrey; }\n\n#remove-list-item {\n  background: #E54F4F;\n  color: #FFF;\n  text-align: center;\n  padding-top: 15px;\n  height: 30px; }\n\n#remove-list-item:hover {\n  background: #930101; }\n\n#creation-drawer-list li {\n  display: inline;\n  padding-right: 30px; }\n\n#multiple-selection-container {\n  border: 1px solid blue;\n  position: absolute;\n  z-index: 11;\n  pointer-events: none; }\n\n#back-to-dashboard {\n  position: absolute;\n  top: 20px;\n  left: 20px;\n  color: gray; }\n\n.node-content-input {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  font-size: 1.3em; }\n\n.selected {\n  border-color: #2BA3FC;\n  color: #2BA3FC; }\n\n.medium-bubble {\n  border-radius: 50%;\n  position: absolute;\n  width: 15px;\n  height: 15px;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%);\n  z-index: 100; }\n\n.remove-operation {\n  background: red;\n  cursor: pointer; }\n\n.edit-operation {\n  background: cornflowerblue;\n  cursor: pointer; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  position: relative;\n  text-align: center;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%); }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  text-align: center; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353;\n  z-index: 2; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n\n.form-field {\n  background: #F8F8F8;\n  border: none;\n  height: 40px;\n  padding-left: 25px;\n  min-width: 200px; }\n\n.form-field:focus {\n  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);\n  outline: none; }\n\n.button {\n  color: white;\n  border-radius: 30px;\n  cursor: pointer;\n  text-decoration: none;\n  height: 20px;\n  padding: 10px;\n  font-size: 1em;\n  display: inline-block;\n  text-align: center;\n  min-width: 70px; }\n\n.primary {\n  background-image: linear-gradient(19deg, #34A0AA 0%, #1879EF 100%); }\n\n.primary-complement {\n  background-image: linear-gradient(36deg, #9D40B3 0%, #DA8BC3 100%); }\n\n.full-width-center {\n  text-align: center;\n  width: 100%; }\n\n.no-list-style {\n  list-style: none; }\n\nul.centered-list {\n  text-align: center;\n  list-style: none;\n  padding: 0px; }\n\nul.centered-list li {\n  margin: 20px; }\n\nul.horizontal-list li {\n  display: inline-block; }\n\n.big-padding-bottom {\n  padding-bottom: 40px; }\n\n.big-padding-top {\n  padding-top: 40px; }\n\nheader {\n  width: 100%;\n  background: #FFFFFF;\n  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);\n  text-align: center;\n  height: 80px;\n  line-height: 80px;\n  margin-bottom: 70px; }\n\nheader h1 {\n  margin: 0px;\n  font-size: 30px;\n  color: #6F6F6F;\n  font-weight: lighter;\n  display: inline-block; }\n\n.header-logo {\n  float: left;\n  width: auto;\n  height: 70%;\n  padding-left: 20px;\n  padding-top: 10px; }\n\nul.header-links-container {\n  float: right;\n  margin: 0px 20px 0px 0px; }\n\nul.header-links-container li {\n  padding-right: 10px; }\n\n.header-link {\n  text-decoration: none;\n  color: #D98BC3;\n  font-weight: bold;\n  cursor: pointer; }\n\n.header-link:hover {\n  color: #A576DA; }\n\nul.horizontal-list.spaced-out li {\n  padding-right: 10px; }\n\n.dashboard-actions {\n  cursor: pointer; }\n\n.float-right {\n  float: right; }\n\n.worksheet-title {\n  color: #D98BC3;\n  margin-bottom: 5px;\n  margin-top: 5px;\n  cursor: pointer; }\n\n.worksheet-title:hover {\n  color: #A576DA; }\n\n.worksheet-description {\n  color: #2B93C1;\n  font-weight: 300;\n  margin-top: 0px;\n  margin-bottom: 5px; }\n\n.worksheet-info {\n  padding-left: 30px;\n  display: inline-block; }\n\n.worksheet-row {\n  border-bottom: 1px solid black;\n  text-align: left;\n  height: 100px;\n  overflow-y: clip; }\n\n.gaps-on-sides {\n  margin-left: 40px;\n  margin-right: 40px; }\n\n.no-margin {\n  margin: 0px; }\n\nul.centered-list li.no-margin {\n  margin: 0px; }\n\n.dashboard-options {\n  color: #A576DA;\n  text-align: left;\n  height: 60px;\n  border-bottom: 1px solid black;\n  padding-left: 30px; }\n\n.wide {\n  width: 40%; }\n\n.new-worksheet {\n  padding-right: 40px;\n  float: right;\n  padding-right: 40px;\n  cursor: pointer; }\n\n.new-worksheet img {\n  padding-right: 20px;\n  position: relative;\n  top: 10px; }\n\n.new-worksheet span {\n  font-size: 1.3em;\n  position: relative;\n  top: 10px; }\n", ""]);
+	exports.push([module.id, "body {\n  font-family: 'Source Sans Pro', sans-serif;\n  margin: 0px; }\n\n.generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.3);\n  position: absolute;\n  z-index: 11; }\n\n#creation-drawer-list {\n  list-style-type: none; }\n\n#creation-drawer-list li {\n  width: 100%;\n  height: 50px; }\n\n#edge-style-list {\n  list-style-type: none;\n  padding: 0px;\n  margin: 0px; }\n\n#edge-style-list li {\n  height: 50px;\n  text-align: center; }\n\n#edge-style-list li:hover {\n  background: lightgrey; }\n\n#remove-list-item {\n  background: #E54F4F;\n  color: #FFF;\n  text-align: center;\n  padding-top: 15px;\n  height: 30px; }\n\n#remove-list-item:hover {\n  background: #930101; }\n\n#creation-drawer-list li {\n  display: inline;\n  padding-right: 30px; }\n\n#multiple-selection-container {\n  border: 1px solid blue;\n  position: absolute;\n  z-index: 11;\n  pointer-events: none; }\n\n#back-to-dashboard {\n  position: absolute;\n  top: 20px;\n  left: 20px;\n  color: gray; }\n\n.node-content-input {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  font-size: 1.3em; }\n\n.selected {\n  border-color: #2BA3FC;\n  color: #2BA3FC; }\n\n.medium-bubble {\n  border-radius: 50%;\n  position: absolute;\n  width: 15px;\n  height: 15px;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%);\n  z-index: 100;\n  cursor: pointer; }\n\n.remove-operation {\n  background: red; }\n\n.edit-operation {\n  background: cornflowerblue; }\n\n.toggle-outline-operation {\n  background: white;\n  border: 1px dashed black; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  position: relative;\n  text-align: center;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%); }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  text-align: center; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353;\n  z-index: 2; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n\n.form-field {\n  background: #F8F8F8;\n  border: none;\n  height: 40px;\n  padding-left: 25px;\n  min-width: 200px; }\n\n.form-field:focus {\n  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);\n  outline: none; }\n\n.button {\n  color: white;\n  border-radius: 30px;\n  cursor: pointer;\n  text-decoration: none;\n  height: 20px;\n  padding: 10px;\n  font-size: 1em;\n  display: inline-block;\n  text-align: center;\n  min-width: 70px; }\n\n.primary {\n  background-image: linear-gradient(19deg, #34A0AA 0%, #1879EF 100%); }\n\n.primary-complement {\n  background-image: linear-gradient(36deg, #9D40B3 0%, #DA8BC3 100%); }\n\n.full-width-center {\n  text-align: center;\n  width: 100%; }\n\n.no-list-style {\n  list-style: none; }\n\nul.centered-list {\n  text-align: center;\n  list-style: none;\n  padding: 0px; }\n\nul.centered-list li {\n  margin: 20px; }\n\nul.horizontal-list li {\n  display: inline-block; }\n\n.big-padding-bottom {\n  padding-bottom: 40px; }\n\n.big-padding-top {\n  padding-top: 40px; }\n\nheader {\n  width: 100%;\n  background: #FFFFFF;\n  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);\n  text-align: center;\n  height: 80px;\n  line-height: 80px;\n  margin-bottom: 70px; }\n\nheader h1 {\n  margin: 0px;\n  font-size: 30px;\n  color: #6F6F6F;\n  font-weight: lighter;\n  display: inline-block; }\n\n.header-logo {\n  float: left;\n  width: auto;\n  height: 70%;\n  padding-left: 20px;\n  padding-top: 10px; }\n\nul.header-links-container {\n  float: right;\n  margin: 0px 20px 0px 0px; }\n\nul.header-links-container li {\n  padding-right: 10px; }\n\n.header-link {\n  text-decoration: none;\n  color: #D98BC3;\n  font-weight: bold;\n  cursor: pointer; }\n\n.header-link:hover {\n  color: #A576DA; }\n\nul.horizontal-list.spaced-out li {\n  padding-right: 10px; }\n\n.dashboard-actions {\n  cursor: pointer; }\n\n.float-right {\n  float: right; }\n\n.worksheet-title {\n  color: #D98BC3;\n  margin-bottom: 5px;\n  margin-top: 5px;\n  cursor: pointer; }\n\n.worksheet-title:hover {\n  color: #A576DA; }\n\n.worksheet-description {\n  color: #2B93C1;\n  font-weight: 300;\n  margin-top: 0px;\n  margin-bottom: 5px; }\n\n.worksheet-info {\n  padding-left: 30px;\n  display: inline-block; }\n\n.worksheet-row {\n  border-bottom: 1px solid black;\n  text-align: left;\n  height: 100px;\n  overflow-y: clip; }\n\n.gaps-on-sides {\n  margin-left: 40px;\n  margin-right: 40px; }\n\n.no-margin {\n  margin: 0px; }\n\nul.centered-list li.no-margin {\n  margin: 0px; }\n\n.dashboard-options {\n  color: #A576DA;\n  text-align: left;\n  height: 60px;\n  border-bottom: 1px solid black;\n  padding-left: 30px; }\n\n.wide {\n  width: 40%; }\n\n.new-worksheet {\n  padding-right: 40px;\n  float: right;\n  padding-right: 40px;\n  cursor: pointer; }\n\n.new-worksheet img {\n  padding-right: 20px;\n  position: relative;\n  top: 10px; }\n\n.new-worksheet span {\n  font-size: 1.3em;\n  position: relative;\n  top: 10px; }\n", ""]);
 	
 	// exports
 
 
 /***/ },
-/* 162 */
+
+/***/ 162:
 /***/ function(module, exports) {
 
 	/*
@@ -13877,7 +14025,8 @@ webpackJsonp([0],[
 
 
 /***/ },
-/* 163 */
+
+/***/ 163:
 /***/ function(module, exports, __webpack_require__) {
 
 	/*
@@ -14128,6 +14277,54 @@ webpackJsonp([0],[
 	}
 
 
+/***/ },
+
+/***/ 723:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var command_1 = __webpack_require__(102);
+	var ChangeNodeOutlineCommand = (function (_super) {
+	    __extends(ChangeNodeOutlineCommand, _super);
+	    function ChangeNodeOutlineCommand(node, newDouble, newDashed, ghostNode) {
+	        _super.call(this);
+	        this.node = node;
+	        this.oldDouble = this.node.doubleBorder;
+	        this.oldDashed = this.node.dashedBorder;
+	        this.newDouble = newDouble;
+	        this.newDashed = newDashed;
+	        this.ghostNode = ghostNode;
+	    }
+	    ChangeNodeOutlineCommand.prototype.execute = function () {
+	        this.node.doubleBorder = this.newDouble;
+	        this.node.dashedBorder = this.newDashed;
+	        this.letGhostCopyFromOriginal();
+	    };
+	    ChangeNodeOutlineCommand.prototype.unExecute = function () {
+	        this.node.doubleBorder = this.oldDouble;
+	        this.node.dashedBorder = this.oldDashed;
+	        this.letGhostCopyFromOriginal();
+	    };
+	    ChangeNodeOutlineCommand.prototype.letGhostCopyFromOriginal = function () {
+	        if (this.ghostNode != null) {
+	            this.ghostNode.dashedBorder = this.node.dashedBorder;
+	            this.ghostNode.doubleBorder = this.node.doubleBorder;
+	        }
+	    };
+	    ChangeNodeOutlineCommand.prototype.getName = function () {
+	        return "Change node outline";
+	    };
+	    return ChangeNodeOutlineCommand;
+	}(command_1.Command));
+	exports.ChangeNodeOutlineCommand = ChangeNodeOutlineCommand;
+
+
 /***/ }
-]);
+
+});
 //# sourceMappingURL=app.js.map

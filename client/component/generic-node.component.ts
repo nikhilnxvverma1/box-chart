@@ -1,4 +1,5 @@
-import { Component,Input,Output,EventEmitter} from '@angular/core';
+import { Component,Input,Output,EventEmitter } from '@angular/core';
+import { ViewChild,ElementRef } from '@angular/core';
 import { ViewChildren,QueryList,OnInit,OnChanges,SimpleChanges } from '@angular/core';
 import { animate,trigger,state,style,transition } from '@angular/core';
 import { Point,Rect } from '../model/geometry';
@@ -8,6 +9,7 @@ import { ResizeHandleComponent } from './resize-handle.component';
 import { DiagramNode,DiagramEdge,GenericDiagramNode,InteractiveAppearance } from '../model/worksheet';
 import { LinkNodesCommand } from '../editor/command/link-nodes';
 import { ChangeNodeContentCommand } from '../editor/command/change-node-content';
+import { ChangeNodeOutlineCommand } from '../editor/command/change-node-outline';
 import { MoveListener } from '../editor/command/move';
 
 //TODO move outside to a special 'variables' file 
@@ -17,6 +19,8 @@ const POINTING_LINKER_TO_COLOR='#D98BC3';
 const GHOST_COLOR='#D2D2D2';
 const WIDTH=200;
 const HEIGHT=70;
+
+const DOUBLE_BORDER_FLAT_OFFSET=5;
 
 @Component({
 	selector: 'generic-node',
@@ -55,6 +59,7 @@ export class GenericNodeComponent implements OnInit,MoveListener{//,OnChanges
 	@Output('linkNodes') linkNodes=new EventEmitter<LinkNodesCommand>();
 	@Output() removeMe=new EventEmitter<DiagramNode>();
 	@ViewChildren(ResizeHandleComponent) resizeHandlers:QueryList<ResizeHandleComponent>;
+	@ViewChild ('contentEditingField') contentEditingField:ElementRef;
 
 	private nodeMoving=false;
 	prepared:DiagramEdge;
@@ -98,7 +103,63 @@ export class GenericNodeComponent implements OnInit,MoveListener{//,OnChanges
 	editContent(event:MouseEvent){
 		this.workspace.contentEditingIsOpen=true;
 		this.editedContent=this.node.content;
+		this.focusAndSelectEditableContent();
 		event.stopPropagation();
+	}
+
+	focusAndSelectEditableContent(){
+		//its possible that the input never got loaded in because its contingent on editability
+		if(this.contentEditingField!=null){
+		// focus on the input box and select the entire text inside
+			this.contentEditingField.nativeElement.focus();
+			this.contentEditingField.nativeElement.select();
+		}
+	}
+
+	toggleOutline(event:MouseEvent){
+		console.debug("Toggleing outline on this shape");
+
+		// this.node.dashedBorder=!this.node.dashedBorder;
+		let outlineStyle=this.getNextOutlineStyle();
+		this.workspace.commit(
+			new ChangeNodeOutlineCommand(
+			this.node,
+			outlineStyle.doubleBorder,
+			outlineStyle.dashedBorder,
+			this.ghostNode),true);
+
+
+		event.stopPropagation();
+	}
+
+	private getNextOutlineStyle():OutlineStyle{
+		if(!this.node.doubleBorder && !this.node.dashedBorder){// 00
+			return new OutlineStyle(false,true);//00 goes to 11
+		}else if(!this.node.doubleBorder && this.node.dashedBorder){// 01
+			return new OutlineStyle(true,false);//01 goes to 10
+		}else if(this.node.doubleBorder && !this.node.dashedBorder){// 10
+			return new OutlineStyle(true,true);//10 goes to 11
+		}else{//11
+			return new OutlineStyle(false,false);//11 goes to 00
+		}
+	}
+
+	private doubleBorderPercentForFlatOffsetInWidth():string{
+		return (DOUBLE_BORDER_FLAT_OFFSET/this.node.geometry.getBoundingBox().width)*100+"%";
+	}
+
+	private doubleBorderPercentForFlatOffsetInHeight():string{
+		return (DOUBLE_BORDER_FLAT_OFFSET/this.node.geometry.getBoundingBox().height)*100+"%";
+	}
+
+	private doubleBorderPercentForWidthWithFlatReduction():string{
+		return ((this.node.geometry.getBoundingBox().width-2*DOUBLE_BORDER_FLAT_OFFSET)/
+			this.node.geometry.getBoundingBox().width)*100+"%";
+	}
+
+	private doubleBorderPercentForHeightWithFlatReduction():string{
+		return ((this.node.geometry.getBoundingBox().height-2*DOUBLE_BORDER_FLAT_OFFSET)/
+			this.node.geometry.getBoundingBox().height)*100+"%";
 	}
 
 	strokeColor(){
@@ -114,6 +175,14 @@ export class GenericNodeComponent implements OnInit,MoveListener{//,OnChanges
 			return GHOST_COLOR;
 		}
 		return this.node.background.hashCode();
+	}
+
+	strokeDashArray():string{
+		if(this.node.dashedBorder){
+			return "7";
+		}else{
+			return "0";
+		}
 	}
 
 	opacity():number{
@@ -156,4 +225,14 @@ export class GenericNodeComponent implements OnInit,MoveListener{//,OnChanges
 		this.nodeMoving=false;
 	}
 
+}
+
+class OutlineStyle{
+	doubleBorder:boolean;
+	dashedBorder:boolean;
+
+	constructor(double:boolean,dashed:boolean){
+		this.doubleBorder=double;
+		this.dashedBorder=dashed;
+	}
 }

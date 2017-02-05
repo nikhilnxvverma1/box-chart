@@ -108,16 +108,21 @@ body{
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
 	z-index: 100;
+	cursor: pointer;
 }
 
 .remove-operation{
 	background:red;//TODO SVG background 
-	cursor: pointer;
+
 }
 
 .edit-operation{
 	background:cornflowerblue;//TODO SVG background 
-	cursor: pointer;
+}
+
+.toggle-outline-operation{
+	background:white;
+	border:1px dashed black;
 }
 
 .node-background{

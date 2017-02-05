@@ -23,6 +23,10 @@ export class SelectionBoxComponent {
 
 	mousePressed(event: MouseEvent): void {
 
+ 		if(event.buttons==0){
+			 return;
+		}
+
 		if(!event.shiftKey){
 			this.workspace.clearSelection();
 		}
@@ -38,7 +42,7 @@ export class SelectionBoxComponent {
 	}
 
 	mouseMoved(event: MouseEvent): void {
-		if (this.active && !this.workspace.currentlyPanning) {
+		if (this.active && !this.workspace.currentlyPanning && event.buttons!=0) {
 
 			this.difference.x -= this.lastPosition.x - event.clientX;
 			this.difference.y -= this.lastPosition.y - event.clientY;

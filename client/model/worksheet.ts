@@ -373,6 +373,8 @@ export class GenericDiagramNode extends DiagramNode{
 	private _rect:Rect;
 	private _content:string;
 	private _geometry:Geometry;
+	private _doubleBorder:boolean=false;
+	private _dashedBorder:boolean=false;
 
 	constructor(type:GenericDiagramNodeType){
 		super();
@@ -417,6 +419,22 @@ export class GenericDiagramNode extends DiagramNode{
 
 	get type():DiagramNodeType{
 		return DiagramNodeType.GenericDiagramNode;
+	}
+
+	get doubleBorder():boolean{
+		return this._doubleBorder;
+	}
+
+	get dashedBorder():boolean{
+		return this._dashedBorder;
+	}
+
+	set doubleBorder(value:boolean){
+		this._doubleBorder=value;
+	}
+
+	set dashedBorder(value:boolean){
+		this._dashedBorder=value;
 	}
 
 	/** Returns type of node based on geometry */
@@ -486,6 +504,8 @@ export class GenericDiagramNode extends DiagramNode{
 
 		//duplicate the node with the same type
 		let newNode=new GenericDiagramNode(this.shapeType);
+		newNode.dashedBorder=this.dashedBorder;
+		newNode.doubleBorder=this.doubleBorder;
 		newNode.content=newContent;
 		newNode.selected=false;
 
@@ -511,6 +531,8 @@ export class GenericDiagramNode extends DiagramNode{
 		json.geometry=this.geometry.toJSON();
 		json.shapeType=this.shapeType;
 		json.content=this.content;
+		json.doubleBorder=this._doubleBorder;
+		json.dashedBorder=this._dashedBorder;
 		return json;
 	}
 
@@ -522,6 +544,8 @@ export class GenericDiagramNode extends DiagramNode{
 		this.stroke.fromJSON(json.stroke);
 		this.geometry=geometryFromJSON(json.geometry);
 		this.content=json.content;
+		this._doubleBorder=json.doubleBorder==null?false:json.doubleBorder;
+		this._dashedBorder=json.dashedBorder==null?false:json.dashedBorder;
 		return this;
 	}
 

@@ -86,7 +86,7 @@ export class ArtboardComponent implements OnInit{
 		this.mousedownEvent.emit(event);
 		if(this.draggingInteraction!=null){
 			this.draggingInteraction.handleMousePress(event);
-		}else if(event.buttons!=0){//some button is pressed and shift key is not pressed
+		}else{
 			this.selectionBox.mousePressed(event);
 		}
 		this.appRef.tick();
@@ -102,7 +102,7 @@ export class ArtboardComponent implements OnInit{
 		
 		if(this.draggingInteraction!=null){
 			this.draggingInteraction.handleMouseDrag(event);
-		}else if(event.buttons!=0){
+		}else{
 			this.selectionBox.mouseMoved(event);
 		}
 		this.appRef.tick();
@@ -112,7 +112,7 @@ export class ArtboardComponent implements OnInit{
 		this.mouseupEvent.emit(event);	
 		if(this.draggingInteraction!=null){
 			this.draggingInteraction.handleMouseRelease(event);
-		}else if(event.buttons!=0){
+		}else{
 			this.selectionBox.mouseReleased(event);
 		}
 		this.draggingInteraction=null;
