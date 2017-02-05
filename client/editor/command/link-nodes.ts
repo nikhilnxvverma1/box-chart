@@ -88,6 +88,7 @@ export class LinkNodesCommand extends Command implements PressDragReleaseProcess
 
 		if(this.listener!=null){
 			this.listener.finishedLinkingToNode(endpoint);
+			this.listener=null;//nullify the reference to the listener so that we don't leak memory
 		}
 	}
 

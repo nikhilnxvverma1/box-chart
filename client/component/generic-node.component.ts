@@ -1,13 +1,14 @@
 import { Component,Input,Output,EventEmitter} from '@angular/core';
 import { ViewChildren,QueryList,OnInit,OnChanges,SimpleChanges } from '@angular/core';
 import { animate,trigger,state,style,transition } from '@angular/core';
-import { Rect } from '../model/geometry';
+import { Point,Rect } from '../model/geometry';
 import { Workspace } from '../editor/workspace';
 import { Direction,PressDragReleaseProcessor } from '../utility/common';
 import { ResizeHandleComponent } from './resize-handle.component';
 import { DiagramNode,DiagramEdge,GenericDiagramNode } from '../model/worksheet';
 import { LinkNodesCommand } from '../editor/command/link-nodes';
 import { ChangeNodeContentCommand } from '../editor/command/change-node-content';
+import { MoveListener } from '../editor/command/move';
 
 //TODO move outside to a special 'variables' file 
 const SELECTION_COLOR='#2BA3FC';
@@ -42,12 +43,12 @@ const HEIGHT=70;
     ])
 	]
 })
-export class GenericNodeComponent implements OnInit{//,OnChanges
+export class GenericNodeComponent implements OnInit,MoveListener{//,OnChanges
 
 	@Input('workspace') workspace:Workspace;
 	@Input("soloSelected") soloSelected:boolean;
 	@Input('genericNode') node:GenericDiagramNode;
-	@Output() requestDragging=new EventEmitter<DiagramNode>();
+	@Output() requestDragging=new EventEmitter<GenericNodeComponent>();
 	@Output('linkNodes') linkNodes=new EventEmitter<LinkNodesCommand>();
 	@Output() removeMe=new EventEmitter<DiagramNode>();
 	@ViewChildren(ResizeHandleComponent) resizeHandlers:QueryList<ResizeHandleComponent>;
@@ -70,7 +71,7 @@ export class GenericNodeComponent implements OnInit{//,OnChanges
 
 	registerDragIntention(){
 		if(!this.workspace.contentEditingIsOpen){
-			this.requestDragging.emit(this.node);
+			this.requestDragging.emit(this);
 		}
 	}
 
@@ -110,5 +111,18 @@ export class GenericNodeComponent implements OnInit{//,OnChanges
 		}else if(event.keyCode==27){//cancel
 			this.workspace.contentEditingIsOpen=false;
 		}
+	}
+
+	
+	moveStarted():void{
+		this.nodeMoving=true;
+	}
+	
+	moveInProgress(dPoint:Point):void{
+
+	}
+
+	moveEnded(displacementMade:boolean):void{
+		this.nodeMoving=false;
 	}
 }

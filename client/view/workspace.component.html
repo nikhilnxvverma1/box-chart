@@ -6,6 +6,16 @@
 	(window:resize)="resize($event)"
 	[style.cursor]="windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'"
 	>
+
+	<!-- Show starter tip only if there is nothing in the scene -->
+<!--[style.left.px]="massiveArea.width/2"
+		[style.top.px]="massiveArea.height/2"-->
+		<h1 id="starter-tip"
+		*ngIf="
+		workspace!=null &&
+		workspace.worksheet.diagramModel.edgeList.length==0 && 
+		workspace.worksheet.diagramModel.nodeList.length==0"
+		>Press A or 1 to open the creation drawer</h1>
 	<artboard 
 		(mousedownEvent)="mousedown($event)"
 		(mousemoveEvent)="mousemove($event)"

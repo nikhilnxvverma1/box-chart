@@ -16,6 +16,7 @@ import { Workspace } from '../editor/workspace';
 import { SelectionBoxComponent } from './selection-box.component';
 import { MoveCommand } from '../editor/command/move';
 import { RemoveCommand } from '../editor/command/remove';
+import { GenericNodeComponent } from './generic-node.component';
 
 export const ArtboardWidth=3200;
 export const ArtboardHeight=(2/3)*ArtboardWidth;
@@ -28,7 +29,6 @@ export const ArtboardHeight=(2/3)*ArtboardWidth;
 })
 export class ArtboardComponent implements OnInit{
     massiveArea:Rect;
-    rectList:Rect[]=[];
 
 	@ViewChild(SelectionBoxComponent)
 	private selectionBox:SelectionBoxComponent;
@@ -55,32 +55,7 @@ export class ArtboardComponent implements OnInit{
 	}
 
 	ngOnInit(){
-		// this.testing();
-	}
-
-	testing(){
-		// this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
-		this.rectList.push(new Rect(1300,1000,200,50));
-
-		let genericNode1=new GenericDiagramNode(GenericDiagramNodeType.Rectangle);
-		let rect1=new Rect(1500,1200,200,50);
-		genericNode1.geometry=rect1;
-
-		let genericNode2=new GenericDiagramNode(GenericDiagramNodeType.RoundedRectangle);
-		let rect2=new Rect(1800,1000,200,50);
-		genericNode2.geometry=rect2;
-
-		let edge=new DiagramEdge();
-		edge.from=genericNode1;
-		edge.to=genericNode2;
 		
-		this.workspace.worksheet.diagramModel.nodeList.push(genericNode1);
-		this.workspace.worksheet.diagramModel.nodeList.push(genericNode2);
-
-		this.workspace.worksheet.diagramModel.edgeList.push(edge);
-
-		let jsonModel=this.workspace.worksheet.diagramModel.toJSON();
-		console.log(jsonModel);
 	}
 
 	doubleClickedArtboard(event:MouseEvent){
@@ -151,7 +126,8 @@ export class ArtboardComponent implements OnInit{
 		}
 	}
 
-	moveNodes(pressedNode:DiagramNode){
+	moveNodes(nodeComponent:GenericNodeComponent){
+		let pressedNode:DiagramNode=nodeComponent.node;
 		if(this.draggingInteraction==null){
 			console.debug("Creating move command for possible movement");
 
@@ -163,7 +139,7 @@ export class ArtboardComponent implements OnInit{
 			}
 
 			//issue a press drag release based command which will work on the current selection
-			this.draggingInteraction=new MoveCommand(this.workspace,this.workspace.copySelection());
+			this.draggingInteraction=new MoveCommand(this.workspace,this.workspace.copySelection(),true,nodeComponent);
 		}
 	}
 
@@ -189,14 +165,5 @@ export class ArtboardComponent implements OnInit{
 			this.diagramticComponentList.splice(index, 1);
 		}
 	}
-
-	//testing stuff
-	st=new Point(1501,1300);
-	en=new Point(1700,700);
-
-	genericNode1:GenericDiagramNode;
-	genericNode2:GenericDiagramNode;
-	
-	edge:DiagramEdge;
 
 }

@@ -9238,7 +9238,6 @@ webpackJsonp([0],[
 	var auto_completion_component_1 = __webpack_require__(96);
 	var creationDrawer = __webpack_require__(99);
 	var interpreter_service_1 = __webpack_require__(107);
-	var worksheet_1 = __webpack_require__(71);
 	var workspace_1 = __webpack_require__(100);
 	var selection_box_component_1 = __webpack_require__(111);
 	var move_1 = __webpack_require__(104);
@@ -9250,37 +9249,14 @@ webpackJsonp([0],[
 	        this.mockDataService = mockDataService;
 	        this.interpreter = interpreter;
 	        this.appRef = appRef;
-	        this.rectList = [];
 	        this.diagramticComponentList = [];
 	        this.mousedownEvent = new core_1.EventEmitter();
 	        this.mousemoveEvent = new core_1.EventEmitter();
 	        this.mouseupEvent = new core_1.EventEmitter();
 	        this.creationDrawerLocation = new geometry_2.Point(exports.ArtboardWidth / 2, exports.ArtboardHeight / 2);
-	        //testing stuff
-	        this.st = new geometry_2.Point(1501, 1300);
-	        this.en = new geometry_2.Point(1700, 700);
 	        this.massiveArea = new geometry_1.Rect(0, 0, exports.ArtboardWidth, exports.ArtboardHeight);
 	    }
 	    ArtboardComponent.prototype.ngOnInit = function () {
-	        // this.testing();
-	    };
-	    ArtboardComponent.prototype.testing = function () {
-	        // this.interpreter.parseFieldMember("#someMethod(n:int,str:string):bool");
-	        this.rectList.push(new geometry_1.Rect(1300, 1000, 200, 50));
-	        var genericNode1 = new worksheet_1.GenericDiagramNode(worksheet_1.GenericDiagramNodeType.Rectangle);
-	        var rect1 = new geometry_1.Rect(1500, 1200, 200, 50);
-	        genericNode1.geometry = rect1;
-	        var genericNode2 = new worksheet_1.GenericDiagramNode(worksheet_1.GenericDiagramNodeType.RoundedRectangle);
-	        var rect2 = new geometry_1.Rect(1800, 1000, 200, 50);
-	        genericNode2.geometry = rect2;
-	        var edge = new worksheet_1.DiagramEdge();
-	        edge.from = genericNode1;
-	        edge.to = genericNode2;
-	        this.workspace.worksheet.diagramModel.nodeList.push(genericNode1);
-	        this.workspace.worksheet.diagramModel.nodeList.push(genericNode2);
-	        this.workspace.worksheet.diagramModel.edgeList.push(edge);
-	        var jsonModel = this.workspace.worksheet.diagramModel.toJSON();
-	        console.log(jsonModel);
 	    };
 	    ArtboardComponent.prototype.doubleClickedArtboard = function (event) {
 	        // this.creationDrawerLocation=new Point(event.offsetX-creationDrawer.WIDTH/2,event.offsetY-creationDrawer.HEIGHT/2);
@@ -9345,7 +9321,8 @@ webpackJsonp([0],[
 	            this.draggingInteraction = dragProcessor;
 	        }
 	    };
-	    ArtboardComponent.prototype.moveNodes = function (pressedNode) {
+	    ArtboardComponent.prototype.moveNodes = function (nodeComponent) {
+	        var pressedNode = nodeComponent.node;
 	        if (this.draggingInteraction == null) {
 	            console.debug("Creating move command for possible movement");
 	            //if the workspace did not already contain the pressed node, then
@@ -9355,7 +9332,7 @@ webpackJsonp([0],[
 	                this.workspace.addNodeToSelection(pressedNode);
 	            }
 	            //issue a press drag release based command which will work on the current selection
-	            this.draggingInteraction = new move_1.MoveCommand(this.workspace, this.workspace.copySelection());
+	            this.draggingInteraction = new move_1.MoveCommand(this.workspace, this.workspace.copySelection(), true, nodeComponent);
 	        }
 	    };
 	    ArtboardComponent.prototype.linkNodes = function (dragInteration) {
@@ -10245,13 +10222,14 @@ webpackJsonp([0],[
 	var geometry_1 = __webpack_require__(72);
 	var MoveCommand = (function (_super) {
 	    __extends(MoveCommand, _super);
-	    function MoveCommand(workspace, target, commitToWorkspaceOnCompletion) {
+	    function MoveCommand(workspace, target, commitToWorkspaceOnCompletion, moveListener) {
 	        if (commitToWorkspaceOnCompletion === void 0) { commitToWorkspaceOnCompletion = true; }
 	        _super.call(this);
 	        this._displacement = new geometry_1.Point(0, 0);
 	        this._workspace = workspace;
 	        this.target = target;
 	        this.commitToWorkspaceOnCompletion = commitToWorkspaceOnCompletion;
+	        this.listener = moveListener;
 	    }
 	    Object.defineProperty(MoveCommand.prototype, "workspace", {
 	        get: function () {
@@ -10270,6 +10248,9 @@ webpackJsonp([0],[
 	    MoveCommand.prototype.handleMousePress = function (event) {
 	        this.lastPosition = new geometry_1.Point(event.clientX, event.clientY);
 	        this._displacement = new geometry_1.Point(0, 0);
+	        if (this.listener != null) {
+	            this.listener.moveStarted();
+	        }
 	    };
 	    MoveCommand.prototype.handleMouseDrag = function (event) {
 	        //subtle  change in position
@@ -10284,10 +10265,17 @@ webpackJsonp([0],[
 	            var node = _a[_i];
 	            node.geometry.moveBy(new geometry_1.Point(dx, dy));
 	        }
+	        if (this.listener != null) {
+	            this.listener.moveInProgress(new geometry_1.Point(dx, dy));
+	        }
 	    };
 	    MoveCommand.prototype.handleMouseRelease = function (event) {
 	        if (!this.displacement.isZero() && this.commitToWorkspaceOnCompletion) {
 	            this.workspace.commit(this);
+	        }
+	        if (this.listener != null) {
+	            this.listener.moveEnded(!this.displacement.isZero());
+	            this.listener = null; //nullify listener so that we don't leak memory after this one time event
 	        }
 	    };
 	    MoveCommand.prototype.execute = function () {
@@ -11785,7 +11773,7 @@ webpackJsonp([0],[
 /* 115 */
 /***/ function(module, exports) {
 
-	module.exports = "<ng-container *ngIf=\"workspace!=null\">\n\t<div id=\"massive-area\" \n\t[style.width]=\"massiveArea.width+'px'\" \n\t[style.height]=\"massiveArea.height+'px'\" \n\t[style.left]=\"massiveArea.x+'px'\" \n\t[style.top]=\"massiveArea.y+'px'\"\n\t(mousedown)=\"mousedown($event)\"\n\t(mousemove)=\"mousemove($event)\"\n\t(mouseup)=\"mouseup($event)\"\n\t(dblclick)=\"doubleClickedArtboard($event)\"\n\t>\n\n\t\t<!--<h1 id=\"starter-tip\"\n\t\t[style.left.px]=\"massiveArea.width/2\"\n\t\t[style.top.px]=\"massiveArea.height/2\"\n\t\t>Double click anywhere to create a box</h1>-->\n\n\t\t\n\t\t\n\t\t<creation-drawer \n\t\t\t[workspace]=\"workspace\"\n\t\t\t[position]=\"creationDrawerLocation\"\n\t\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t\t></creation-drawer>\n\t\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t\t<!--<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>-->\n\t\t\t<diagram-edge\n\t\t\t\t[edge]=\"edge\"\n\t\t\t\t[workspace]=\"workspace\"\n\t\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyEdge(edge)\"\n\t\t\t\t></diagram-edge>\n\t\t</ng-container>\n\n\t\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t\t<generic-node\n\t\t\t\t[genericNode]=\"node\"\n\t\t\t\t[workspace]=\"workspace\"\n\t\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t\t(linkNodes)=\"linkNodes($event)\"\n\t\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t\t></generic-node>\n\t\t</ng-container>\n\n\t\t<ng-container *ngIf=\"workspace.selection!=null\">\n\t\t\t<multiple-selection \n\t\t\t\t[workspace]=\"workspace\" \n\t\t\t\t[selectedNodes]=\"workspace.selection.nodeList\" \n\t\t\t\t[selectedEdges]=\"workspace.selection.edgeList\" \n\t\t\t\t[active]=\"\n\t\t\t\t\tworkspace.selectionCount()>1 &&\n\t\t\t\t\tdraggingInteraction==null\"\n\t\t\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t\t\t></multiple-selection>\n\t\t</ng-container>\n\t</div>\n</ng-container>";
+	module.exports = "<ng-container *ngIf=\"workspace!=null\">\n\t<div id=\"massive-area\" \n\t[style.width]=\"massiveArea.width+'px'\" \n\t[style.height]=\"massiveArea.height+'px'\" \n\t[style.left]=\"massiveArea.x+'px'\" \n\t[style.top]=\"massiveArea.y+'px'\"\n\t(mousedown)=\"mousedown($event)\"\n\t(mousemove)=\"mousemove($event)\"\n\t(mouseup)=\"mouseup($event)\"\n\t(dblclick)=\"doubleClickedArtboard($event)\"\n\t>\n\n\n\t\t\n\t\t\n\t\t<creation-drawer \n\t\t\t[workspace]=\"workspace\"\n\t\t\t[position]=\"creationDrawerLocation\"\n\t\t\t(requestDragging)=\"setDragInteractionIfEmpty($event)\"\n\t\t\t></creation-drawer>\n\t\t<selection-box [workspace]=\"workspace\"></selection-box>\n\n\t\t<ng-container *ngFor=\"let edge of workspace.worksheet.diagramModel.edgeList\">\n\t\t\t<!--<line-segment [start]=\"edge.fromPoint.pointOnGeometry()\" [end]=\"edge.toPoint.pointOnGeometry()\"></line-segment>-->\n\t\t\t<diagram-edge\n\t\t\t\t[edge]=\"edge\"\n\t\t\t\t[workspace]=\"workspace\"\n\t\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyEdge(edge)\"\n\t\t\t\t></diagram-edge>\n\t\t</ng-container>\n\n\t\t<ng-container *ngFor=\"let node of workspace.worksheet.diagramModel.nodeList\">\n\t\t\t<generic-node\n\t\t\t\t[genericNode]=\"node\"\n\t\t\t\t[workspace]=\"workspace\"\n\t\t\t\t(requestDragging)=\"moveNodes($event)\"\n\t\t\t\t(linkNodes)=\"linkNodes($event)\"\n\t\t\t\t(removeMe)=\"removeCurrentSelection()\"\n\t\t\t\t[soloSelected]=\"workspace.selectionContainsOnlyNode(node)\"\n\t\t\t\t></generic-node>\n\t\t</ng-container>\n\n\t\t<ng-container *ngIf=\"workspace.selection!=null\">\n\t\t\t<multiple-selection \n\t\t\t\t[workspace]=\"workspace\" \n\t\t\t\t[selectedNodes]=\"workspace.selection.nodeList\" \n\t\t\t\t[selectedEdges]=\"workspace.selection.edgeList\" \n\t\t\t\t[active]=\"\n\t\t\t\t\tworkspace.selectionCount()>1 &&\n\t\t\t\t\tdraggingInteraction==null\"\n\t\t\t\t(removeUs)=\"removeCurrentSelection()\"\n\t\t\t\t></multiple-selection>\n\t\t</ng-container>\n\t</div>\n</ng-container>";
 
 /***/ },
 /* 116 */
@@ -11797,7 +11785,7 @@ webpackJsonp([0],[
 /* 117 */
 /***/ function(module, exports) {
 
-	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:keypress)=\"keypress($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t\t[workspace]=\"workspace\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<a id=\"back-to-dashboard\" [routerLink]=\"'../../../dashboard'\">\n\t\tBack {{autoSaveStatusString()}}\n\t</a>\n\t<!--<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t\n\t\t<li>{{autoSaveStatusString()}}</li>\n\t</ul>-->\n</div>\n";
+	module.exports = "<div id=\"container\" \n\t[focus]=\"true\"\n\t(window:keydown)=\"keydown($event)\"\n\t(window:keyup)=\"keyup($event)\"\n\t(window:keypress)=\"keypress($event)\"\n\t(window:resize)=\"resize($event)\"\n\t[style.cursor]=\"windowMovementAllowed?(dragEntered?'all-scroll':'all-scroll'):'auto'\"\n\t>\n\n\t<!-- Show starter tip only if there is nothing in the scene -->\n<!--[style.left.px]=\"massiveArea.width/2\"\n\t\t[style.top.px]=\"massiveArea.height/2\"-->\n\t\t<h1 id=\"starter-tip\"\n\t\t*ngIf=\"\n\t\tworkspace!=null &&\n\t\tworkspace.worksheet.diagramModel.edgeList.length==0 && \n\t\tworkspace.worksheet.diagramModel.nodeList.length==0\"\n\t\t>Press A or 1 to open the creation drawer</h1>\n\t<artboard \n\t\t(mousedownEvent)=\"mousedown($event)\"\n\t\t(mousemoveEvent)=\"mousemove($event)\"\n\t\t(mouseupEvent)=\"mouseup($event)\"\n\t\t[workspace]=\"workspace\"\n\t></artboard>\n\t<sidebar></sidebar>\n\t<a id=\"back-to-dashboard\" [routerLink]=\"'../../../dashboard'\">\n\t\tBack {{autoSaveStatusString()}}\n\t</a>\n\t<!--<ul id=\"menu-controls\" [@shiftMenuControls]=\"sidebar.open?'shifted':'unshifted'\">\n\t\t<li (click)=toggleSidebar()>Menu</li>\n\t\t\n\t\t<li>{{autoSaveStatusString()}}</li>\n\t</ul>-->\n</div>\n";
 
 /***/ },
 /* 118 */
@@ -12244,7 +12232,7 @@ webpackJsonp([0],[
 	    // }
 	    GenericNodeComponent.prototype.registerDragIntention = function () {
 	        if (!this.workspace.contentEditingIsOpen) {
-	            this.requestDragging.emit(this.node);
+	            this.requestDragging.emit(this);
 	        }
 	    };
 	    GenericNodeComponent.prototype.updateAllResizeHandlers = function (resizeHandler) {
@@ -12279,6 +12267,14 @@ webpackJsonp([0],[
 	        else if (event.keyCode == 27) {
 	            this.workspace.contentEditingIsOpen = false;
 	        }
+	    };
+	    GenericNodeComponent.prototype.moveStarted = function () {
+	        this.nodeMoving = true;
+	    };
+	    GenericNodeComponent.prototype.moveInProgress = function (dPoint) {
+	    };
+	    GenericNodeComponent.prototype.moveEnded = function (displacementMade) {
+	        this.nodeMoving = false;
 	    };
 	    __decorate([
 	        //,OnChanges
@@ -13183,6 +13179,7 @@ webpackJsonp([0],[
 	        this.workspace.commit(this);
 	        if (this.listener != null) {
 	            this.listener.finishedLinkingToNode(endpoint);
+	            this.listener = null; //nullify the reference to the listener so that we don't leak memory
 	        }
 	    };
 	    LinkNodesCommand.prototype.findNodeToConnectTo = function () {
@@ -13744,7 +13741,7 @@ webpackJsonp([0],[
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: 'Source Sans Pro', sans-serif;\n  margin: 0px; }\n\n.generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.3);\n  position: absolute;\n  z-index: 11; }\n\n#creation-drawer-list {\n  list-style-type: none; }\n\n#creation-drawer-list li {\n  width: 100%;\n  height: 50px; }\n\n#edge-style-list {\n  list-style-type: none;\n  padding: 0px;\n  margin: 0px; }\n\n#edge-style-list li {\n  height: 50px;\n  text-align: center; }\n\n#edge-style-list li:hover {\n  background: lightgrey; }\n\n#remove-list-item {\n  background: #E54F4F;\n  color: #FFF;\n  text-align: center;\n  padding-top: 15px;\n  height: 30px; }\n\n#remove-list-item:hover {\n  background: #930101; }\n\n#creation-drawer-list li {\n  display: inline;\n  padding-right: 30px; }\n\n#multiple-selection-container {\n  border: 1px solid blue;\n  position: absolute;\n  z-index: 11;\n  pointer-events: none; }\n\n#back-to-dashboard {\n  position: absolute;\n  top: 20px;\n  left: 20px;\n  color: gray; }\n\n.node-content-input {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  font-size: 1.3em; }\n\n.selected {\n  border-color: #2BA3FC;\n  color: #2BA3FC; }\n\n.medium-bubble {\n  border-radius: 50%;\n  position: absolute;\n  width: 15px;\n  height: 15px;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%);\n  z-index: 100; }\n\n.remove-operation {\n  background: red;\n  cursor: pointer; }\n\n.edit-operation {\n  background: cornflowerblue;\n  cursor: pointer; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  position: relative;\n  text-align: center;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%); }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n\n.form-field {\n  background: #F8F8F8;\n  border: none;\n  height: 40px;\n  padding-left: 25px;\n  min-width: 200px; }\n\n.form-field:focus {\n  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);\n  outline: none; }\n\n.button {\n  color: white;\n  border-radius: 30px;\n  cursor: pointer;\n  text-decoration: none;\n  height: 20px;\n  padding: 10px;\n  font-size: 1em;\n  display: inline-block;\n  text-align: center;\n  min-width: 70px; }\n\n.primary {\n  background-image: linear-gradient(19deg, #34A0AA 0%, #1879EF 100%); }\n\n.primary-complement {\n  background-image: linear-gradient(36deg, #9D40B3 0%, #DA8BC3 100%); }\n\n.full-width-center {\n  text-align: center;\n  width: 100%; }\n\n.no-list-style {\n  list-style: none; }\n\nul.centered-list {\n  text-align: center;\n  list-style: none;\n  padding: 0px; }\n\nul.centered-list li {\n  margin: 20px; }\n\nul.horizontal-list li {\n  display: inline-block; }\n\n.big-padding-bottom {\n  padding-bottom: 40px; }\n\n.big-padding-top {\n  padding-top: 40px; }\n\nheader {\n  width: 100%;\n  background: #FFFFFF;\n  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);\n  text-align: center;\n  height: 80px;\n  line-height: 80px;\n  margin-bottom: 70px; }\n\nheader h1 {\n  margin: 0px;\n  font-size: 30px;\n  color: #6F6F6F;\n  font-weight: lighter;\n  display: inline-block; }\n\n.header-logo {\n  float: left;\n  width: auto;\n  height: 70%;\n  padding-left: 20px;\n  padding-top: 10px; }\n\nul.header-links-container {\n  float: right;\n  margin: 0px 20px 0px 0px; }\n\nul.header-links-container li {\n  padding-right: 10px; }\n\n.header-link {\n  text-decoration: none;\n  color: #D98BC3;\n  font-weight: bold;\n  cursor: pointer; }\n\n.header-link:hover {\n  color: #A576DA; }\n\nul.horizontal-list.spaced-out li {\n  padding-right: 10px; }\n\n.dashboard-actions {\n  cursor: pointer; }\n\n.float-right {\n  float: right; }\n\n.worksheet-title {\n  color: #D98BC3;\n  margin-bottom: 5px;\n  margin-top: 5px;\n  cursor: pointer; }\n\n.worksheet-title:hover {\n  color: #A576DA; }\n\n.worksheet-description {\n  color: #2B93C1;\n  font-weight: 300;\n  margin-top: 0px;\n  margin-bottom: 5px; }\n\n.worksheet-info {\n  padding-left: 30px;\n  display: inline-block; }\n\n.worksheet-row {\n  border-bottom: 1px solid black;\n  text-align: left;\n  height: 100px;\n  overflow-y: clip; }\n\n.gaps-on-sides {\n  margin-left: 40px;\n  margin-right: 40px; }\n\n.no-margin {\n  margin: 0px; }\n\nul.centered-list li.no-margin {\n  margin: 0px; }\n\n.dashboard-options {\n  color: #A576DA;\n  text-align: left;\n  height: 60px;\n  border-bottom: 1px solid black;\n  padding-left: 30px; }\n\n.wide {\n  width: 40%; }\n\n.new-worksheet {\n  padding-right: 40px;\n  float: right;\n  padding-right: 40px;\n  cursor: pointer; }\n\n.new-worksheet img {\n  padding-right: 20px;\n  position: relative;\n  top: 10px; }\n\n.new-worksheet span {\n  font-size: 1.3em;\n  position: relative;\n  top: 10px; }\n", ""]);
+	exports.push([module.id, "body {\n  font-family: 'Source Sans Pro', sans-serif;\n  margin: 0px; }\n\n.generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.3);\n  position: absolute;\n  z-index: 11; }\n\n#creation-drawer-list {\n  list-style-type: none; }\n\n#creation-drawer-list li {\n  width: 100%;\n  height: 50px; }\n\n#edge-style-list {\n  list-style-type: none;\n  padding: 0px;\n  margin: 0px; }\n\n#edge-style-list li {\n  height: 50px;\n  text-align: center; }\n\n#edge-style-list li:hover {\n  background: lightgrey; }\n\n#remove-list-item {\n  background: #E54F4F;\n  color: #FFF;\n  text-align: center;\n  padding-top: 15px;\n  height: 30px; }\n\n#remove-list-item:hover {\n  background: #930101; }\n\n#creation-drawer-list li {\n  display: inline;\n  padding-right: 30px; }\n\n#multiple-selection-container {\n  border: 1px solid blue;\n  position: absolute;\n  z-index: 11;\n  pointer-events: none; }\n\n#back-to-dashboard {\n  position: absolute;\n  top: 20px;\n  left: 20px;\n  color: gray; }\n\n.node-content-input {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  font-size: 1.3em; }\n\n.selected {\n  border-color: #2BA3FC;\n  color: #2BA3FC; }\n\n.medium-bubble {\n  border-radius: 50%;\n  position: absolute;\n  width: 15px;\n  height: 15px;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%);\n  z-index: 100; }\n\n.remove-operation {\n  background: red;\n  cursor: pointer; }\n\n.edit-operation {\n  background: cornflowerblue;\n  cursor: pointer; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  position: relative;\n  text-align: center;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%); }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  text-align: center; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n\n.form-field {\n  background: #F8F8F8;\n  border: none;\n  height: 40px;\n  padding-left: 25px;\n  min-width: 200px; }\n\n.form-field:focus {\n  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);\n  outline: none; }\n\n.button {\n  color: white;\n  border-radius: 30px;\n  cursor: pointer;\n  text-decoration: none;\n  height: 20px;\n  padding: 10px;\n  font-size: 1em;\n  display: inline-block;\n  text-align: center;\n  min-width: 70px; }\n\n.primary {\n  background-image: linear-gradient(19deg, #34A0AA 0%, #1879EF 100%); }\n\n.primary-complement {\n  background-image: linear-gradient(36deg, #9D40B3 0%, #DA8BC3 100%); }\n\n.full-width-center {\n  text-align: center;\n  width: 100%; }\n\n.no-list-style {\n  list-style: none; }\n\nul.centered-list {\n  text-align: center;\n  list-style: none;\n  padding: 0px; }\n\nul.centered-list li {\n  margin: 20px; }\n\nul.horizontal-list li {\n  display: inline-block; }\n\n.big-padding-bottom {\n  padding-bottom: 40px; }\n\n.big-padding-top {\n  padding-top: 40px; }\n\nheader {\n  width: 100%;\n  background: #FFFFFF;\n  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);\n  text-align: center;\n  height: 80px;\n  line-height: 80px;\n  margin-bottom: 70px; }\n\nheader h1 {\n  margin: 0px;\n  font-size: 30px;\n  color: #6F6F6F;\n  font-weight: lighter;\n  display: inline-block; }\n\n.header-logo {\n  float: left;\n  width: auto;\n  height: 70%;\n  padding-left: 20px;\n  padding-top: 10px; }\n\nul.header-links-container {\n  float: right;\n  margin: 0px 20px 0px 0px; }\n\nul.header-links-container li {\n  padding-right: 10px; }\n\n.header-link {\n  text-decoration: none;\n  color: #D98BC3;\n  font-weight: bold;\n  cursor: pointer; }\n\n.header-link:hover {\n  color: #A576DA; }\n\nul.horizontal-list.spaced-out li {\n  padding-right: 10px; }\n\n.dashboard-actions {\n  cursor: pointer; }\n\n.float-right {\n  float: right; }\n\n.worksheet-title {\n  color: #D98BC3;\n  margin-bottom: 5px;\n  margin-top: 5px;\n  cursor: pointer; }\n\n.worksheet-title:hover {\n  color: #A576DA; }\n\n.worksheet-description {\n  color: #2B93C1;\n  font-weight: 300;\n  margin-top: 0px;\n  margin-bottom: 5px; }\n\n.worksheet-info {\n  padding-left: 30px;\n  display: inline-block; }\n\n.worksheet-row {\n  border-bottom: 1px solid black;\n  text-align: left;\n  height: 100px;\n  overflow-y: clip; }\n\n.gaps-on-sides {\n  margin-left: 40px;\n  margin-right: 40px; }\n\n.no-margin {\n  margin: 0px; }\n\nul.centered-list li.no-margin {\n  margin: 0px; }\n\n.dashboard-options {\n  color: #A576DA;\n  text-align: left;\n  height: 60px;\n  border-bottom: 1px solid black;\n  padding-left: 30px; }\n\n.wide {\n  width: 40%; }\n\n.new-worksheet {\n  padding-right: 40px;\n  float: right;\n  padding-right: 40px;\n  cursor: pointer; }\n\n.new-worksheet img {\n  padding-right: 20px;\n  position: relative;\n  top: 10px; }\n\n.new-worksheet span {\n  font-size: 1.3em;\n  position: relative;\n  top: 10px; }\n", ""]);
 	
 	// exports
 
