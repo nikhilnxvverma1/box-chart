@@ -69,9 +69,20 @@ export class GenericNodeComponent implements OnInit,MoveListener{//,OnChanges
 	// 	}
 	// }
 
-	registerDragIntention(){
-		if(!this.workspace.contentEditingIsOpen){
-			this.requestDragging.emit(this);
+	mousedown(event:MouseEvent){
+		// if(!this.workspace.contentEditingIsOpen){
+		// 	this.requestDragging.emit(this);
+		// }
+		if(!event.shiftKey){
+			if(!this.workspace.contentEditingIsOpen){
+				this.requestDragging.emit(this);
+			}
+		}else {
+			if(this.workspace.selectionContainsNode(this.node)){
+				this.workspace.removeNodeFromSelection(this.node);
+			}else{
+				this.workspace.addNodeToSelection(this.node);
+			}
 		}
 	}
 

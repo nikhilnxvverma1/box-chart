@@ -23,7 +23,9 @@ export class SelectionBoxComponent {
 
 	mousePressed(event: MouseEvent): void {
 
-		this.workspace.clearSelection();
+		if(!event.shiftKey){
+			this.workspace.clearSelection();
+		}
 
 		this.active = true;
 		this.rect.x = event.offsetX;
@@ -58,7 +60,7 @@ export class SelectionBoxComponent {
 				this.rect.height = this.difference.y;
 			}
 
-			this.selectOverlappingNodes();
+			this.selectOverlappingNodes(event.shiftKey);
 		}
 	}
 
@@ -66,10 +68,15 @@ export class SelectionBoxComponent {
 		this.active = false;
 	}
 
-	private selectOverlappingNodes():number{
-		//start afresh
-		this.workspace.clearSelection();
-		var count=0;
+	private selectOverlappingNodes(retainExisting:boolean):number{
+		let count=0;
+		if(!retainExisting){
+			//start afresh
+			this.workspace.clearSelection();
+		}else{
+			count=this.workspace.selection.edgeList.length+
+				this.workspace.selection.nodeList.length;
+		}
 
 		//select all overlapping nodes
 		for(let node of this.workspace.worksheet.diagramModel.nodeList){

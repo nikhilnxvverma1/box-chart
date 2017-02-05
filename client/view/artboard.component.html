@@ -10,9 +10,6 @@
 	(dblclick)="doubleClickedArtboard($event)"
 	>
 
-
-		
-		
 		<creation-drawer 
 			[workspace]="workspace"
 			[position]="creationDrawerLocation"
@@ -43,8 +40,7 @@
 		<ng-container *ngIf="workspace.selection!=null">
 			<multiple-selection 
 				[workspace]="workspace" 
-				[selectedNodes]="workspace.selection.nodeList" 
-				[selectedEdges]="workspace.selection.edgeList" 
+				[selectionCount]="workspace.selectionCount()"
 				[active]="
 					workspace.selectionCount()>1 &&
 					draggingInteraction==null"

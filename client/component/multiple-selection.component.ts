@@ -13,17 +13,19 @@ export class MultipleSelectionComponent implements OnChanges{
 
 	@Input('workspace') workspace: Workspace;
 	@Input('active') active = false;
-	@Input() selectedNodes:DiagramNode[];
-	@Input() selectedEdges:DiagramEdge[];
+	@Input() selectionCount:number;
+	// @Input() selectedNodes:DiagramNode[];
+	// @Input() selectedEdges:DiagramEdge[];
 	@Output() removeUs=new EventEmitter();
 	rect: Rect = new Rect(1500, 900, 200, 300);//initial value only for debugging purposes
 	
 	ngOnChanges(changes:SimpleChanges){
 		
 		//if selected node changes or selected edges do
-		let nodeChanges=changes['selectedNodes'];
-		let edgeChanges=changes['selectedEdge'];
-		if(this.active && (nodeChanges!=null || edgeChanges!=null)){
+		let countChanges=changes['selectionCount'];
+		let activeChanges=changes['active'];
+		if(activeChanges!=null ||
+			countChanges!=null ){
 			//compute and set the dimensions of the box
 			this.setBoxDimensions();
 		}

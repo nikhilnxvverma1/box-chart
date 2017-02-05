@@ -4,7 +4,7 @@
 [style.width.px]="node.geometry.getBoundingBox().width"
 [style.height.px]="node.geometry.getBoundingBox().height"
 [@selection]="node.selected?'selected':'unselected'" 
-(mousedown)="registerDragIntention()"
+(mousedown)="mousedown($event)"
 (dblclick)="editContent($event)">
 	<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->
 	<svg width="100%" height="100%" class="node-background" >
