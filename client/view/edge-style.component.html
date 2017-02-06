@@ -16,7 +16,9 @@
 	[style.height.px]="250"
 	[style.left.px]="follow.x"
 	[style.top.px]="follow.y"
-	[@styleOptionsOpen]="workspace.edgeStyleOptionsIsOpen?'open':'closed'" >
+	[@styleOptionsOpen]="workspace.edgeStyleOptionsIsOpen?'open':'closed'" 
+	(@styleOptionsOpen.done)="afterMenuOpens($event)"
+	>
 	<ul id="edge-style-list">
 
 		<li>
@@ -25,7 +27,7 @@
 			<button class="edge-style-row-one-of-three">End</button>
 		</li>
 		<li>
-			<input class="edge-label-field" type="text" placeholder="Label"/>
+			<input class="edge-label-field" type="text" placeholder="Label" (keydown)="changeLabel($event)" [(ngModel)]="editedEdgeLabel"/>
 		</li>
 
 		<li>

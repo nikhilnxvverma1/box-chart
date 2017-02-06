@@ -12697,7 +12697,7 @@ webpackJsonp([0],{
 	        }
 	    };
 	    ChangeNodeContentCommand.prototype.getName = function () {
-	        return "Change edge style";
+	        return "Change node's content";
 	    };
 	    return ChangeNodeContentCommand;
 	}(command_1.Command));
@@ -12731,6 +12731,7 @@ webpackJsonp([0],{
 	var worksheet_1 = __webpack_require__(71);
 	var LineSegmentComponent = (function () {
 	    function LineSegmentComponent() {
+	        this.labelDoubleClicked = new core_1.EventEmitter();
 	    }
 	    LineSegmentComponent.prototype.transformationMatrix = function () {
 	        var xMid = this.start.distance(this.end) / 2;
@@ -12828,6 +12829,10 @@ webpackJsonp([0],{
 	        core_1.Input(), 
 	        __metadata('design:type', String)
 	    ], LineSegmentComponent.prototype, "label", void 0);
+	    __decorate([
+	        core_1.Output(), 
+	        __metadata('design:type', Object)
+	    ], LineSegmentComponent.prototype, "labelDoubleClicked", void 0);
 	    LineSegmentComponent = __decorate([
 	        core_1.Component({
 	            selector: 'line-segment',
@@ -12846,7 +12851,7 @@ webpackJsonp([0],{
 /***/ 129:
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "\n<svg \n\t[style.pointer-events]=\"'none'\"\n\t[style.left.px]=\"topLeft().x\" \n\t[style.top.px]=\"topLeft().y\"\n\t[style.position]=\"'absolute'\"\n \t[attr.height]=\"boundingHeight()\"\n\t[attr.width]=\"boundingWidth()\">\n  <svg:line [attr.x1]=\"withinBounds(start).x\"\n\t[attr.y1]=\"withinBounds(start).y\"\n\t[attr.x2]=\"withinBounds(end).x\"\n\t[attr.y2]=\"withinBounds(end).y\"\n\t[attr.stroke-dasharray]=\"strokeDashArray()\"\n\t[style.stroke]=\"color.hashCode()\"\n\t[ngStyle]=\"{'stroke-width':2}\"\n\t/>\n</svg>\n\n<ng-container [ngSwitch]=\"startStyle\">\n\t<img src=\"" + __webpack_require__(725) + "\" alt=\"Empty arrow\"\n\t\t*ngSwitchCase=\"2\"\n\t\tclass=\"edge-endpoint\"\n\t\t[ngStyle]=\"{'-webkit-transform':startEndpointTransform(),\n\t\t'transform':startEndpointTransform(),\n\t\t'width':10+'px'}\"\n\t\t[style.left.px]=\"shiftedPoint(7).x\"\n\t\t[style.top.px]=\"shiftedPoint(7).y\"\n\t >\n\t<img src=\"" + __webpack_require__(726) + "\" alt=\"Filled arrow\"\n\t\t*ngSwitchCase=\"3\" \n\t\tclass=\"edge-endpoint\"\n\t\t[ngStyle]=\"{'-webkit-transform':startEndpointTransform(),\n\t\t'transform':startEndpointTransform(),\n\t\t'width':10+'px'}\"\n\t\t[style.left.px]=\"shiftedPoint(7).x\"\n\t\t[style.top.px]=\"shiftedPoint(7).y\"\n\t >\n\t<img src=\"" + __webpack_require__(727) + "\" alt=\"Empty diamond\"\n\t\t*ngSwitchCase=\"4\"\n\t\tclass=\"edge-endpoint\"\n\t\t[ngStyle]=\"{'-webkit-transform':startEndpointTransform(),\n\t\t'transform':startEndpointTransform(),\n\t\t'width':20+'px'}\"\n\t\t[style.left.px]=\"shiftedPoint(10).x\"\n\t\t[style.top.px]=\"shiftedPoint(10).y\"\n\t>\n\t<img src=\"" + __webpack_require__(728) + "\" alt=\"Filled diamond\"\n\t\t*ngSwitchCase=\"5\"\n\t\tclass=\"edge-endpoint\"\n\t\t[ngStyle]=\"{'-webkit-transform':startEndpointTransform(),\n\t\t'transform':startEndpointTransform(),\n\t\t'width':20+'px'}\"\n\t\t[style.left.px]=\"shiftedPoint(10).x\"\n\t\t[style.top.px]=\"shiftedPoint(10).y\"\n\t>\n</ng-container>\n\n<ng-container [ngSwitch]=\"endStyle\">\n\t<img src=\"" + __webpack_require__(725) + "\" alt=\"Empty arrow\"\n\t\t*ngSwitchCase=\"2\"\n\t\tclass=\"edge-endpoint\"\n\t\t[ngStyle]=\"{'-webkit-transform':endEndpointTransform(),\n\t\t'transform':endEndpointTransform(),\n\t\t'width':10+'px'}\"\n\t\t[style.left.px]=\"shiftedPoint(7,true).x\"\n\t\t[style.top.px]=\"shiftedPoint(7,true).y\"\n\t\t>\n\t<img src=\"" + __webpack_require__(726) + "\" alt=\"Filled arrow\"\n\t\t*ngSwitchCase=\"3\"\n\t\tclass=\"edge-endpoint\"\n\t\t[ngStyle]=\"{'-webkit-transform':endEndpointTransform(),\n\t\t'transform':endEndpointTransform(),\n\t\t'width':10+'px'}\"\n\t\t[style.left.px]=\"shiftedPoint(7,true).x\"\n\t\t[style.top.px]=\"shiftedPoint(7,true).y\"\n\t\t>\n\t<img src=\"" + __webpack_require__(727) + "\" alt=\"Empty diamond\"\n\t\t*ngSwitchCase=\"4\"\n\t\tclass=\"edge-endpoint\"\n\t\t[ngStyle]=\"{'-webkit-transform':endEndpointTransform(),\n\t\t'transform':endEndpointTransform(),\n\t\t'width':20+'px'}\"\n\t\t[style.left.px]=\"shiftedPoint(10,true).x\"\n\t\t[style.top.px]=\"shiftedPoint(10,true).y\"\n\t\t>\n\t<img src=\"" + __webpack_require__(728) + "\" alt=\"Filled diamond\"\n\t\t*ngSwitchCase=\"5\"\n\t\tclass=\"edge-endpoint\"\n\t\t[ngStyle]=\"{'-webkit-transform':endEndpointTransform(),\n\t\t'transform':endEndpointTransform(),\n\t\t'width':20+'px'}\"\n\t\t[style.left.px]=\"shiftedPoint(10,true).x\"\n\t\t[style.top.px]=\"shiftedPoint(10,true).y\"\n\t\t>\n</ng-container>\n\n<div class=\"edge-text\"\n\t*ngIf=\"!emptyLabel()\"\n\t[style.left.px]=\"midpoint().x\"\n\t[style.top.px]=\"midpoint().y\"\n>\n\t{{label}}\n</div>\n\n";
+	module.exports = "\n<svg \n\t[style.pointer-events]=\"'none'\"\n\t[style.left.px]=\"topLeft().x\" \n\t[style.top.px]=\"topLeft().y\"\n\t[style.position]=\"'absolute'\"\n \t[attr.height]=\"boundingHeight()\"\n\t[attr.width]=\"boundingWidth()\">\n  <svg:line [attr.x1]=\"withinBounds(start).x\"\n\t[attr.y1]=\"withinBounds(start).y\"\n\t[attr.x2]=\"withinBounds(end).x\"\n\t[attr.y2]=\"withinBounds(end).y\"\n\t[attr.stroke-dasharray]=\"strokeDashArray()\"\n\t[style.stroke]=\"color.hashCode()\"\n\t[ngStyle]=\"{'stroke-width':2}\"\n\t/>\n</svg>\n\n<ng-container [ngSwitch]=\"startStyle\">\n\t<img src=\"" + __webpack_require__(725) + "\" alt=\"Empty arrow\"\n\t\t*ngSwitchCase=\"2\"\n\t\tclass=\"edge-endpoint\"\n\t\t[ngStyle]=\"{'-webkit-transform':startEndpointTransform(),\n\t\t'transform':startEndpointTransform(),\n\t\t'width':10+'px'}\"\n\t\t[style.left.px]=\"shiftedPoint(7).x\"\n\t\t[style.top.px]=\"shiftedPoint(7).y\"\n\t >\n\t<img src=\"" + __webpack_require__(726) + "\" alt=\"Filled arrow\"\n\t\t*ngSwitchCase=\"3\" \n\t\tclass=\"edge-endpoint\"\n\t\t[ngStyle]=\"{'-webkit-transform':startEndpointTransform(),\n\t\t'transform':startEndpointTransform(),\n\t\t'width':10+'px'}\"\n\t\t[style.left.px]=\"shiftedPoint(7).x\"\n\t\t[style.top.px]=\"shiftedPoint(7).y\"\n\t >\n\t<img src=\"" + __webpack_require__(727) + "\" alt=\"Empty diamond\"\n\t\t*ngSwitchCase=\"4\"\n\t\tclass=\"edge-endpoint\"\n\t\t[ngStyle]=\"{'-webkit-transform':startEndpointTransform(),\n\t\t'transform':startEndpointTransform(),\n\t\t'width':20+'px'}\"\n\t\t[style.left.px]=\"shiftedPoint(10).x\"\n\t\t[style.top.px]=\"shiftedPoint(10).y\"\n\t>\n\t<img src=\"" + __webpack_require__(728) + "\" alt=\"Filled diamond\"\n\t\t*ngSwitchCase=\"5\"\n\t\tclass=\"edge-endpoint\"\n\t\t[ngStyle]=\"{'-webkit-transform':startEndpointTransform(),\n\t\t'transform':startEndpointTransform(),\n\t\t'width':20+'px'}\"\n\t\t[style.left.px]=\"shiftedPoint(10).x\"\n\t\t[style.top.px]=\"shiftedPoint(10).y\"\n\t>\n</ng-container>\n\n<ng-container [ngSwitch]=\"endStyle\">\n\t<img src=\"" + __webpack_require__(725) + "\" alt=\"Empty arrow\"\n\t\t*ngSwitchCase=\"2\"\n\t\tclass=\"edge-endpoint\"\n\t\t[ngStyle]=\"{'-webkit-transform':endEndpointTransform(),\n\t\t'transform':endEndpointTransform(),\n\t\t'width':10+'px'}\"\n\t\t[style.left.px]=\"shiftedPoint(7,true).x\"\n\t\t[style.top.px]=\"shiftedPoint(7,true).y\"\n\t\t>\n\t<img src=\"" + __webpack_require__(726) + "\" alt=\"Filled arrow\"\n\t\t*ngSwitchCase=\"3\"\n\t\tclass=\"edge-endpoint\"\n\t\t[ngStyle]=\"{'-webkit-transform':endEndpointTransform(),\n\t\t'transform':endEndpointTransform(),\n\t\t'width':10+'px'}\"\n\t\t[style.left.px]=\"shiftedPoint(7,true).x\"\n\t\t[style.top.px]=\"shiftedPoint(7,true).y\"\n\t\t>\n\t<img src=\"" + __webpack_require__(727) + "\" alt=\"Empty diamond\"\n\t\t*ngSwitchCase=\"4\"\n\t\tclass=\"edge-endpoint\"\n\t\t[ngStyle]=\"{'-webkit-transform':endEndpointTransform(),\n\t\t'transform':endEndpointTransform(),\n\t\t'width':20+'px'}\"\n\t\t[style.left.px]=\"shiftedPoint(10,true).x\"\n\t\t[style.top.px]=\"shiftedPoint(10,true).y\"\n\t\t>\n\t<img src=\"" + __webpack_require__(728) + "\" alt=\"Filled diamond\"\n\t\t*ngSwitchCase=\"5\"\n\t\tclass=\"edge-endpoint\"\n\t\t[ngStyle]=\"{'-webkit-transform':endEndpointTransform(),\n\t\t'transform':endEndpointTransform(),\n\t\t'width':20+'px'}\"\n\t\t[style.left.px]=\"shiftedPoint(10,true).x\"\n\t\t[style.top.px]=\"shiftedPoint(10,true).y\"\n\t\t>\n</ng-container>\n\n<div class=\"edge-text\"\n\t*ngIf=\"!emptyLabel()\"\n\t[style.left.px]=\"midpoint().x\"\n\t[style.top.px]=\"midpoint().y\"\n\t(dblclick)=\"labelDoubleClicked.emit($event);\"\n>\n\t{{label}}\n</div>\n\n";
 
 /***/ },
 
@@ -13326,6 +13331,11 @@ webpackJsonp([0],{
 	            return this.edge.style.color;
 	        }
 	    };
+	    DiagramEdgeComponent.prototype.labelDoubleClicked = function (event) {
+	        this.workspace.clearSelection();
+	        this.workspace.addEdgeToSelection(this.edge);
+	        this.workspace.edgeStyleOptionsIsOpen = true;
+	    };
 	    __decorate([
 	        core_1.Input('workspace'), 
 	        __metadata('design:type', (typeof (_a = typeof workspace_1.Workspace !== 'undefined' && workspace_1.Workspace) === 'function' && _a) || Object)
@@ -13356,7 +13366,7 @@ webpackJsonp([0],{
 /***/ 147:
 /***/ function(module, exports) {
 
-	module.exports = "<line-segment \n\t[start]=\"edge.fromPoint.pointOnGeometry()\"\n\t[end]=\"edge.toPoint.pointOnGeometry()\"\n\t[color]=\"edgeColor()\"\n\t[dashStyle]=\"edge.style.dashStyle\"\n\t[startStyle]=\"edge.style.fromEndpoint\"\n\t[endStyle]=\"edge.style.toEndpoint\"\n\t[label]=\"edge.label\"\n\t></line-segment>\n\n<edge-style \n\t*ngIf=\"soloSelected\" \n\t[workspace]=\"workspace\"\n\t[edge]=\"edge\"\n\t[positionOfTheCursor]=\"workspace.cursorPosition\"\n>\n</edge-style>";
+	module.exports = "<line-segment \n\t[start]=\"edge.fromPoint.pointOnGeometry()\"\n\t[end]=\"edge.toPoint.pointOnGeometry()\"\n\t[color]=\"edgeColor()\"\n\t[dashStyle]=\"edge.style.dashStyle\"\n\t[startStyle]=\"edge.style.fromEndpoint\"\n\t[endStyle]=\"edge.style.toEndpoint\"\n\t[label]=\"edge.label\"\n\t(labelDoubleClicked)=\"labelDoubleClicked($event)\"\n\t></line-segment>\n\n<edge-style \n\t*ngIf=\"soloSelected\" \n\t[workspace]=\"workspace\"\n\t[edge]=\"edge\"\n\t[positionOfTheCursor]=\"workspace.cursorPosition\"\n>\n</edge-style>";
 
 /***/ },
 
@@ -13656,6 +13666,7 @@ webpackJsonp([0],{
 	var workspace_1 = __webpack_require__(100);
 	var remove_1 = __webpack_require__(113);
 	var change_edge_style_1 = __webpack_require__(152);
+	var change_edge_label_1 = __webpack_require__(729);
 	var WIDTH = 200;
 	var HEIGHT = 220;
 	var EdgeStyleComponent = (function () {
@@ -13688,6 +13699,19 @@ webpackJsonp([0],{
 	    };
 	    EdgeStyleComponent.prototype.preventClosingOfOptions = function (event) {
 	        event.stopPropagation();
+	    };
+	    EdgeStyleComponent.prototype.changeLabel = function (event) {
+	        if (event.keyCode == 13) {
+	            console.debug("User changed edge content to " + this.editedEdgeLabel);
+	            this.workspace.edgeStyleOptionsIsOpen = false;
+	            this.workspace.commit(new change_edge_label_1.ChangeEdgeLabelCommand(this.edge, this.editedEdgeLabel), true);
+	        }
+	        else if (event.keyCode == 27) {
+	            this.workspace.edgeStyleOptionsIsOpen = false;
+	        }
+	    };
+	    EdgeStyleComponent.prototype.afterMenuOpens = function (event) {
+	        this.editedEdgeLabel = this.edge.label;
 	    };
 	    __decorate([
 	        core_1.Input(), 
@@ -13767,7 +13791,7 @@ webpackJsonp([0],{
 /***/ 153:
 /***/ function(module, exports) {
 
-	module.exports = "<ng-container *ngIf=\"edge!=null\">\n\n\t<div class=\"link-circle\" \n\t\t(mousedown)=\"openStyleOptions($event)\"\n\t\t[style.left.px]=\"follow.x\"\n\t\t[style.top.px]=\"follow.y\"\n\t\t[style.width.px]=\"10\"\n\t\t[style.height.px]=\"10\">\n\t</div>\n</ng-container>\n\n<div \n\tclass=\"drop-shadowed-pop-up\"\n\t(mousedown)=\"preventClosingOfOptions($event)\"\n\t[style.width.px]=\"200\"\n\t[style.height.px]=\"250\"\n\t[style.left.px]=\"follow.x\"\n\t[style.top.px]=\"follow.y\"\n\t[@styleOptionsOpen]=\"workspace.edgeStyleOptionsIsOpen?'open':'closed'\" >\n\t<ul id=\"edge-style-list\">\n\n\t\t<li>\n\t\t\t<button class=\"edge-style-row-one-of-three\">Start</button>\n\t\t\t<button class=\"edge-style-row-one-of-three remove-edge-button\" (mousedown)=\"removeEdge($event)\">Remove</button>\n\t\t\t<button class=\"edge-style-row-one-of-three\">End</button>\n\t\t</li>\n\t\t<li>\n\t\t\t<input class=\"edge-label-field\" type=\"text\" placeholder=\"Label\"/>\n\t\t</li>\n\n\t\t<li>\n\t\t\t<div class=\"edge-style-row-one-of-three edge-stroke-button\" (mousedown)=\"changeDashing(1,$event)\">\n\t\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t\t<line stroke-dasharray=\"0\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t\t</svg>\n\t\t\t</div>\n\t\t\t<div class=\"edge-style-row-one-of-three edge-stroke-button\" (mousedown)=\"changeDashing(2,$event)\">\n\t\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t\t<line stroke-dasharray=\"7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t\t</svg>\n\t\t\t</div>\n\t\t\t<div class=\"edge-style-row-one-of-three edge-stroke-button\" (mousedown)=\"changeDashing(3,$event)\">\n\t\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t\t<line stroke-dasharray=\"3 7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t\t</svg>\n\t\t\t</div>\n\t\t</li>\n\n\t\t<!--<li (mousedown)=\"changeDashing(1,$event)\">\n\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t<line stroke-dasharray=\"0\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t</svg>\n\t\t</li>\n\t\t<li (mousedown)=\"changeDashing(2,$event)\">\n\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t<line stroke-dasharray=\"7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t</svg>\n\t\t</li>\n\t\t<li (mousedown)=\"changeDashing(3,$event)\">\n\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t<line stroke-dasharray=\"3 7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t</svg>\n\t\t</li>-->\n\t</ul>\n</div>";
+	module.exports = "<ng-container *ngIf=\"edge!=null\">\n\n\t<div class=\"link-circle\" \n\t\t(mousedown)=\"openStyleOptions($event)\"\n\t\t[style.left.px]=\"follow.x\"\n\t\t[style.top.px]=\"follow.y\"\n\t\t[style.width.px]=\"10\"\n\t\t[style.height.px]=\"10\">\n\t</div>\n</ng-container>\n\n<div \n\tclass=\"drop-shadowed-pop-up\"\n\t(mousedown)=\"preventClosingOfOptions($event)\"\n\t[style.width.px]=\"200\"\n\t[style.height.px]=\"250\"\n\t[style.left.px]=\"follow.x\"\n\t[style.top.px]=\"follow.y\"\n\t[@styleOptionsOpen]=\"workspace.edgeStyleOptionsIsOpen?'open':'closed'\" \n\t(@styleOptionsOpen.done)=\"afterMenuOpens($event)\"\n\t>\n\t<ul id=\"edge-style-list\">\n\n\t\t<li>\n\t\t\t<button class=\"edge-style-row-one-of-three\">Start</button>\n\t\t\t<button class=\"edge-style-row-one-of-three remove-edge-button\" (mousedown)=\"removeEdge($event)\">Remove</button>\n\t\t\t<button class=\"edge-style-row-one-of-three\">End</button>\n\t\t</li>\n\t\t<li>\n\t\t\t<input class=\"edge-label-field\" type=\"text\" placeholder=\"Label\" (keydown)=\"changeLabel($event)\" [(ngModel)]=\"editedEdgeLabel\"/>\n\t\t</li>\n\n\t\t<li>\n\t\t\t<div class=\"edge-style-row-one-of-three edge-stroke-button\" (mousedown)=\"changeDashing(1,$event)\">\n\t\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t\t<line stroke-dasharray=\"0\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t\t</svg>\n\t\t\t</div>\n\t\t\t<div class=\"edge-style-row-one-of-three edge-stroke-button\" (mousedown)=\"changeDashing(2,$event)\">\n\t\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t\t<line stroke-dasharray=\"7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t\t</svg>\n\t\t\t</div>\n\t\t\t<div class=\"edge-style-row-one-of-three edge-stroke-button\" (mousedown)=\"changeDashing(3,$event)\">\n\t\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t\t<line stroke-dasharray=\"3 7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t\t</svg>\n\t\t\t</div>\n\t\t</li>\n\n\t\t<!--<li (mousedown)=\"changeDashing(1,$event)\">\n\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t<line stroke-dasharray=\"0\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t</svg>\n\t\t</li>\n\t\t<li (mousedown)=\"changeDashing(2,$event)\">\n\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t<line stroke-dasharray=\"7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t</svg>\n\t\t</li>\n\t\t<li (mousedown)=\"changeDashing(3,$event)\">\n\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t<line stroke-dasharray=\"3 7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t</svg>\n\t\t</li>-->\n\t</ul>\n</div>";
 
 /***/ },
 
@@ -14641,6 +14665,40 @@ webpackJsonp([0],{
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "assets/filled-diamond.6c49a4f1dad938e18ca92784732d2ef4.png";
+
+/***/ },
+
+/***/ 729:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var command_1 = __webpack_require__(102);
+	var ChangeEdgeLabelCommand = (function (_super) {
+	    __extends(ChangeEdgeLabelCommand, _super);
+	    function ChangeEdgeLabelCommand(edge, newContent) {
+	        _super.call(this);
+	        this.edge = edge;
+	        this.oldContent = this.edge.label;
+	        this.newContent = newContent;
+	    }
+	    ChangeEdgeLabelCommand.prototype.execute = function () {
+	        this.edge.label = this.newContent;
+	    };
+	    ChangeEdgeLabelCommand.prototype.unExecute = function () {
+	        this.edge.label = this.oldContent;
+	    };
+	    ChangeEdgeLabelCommand.prototype.getName = function () {
+	        return "Change edge label";
+	    };
+	    return ChangeEdgeLabelCommand;
+	}(command_1.Command));
+	exports.ChangeEdgeLabelCommand = ChangeEdgeLabelCommand;
+
 
 /***/ }
 

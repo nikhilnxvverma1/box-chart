@@ -6,6 +6,7 @@
 	[startStyle]="edge.style.fromEndpoint"
 	[endStyle]="edge.style.toEndpoint"
 	[label]="edge.label"
+	(labelDoubleClicked)="labelDoubleClicked($event)"
 	></line-segment>
 
 <edge-style 

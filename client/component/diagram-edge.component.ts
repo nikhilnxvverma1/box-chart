@@ -20,4 +20,10 @@ export class DiagramEdgeComponent  {
 			return this.edge.style.color;
 		}
 	}
+
+	labelDoubleClicked(event:MouseEvent){
+		this.workspace.clearSelection();
+		this.workspace.addEdgeToSelection(this.edge);
+		this.workspace.edgeStyleOptionsIsOpen=true;
+	}
 }

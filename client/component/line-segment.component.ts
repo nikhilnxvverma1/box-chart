@@ -1,4 +1,4 @@
-import { Component,Input } from '@angular/core';
+import { Component,Input,EventEmitter,Output } from '@angular/core';
 import { Point,LineSegment } from '../model/geometry';
 import { Color,DashStyle,EndpointStyle } from '../model/worksheet';
 
@@ -14,6 +14,7 @@ export class LineSegmentComponent {
 	@Input() startStyle:EndpointStyle;
 	@Input() endStyle:EndpointStyle;
 	@Input() label:string;
+	@Output() labelDoubleClicked=new EventEmitter<MouseEvent>();
 
 	private transformationMatrix(){
 		let xMid=this.start.distance(this.end)/2;

@@ -33,6 +33,6 @@ export class ChangeNodeContentCommand extends Command {
 	}
 
 	getName():string{
-		return "Change edge style";
+		return "Change node's content";
 	}
 }

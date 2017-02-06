@@ -98,6 +98,7 @@
 	*ngIf="!emptyLabel()"
 	[style.left.px]="midpoint().x"
 	[style.top.px]="midpoint().y"
+	(dblclick)="labelDoubleClicked.emit($event);"
 >
 	{{label}}
 </div>
