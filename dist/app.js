@@ -6453,7 +6453,7 @@ webpackJsonp([0],{
 	    });
 	    DiagramNode.objectFromJSON = function (json) {
 	        if (json.type == DiagramNodeType.GenericDiagramNode) {
-	            return new GenericDiagramNode(json.shapeType).fromJSON(json);
+	            return new GenericDiagramNode(json.geometry.type).fromJSON(json);
 	        }
 	        return null;
 	    };
@@ -6654,8 +6654,7 @@ webpackJsonp([0],{
 	        _super.call(this);
 	        this._doubleBorder = false;
 	        this._dashedBorder = false;
-	        this._shapeType = type;
-	        this._geometry = GenericDiagramNode.geometryForType(this._shapeType, new geometry_1.Point(0, 0));
+	        this._geometry = GenericDiagramNode.geometryForType(type, new geometry_1.Point(0, 0));
 	        this._content = "Content";
 	    }
 	    GenericDiagramNode.prototype.cellRequirement = function () {
@@ -6664,17 +6663,6 @@ webpackJsonp([0],{
 	    Object.defineProperty(GenericDiagramNode.prototype, "rect", {
 	        get: function () {
 	            return this._rect;
-	        },
-	        enumerable: true,
-	        configurable: true
-	    });
-	    Object.defineProperty(GenericDiagramNode.prototype, "shapeType", {
-	        get: function () {
-	            return this._shapeType;
-	        },
-	        set: function (value) {
-	            this._shapeType = value;
-	            this._geometry = GenericDiagramNode.geometryForType(this._shapeType, this._geometry.getCenter());
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -6695,7 +6683,6 @@ webpackJsonp([0],{
 	        },
 	        set: function (value) {
 	            this._geometry = value;
-	            this._shapeType = GenericDiagramNode.nodeTypeFromGeometryType(this._geometry.type);
 	        },
 	        enumerable: true,
 	        configurable: true
@@ -6742,44 +6729,21 @@ webpackJsonp([0],{
 	        var width = 0;
 	        var height = 0;
 	        switch (nodeType) {
-	            case GenericDiagramNodeType.Rectangle:
+	            case geometry_1.GeometryType.Rect:
 	                width = 100;
 	                height = 30;
 	                break;
-	            case GenericDiagramNodeType.Circle:
-	                width = 30;
-	                height = 30;
-	                break;
-	            case GenericDiagramNodeType.Diamond:
-	                width = 100;
-	                height = 100;
-	                break;
-	            case GenericDiagramNodeType.Ellipse:
-	                width = 200;
+	            case geometry_1.GeometryType.Circle:
+	                width = 60;
 	                height = 60;
-	                break;
-	            case GenericDiagramNodeType.RoundedRectangle:
-	                width = 200;
-	                height = 60;
-	                break;
-	            case GenericDiagramNodeType.StickFigure:
-	                width = 80;
-	                height = 120;
-	                break;
-	            case GenericDiagramNodeType.Database:
-	                width = 80;
-	                height = 120;
-	            case GenericDiagramNodeType.Parallelogram:
-	                width = 200;
-	                height = 80;
 	                break;
 	        }
 	        //return geomtry shape based on type of node
-	        if (nodeType == GenericDiagramNodeType.Rectangle) {
-	            return new geometry_1.Rect(centerPosition.x - width, centerPosition.y - height, width, height);
+	        if (nodeType == geometry_1.GeometryType.Rect) {
+	            return new geometry_1.Rect(centerPosition.x - width / 2, centerPosition.y - height / 2, width, height);
 	        }
-	        else if (nodeType == GenericDiagramNodeType.Circle) {
-	            return new geometry_1.Circle(centerPosition, width); //fallback
+	        else if (nodeType == geometry_1.GeometryType.Circle) {
+	            return new geometry_1.Circle(centerPosition, width / 2); //fallback
 	        }
 	        return new geometry_1.Rect(centerPosition.x - width, centerPosition.y - height, width, height); //fallback
 	    };
@@ -6790,7 +6754,7 @@ webpackJsonp([0],{
 	            newContent = util.deriveSimilarButDifferentString(this.content);
 	        }
 	        //duplicate the node with the same type
-	        var newNode = new GenericDiagramNode(this.shapeType);
+	        var newNode = new GenericDiagramNode(this.geometry.type);
 	        newNode.dashedBorder = this.dashedBorder;
 	        newNode.doubleBorder = this.doubleBorder;
 	        newNode.content = newContent;
@@ -6814,7 +6778,6 @@ webpackJsonp([0],{
 	        json.foreground = this.foreground.toJSON();
 	        json.stroke = this.stroke.toJSON();
 	        json.geometry = this.geometry.toJSON();
-	        json.shapeType = this.shapeType;
 	        json.content = this.content;
 	        json.doubleBorder = this._doubleBorder;
 	        json.dashedBorder = this._dashedBorder;
@@ -10427,6 +10390,7 @@ webpackJsonp([0],{
 	"use strict";
 	var worksheet_1 = __webpack_require__(71);
 	var worksheet_2 = __webpack_require__(71);
+	var geometry_1 = __webpack_require__(72);
 	function diagramModelFromNode(node) {
 	    var diagramModel = new worksheet_1.DiagramModel();
 	    diagramModel.nodeList.push(node);
@@ -10447,45 +10411,45 @@ webpackJsonp([0],{
 	    {
 	        name: "Rectangle",
 	        iconFilename: "rectangle-generic-icon.svg",
-	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Rectangle)); }
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(geometry_1.GeometryType.Rect)); }
 	    },
 	    {
 	        name: "Circle",
 	        iconFilename: "circle-generic-icon.svg",
-	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Circle)); }
+	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(geometry_1.GeometryType.Circle)); }
 	    },
 	];
-	var extra = [{
-	        name: "RoundedRectangle",
-	        iconFilename: "rounded-rectangle-generic-icon.svg",
-	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.RoundedRectangle)); }
-	    },
-	    {
-	        name: "Parallelogram",
-	        iconFilename: "parallelogram-generic-icon.svg",
-	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Parallelogram)); }
-	    },
-	    {
-	        name: "Diamond",
-	        iconFilename: "diamond-generic-icon.svg",
-	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Diamond)); }
-	    },
-	    {
-	        name: "Ellipse",
-	        iconFilename: "ellipse-generic-icon.svg",
-	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Ellipse)); }
-	    },
-	    {
-	        name: "StickFigure",
-	        iconFilename: "stick-figure-generic-icon.svg",
-	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.StickFigure)); }
-	    },
-	    {
-	        name: "Database",
-	        iconFilename: "database-generic-icon.svg",
-	        diagramModel: function () { return diagramModelFromNode(new worksheet_2.GenericDiagramNode(worksheet_2.GenericDiagramNodeType.Database)); }
-	    }
-	];
+	// let extra=[{
+	// 		name:"RoundedRectangle",
+	// 		iconFilename:"rounded-rectangle-generic-icon.svg",
+	// 		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GeometryType.RoundedRectangle));}
+	// 	},
+	// 	{
+	// 		name:"Parallelogram",
+	// 		iconFilename:"parallelogram-generic-icon.svg",
+	// 		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GeometryType.Parallelogram));}
+	// 	},
+	// 	{
+	// 		name:"Diamond",
+	// 		iconFilename:"diamond-generic-icon.svg",
+	// 		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GeometryType.Diamond));}
+	// 	},
+	// 	{
+	// 		name:"Ellipse",
+	// 		iconFilename:"ellipse-generic-icon.svg",
+	// 		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GeometryType.Ellipse));}
+	// 	},
+	// 	{
+	// 		name:"StickFigure",
+	// 		iconFilename:"stick-figure-generic-icon.svg",
+	// 		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GeometryType.StickFigure));}
+	// 	},
+	// 	{
+	// 		name:"Database",
+	// 		iconFilename:"database-generic-icon.svg",
+	// 		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GeometryType.Database));}
+	// 	}
+	// ];
 
 
 /***/ },
@@ -12358,11 +12322,13 @@ webpackJsonp([0],{
 	var core_2 = __webpack_require__(3);
 	var core_3 = __webpack_require__(3);
 	var core_4 = __webpack_require__(3);
+	var geometry_1 = __webpack_require__(72);
 	var workspace_1 = __webpack_require__(100);
 	var resize_handle_component_1 = __webpack_require__(122);
 	var worksheet_1 = __webpack_require__(71);
 	var change_node_content_1 = __webpack_require__(126);
 	var change_node_outline_1 = __webpack_require__(723);
+	var change_node_shape_1 = __webpack_require__(724);
 	//TODO move outside to a special 'variables' file 
 	var SELECTION_COLOR = '#2BA3FC';
 	var PULL_LINKER_FROM_COLOR = '#2B93C1';
@@ -12382,15 +12348,7 @@ webpackJsonp([0],{
 	        this.prepareNewEdgeAndGhost();
 	        this.editedContent = this.node.content;
 	    };
-	    // ngOnChanges(changes:SimpleChanges){
-	    // 	if (changes['soloSelected'] != null ) {
-	    // 		this.workspace.contentEditingIsOpen=false;//redundant
-	    // 	}
-	    // }
 	    GenericNodeComponent.prototype.mousedown = function (event) {
-	        // if(!this.workspace.contentEditingIsOpen){
-	        // 	this.requestDragging.emit(this);
-	        // }
 	        if (!event.shiftKey) {
 	            if (!this.workspace.contentEditingIsOpen) {
 	                this.requestDragging.emit(this);
@@ -12425,7 +12383,6 @@ webpackJsonp([0],{
 	        }
 	    };
 	    GenericNodeComponent.prototype.toggleOutline = function (event) {
-	        console.debug("Toggleing outline on this shape");
 	        // this.node.dashedBorder=!this.node.dashedBorder;
 	        var outlineStyle = this.getNextOutlineStyle();
 	        this.workspace.commit(new change_node_outline_1.ChangeNodeOutlineCommand(this.node, outlineStyle.doubleBorder, outlineStyle.dashedBorder, this.ghostNode), true);
@@ -12458,6 +12415,19 @@ webpackJsonp([0],{
 	    GenericNodeComponent.prototype.doubleBorderPercentForHeightWithFlatReduction = function () {
 	        return ((this.node.geometry.getBoundingBox().height - 2 * DOUBLE_BORDER_FLAT_OFFSET) /
 	            this.node.geometry.getBoundingBox().height) * 100 + "%";
+	    };
+	    GenericNodeComponent.prototype.toggleShape = function (event) {
+	        var nextShape = this.getNextShape();
+	        this.workspace.commit(new change_node_shape_1.ChangeNodeShapeCommand(this.node, worksheet_1.GenericDiagramNode.geometryForType(nextShape, this.node.geometry.getCenter()), this.ghostNode), true);
+	        event.stopPropagation();
+	    };
+	    GenericNodeComponent.prototype.getNextShape = function () {
+	        if (this.node.geometry.type == geometry_1.GeometryType.Rect) {
+	            return geometry_1.GeometryType.Circle;
+	        }
+	        else if (this.node.geometry.type == geometry_1.GeometryType.Circle) {
+	            return geometry_1.GeometryType.Rect;
+	        }
 	    };
 	    GenericNodeComponent.prototype.strokeColor = function () {
 	        return this.node.selected ? SELECTION_COLOR : this.node.stroke.hashCode();
@@ -12638,7 +12608,7 @@ webpackJsonp([0],{
 /***/ 127:
 /***/ function(module, exports) {
 
-	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.geometry.getBoundingBox().x\"\n[style.top.px]=\"node.geometry.getBoundingBox().y\"\n[style.width.px]=\"node.geometry.getBoundingBox().width\"\n[style.height.px]=\"node.geometry.getBoundingBox().height\"\n[style.opacity]=\"opacity()\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"mousedown($event)\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\n\t\t<!--Rectangle(1)-->\n\t\t<rect *ngIf=\"node.shapeType==1\" x=\"1%\" y=\"1%\" width=\"99%\" height=\"99%\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\" [attr.stroke-dasharray]=\"strokeDashArray()\"/>\n\t\t\n\t\t<!--Rectangle(1) double border if needed-->\n\t\t<rect *ngIf=\"node.shapeType==1 && node.doubleBorder\" \n\t\t\t[attr.x]=\"doubleBorderPercentForFlatOffsetInWidth()\"\n\t\t\t[attr.y]=\"doubleBorderPercentForFlatOffsetInHeight()\" \n\t\t\t[attr.width]=\"doubleBorderPercentForWidthWithFlatReduction()\"\n\t\t\t[attr.height]=\"doubleBorderPercentForHeightWithFlatReduction()\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"1\" [attr.stroke-dasharray]=\"0\"/>\n\n\t\t<!--Circle(2) or Ellipse(4)-->\n\t\t<!--TODO Ellipse should be on its own-->\n\t\t<ellipse *ngIf=\"node.shapeType==2||node.shapeType==4\" cx=\"50%\" cy=\"50%\" rx=\"49%\" ry=\"49%\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\" [attr.stroke-dasharray]=\"strokeDashArray()\"/>\n\n\t\t<!--Circle(2) or Ellipse(4) double border if needed-->\n\t\t<!--TODO Ellipse should be on its own-->\n\t\t<ellipse *ngIf=\"(node.shapeType==2||node.shapeType==4) && node.doubleBorder\" cx=\"50%\" cy=\"50%\" rx=\"40%\" ry=\"40%\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"1\" [attr.stroke-dasharray]=\"0\"/>\n\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.shapeType==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\" [attr.stroke-dasharray]=\"strokeDashArray()\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.shapeType==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\" [attr.stroke-dasharray]=\"strokeDashArray()\"/>\n\t</svg>\n\n\t<div class=\"node-content\"\n\t\t[style.left.px]=\"node.geometry.getBoundingBox().width/2\"\n\t\t[style.top.px]=\"node.geometry.getBoundingBox().height/2\"\n\t\t[style.color]=\"node.foreground.hashCode()\" >{{node.content}}\n\t</div>\n</div>\n\n<ng-container *ngIf=\"false\">\n\n\t<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n\t<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"1\" \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"2\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"3\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"4\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"5\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"6\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"7\" \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"8\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n</ng-container>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble edit-operation\"\n\t(mousedown)=\"editContent($event)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topLeft().offset(-10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topLeft().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble toggle-outline-operation\"\n\t(mousedown)=\"toggleOutline($event)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().bottomLeft().offset(-10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().bottomLeft().offset(0,10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"drop-shadowed-pop-up\"\n\t(mousedown)=\"preventClosingOfOptions($event)\"\n\t[style.width.px]=\"200\"\n\t[style.height.px]=\"250\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topLeft().offset(-10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topLeft().offset(0,-10).y\"\n\t[@contentEditingOpen]=\"workspace.contentEditingIsOpen?'open':'closed'\" >\n\t<input #contentEditingField class=\"node-content-input\" type=\"text\" (keydown)=\"changeContent($event)\" [(ngModel)]=\"editedContent\"/>\n</div>\n\n<!-- Gizmo Edge associated with this Node-->\n<gizmo-edge \n\t*ngIf=\"soloSelected  && !nodeMoving\" \n\t[workspace]=\"workspace\"\n\t[fromNode]=\"node\"\n\t[positionOfTheCursor]=\"workspace.cursorPosition\"\n\t[prepared]=\"prepared\"\n\t[ghostNode]=\"ghostNode\"\n\t(linkNodes)=\"linkNodes.emit($event)\"\n\t(requireNewEdgeAndGhost)=\"prepareNewEdgeAndGhost()\"\n>\n</gizmo-edge>";
+	module.exports = "<div class=\"generic-block\"\n[style.left.px]=\"node.geometry.getBoundingBox().x\"\n[style.top.px]=\"node.geometry.getBoundingBox().y\"\n[style.width.px]=\"node.geometry.getBoundingBox().width\"\n[style.height.px]=\"node.geometry.getBoundingBox().height\"\n[style.opacity]=\"opacity()\"\n[@selection]=\"node.selected?'selected':'unselected'\" \n(mousedown)=\"mousedown($event)\"\n(dblclick)=\"editContent($event)\">\n\t<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->\n\t<svg width=\"100%\" height=\"100%\" class=\"node-background\" >\n\n\t\t<!--Rectangle(2)-->\n\t\t<rect *ngIf=\"node.geometry.type==2\" x=\"1%\" y=\"1%\" width=\"99%\" height=\"99%\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\" [attr.stroke-dasharray]=\"strokeDashArray()\"/>\n\t\t\n\t\t<!--Rectangle(2) double border if needed-->\n\t\t<rect *ngIf=\"node.geometry.type==2 && node.doubleBorder\" \n\t\t\t[attr.x]=\"doubleBorderPercentForFlatOffsetInWidth()\"\n\t\t\t[attr.y]=\"doubleBorderPercentForFlatOffsetInHeight()\" \n\t\t\t[attr.width]=\"doubleBorderPercentForWidthWithFlatReduction()\"\n\t\t\t[attr.height]=\"doubleBorderPercentForHeightWithFlatReduction()\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"1\" [attr.stroke-dasharray]=\"0\"/>\n\n\t\t<!--Circle(3)-->\n\t\t<!--TODO Ellipse should be on its own-->\n\t\t<ellipse *ngIf=\"node.geometry.type==3\" cx=\"50%\" cy=\"50%\" rx=\"49%\" ry=\"49%\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\" [attr.stroke-dasharray]=\"strokeDashArray()\"/>\n\n\t\t<!--Circle(3) double border if needed-->\n\t\t<!--TODO Ellipse should be on its own-->\n\t\t<ellipse *ngIf=\"(node.geometry.type==3) && node.doubleBorder\" cx=\"50%\" cy=\"50%\" rx=\"40%\" ry=\"40%\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"1\" [attr.stroke-dasharray]=\"0\"/>\n\n\t\t <!--These following shapes don't exist yet-->\n\t\t<!--Rounded Rectangle(5)-->\n\t\t<rect *ngIf=\"node.geometry.type==5\" width=\"100%\" height=\"100%\" rx=\"20px\" ry=\"20px\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\" [attr.stroke-dasharray]=\"strokeDashArray()\"/>\n\t\t<!--Parallelogram(8)-->\n\t\t<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->\n\t\t<rect *ngIf=\"node.geometry.type==8\" x=\"0\" y=\"0\" width=\"100%\" height=\"100%\" transform=\"skewX(-20)\"\n\t\t [style.fill]=\"fillColor()\" [style.stroke]=\"strokeColor()\" [style.stroke-width]=\"3\" [attr.stroke-dasharray]=\"strokeDashArray()\"/>\n\t</svg>\n\n\t<div class=\"node-content\"\n\t\t[style.left.px]=\"node.geometry.getBoundingBox().width/2\"\n\t\t[style.top.px]=\"node.geometry.getBoundingBox().height/2\"\n\t\t[style.color]=\"node.foreground.hashCode()\" >{{node.content}}\n\t</div>\n</div>\n\n<ng-container *ngIf=\"false\">\n\n\t<!-- 8 Reize handlers with different placement can be placed outside (absolute positioned)-->\n\t<!-- TODO possible through loop but angular 2 doesn't provide general counter loops-->\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"1\" \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"2\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"3\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"4\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"5\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"6\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"7\" \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n\t<resize-handle [rect]=\"node.geometry.getBoundingBox()\" [placement]=\"8\"  \n\t*ngIf=\"soloSelected\" \n\t(requestDragging)=\"registerDragIntention($event)\" \n\t(updateAllResizeHandlers)=\"updateAllResizeHandlers($event)\">\n\t</resize-handle>\n\n</ng-container>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble remove-operation\"\n\t(mousedown)=\"removeMe.emit(node)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topRight().offset(10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topRight().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble edit-operation\"\n\t(mousedown)=\"editContent($event)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topLeft().offset(-10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topLeft().offset(0,-10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble toggle-outline-operation\"\n\t(mousedown)=\"toggleOutline($event)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().bottomLeft().offset(-10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().bottomLeft().offset(0,10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"medium-bubble toggle-shape-operation\"\n\t(mousedown)=\"toggleShape($event)\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().bottomRight().offset(10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().bottomRight().offset(0,10).y\"\n\t><!--TODO try to externalize offset values (10)-->\n\n</div>\n\n\n<div \n\t*ngIf=\"soloSelected\" \n\tclass=\"drop-shadowed-pop-up\"\n\t(mousedown)=\"preventClosingOfOptions($event)\"\n\t[style.width.px]=\"200\"\n\t[style.height.px]=\"250\"\n\t[style.left.px]=\"node.geometry.getBoundingBox().topLeft().offset(-10,0).x\"\n\t[style.top.px]=\"node.geometry.getBoundingBox().topLeft().offset(0,-10).y\"\n\t[@contentEditingOpen]=\"workspace.contentEditingIsOpen?'open':'closed'\" >\n\t<input #contentEditingField class=\"node-content-input\" type=\"text\" (keydown)=\"changeContent($event)\" [(ngModel)]=\"editedContent\"/>\n</div>\n\n<!-- Gizmo Edge associated with this Node-->\n<gizmo-edge \n\t*ngIf=\"soloSelected  && !nodeMoving\" \n\t[workspace]=\"workspace\"\n\t[fromNode]=\"node\"\n\t[positionOfTheCursor]=\"workspace.cursorPosition\"\n\t[prepared]=\"prepared\"\n\t[ghostNode]=\"ghostNode\"\n\t(linkNodes)=\"linkNodes.emit($event)\"\n\t(requireNewEdgeAndGhost)=\"prepareNewEdgeAndGhost()\"\n>\n</gizmo-edge>";
 
 /***/ },
 
@@ -14044,7 +14014,7 @@ webpackJsonp([0],{
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: 'Source Sans Pro', sans-serif;\n  margin: 0px; }\n\n.generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.3);\n  position: absolute;\n  z-index: 11; }\n\n#creation-drawer-list {\n  list-style-type: none; }\n\n#creation-drawer-list li {\n  width: 100%;\n  height: 50px; }\n\n#edge-style-list {\n  list-style-type: none;\n  padding: 0px;\n  margin: 0px; }\n\n#edge-style-list li {\n  height: 50px;\n  text-align: center; }\n\n#edge-style-list li:hover {\n  background: lightgrey; }\n\n#remove-list-item {\n  background: #E54F4F;\n  color: #FFF;\n  text-align: center;\n  padding-top: 15px;\n  height: 30px; }\n\n#remove-list-item:hover {\n  background: #930101; }\n\n#creation-drawer-list li {\n  display: inline;\n  padding-right: 30px; }\n\n#multiple-selection-container {\n  border: 1px solid blue;\n  position: absolute;\n  z-index: 11;\n  pointer-events: none; }\n\n#back-to-dashboard {\n  position: absolute;\n  top: 20px;\n  left: 20px;\n  color: gray; }\n\n.node-content-input {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  font-size: 1.3em; }\n\n.selected {\n  border-color: #2BA3FC;\n  color: #2BA3FC; }\n\n.medium-bubble {\n  border-radius: 50%;\n  position: absolute;\n  width: 15px;\n  height: 15px;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%);\n  z-index: 100;\n  cursor: pointer; }\n\n.remove-operation {\n  background: red; }\n\n.edit-operation {\n  background: cornflowerblue; }\n\n.toggle-outline-operation {\n  background: white;\n  border: 1px dashed black; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  position: relative;\n  text-align: center;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%); }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  text-align: center; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353;\n  z-index: 2; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n\n.form-field {\n  background: #F8F8F8;\n  border: none;\n  height: 40px;\n  padding-left: 25px;\n  min-width: 200px; }\n\n.form-field:focus {\n  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);\n  outline: none; }\n\n.button {\n  color: white;\n  border-radius: 30px;\n  cursor: pointer;\n  text-decoration: none;\n  height: 20px;\n  padding: 10px;\n  font-size: 1em;\n  display: inline-block;\n  text-align: center;\n  min-width: 70px; }\n\n.primary {\n  background-image: linear-gradient(19deg, #34A0AA 0%, #1879EF 100%); }\n\n.primary-complement {\n  background-image: linear-gradient(36deg, #9D40B3 0%, #DA8BC3 100%); }\n\n.full-width-center {\n  text-align: center;\n  width: 100%; }\n\n.no-list-style {\n  list-style: none; }\n\nul.centered-list {\n  text-align: center;\n  list-style: none;\n  padding: 0px; }\n\nul.centered-list li {\n  margin: 20px; }\n\nul.horizontal-list li {\n  display: inline-block; }\n\n.big-padding-bottom {\n  padding-bottom: 40px; }\n\n.big-padding-top {\n  padding-top: 40px; }\n\nheader {\n  width: 100%;\n  background: #FFFFFF;\n  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);\n  text-align: center;\n  height: 80px;\n  line-height: 80px;\n  margin-bottom: 70px; }\n\nheader h1 {\n  margin: 0px;\n  font-size: 30px;\n  color: #6F6F6F;\n  font-weight: lighter;\n  display: inline-block; }\n\n.header-logo {\n  float: left;\n  width: auto;\n  height: 70%;\n  padding-left: 20px;\n  padding-top: 10px; }\n\nul.header-links-container {\n  float: right;\n  margin: 0px 20px 0px 0px; }\n\nul.header-links-container li {\n  padding-right: 10px; }\n\n.header-link {\n  text-decoration: none;\n  color: #D98BC3;\n  font-weight: bold;\n  cursor: pointer; }\n\n.header-link:hover {\n  color: #A576DA; }\n\nul.horizontal-list.spaced-out li {\n  padding-right: 10px; }\n\n.dashboard-actions {\n  cursor: pointer; }\n\n.float-right {\n  float: right; }\n\n.worksheet-title {\n  color: #D98BC3;\n  margin-bottom: 5px;\n  margin-top: 5px;\n  cursor: pointer; }\n\n.worksheet-title:hover {\n  color: #A576DA; }\n\n.worksheet-description {\n  color: #2B93C1;\n  font-weight: 300;\n  margin-top: 0px;\n  margin-bottom: 5px; }\n\n.worksheet-info {\n  padding-left: 30px;\n  display: inline-block; }\n\n.worksheet-row {\n  border-bottom: 1px solid black;\n  text-align: left;\n  height: 100px;\n  overflow-y: clip; }\n\n.gaps-on-sides {\n  margin-left: 40px;\n  margin-right: 40px; }\n\n.no-margin {\n  margin: 0px; }\n\nul.centered-list li.no-margin {\n  margin: 0px; }\n\n.dashboard-options {\n  color: #A576DA;\n  text-align: left;\n  height: 60px;\n  border-bottom: 1px solid black;\n  padding-left: 30px; }\n\n.wide {\n  width: 40%; }\n\n.new-worksheet {\n  padding-right: 40px;\n  float: right;\n  padding-right: 40px;\n  cursor: pointer; }\n\n.new-worksheet img {\n  padding-right: 20px;\n  position: relative;\n  top: 10px; }\n\n.new-worksheet span {\n  font-size: 1.3em;\n  position: relative;\n  top: 10px; }\n", ""]);
+	exports.push([module.id, "body {\n  font-family: 'Source Sans Pro', sans-serif;\n  margin: 0px; }\n\n.generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.3);\n  position: absolute;\n  z-index: 11; }\n\n#creation-drawer-list {\n  list-style-type: none; }\n\n#creation-drawer-list li {\n  width: 100%;\n  height: 50px; }\n\n#edge-style-list {\n  list-style-type: none;\n  padding: 0px;\n  margin: 0px; }\n\n#edge-style-list li {\n  height: 50px;\n  text-align: center; }\n\n#edge-style-list li:hover {\n  background: lightgrey; }\n\n#remove-list-item {\n  background: #E54F4F;\n  color: #FFF;\n  text-align: center;\n  padding-top: 15px;\n  height: 30px; }\n\n#remove-list-item:hover {\n  background: #930101; }\n\n#creation-drawer-list li {\n  display: inline;\n  padding-right: 30px; }\n\n#multiple-selection-container {\n  border: 1px solid blue;\n  position: absolute;\n  z-index: 11;\n  pointer-events: none; }\n\n#back-to-dashboard {\n  position: absolute;\n  top: 20px;\n  left: 20px;\n  color: gray; }\n\n.node-content-input {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  font-size: 1.3em; }\n\n.selected {\n  border-color: #2BA3FC;\n  color: #2BA3FC; }\n\n.medium-bubble {\n  border-radius: 50%;\n  position: absolute;\n  width: 15px;\n  height: 15px;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%);\n  z-index: 100;\n  cursor: pointer; }\n\n.remove-operation {\n  background: red; }\n\n.edit-operation {\n  background: cornflowerblue; }\n\n.toggle-outline-operation {\n  background: white;\n  border: 1px dashed black; }\n\n.toggle-shape-operation {\n  background: lightpink; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  position: relative;\n  text-align: center;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%); }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  text-align: center; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353;\n  z-index: 2; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n\n.form-field {\n  background: #F8F8F8;\n  border: none;\n  height: 40px;\n  padding-left: 25px;\n  min-width: 200px; }\n\n.form-field:focus {\n  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);\n  outline: none; }\n\n.button {\n  color: white;\n  border-radius: 30px;\n  cursor: pointer;\n  text-decoration: none;\n  height: 20px;\n  padding: 10px;\n  font-size: 1em;\n  display: inline-block;\n  text-align: center;\n  min-width: 70px; }\n\n.primary {\n  background-image: linear-gradient(19deg, #34A0AA 0%, #1879EF 100%); }\n\n.primary-complement {\n  background-image: linear-gradient(36deg, #9D40B3 0%, #DA8BC3 100%); }\n\n.full-width-center {\n  text-align: center;\n  width: 100%; }\n\n.no-list-style {\n  list-style: none; }\n\nul.centered-list {\n  text-align: center;\n  list-style: none;\n  padding: 0px; }\n\nul.centered-list li {\n  margin: 20px; }\n\nul.horizontal-list li {\n  display: inline-block; }\n\n.big-padding-bottom {\n  padding-bottom: 40px; }\n\n.big-padding-top {\n  padding-top: 40px; }\n\nheader {\n  width: 100%;\n  background: #FFFFFF;\n  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);\n  text-align: center;\n  height: 80px;\n  line-height: 80px;\n  margin-bottom: 70px; }\n\nheader h1 {\n  margin: 0px;\n  font-size: 30px;\n  color: #6F6F6F;\n  font-weight: lighter;\n  display: inline-block; }\n\n.header-logo {\n  float: left;\n  width: auto;\n  height: 70%;\n  padding-left: 20px;\n  padding-top: 10px; }\n\nul.header-links-container {\n  float: right;\n  margin: 0px 20px 0px 0px; }\n\nul.header-links-container li {\n  padding-right: 10px; }\n\n.header-link {\n  text-decoration: none;\n  color: #D98BC3;\n  font-weight: bold;\n  cursor: pointer; }\n\n.header-link:hover {\n  color: #A576DA; }\n\nul.horizontal-list.spaced-out li {\n  padding-right: 10px; }\n\n.dashboard-actions {\n  cursor: pointer; }\n\n.float-right {\n  float: right; }\n\n.worksheet-title {\n  color: #D98BC3;\n  margin-bottom: 5px;\n  margin-top: 5px;\n  cursor: pointer; }\n\n.worksheet-title:hover {\n  color: #A576DA; }\n\n.worksheet-description {\n  color: #2B93C1;\n  font-weight: 300;\n  margin-top: 0px;\n  margin-bottom: 5px; }\n\n.worksheet-info {\n  padding-left: 30px;\n  display: inline-block; }\n\n.worksheet-row {\n  border-bottom: 1px solid black;\n  text-align: left;\n  height: 100px;\n  overflow-y: clip; }\n\n.gaps-on-sides {\n  margin-left: 40px;\n  margin-right: 40px; }\n\n.no-margin {\n  margin: 0px; }\n\nul.centered-list li.no-margin {\n  margin: 0px; }\n\n.dashboard-options {\n  color: #A576DA;\n  text-align: left;\n  height: 60px;\n  border-bottom: 1px solid black;\n  padding-left: 30px; }\n\n.wide {\n  width: 40%; }\n\n.new-worksheet {\n  padding-right: 40px;\n  float: right;\n  padding-right: 40px;\n  cursor: pointer; }\n\n.new-worksheet img {\n  padding-right: 20px;\n  position: relative;\n  top: 10px; }\n\n.new-worksheet span {\n  font-size: 1.3em;\n  position: relative;\n  top: 10px; }\n", ""]);
 	
 	// exports
 
@@ -14404,6 +14374,111 @@ webpackJsonp([0],{
 	    return ChangeNodeOutlineCommand;
 	}(command_1.Command));
 	exports.ChangeNodeOutlineCommand = ChangeNodeOutlineCommand;
+
+
+/***/ },
+
+/***/ 724:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __extends = (this && this.__extends) || function (d, b) {
+	    for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p];
+	    function __() { this.constructor = d; }
+	    d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
+	};
+	var command_1 = __webpack_require__(102);
+	var ChangeNodeShapeCommand = (function (_super) {
+	    __extends(ChangeNodeShapeCommand, _super);
+	    function ChangeNodeShapeCommand(node, newShape, ghostNode) {
+	        _super.call(this);
+	        this.node = node;
+	        this.oldGeometry = this.node.geometry;
+	        this.newGeometry = newShape;
+	        this.ghostNode = ghostNode;
+	        this.saveOldTrackingPointInfo();
+	        this.generateNewTrackingPointInfo();
+	    }
+	    ChangeNodeShapeCommand.prototype.saveOldTrackingPointInfo = function () {
+	        this.oldTrackingPointList = [];
+	        //store tracking points for all outgoing edges
+	        for (var _i = 0, _a = this.node.outgoingEdges; _i < _a.length; _i++) {
+	            var edge = _a[_i];
+	            this.oldTrackingPointList.push(new TrackingPointInfo(edge.fromPoint, edge, true));
+	        }
+	        //store tracking points for all incoming edges
+	        for (var _b = 0, _c = this.node.incomingEdges; _b < _c.length; _b++) {
+	            var edge = _c[_b];
+	            this.oldTrackingPointList.push(new TrackingPointInfo(edge.toPoint, edge, false));
+	        }
+	    };
+	    ChangeNodeShapeCommand.prototype.generateNewTrackingPointInfo = function () {
+	        this.newTrackingPointList = [];
+	        //generate new tracking points for all outgoing edges
+	        for (var _i = 0, _a = this.node.outgoingEdges; _i < _a.length; _i++) {
+	            var edge = _a[_i];
+	            var converted = this.convertToNewTrackingPointType(edge.fromPoint);
+	            this.newTrackingPointList.push(new TrackingPointInfo(converted, edge, true));
+	        }
+	        //generate new tracking points for all incoming edges
+	        for (var _b = 0, _c = this.node.incomingEdges; _b < _c.length; _b++) {
+	            var edge = _c[_b];
+	            var converted = this.convertToNewTrackingPointType(edge.toPoint);
+	            this.newTrackingPointList.push(new TrackingPointInfo(converted, edge, false));
+	        }
+	    };
+	    ChangeNodeShapeCommand.prototype.convertToNewTrackingPointType = function (trackingPoint) {
+	        var newTrackingPoint = this.newGeometry.getTrackingPoint();
+	        //find the point to gravitate towards
+	        var point = trackingPoint.pointOnGeometry();
+	        newTrackingPoint.gravitateTowards(point);
+	        return newTrackingPoint;
+	    };
+	    ChangeNodeShapeCommand.prototype.apply = function (trackingPointInfoList) {
+	        for (var _i = 0, trackingPointInfoList_1 = trackingPointInfoList; _i < trackingPointInfoList_1.length; _i++) {
+	            var trackingPointInfo = trackingPointInfoList_1[_i];
+	            trackingPointInfo.apply();
+	        }
+	    };
+	    ChangeNodeShapeCommand.prototype.execute = function () {
+	        this.node.geometry = this.newGeometry;
+	        this.apply(this.newTrackingPointList);
+	        this.letGhostCopyFromOriginal();
+	    };
+	    ChangeNodeShapeCommand.prototype.unExecute = function () {
+	        this.node.geometry = this.oldGeometry;
+	        this.apply(this.oldTrackingPointList);
+	        this.letGhostCopyFromOriginal();
+	    };
+	    ChangeNodeShapeCommand.prototype.letGhostCopyFromOriginal = function () {
+	        if (this.ghostNode != null) {
+	            //ghost should retain its position
+	            var oldPosition = this.ghostNode.geometry.getCenter();
+	            this.ghostNode.geometry = this.node.geometry.clone().setPosition(oldPosition);
+	        }
+	    };
+	    ChangeNodeShapeCommand.prototype.getName = function () {
+	        return "Change node's shape";
+	    };
+	    return ChangeNodeShapeCommand;
+	}(command_1.Command));
+	exports.ChangeNodeShapeCommand = ChangeNodeShapeCommand;
+	var TrackingPointInfo = (function () {
+	    function TrackingPointInfo(trackingPoint, edge, isFromPoint) {
+	        this.trackingPoint = trackingPoint;
+	        this.edge = edge;
+	        this.isFromPoint = isFromPoint;
+	    }
+	    TrackingPointInfo.prototype.apply = function () {
+	        if (this.isFromPoint) {
+	            this.edge.fromPoint = this.trackingPoint;
+	        }
+	        else {
+	            this.edge.toPoint = this.trackingPoint;
+	        }
+	    };
+	    return TrackingPointInfo;
+	}());
 
 
 /***/ }

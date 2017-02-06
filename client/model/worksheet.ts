@@ -162,7 +162,7 @@ export abstract class DiagramNode{
 
 	static objectFromJSON(json:any):DiagramNode{
 		if(json.type==DiagramNodeType.GenericDiagramNode){
-			return new GenericDiagramNode(json.shapeType).fromJSON(json);
+			return new GenericDiagramNode(json.geometry.type).fromJSON(json);
 		}
 		return null;
 	}
@@ -369,17 +369,15 @@ export class GenericDiagramNode extends DiagramNode{
 	private static readonly Width=200;
 	private static readonly Height=30;
 
-	private _shapeType:GenericDiagramNodeType;
 	private _rect:Rect;
 	private _content:string;
 	private _geometry:Geometry;
 	private _doubleBorder:boolean=false;
 	private _dashedBorder:boolean=false;
 
-	constructor(type:GenericDiagramNodeType){
+	constructor(type:GeometryType){
 		super();
-		this._shapeType=type;
-		this._geometry=GenericDiagramNode.geometryForType(this._shapeType,new Point(0,0));
+		this._geometry=GenericDiagramNode.geometryForType(type,new Point(0,0));
 		this._content="Content";
 	}
 	
@@ -389,10 +387,6 @@ export class GenericDiagramNode extends DiagramNode{
 
 	get rect():Rect{
 		return this._rect;
-	}
-
-	get shapeType():GenericDiagramNodeType{
-		return this._shapeType;
 	}
 
 	get content():string{
@@ -405,16 +399,10 @@ export class GenericDiagramNode extends DiagramNode{
 
 	set geometry(value:Geometry){
 		this._geometry=value;
-		this._shapeType=GenericDiagramNode.nodeTypeFromGeometryType(this._geometry.type);
 	}
 
 	get geometry():Geometry{
 		return this._geometry;
-	}
-
-	set shapeType(value:GenericDiagramNodeType){
-		this._shapeType=value;
-		this._geometry=GenericDiagramNode.geometryForType(this._shapeType,this._geometry.getCenter());
 	}
 
 	get type():DiagramNodeType{
@@ -448,49 +436,49 @@ export class GenericDiagramNode extends DiagramNode{
 	}
 
 	/** Returns a rectangle whose dimensions are based on the generic node type */
-	static geometryForType(nodeType:GenericDiagramNodeType,centerPosition:Point):Geometry{
+	static geometryForType(nodeType:GeometryType,centerPosition:Point):Geometry{
 
 		var width=0;
 		var height=0;
 		switch(nodeType){
-			case GenericDiagramNodeType.Rectangle:
+			case GeometryType.Rect:
 				width=100;
 				height=30;
 				break;
-			case GenericDiagramNodeType.Circle:
-				width=30;
-				height=30;
-				break;
-			case GenericDiagramNodeType.Diamond:
-				width=100;
-				height=100;
-				break;
-			case GenericDiagramNodeType.Ellipse:
-				width=200;
+			case GeometryType.Circle:
+				width=60;
 				height=60;
 				break;
-			case GenericDiagramNodeType.RoundedRectangle:
-				width=200;
-				height=60;
-				break;
-			case GenericDiagramNodeType.StickFigure:
-				width=80;
-				height=120;
-				break;
-			case GenericDiagramNodeType.Database:
-				width=80;
-				height=120;
-			case GenericDiagramNodeType.Parallelogram:
-				width=200;
-				height=80;
-				break;
+			// case GeometryType.Diamond:
+			// 	width=100;
+			// 	height=100;
+			// 	break;
+			// case GeometryType.Ellipse:
+			// 	width=200;
+			// 	height=60;
+			// 	break;
+			// case GeometryType.RoundedRectangle:
+			// 	width=200;
+			// 	height=60;
+			// 	break;
+			// case GeometryType.StickFigure:
+			// 	width=80;
+			// 	height=120;
+			// 	break;
+			// case GeometryType.Database:
+			// 	width=80;
+			// 	height=120;
+			// case GeometryType.Parallelogram:
+			// 	width=200;
+			// 	height=80;
+			// 	break;
 		}
 
 		//return geomtry shape based on type of node
-		if(nodeType==GenericDiagramNodeType.Rectangle){
-			return new Rect(centerPosition.x-width,centerPosition.y-height,width,height);
-		}else if(nodeType==GenericDiagramNodeType.Circle){
-			return new Circle(centerPosition,width);//fallback
+		if(nodeType==GeometryType.Rect){
+			return new Rect(centerPosition.x-width/2,centerPosition.y-height/2,width,height);
+		}else if(nodeType==GeometryType.Circle){
+			return new Circle(centerPosition,width/2);//fallback
 		}
 		return new Rect(centerPosition.x-width,centerPosition.y-height,width,height);//fallback
 	}
@@ -503,7 +491,7 @@ export class GenericDiagramNode extends DiagramNode{
 		}
 
 		//duplicate the node with the same type
-		let newNode=new GenericDiagramNode(this.shapeType);
+		let newNode=new GenericDiagramNode(this.geometry.type);
 		newNode.dashedBorder=this.dashedBorder;
 		newNode.doubleBorder=this.doubleBorder;
 		newNode.content=newContent;
@@ -530,7 +518,6 @@ export class GenericDiagramNode extends DiagramNode{
 		json.foreground=this.foreground.toJSON();
 		json.stroke=this.stroke.toJSON();
 		json.geometry=this.geometry.toJSON();
-		json.shapeType=this.shapeType;
 		json.content=this.content;
 		json.doubleBorder=this._doubleBorder;
 		json.dashedBorder=this._dashedBorder;

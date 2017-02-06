@@ -1,5 +1,6 @@
 import { DiagramModel,DiagramNode,DiagramEdge } from '../model/worksheet';
 import { GenericDiagramNode,GenericDiagramNodeType } from '../model/worksheet';
+import { GeometryType } from '../model/geometry';
 
 
 function diagramModelFromNode(node:DiagramNode):DiagramModel{
@@ -24,43 +25,43 @@ export let creationDrawerList:CreationDrawerItem[]=[
 	{
 		name:"Rectangle",
 		iconFilename:"rectangle-generic-icon.svg",
-		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GenericDiagramNodeType.Rectangle));}
+		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GeometryType.Rect));}
 	},
 	{
 		name:"Circle",
 		iconFilename:"circle-generic-icon.svg",
-		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GenericDiagramNodeType.Circle));}
+		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GeometryType.Circle));}
 	},
 ];
 
-let extra=[{
-		name:"RoundedRectangle",
-		iconFilename:"rounded-rectangle-generic-icon.svg",
-		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GenericDiagramNodeType.RoundedRectangle));}
-	},
-	{
-		name:"Parallelogram",
-		iconFilename:"parallelogram-generic-icon.svg",
-		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GenericDiagramNodeType.Parallelogram));}
-	},
-	{
-		name:"Diamond",
-		iconFilename:"diamond-generic-icon.svg",
-		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GenericDiagramNodeType.Diamond));}
-	},
-	{
-		name:"Ellipse",
-		iconFilename:"ellipse-generic-icon.svg",
-		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GenericDiagramNodeType.Ellipse));}
-	},
-	{
-		name:"StickFigure",
-		iconFilename:"stick-figure-generic-icon.svg",
-		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GenericDiagramNodeType.StickFigure));}
-	},
-	{
-		name:"Database",
-		iconFilename:"database-generic-icon.svg",
-		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GenericDiagramNodeType.Database));}
-	}
-];
+// let extra=[{
+// 		name:"RoundedRectangle",
+// 		iconFilename:"rounded-rectangle-generic-icon.svg",
+// 		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GeometryType.RoundedRectangle));}
+// 	},
+// 	{
+// 		name:"Parallelogram",
+// 		iconFilename:"parallelogram-generic-icon.svg",
+// 		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GeometryType.Parallelogram));}
+// 	},
+// 	{
+// 		name:"Diamond",
+// 		iconFilename:"diamond-generic-icon.svg",
+// 		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GeometryType.Diamond));}
+// 	},
+// 	{
+// 		name:"Ellipse",
+// 		iconFilename:"ellipse-generic-icon.svg",
+// 		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GeometryType.Ellipse));}
+// 	},
+// 	{
+// 		name:"StickFigure",
+// 		iconFilename:"stick-figure-generic-icon.svg",
+// 		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GeometryType.StickFigure));}
+// 	},
+// 	{
+// 		name:"Database",
+// 		iconFilename:"database-generic-icon.svg",
+// 		diagramModel:()=>{ return diagramModelFromNode(new GenericDiagramNode(GeometryType.Database));}
+// 	}
+// ];

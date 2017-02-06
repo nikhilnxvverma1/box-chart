@@ -2,15 +2,16 @@ import { Component,Input,Output,EventEmitter } from '@angular/core';
 import { ViewChild,ElementRef } from '@angular/core';
 import { ViewChildren,QueryList,OnInit,OnChanges,SimpleChanges } from '@angular/core';
 import { animate,trigger,state,style,transition } from '@angular/core';
-import { Point,Rect } from '../model/geometry';
+import { Point,Rect,Circle,Geometry,GeometryType } from '../model/geometry';
 import { Workspace } from '../editor/workspace';
 import { Direction,PressDragReleaseProcessor } from '../utility/common';
 import { ResizeHandleComponent } from './resize-handle.component';
-import { DiagramNode,DiagramEdge,GenericDiagramNode,InteractiveAppearance } from '../model/worksheet';
+import { DiagramNode,DiagramEdge,GenericDiagramNode,InteractiveAppearance,GenericDiagramNodeType } from '../model/worksheet';
 import { LinkNodesCommand } from '../editor/command/link-nodes';
 import { ChangeNodeContentCommand } from '../editor/command/change-node-content';
 import { ChangeNodeOutlineCommand } from '../editor/command/change-node-outline';
 import { MoveListener } from '../editor/command/move';
+import { ChangeNodeShapeCommand } from '../editor/command/change-node-shape';
 
 //TODO move outside to a special 'variables' file 
 const SELECTION_COLOR='#2BA3FC';
@@ -71,16 +72,7 @@ export class GenericNodeComponent implements OnInit,MoveListener{//,OnChanges
 		this.editedContent=this.node.content;
 	}
 
-	// ngOnChanges(changes:SimpleChanges){
-	// 	if (changes['soloSelected'] != null ) {
-	// 		this.workspace.contentEditingIsOpen=false;//redundant
-	// 	}
-	// }
-
 	mousedown(event:MouseEvent){
-		// if(!this.workspace.contentEditingIsOpen){
-		// 	this.requestDragging.emit(this);
-		// }
 		if(!event.shiftKey){
 			if(!this.workspace.contentEditingIsOpen){
 				this.requestDragging.emit(this);
@@ -117,7 +109,6 @@ export class GenericNodeComponent implements OnInit,MoveListener{//,OnChanges
 	}
 
 	toggleOutline(event:MouseEvent){
-		console.debug("Toggleing outline on this shape");
 
 		// this.node.dashedBorder=!this.node.dashedBorder;
 		let outlineStyle=this.getNextOutlineStyle();
@@ -160,6 +151,23 @@ export class GenericNodeComponent implements OnInit,MoveListener{//,OnChanges
 	private doubleBorderPercentForHeightWithFlatReduction():string{
 		return ((this.node.geometry.getBoundingBox().height-2*DOUBLE_BORDER_FLAT_OFFSET)/
 			this.node.geometry.getBoundingBox().height)*100+"%";
+	}
+
+	toggleShape(event:MouseEvent){
+		let nextShape=this.getNextShape();
+		this.workspace.commit(new ChangeNodeShapeCommand(
+			this.node,
+			GenericDiagramNode.geometryForType(nextShape,this.node.geometry.getCenter()),
+			this.ghostNode),true);
+		event.stopPropagation();
+	}
+
+	private getNextShape():GeometryType{
+		if(this.node.geometry.type==GeometryType.Rect){
+			return GeometryType.Circle;
+		}else if(this.node.geometry.type==GeometryType.Circle){
+			return GeometryType.Rect;
+		}
 	}
 
 	strokeColor(){

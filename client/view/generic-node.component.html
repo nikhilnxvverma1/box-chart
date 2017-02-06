@@ -10,34 +10,35 @@
 	<!-- Background based on type of generic shape (Refer GenericDiagramNodeType in worksheet.ts)-->
 	<svg width="100%" height="100%" class="node-background" >
 
-		<!--Rectangle(1)-->
-		<rect *ngIf="node.shapeType==1" x="1%" y="1%" width="99%" height="99%"
+		<!--Rectangle(2)-->
+		<rect *ngIf="node.geometry.type==2" x="1%" y="1%" width="99%" height="99%"
 		 [style.fill]="fillColor()" [style.stroke]="strokeColor()" [style.stroke-width]="3" [attr.stroke-dasharray]="strokeDashArray()"/>
 		
-		<!--Rectangle(1) double border if needed-->
-		<rect *ngIf="node.shapeType==1 && node.doubleBorder" 
+		<!--Rectangle(2) double border if needed-->
+		<rect *ngIf="node.geometry.type==2 && node.doubleBorder" 
 			[attr.x]="doubleBorderPercentForFlatOffsetInWidth()"
 			[attr.y]="doubleBorderPercentForFlatOffsetInHeight()" 
 			[attr.width]="doubleBorderPercentForWidthWithFlatReduction()"
 			[attr.height]="doubleBorderPercentForHeightWithFlatReduction()"
 		 [style.fill]="fillColor()" [style.stroke]="strokeColor()" [style.stroke-width]="1" [attr.stroke-dasharray]="0"/>
 
-		<!--Circle(2) or Ellipse(4)-->
+		<!--Circle(3)-->
 		<!--TODO Ellipse should be on its own-->
-		<ellipse *ngIf="node.shapeType==2||node.shapeType==4" cx="50%" cy="50%" rx="49%" ry="49%"
+		<ellipse *ngIf="node.geometry.type==3" cx="50%" cy="50%" rx="49%" ry="49%"
 		 [style.fill]="fillColor()" [style.stroke]="strokeColor()" [style.stroke-width]="3" [attr.stroke-dasharray]="strokeDashArray()"/>
 
-		<!--Circle(2) or Ellipse(4) double border if needed-->
+		<!--Circle(3) double border if needed-->
 		<!--TODO Ellipse should be on its own-->
-		<ellipse *ngIf="(node.shapeType==2||node.shapeType==4) && node.doubleBorder" cx="50%" cy="50%" rx="40%" ry="40%"
+		<ellipse *ngIf="(node.geometry.type==3) && node.doubleBorder" cx="50%" cy="50%" rx="40%" ry="40%"
 		 [style.fill]="fillColor()" [style.stroke]="strokeColor()" [style.stroke-width]="1" [attr.stroke-dasharray]="0"/>
 
+		 <!--These following shapes don't exist yet-->
 		<!--Rounded Rectangle(5)-->
-		<rect *ngIf="node.shapeType==5" width="100%" height="100%" rx="20px" ry="20px"
+		<rect *ngIf="node.geometry.type==5" width="100%" height="100%" rx="20px" ry="20px"
 		 [style.fill]="fillColor()" [style.stroke]="strokeColor()" [style.stroke-width]="3" [attr.stroke-dasharray]="strokeDashArray()"/>
 		<!--Parallelogram(8)-->
 		<!--TODO buggy:gets clipped by bounds, needs trignometry fix-->
-		<rect *ngIf="node.shapeType==8" x="0" y="0" width="100%" height="100%" transform="skewX(-20)"
+		<rect *ngIf="node.geometry.type==8" x="0" y="0" width="100%" height="100%" transform="skewX(-20)"
 		 [style.fill]="fillColor()" [style.stroke]="strokeColor()" [style.stroke-width]="3" [attr.stroke-dasharray]="strokeDashArray()"/>
 	</svg>
 
@@ -131,6 +132,17 @@
 	><!--TODO try to externalize offset values (10)-->
 
 </div>
+
+<div 
+	*ngIf="soloSelected" 
+	class="medium-bubble toggle-shape-operation"
+	(mousedown)="toggleShape($event)"
+	[style.left.px]="node.geometry.getBoundingBox().bottomRight().offset(10,0).x"
+	[style.top.px]="node.geometry.getBoundingBox().bottomRight().offset(0,10).y"
+	><!--TODO try to externalize offset values (10)-->
+
+</div>
+
 
 <div 
 	*ngIf="soloSelected" 
