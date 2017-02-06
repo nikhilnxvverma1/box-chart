@@ -585,14 +585,34 @@ export class LineSegment implements Geometry{
 			return projection;
 		}
 
-		//the code below expects x1 y1 to be in the left
-		let left=this.start.x<this.end.x?this.start:this.end;
-		let right=this.start.x>=this.end.x?this.start:this.end;
+		//the code below expects x1 y1 to be in the left,
+		//if x1==x2, it expects x1 y1 to be at the top
+		let first=this.start;
+		let second=this.end;
+		if(this.start.x==this.end.x){
+			if(this.start.y<=this.end.y){
+				first=this.start;
+				second=this.end;
+			}else{
+				first=this.end;
+				second=this.start;
+			}
+		}else{
+			if(this.start.x<this.end.x){
+				first=this.start;
+				second=this.end;
+			}else{
+				first=this.end;
+				second=this.start;
+			}
+		}
 
-		let x1 = left.x;
-		let y1 = left.y;
-		let x2 = right.x;
-		let y2 = right.y;
+		let pointOrder=new PointOrder(this.start,this.end);
+
+		let x1 = pointOrder.first.x;
+		let y1 = pointOrder.first.y;
+		let x2 = pointOrder.second.x;
+		let y2 = pointOrder.second.y;
 		let x3 = p.x;
 		let y3 = p.y;
 		let px = x2 - x1, py = y2 - y1, dAB = px * px + py * py;
@@ -613,5 +633,30 @@ export class LineSegment implements Geometry{
 		this.start.fromJSON(json.start);
 		this.end.fromJSON(json.end);
 		return this;
+	}
+}
+
+export class PointOrder{
+	first:Point;
+	second:Point;
+
+	constructor(start:Point,end:Point){
+		if(start.x==end.x){
+			if(start.y<=end.y){
+				this.first=start;
+				this.second=end;
+			}else{
+				this.first=end;
+				this.second=start;
+			}
+		}else{
+			if(start.x<end.x){
+				this.first=start;
+				this.second=end;
+			}else{
+				this.first=end;
+				this.second=start;
+			}
+		}
 	}
 }

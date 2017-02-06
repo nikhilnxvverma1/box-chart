@@ -1,5 +1,5 @@
 import { Direction,linearInterpolation,LineEquation,oppositeDirection } from '../utility/common';
-import { Point,Rect,Circle,LineSegment,Geometry } from './geometry';
+import { Point,Rect,Circle,LineSegment,Geometry,PointOrder } from './geometry';
 
 /** Identifies the tracking point */
 export enum TrackingPointType{
@@ -474,6 +474,8 @@ export class LineSegmentTrackingPoint implements TrackingPoint{
 		let projection=this.lineSegment.orthogonalProjection(p);
 
 		//find parametric fraction based on this projection point
+		let pointOrder=new PointOrder(this.lineSegment.start,this.lineSegment.end);
+
 		let p1 = this.lineSegment.start;
 		let p2 = this.lineSegment.end;
 
@@ -483,10 +485,38 @@ export class LineSegmentTrackingPoint implements TrackingPoint{
 		let mx = p1.x > p2.x ? p1.x : p2.x;
 		let my = p1.y > p2.y ? p1.y : p2.y;
 
+		//find fraction based on orientation of the two points
 		if(mx-lx!=0){
-			this.fraction=(projection.x-lx)/(mx-lx);
+
+			if(projection.x>p1.x){
+				if(projection.x>p2.x){
+					this.fraction = p2.x > p1.x ? 1 : 0;
+				}else{
+					this.fraction=(projection.x-p1.x)/(mx-lx);
+				}
+			}else{
+				if(projection.x<p2.x){
+					this.fraction = p2.x < p1.x ? 1 : 0;
+				}else{
+					this.fraction=(p1.x-projection.x)/(mx-lx);
+				}
+			}
+		}else if(my-ly!=0){
+			if(projection.y>p1.y){
+				if(projection.y>p2.y){
+					this.fraction = p2.y > p1.y ? 1 : 0;
+				}else{
+					this.fraction=(projection.y-p1.y)/(my-ly);
+				}
+			}else{
+				if(projection.y<p2.y){
+					this.fraction = p2.y < p1.y ? 1 : 0;
+				}else{
+					this.fraction=(p1.y-projection.y)/(my-ly);
+				}
+			}
 		}else{
-			this.fraction=(projection.y-ly)/(my-ly);
+			this.fraction=0;
 		}
 
 		//cap between 0 and 1

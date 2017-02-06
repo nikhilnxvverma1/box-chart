@@ -7510,13 +7510,35 @@ webpackJsonp([0],{
 	            var projection = lineEquation.intersectionWith(lineEquation.getPerpendicularFrom(p));
 	            return projection;
 	        }
-	        //the code below expects x1 y1 to be in the left
-	        var left = this.start.x < this.end.x ? this.start : this.end;
-	        var right = this.start.x >= this.end.x ? this.start : this.end;
-	        var x1 = left.x;
-	        var y1 = left.y;
-	        var x2 = right.x;
-	        var y2 = right.y;
+	        //the code below expects x1 y1 to be in the left,
+	        //if x1==x2, it expects x1 y1 to be at the top
+	        var first = this.start;
+	        var second = this.end;
+	        if (this.start.x == this.end.x) {
+	            if (this.start.y <= this.end.y) {
+	                first = this.start;
+	                second = this.end;
+	            }
+	            else {
+	                first = this.end;
+	                second = this.start;
+	            }
+	        }
+	        else {
+	            if (this.start.x < this.end.x) {
+	                first = this.start;
+	                second = this.end;
+	            }
+	            else {
+	                first = this.end;
+	                second = this.start;
+	            }
+	        }
+	        var pointOrder = new PointOrder(this.start, this.end);
+	        var x1 = pointOrder.first.x;
+	        var y1 = pointOrder.first.y;
+	        var x2 = pointOrder.second.x;
+	        var y2 = pointOrder.second.y;
 	        var x3 = p.x;
 	        var y3 = p.y;
 	        var px = x2 - x1, py = y2 - y1, dAB = px * px + py * py;
@@ -7540,6 +7562,32 @@ webpackJsonp([0],{
 	    return LineSegment;
 	}());
 	exports.LineSegment = LineSegment;
+	var PointOrder = (function () {
+	    function PointOrder(start, end) {
+	        if (start.x == end.x) {
+	            if (start.y <= end.y) {
+	                this.first = start;
+	                this.second = end;
+	            }
+	            else {
+	                this.first = end;
+	                this.second = start;
+	            }
+	        }
+	        else {
+	            if (start.x < end.x) {
+	                this.first = start;
+	                this.second = end;
+	            }
+	            else {
+	                this.first = end;
+	                this.second = start;
+	            }
+	        }
+	    }
+	    return PointOrder;
+	}());
+	exports.PointOrder = PointOrder;
 
 
 /***/ },
@@ -8460,17 +8508,52 @@ webpackJsonp([0],{
 	        //find projection of p on this line segment
 	        var projection = this.lineSegment.orthogonalProjection(p);
 	        //find parametric fraction based on this projection point
+	        var pointOrder = new geometry_1.PointOrder(this.lineSegment.start, this.lineSegment.end);
 	        var p1 = this.lineSegment.start;
 	        var p2 = this.lineSegment.end;
 	        var lx = p1.x < p2.x ? p1.x : p2.x;
 	        var ly = p1.y < p2.y ? p1.y : p2.y;
 	        var mx = p1.x > p2.x ? p1.x : p2.x;
 	        var my = p1.y > p2.y ? p1.y : p2.y;
+	        //find fraction based on orientation of the two points
 	        if (mx - lx != 0) {
-	            this.fraction = (projection.x - lx) / (mx - lx);
+	            if (projection.x > p1.x) {
+	                if (projection.x > p2.x) {
+	                    this.fraction = p2.x > p1.x ? 1 : 0;
+	                }
+	                else {
+	                    this.fraction = (projection.x - p1.x) / (mx - lx);
+	                }
+	            }
+	            else {
+	                if (projection.x < p2.x) {
+	                    this.fraction = p2.x < p1.x ? 1 : 0;
+	                }
+	                else {
+	                    this.fraction = (p1.x - projection.x) / (mx - lx);
+	                }
+	            }
+	        }
+	        else if (my - ly != 0) {
+	            if (projection.y > p1.y) {
+	                if (projection.y > p2.y) {
+	                    this.fraction = p2.y > p1.y ? 1 : 0;
+	                }
+	                else {
+	                    this.fraction = (projection.y - p1.y) / (my - ly);
+	                }
+	            }
+	            else {
+	                if (projection.y < p2.y) {
+	                    this.fraction = p2.y < p1.y ? 1 : 0;
+	                }
+	                else {
+	                    this.fraction = (p1.y - projection.y) / (my - ly);
+	                }
+	            }
 	        }
 	        else {
-	            this.fraction = (projection.y - ly) / (my - ly);
+	            this.fraction = 0;
 	        }
 	        //cap between 0 and 1
 	        this.fraction = this.fraction < 0 ? 0 : this.fraction > 1 ? 1 : this.fraction;
