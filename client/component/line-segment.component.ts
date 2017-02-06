@@ -1,5 +1,5 @@
 import { Component,Input } from '@angular/core';
-import { Point } from '../model/geometry';
+import { Point,LineSegment } from '../model/geometry';
 import { Color,DashStyle,EndpointStyle } from '../model/worksheet';
 
 @Component({
@@ -41,13 +41,19 @@ export class LineSegmentComponent {
 	}
 
 	private topLeft():Point{
-		let lx = this.start.x < this.end.x ? this.start.x : this.end.x
-		let ly = this.start.y < this.end.y ? this.start.y : this.end.y
+		let lx = this.start.x < this.end.x ? this.start.x : this.end.x;
+		let ly = this.start.y < this.end.y ? this.start.y : this.end.y;
 		return new Point(lx,ly);
 	}
 
 	private withinBounds(point:Point):Point{
 		return point.minus(this.topLeft());
+	}
+
+	private bottomRight():Point{
+		let hx = this.start.x > this.end.x ? this.start.x : this.end.x;
+		let hy = this.start.y > this.end.y ? this.start.y : this.end.y;
+		return new Point(hx,hy);
 	}
 
 	private strokeDashArray():string{
@@ -60,4 +66,23 @@ export class LineSegmentComponent {
 		}
 		return "0"
 	}
+
+	private startEndpointTransform(){
+		let degree=this.start.angleOfSegment(this.end);
+		return "translate(-50%,-50%) rotate("+degree+"deg)";
+	}
+
+	private endEndpointTransform(){
+		let degree=this.end.angleOfSegment(this.start);
+		return "translate(-50%,-50%) rotate("+degree+"deg)";
+	}
+
+	private shiftedPoint(shift:number,reverse=false):Point{
+		if(!reverse){
+			return new LineSegment(this.start,this.end).pointOnLine(shift);
+		}else{
+			return new LineSegment(this.start,this.end).pointOnLine(-shift);
+		}
+	}
+
 }

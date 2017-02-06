@@ -4,6 +4,8 @@ $primary-color:#D98BC3;
 $secondary-color:#2B93C1;
 $tertiary-color:#A576DA;
 
+$edge-endpoint-z:3;
+
 body{
 	font-family: 'Source Sans Pro', sans-serif;
 	margin:0px;
@@ -141,6 +143,12 @@ body{
 	text-align: center;
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
+}
+
+.edge-endpoint{
+	position: absolute;
+	height:auto;
+	z-index: $edge-endpoint-z;
 }
 
 .selected-block{

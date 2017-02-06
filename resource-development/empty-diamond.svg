@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="35px" height="22px" viewBox="0 0 35 22" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 42 (36781) - http://www.bohemiancoding.com/sketch -->
+    <title>empty-diamond</title>
+    <desc>Created with Sketch.</desc>
+    <defs></defs>
+    <g id="Editor" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Rough" transform="translate(-143.000000, -248.000000)" stroke="#000000" fill="#FFFFFF">
+            <polygon id="empty-diamond" transform="translate(160.359871, 259.000000) rotate(-90.000000) translate(-160.359871, -259.000000) " points="160.359871 241.640129 170.359871 259.640129 160.359871 276.359871 150.359871 259.640129"></polygon>
+        </g>
+    </g>
+</svg>

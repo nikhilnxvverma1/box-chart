@@ -12,7 +12,7 @@
 
 		<!--Rectangle(2)-->
 		<rect *ngIf="node.geometry.type==2" x="1%" y="1%" width="99%" height="99%"
-		 [style.fill]="fillColor()" [style.stroke]="strokeColor()" [style.stroke-width]="3" [attr.stroke-dasharray]="strokeDashArray()"/>
+		 [style.fill]="fillColor()" [style.stroke]="strokeColor()" [style.stroke-width]="2" [attr.stroke-dasharray]="strokeDashArray()"/>
 		
 		<!--Rectangle(2) double border if needed-->
 		<rect *ngIf="node.geometry.type==2 && node.doubleBorder" 
@@ -25,7 +25,7 @@
 		<!--Circle(3)-->
 		<!--TODO Ellipse should be on its own-->
 		<ellipse *ngIf="node.geometry.type==3" cx="50%" cy="50%" rx="49%" ry="49%"
-		 [style.fill]="fillColor()" [style.stroke]="strokeColor()" [style.stroke-width]="3" [attr.stroke-dasharray]="strokeDashArray()"/>
+		 [style.fill]="fillColor()" [style.stroke]="strokeColor()" [style.stroke-width]="2" [attr.stroke-dasharray]="strokeDashArray()"/>
 
 		<!--Circle(3) double border if needed-->
 		<!--TODO Ellipse should be on its own-->

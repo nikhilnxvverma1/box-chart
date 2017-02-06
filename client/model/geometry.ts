@@ -1,5 +1,6 @@
 import { RadiansToDegrees,DegreesToRadians,LineEquation } from '../utility/common';
 import { TrackingPoint,RectTrackingPoint,CircleTrackingPoint,LineSegmentTrackingPoint,EmptyTrackingPoint } from './tracking-point';
+import * as util from '../utility/common';
 
 /** Filled geometric shapes that usually make 'digramatic elements' implement this interface*/
 export interface Geometry{
@@ -569,6 +570,21 @@ export class LineSegment implements Geometry{
 
 	isVertical():boolean{
 		return this.start.x==this.end.x;
+	}
+
+	/**
+	 * For a positive distance specified, this method will give a point on line from the start point.
+	 * If the distance is negative, it will start from back.
+	 */
+	pointOnLine(flatShift:number){
+		let distance=this.start.distance(this.end);
+		let parameter=0;
+		if(flatShift>=0){
+			parameter=flatShift/distance;
+		}else{
+			parameter=1+(flatShift/distance);
+		}
+		return util.linearInterpolation(this.start,this.end,parameter);
 	}
 
 	equation():LineEquation{
