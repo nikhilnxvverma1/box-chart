@@ -108,9 +108,11 @@ export class WorkspaceComponent implements OnInit,PostOperationNotification{
 				this.workspace.undo();
 			}
 		} else if ((event.keyCode == A_KEY || event.keyCode == ONE_KEY) && //open creation box
-			!this.workspace.contentEditingIsOpen) {
+			!this.workspace.contentEditingIsOpen && !this.workspace.edgeStyleOptionsIsOpen) {
 			this.artboard.toggleOpenCreationDrawer();
-		} else if(event.keyCode==BACKSPACE_KEY){//delete selection
+		} else if(event.keyCode==BACKSPACE_KEY &&
+		 !this.workspace.contentEditingIsOpen &&
+		!this.workspace.edgeStyleOptionsIsOpen){//delete selection
 			this.artboard.removeCurrentSelection();
 		}
     }

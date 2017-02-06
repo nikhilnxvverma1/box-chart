@@ -55,9 +55,9 @@ body{
 	text-align: center;
 }
 
-#edge-style-list li:hover{
-	background: lightgrey;
-}
+// #edge-style-list li:hover{
+// 	background: lightgrey;
+// }
 
 #remove-list-item{
 	background: #E54F4F;
@@ -65,6 +65,46 @@ body{
 	text-align: center;
 	padding-top: 15px;
 	height: 30px;
+}
+
+.edge-style-row-one-of-three{
+	width:32%;
+	height:100%;
+	padding:0px;
+	border:0px;
+	display: inline-block;
+}
+
+.edge-stroke-button{
+	box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+	border:1px solid black;
+	width:31%;
+}
+
+.edge-stroke-button:hover{
+	background: lightblue;
+}
+
+.remove-edge-button{
+	background:#E54F4F;
+	color:white;
+	text-align:center;
+}
+
+.edge-label-field{
+	width:100%;
+	height:100%;
+	text-align: center;
+	border: 0px;
+	padding: 0px;
+	margin:0px;
+}
+
+.edge-label-field:focus{
+	box-shadow: 0 0 3px 0 rgba(0,0,0,0.50);
+	outline:none;
 }
 
 #remove-list-item:hover{

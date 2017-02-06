@@ -18,10 +18,35 @@
 	[style.top.px]="follow.y"
 	[@styleOptionsOpen]="workspace.edgeStyleOptionsIsOpen?'open':'closed'" >
 	<ul id="edge-style-list">
-		<li id="remove-list-item" (mousedown)="removeEdge($event)">
-			Remove
+
+		<li>
+			<button class="edge-style-row-one-of-three">Start</button>
+			<button class="edge-style-row-one-of-three remove-edge-button" (mousedown)="removeEdge($event)">Remove</button>
+			<button class="edge-style-row-one-of-three">End</button>
 		</li>
-		<li (mousedown)="changeDashing(1,$event)">
+		<li>
+			<input class="edge-label-field" type="text" placeholder="Label"/>
+		</li>
+
+		<li>
+			<div class="edge-style-row-one-of-three edge-stroke-button" (mousedown)="changeDashing(1,$event)">
+				<svg width="100%" height="50" >
+					<line stroke-dasharray="0" [style.stroke]="'#000'" x1="10%" y1="25" x2="90%" y2="25"></line>
+				</svg>
+			</div>
+			<div class="edge-style-row-one-of-three edge-stroke-button" (mousedown)="changeDashing(2,$event)">
+				<svg width="100%" height="50" >
+					<line stroke-dasharray="7" [style.stroke]="'#000'" x1="10%" y1="25" x2="90%" y2="25"></line>
+				</svg>
+			</div>
+			<div class="edge-style-row-one-of-three edge-stroke-button" (mousedown)="changeDashing(3,$event)">
+				<svg width="100%" height="50" >
+					<line stroke-dasharray="3 7" [style.stroke]="'#000'" x1="10%" y1="25" x2="90%" y2="25"></line>
+				</svg>
+			</div>
+		</li>
+
+		<!--<li (mousedown)="changeDashing(1,$event)">
 			<svg width="100%" height="50" >
 				<line stroke-dasharray="0" [style.stroke]="'#000'" x1="10%" y1="25" x2="90%" y2="25"></line>
 			</svg>
@@ -35,6 +60,6 @@
 			<svg width="100%" height="50" >
 				<line stroke-dasharray="3 7" [style.stroke]="'#000'" x1="10%" y1="25" x2="90%" y2="25"></line>
 			</svg>
-		</li>
+		</li>-->
 	</ul>
 </div>
