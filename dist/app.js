@@ -6802,7 +6802,8 @@ webpackJsonp([0],{
 	        return newNode;
 	    };
 	    GenericDiagramNode.prototype.setBoundingSize = function (rect) {
-	        //TODO
+	        //delegate to the geometry
+	        this.geometry.setBoundingSize(rect);
 	    };
 	    GenericDiagramNode.prototype.toJSON = function () {
 	        var json = {};
@@ -7112,6 +7113,9 @@ webpackJsonp([0],{
 	    Point.prototype.getBoundingBox = function () {
 	        return new Rect(0, 0, 0, 0);
 	    };
+	    Point.prototype.setBoundingSize = function (rect) {
+	        //namesake implementation, nothing to do here
+	    };
 	    Point.prototype.overlapsWithRect = function (rect) {
 	        return rect.contains(this);
 	    };
@@ -7314,6 +7318,12 @@ webpackJsonp([0],{
 	    Rect.prototype.getBoundingBox = function () {
 	        return new Rect(this.x, this.y, this.width, this.height);
 	    };
+	    Rect.prototype.setBoundingSize = function (rect) {
+	        this.x = rect.x;
+	        this.y = rect.y;
+	        this.width = rect.width;
+	        this.height = rect.height;
+	    };
 	    Rect.prototype.overlapsWithRect = function (rect) {
 	        //check which rect is top left
 	        if (rect.x < this.x) {
@@ -7392,6 +7402,13 @@ webpackJsonp([0],{
 	    Circle.prototype.getBoundingBox = function () {
 	        return new Rect(this.center.x - this.radius, this.center.y - this.radius, this.radius * 2, this.radius * 2);
 	    };
+	    Circle.prototype.setBoundingSize = function (rect) {
+	        //take the bigger of the width and the height and choose that to get the radius
+	        var bigger = rect.width > rect.height ? rect.width : rect.height;
+	        this.radius = bigger / 2;
+	        this.center.x = rect.x + this.radius;
+	        this.center.y = rect.y + this.radius;
+	    };
 	    Circle.prototype.overlapsWithRect = function (rect) {
 	        return rect.contains(this.center);
 	    };
@@ -7456,6 +7473,13 @@ webpackJsonp([0],{
 	        var hx = this.start.x > this.end.x ? this.start.x : this.end.x;
 	        var hy = this.start.y > this.end.y ? this.start.y : this.end.y;
 	        return new Rect(lx, ly, hx - lx, hy - ly);
+	    };
+	    LineSegment.prototype.setBoundingSize = function (rect) {
+	        //unsupported (and unused) but just set it as diagonal
+	        this.start.x = rect.x;
+	        this.start.y = rect.y;
+	        this.end.x = rect.x + rect.width;
+	        this.end.y = rect.y + rect.height;
 	    };
 	    LineSegment.prototype.overlapsWithRect = function (rect) {
 	        //endpoint containment check
@@ -8151,9 +8175,9 @@ webpackJsonp([0],{
 	    function RectTrackingPoint(rect, direction, fraction) {
 	        if (direction === void 0) { direction = common_1.Direction.Top; }
 	        if (fraction === void 0) { fraction = 0; }
-	        this.rect = rect;
-	        this.side = direction;
-	        this.fraction = fraction;
+	        this._rect = rect;
+	        this._side = direction;
+	        this._fraction = fraction;
 	        this.trackedPoint = this.pointOnSide(this.side, this.fraction);
 	    }
 	    RectTrackingPoint.prototype.pointOnGeometry = function () {
@@ -8218,29 +8242,29 @@ webpackJsonp([0],{
 	        if (p.y < cy) {
 	            if (p.x > cx) {
 	                if (p.withinXSpan(cx, topRight.x)) {
-	                    this.side = common_1.Direction.Top;
+	                    this._side = common_1.Direction.Top;
 	                    this.trackedPoint = new geometry_1.Point(p.x, this.rect.y);
 	                }
 	                else if (p.withinYSpan(topRight.y, cy)) {
-	                    this.side = common_1.Direction.Right;
+	                    this._side = common_1.Direction.Right;
 	                    this.trackedPoint = new geometry_1.Point(topRight.x, p.y);
 	                }
 	                else {
-	                    this.side = common_1.Direction.Top;
+	                    this._side = common_1.Direction.Top;
 	                    this.trackedPoint = topRight;
 	                }
 	            }
 	            else {
 	                if (p.withinXSpan(topLeft.x, cx)) {
-	                    this.side = common_1.Direction.Top;
+	                    this._side = common_1.Direction.Top;
 	                    this.trackedPoint = new geometry_1.Point(p.x, this.rect.y);
 	                }
 	                else if (p.withinYSpan(topLeft.y, cy)) {
-	                    this.side = common_1.Direction.Left;
+	                    this._side = common_1.Direction.Left;
 	                    this.trackedPoint = new geometry_1.Point(topLeft.x, p.y);
 	                }
 	                else {
-	                    this.side = common_1.Direction.Top;
+	                    this._side = common_1.Direction.Top;
 	                    this.trackedPoint = topLeft;
 	                }
 	            }
@@ -8248,35 +8272,35 @@ webpackJsonp([0],{
 	        else {
 	            if (p.x > cx) {
 	                if (p.withinXSpan(cx, bottomRight.x)) {
-	                    this.side = common_1.Direction.Bottom;
+	                    this._side = common_1.Direction.Bottom;
 	                    this.trackedPoint = new geometry_1.Point(p.x, bottomRight.y);
 	                }
 	                else if (p.withinYSpan(cy, bottomLeft.y)) {
-	                    this.side = common_1.Direction.Right;
+	                    this._side = common_1.Direction.Right;
 	                    this.trackedPoint = new geometry_1.Point(bottomRight.x, p.y);
 	                }
 	                else {
-	                    this.side = common_1.Direction.Bottom;
+	                    this._side = common_1.Direction.Bottom;
 	                    this.trackedPoint = bottomRight;
 	                }
 	            }
 	            else {
 	                if (p.withinXSpan(bottomLeft.x, cx)) {
-	                    this.side = common_1.Direction.Bottom;
+	                    this._side = common_1.Direction.Bottom;
 	                    this.trackedPoint = new geometry_1.Point(p.x, bottomLeft.y);
 	                }
 	                else if (p.withinYSpan(cy, bottomLeft.y)) {
-	                    this.side = common_1.Direction.Left;
+	                    this._side = common_1.Direction.Left;
 	                    this.trackedPoint = new geometry_1.Point(bottomLeft.x, p.y);
 	                }
 	                else {
-	                    this.side = common_1.Direction.Bottom;
+	                    this._side = common_1.Direction.Bottom;
 	                    this.trackedPoint = bottomLeft;
 	                }
 	            }
 	        }
 	        //find the fraction from the tracked point
-	        this.fraction = this.fractionValueFromPoint(this.trackedPoint);
+	        this._fraction = this.fractionValueFromPoint(this.trackedPoint);
 	        //apply the offset based on side
 	        if (this.side == common_1.Direction.Top) {
 	            return this.trackedPoint.offset(0, -offset);
@@ -8317,14 +8341,52 @@ webpackJsonp([0],{
 	    RectTrackingPoint.prototype.getGeometry = function () {
 	        return this.rect;
 	    };
+	    Object.defineProperty(RectTrackingPoint.prototype, "rect", {
+	        get: function () {
+	            return this._rect;
+	        },
+	        set: function (value) {
+	            this._rect = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(RectTrackingPoint.prototype, "fraction", {
+	        get: function () {
+	            return this._fraction;
+	        },
+	        set: function (value) {
+	            this._fraction = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(RectTrackingPoint.prototype, "side", {
+	        get: function () {
+	            return this._side;
+	        },
+	        set: function (value) {
+	            this._side = value;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    RectTrackingPoint.prototype.copyInformationFrom = function (that) {
 	        if (that.type == TrackingPointType.Rect) {
 	            this.rect.x = that.rect.x;
 	            this.rect.y = that.rect.y;
 	            this.rect.width = that.rect.width;
 	            this.rect.height = that.rect.height;
-	            this.fraction = that.fraction;
-	            this.side = that.side;
+	            this._fraction = that.fraction;
+	            this._side = that.side;
+	        }
+	        else if (that.type == TrackingPointType.Circle) {
+	            var circlePoint = that;
+	            this.rect.x = circlePoint.circle.center.x - circlePoint.circle.radius;
+	            this.rect.y = circlePoint.circle.center.y - circlePoint.circle.radius;
+	            this.rect.width = circlePoint.circle.radius * 2;
+	            this.rect.height = circlePoint.circle.radius * 2;
+	            this.gravitateTowards(circlePoint.pointOnGeometry());
 	        }
 	    };
 	    Object.defineProperty(RectTrackingPoint.prototype, "type", {
@@ -8344,8 +8406,8 @@ webpackJsonp([0],{
 	    };
 	    RectTrackingPoint.prototype.fromJSON = function (json) {
 	        this.rect.fromJSON(json.rect);
-	        this.fraction = json.fraction;
-	        this.side = json.side;
+	        this._fraction = json.fraction;
+	        this._side = json.side;
 	        return this;
 	    };
 	    return RectTrackingPoint;
@@ -8353,32 +8415,52 @@ webpackJsonp([0],{
 	exports.RectTrackingPoint = RectTrackingPoint;
 	var CircleTrackingPoint = (function () {
 	    function CircleTrackingPoint(circle) {
-	        this.circle = circle;
-	        this.angle = 0;
+	        this._circle = circle;
+	        this._angle = 0;
 	    }
 	    CircleTrackingPoint.prototype.pointOnGeometry = function () {
-	        return this.circle.center.pointAtLength(this.angle, this.circle.radius);
+	        return this._circle.center.pointAtLength(this._angle, this._circle.radius);
 	    };
 	    CircleTrackingPoint.prototype.gravitateTowards = function (p, offset) {
 	        if (offset === void 0) { offset = 0; }
-	        this.angle = this.circle.center.angleOfSegment(p);
-	        var trackedPoint = this.circle.center.pointAtLength(this.angle, this.circle.radius + offset);
+	        this._angle = this._circle.center.angleOfSegment(p);
+	        var trackedPoint = this._circle.center.pointAtLength(this._angle, this._circle.radius + offset);
 	        return trackedPoint;
 	    };
 	    CircleTrackingPoint.prototype.inverse = function (distance) {
-	        var copyCircle = this.circle.clone();
-	        copyCircle.center = this.circle.center.pointAtLength(this.angle, this.circle.radius + distance + copyCircle.radius);
+	        var copyCircle = this._circle.clone();
+	        copyCircle.center = this._circle.center.pointAtLength(this._angle, this._circle.radius + distance + copyCircle.radius);
 	        var inverse = new CircleTrackingPoint(copyCircle);
-	        inverse.angle = (this.angle + 180) % 360;
+	        inverse._angle = (this._angle + 180) % 360;
 	        return inverse;
 	    };
+	    Object.defineProperty(CircleTrackingPoint.prototype, "circle", {
+	        get: function () {
+	            return this._circle;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
+	    Object.defineProperty(CircleTrackingPoint.prototype, "angle", {
+	        get: function () {
+	            return this._angle;
+	        },
+	        enumerable: true,
+	        configurable: true
+	    });
 	    CircleTrackingPoint.prototype.getGeometry = function () {
-	        return this.circle;
+	        return this._circle;
 	    };
 	    CircleTrackingPoint.prototype.copyInformationFrom = function (that) {
 	        if (that.type == TrackingPointType.Circle) {
-	            this.circle.center = that.circle.center;
-	            this.angle = that.angle;
+	            this._circle.center = that._circle.center;
+	            this._angle = that._angle;
+	        }
+	        else if (that.type == TrackingPointType.Rect) {
+	            var rectPoint = that;
+	            this.circle.center.x = rectPoint.rect.x - rectPoint.rect.width / 2;
+	            this.circle.center.y = rectPoint.rect.y - rectPoint.rect.height / 2;
+	            this.circle.radius = rectPoint.rect.width / 2;
 	        }
 	    };
 	    Object.defineProperty(CircleTrackingPoint.prototype, "type", {
@@ -8391,13 +8473,13 @@ webpackJsonp([0],{
 	    CircleTrackingPoint.prototype.toJSON = function () {
 	        var json = {};
 	        json.type = this.type;
-	        json.angle = this.angle;
-	        json.circle = this.circle.toJSON();
+	        json.angle = this._angle;
+	        json.circle = this._circle.toJSON();
 	        return json;
 	    };
 	    CircleTrackingPoint.prototype.fromJSON = function (json) {
-	        this.angle = json.angle;
-	        this.circle.fromJSON(json.circle);
+	        this._angle = json.angle;
+	        this._circle.fromJSON(json.circle);
 	        return this;
 	    };
 	    return CircleTrackingPoint;

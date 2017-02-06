@@ -149,19 +149,19 @@ export class CenterTrackingPoint implements TrackingPoint{
 
 export class RectTrackingPoint implements TrackingPoint{
 	
-	private rect:Rect;
+	private _rect:Rect;
 	private trackedPoint:Point;
-	fraction:number;
-	side:Direction;//only top,left,bottom,right applicable here
+	private _fraction:number;
+	private _side:Direction;//only top,left,bottom,right applicable here
 
 	/**
 	 * Creates a new tracking point for a given side of a rect with a 
 	 * fraction that is linearly interpolated to get the tracked point
 	 */
 	constructor(rect:Rect,direction=Direction.Top,fraction=0){
-		this.rect=rect;
-		this.side=direction;
-		this.fraction=fraction;
+		this._rect=rect;
+		this._side=direction;
+		this._fraction=fraction;
 		this.trackedPoint=this.pointOnSide(this.side,this.fraction);
 	}
 
@@ -229,55 +229,55 @@ export class RectTrackingPoint implements TrackingPoint{
 		if(p.y<cy){//top (y goes down)
 			if(p.x>cx){//right
 				if(p.withinXSpan(cx,topRight.x)){
-					this.side=Direction.Top;
+					this._side=Direction.Top;
 					this.trackedPoint=new Point(p.x,this.rect.y);
 				}else if(p.withinYSpan(topRight.y,cy)){
-					this.side=Direction.Right;
+					this._side=Direction.Right;
 					this.trackedPoint=new Point(topRight.x,p.y);
 				}else{//corner edge case
-					this.side=Direction.Top;
+					this._side=Direction.Top;
 					this.trackedPoint=topRight;
 				}
 			}else{//left
 				if(p.withinXSpan(topLeft.x,cx)){
-					this.side=Direction.Top;
+					this._side=Direction.Top;
 					this.trackedPoint=new Point(p.x,this.rect.y);
 				}else if(p.withinYSpan(topLeft.y,cy)){
-					this.side=Direction.Left;
+					this._side=Direction.Left;
 					this.trackedPoint=new Point(topLeft.x,p.y);
 				}else{//corner edge case
-					this.side=Direction.Top;
+					this._side=Direction.Top;
 					this.trackedPoint=topLeft;
 				}
 			}
 		}else{//bottom
 			if(p.x>cx){//right
 				if(p.withinXSpan(cx,bottomRight.x)){
-					this.side=Direction.Bottom;
+					this._side=Direction.Bottom;
 					this.trackedPoint=new Point(p.x,bottomRight.y);
 				}else if(p.withinYSpan(cy,bottomLeft.y)){
-					this.side=Direction.Right;
+					this._side=Direction.Right;
 					this.trackedPoint=new Point(bottomRight.x,p.y);
 				}else{//corner edge case
-					this.side=Direction.Bottom;
+					this._side=Direction.Bottom;
 					this.trackedPoint=bottomRight;
 				}
 			}else{//left
 				if(p.withinXSpan(bottomLeft.x,cx)){
-					this.side=Direction.Bottom;
+					this._side=Direction.Bottom;
 					this.trackedPoint=new Point(p.x,bottomLeft.y);
 				}else if(p.withinYSpan(cy,bottomLeft.y)){
-					this.side=Direction.Left;
+					this._side=Direction.Left;
 					this.trackedPoint=new Point(bottomLeft.x,p.y);
 				}else{//corner edge case
-					this.side=Direction.Bottom;
+					this._side=Direction.Bottom;
 					this.trackedPoint=bottomLeft;
 				}
 			}
 		}
 
 		//find the fraction from the tracked point
-		this.fraction=this.fractionValueFromPoint(this.trackedPoint);
+		this._fraction=this.fractionValueFromPoint(this.trackedPoint);
 
 		//apply the offset based on side
 		if(this.side==Direction.Top){
@@ -319,14 +319,45 @@ export class RectTrackingPoint implements TrackingPoint{
 		return this.rect;
 	}
 
+	get rect():Rect{
+		return this._rect;
+	}
+
+	set rect(value:Rect){
+		this._rect=value;
+	}
+
+	get fraction():number{
+		return this._fraction;
+	}
+
+	set fraction(value:number){
+		this._fraction=value;
+	}
+
+	get side():Direction{
+		return this._side;
+	}
+
+	set side(value:Direction){
+		this._side=value;
+	}
+
 	copyInformationFrom(that:TrackingPoint):void{
 		if(that.type==TrackingPointType.Rect){
 			this.rect.x=(<RectTrackingPoint>that).rect.x;
 			this.rect.y=(<RectTrackingPoint>that).rect.y;
 			this.rect.width=(<RectTrackingPoint>that).rect.width;
 			this.rect.height=(<RectTrackingPoint>that).rect.height;
-			this.fraction=(<RectTrackingPoint>that).fraction;
-			this.side=(<RectTrackingPoint>that).side;
+			this._fraction=(<RectTrackingPoint>that).fraction;
+			this._side=(<RectTrackingPoint>that).side;
+		}else if(that.type==TrackingPointType.Circle){
+			let circlePoint=<CircleTrackingPoint>that;
+			this.rect.x=circlePoint.circle.center.x-circlePoint.circle.radius;
+			this.rect.y=circlePoint.circle.center.y-circlePoint.circle.radius;
+			this.rect.width=circlePoint.circle.radius*2;
+			this.rect.height=circlePoint.circle.radius*2;
+			this.gravitateTowards(circlePoint.pointOnGeometry());
 		}
 	}
 
@@ -345,50 +376,63 @@ export class RectTrackingPoint implements TrackingPoint{
 
 	fromJSON(json:any):RectTrackingPoint{
 		this.rect.fromJSON(json.rect);
-		this.fraction=json.fraction;
-		this.side=json.side;
+		this._fraction=json.fraction;
+		this._side=json.side;
 		return this;
 	}
 }
 
 export class CircleTrackingPoint implements TrackingPoint{
 	
-	private circle:Circle;
+	private _circle:Circle;
 	/**Angle in degrees for a 360 degree location */
-	private angle:number;
+	private _angle:number;
 
 	constructor(circle:Circle){
-		this.circle=circle;
-		this.angle=0;
+		this._circle=circle;
+		this._angle=0;
 	}
 
 	pointOnGeometry():Point{
-		return this.circle.center.pointAtLength(this.angle,this.circle.radius);
+		return this._circle.center.pointAtLength(this._angle,this._circle.radius);
 	}
 
 	gravitateTowards(p:Point,offset=0):Point{
-		this.angle=this.circle.center.angleOfSegment(p);
-		let trackedPoint=this.circle.center.pointAtLength(this.angle,this.circle.radius+offset);
+		this._angle=this._circle.center.angleOfSegment(p);
+		let trackedPoint=this._circle.center.pointAtLength(this._angle,this._circle.radius+offset);
 		return trackedPoint;
 	}
 
 	inverse(distance:number):CircleTrackingPoint{
-		let copyCircle=this.circle.clone();
-		copyCircle.center=this.circle.center.pointAtLength(this.angle,
-			this.circle.radius+distance+copyCircle.radius);
+		let copyCircle=this._circle.clone();
+		copyCircle.center=this._circle.center.pointAtLength(this._angle,
+			this._circle.radius+distance+copyCircle.radius);
 		let inverse=new CircleTrackingPoint(copyCircle);
-		inverse.angle=(this.angle+180)%360;
+		inverse._angle=(this._angle+180)%360;
 		return inverse;
 	}
 
+	get circle():Circle{
+		return this._circle;
+	}
+
+	get angle():number{
+		return this._angle;
+	}
+
 	getGeometry():Circle{
-		return this.circle;
+		return this._circle;
 	}
 
 	copyInformationFrom(that:TrackingPoint):void{
 		if(that.type==TrackingPointType.Circle){
-			this.circle.center=(<CircleTrackingPoint>that).circle.center;
-			this.angle=(<CircleTrackingPoint>that).angle;
+			this._circle.center=(<CircleTrackingPoint>that)._circle.center;
+			this._angle=(<CircleTrackingPoint>that)._angle;
+		}else if(that.type==TrackingPointType.Rect){
+			let rectPoint=<RectTrackingPoint> that;
+			this.circle.center.x=rectPoint.rect.x-rectPoint.rect.width/2;
+			this.circle.center.y=rectPoint.rect.y-rectPoint.rect.height/2;
+			this.circle.radius=rectPoint.rect.width/2;
 		}
 	}
 
@@ -399,14 +443,14 @@ export class CircleTrackingPoint implements TrackingPoint{
 	toJSON():any{
 		let json:any={};
 		json.type=this.type;
-		json.angle=this.angle;
-		json.circle=this.circle.toJSON();
+		json.angle=this._angle;
+		json.circle=this._circle.toJSON();
 		return json;
 	}
 
 	fromJSON(json:any):CircleTrackingPoint{
-		this.angle=json.angle;
-		this.circle.fromJSON(json.circle);
+		this._angle=json.angle;
+		this._circle.fromJSON(json.circle);
 		return this;
 	}
 }

@@ -517,7 +517,8 @@ export class GenericDiagramNode extends DiagramNode{
 	}
 
 	setBoundingSize(rect:Rect):void{
-		//TODO
+		//delegate to the geometry
+		this.geometry.setBoundingSize(rect);
 	}
 
 	toJSON():any{

@@ -9,6 +9,8 @@ export interface Geometry{
 	getTrackingPoint():TrackingPoint;
 	/** Returns a rect that tells about this geometry's top left position and dimensions */
 	getBoundingBox():Rect;
+	/**Sets the dimensions of the geometry such that it is wholly contained within the given rectangle. */
+	setBoundingSize(rect:Rect):void;
 	/** Overlap check with a rectangle */
 	overlapsWithRect(rect:Rect):boolean;
 	/**Move by the difference in x and y axis specified by the point.Returns the same geometry to allow chaining */
@@ -75,6 +77,10 @@ export class Point implements Geometry{
 
 	getBoundingBox():Rect{
 		return new Rect(0,0,0,0);
+	}
+
+	setBoundingSize(rect:Rect):void{
+		//namesake implementation, nothing to do here
 	}
 
 	overlapsWithRect(rect:Rect):boolean{
@@ -315,6 +321,13 @@ export class Rect implements Geometry{
 		return new Rect(this.x,this.y,this.width,this.height);
 	}
 
+	setBoundingSize(rect:Rect):void{
+		this.x=rect.x;
+		this.y=rect.y;
+		this.width=rect.width;
+		this.height=rect.height;
+	}
+
 	overlapsWithRect(rect:Rect):boolean{
 		//check which rect is top left
 		if(rect.x<this.x){
@@ -400,6 +413,14 @@ export class Circle implements Geometry{
 		return new Rect(this.center.x-this.radius,this.center.y-this.radius,this.radius*2,this.radius*2);
 	}
 
+	setBoundingSize(rect:Rect):void{
+		//take the bigger of the width and the height and choose that to get the radius
+		let bigger=rect.width>rect.height?rect.width:rect.height;
+		this.radius=bigger/2;
+		this.center.x=rect.x+this.radius;
+		this.center.y=rect.y+this.radius;
+	}
+
 	overlapsWithRect(rect:Rect):boolean{
 		return rect.contains(this.center);
 	}
@@ -475,6 +496,14 @@ export class LineSegment implements Geometry{
 		var hx=this.start.x>this.end.x?this.start.x:this.end.x;
 		var hy=this.start.y>this.end.y?this.start.y:this.end.y;
 		return new Rect(lx,ly,hx-lx,hy-ly);
+	}
+
+	setBoundingSize(rect:Rect):void{
+		//unsupported (and unused) but just set it as diagonal
+		this.start.x=rect.x;
+		this.start.y=rect.y;
+		this.end.x=rect.x+rect.width;
+		this.end.y=rect.y+rect.height;
 	}
 
 	overlapsWithRect(rect:Rect):boolean{
