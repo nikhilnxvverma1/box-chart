@@ -13,6 +13,7 @@ export class LineSegmentComponent {
 	@Input() dashStyle:DashStyle;
 	@Input() startStyle:EndpointStyle;
 	@Input() endStyle:EndpointStyle;
+	@Input() label:string;
 
 	private transformationMatrix(){
 		let xMid=this.start.distance(this.end)/2;
@@ -83,6 +84,14 @@ export class LineSegmentComponent {
 		}else{
 			return new LineSegment(this.start,this.end).pointOnLine(-shift);
 		}
+	}
+
+	private midpoint():Point{
+		return new Point((this.start.x+this.end.x)/2,(this.start.y+this.end.y)/2);
+	}
+
+	private emptyLabel():boolean{
+		return this.label==null || this.label.trim()=='';
 	}
 
 }

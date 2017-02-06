@@ -5,6 +5,7 @@ $secondary-color:#2B93C1;
 $tertiary-color:#A576DA;
 
 $edge-endpoint-z:3;
+$edge-text-z:$edge-endpoint-z+1;
 
 body{
 	font-family: 'Source Sans Pro', sans-serif;
@@ -149,6 +150,16 @@ body{
 	position: absolute;
 	height:auto;
 	z-index: $edge-endpoint-z;
+}
+
+.edge-text{
+	position: absolute;
+	display: block;
+	z-index: $edge-text-z;
+	background:white;//not transparent
+	font-size:0.8em;
+	-webkit-transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
 }
 
 .selected-block{

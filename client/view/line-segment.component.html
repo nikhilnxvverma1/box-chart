@@ -93,3 +93,12 @@
 		[style.top.px]="shiftedPoint(10,true).y"
 		>
 </ng-container>
+
+<div class="edge-text"
+	*ngIf="!emptyLabel()"
+	[style.left.px]="midpoint().x"
+	[style.top.px]="midpoint().y"
+>
+	{{label}}
+</div>
+
