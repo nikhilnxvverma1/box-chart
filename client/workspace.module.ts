@@ -32,6 +32,8 @@ import { WorksheetService } from './utility/worksheet.service';
 import { FocusDirective } from './helper/focus.directive';
 import { MyRectDirective } from './helper/my-rect.directive';
 import { MyCircleDirective } from './helper/my-circle.directive';
+import { EdgeEndpointImage } from './helper/edge-endpoint-image.pipe';
+import { EdgeEndpointName } from './helper/edge-endpoint-name.pipe';
 import { AccessSymbol } from './helper/access-symbol.pipe';
 import { NodeBackground } from './helper/node-background.pipe';
 
@@ -45,6 +47,8 @@ import { NodeBackground } from './helper/node-background.pipe';
 		FocusDirective,
 		MyRectDirective,
 		MyCircleDirective,
+		EdgeEndpointImage,
+		EdgeEndpointName,
 		AccessSymbol,
 		NodeBackground,
 		WorkspaceComponent,

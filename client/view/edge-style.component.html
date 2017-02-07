@@ -22,9 +22,50 @@
 	<ul id="edge-style-list">
 
 		<li>
-			<button class="edge-style-row-one-of-three">Start</button>
-			<button class="edge-style-row-one-of-three remove-edge-button" (mousedown)="removeEdge($event)">Remove</button>
-			<button class="edge-style-row-one-of-three">End</button>
+			<ng-container *ngIf="fromEndpointOptionShouldComeBeforeTo()">
+				<button class="edge-style-row-one-of-three" (mousedown)="toggleFromEndpoint($event)">
+					<ng-container [ngSwitch]="edge.style.fromEndpoint">
+						<img src="../assets/edge-endpoints/circle-stop.png" alt="None"*ngSwitchCase="1">
+						<img src="../assets/edge-endpoints/empty-arrow.png" alt="Empty Arrow"*ngSwitchCase="2">
+						<img src="../assets/edge-endpoints/filled-arrow.png" alt="Filled Arrow" *ngSwitchCase="3">
+						<img src="../assets/edge-endpoints/empty-diamond.png" alt="Empty Diamond" *ngSwitchCase="4">
+						<img src="../assets/edge-endpoints/filled-diamond.png" alt="Filled Diamond" *ngSwitchCase="5">
+					</ng-container>
+				</button>
+				<button class="edge-style-row-one-of-three remove-edge-button" (mousedown)="removeEdge($event)">Remove</button>
+				<button class="edge-style-row-one-of-three" (mousedown)="toggleToEndpoint($event)">
+					<ng-container [ngSwitch]="edge.style.toEndpoint">
+						<img src="../assets/edge-endpoints/circle-stop.png" alt="None"*ngSwitchCase="1">
+						<img src="../assets/edge-endpoints/empty-arrow.png" alt="Empty Arrow"*ngSwitchCase="2" class="flip-horizontally">
+						<img src="../assets/edge-endpoints/filled-arrow.png" alt="Filled Arrow" *ngSwitchCase="3" class="flip-horizontally">
+						<img src="../assets/edge-endpoints/empty-diamond.png" alt="Empty Diamond" *ngSwitchCase="4" class="flip-horizontally">
+						<img src="../assets/edge-endpoints/filled-diamond.png" alt="Filled Diamond" *ngSwitchCase="5" class="flip-horizontally">
+					</ng-container>
+				</button>
+			</ng-container>
+
+			<ng-container *ngIf="!fromEndpointOptionShouldComeBeforeTo()">
+				<button class="edge-style-row-one-of-three" (mousedown)="toggleToEndpoint($event)">
+					<ng-container [ngSwitch]="edge.style.toEndpoint">
+						<img src="../assets/edge-endpoints/circle-stop.png" alt="None"*ngSwitchCase="1">
+						<img src="../assets/edge-endpoints/empty-arrow.png" alt="Empty Arrow"*ngSwitchCase="2">
+						<img src="../assets/edge-endpoints/filled-arrow.png" alt="Filled Arrow" *ngSwitchCase="3">
+						<img src="../assets/edge-endpoints/empty-diamond.png" alt="Empty Diamond" *ngSwitchCase="4">
+						<img src="../assets/edge-endpoints/filled-diamond.png" alt="Filled Diamond" *ngSwitchCase="5">
+					</ng-container>
+				</button>
+				<button class="edge-style-row-one-of-three remove-edge-button" (mousedown)="removeEdge($event)">Remove</button>
+				<button class="edge-style-row-one-of-three" (mousedown)="toggleFromEndpoint($event)">
+					<ng-container [ngSwitch]="edge.style.fromEndpoint">
+						<img src="../assets/edge-endpoints/circle-stop.png" alt="None"*ngSwitchCase="1">
+						<img src="../assets/edge-endpoints/empty-arrow.png" alt="Empty Arrow"*ngSwitchCase="2" class="flip-horizontally">
+						<img src="../assets/edge-endpoints/filled-arrow.png" alt="Filled Arrow" *ngSwitchCase="3" class="flip-horizontally">
+						<img src="../assets/edge-endpoints/empty-diamond.png" alt="Empty Diamond" *ngSwitchCase="4" class="flip-horizontally">
+						<img src="../assets/edge-endpoints/filled-diamond.png" alt="Filled Diamond" *ngSwitchCase="5" class="flip-horizontally">
+					</ng-container>
+				</button>
+			</ng-container>
+
 		</li>
 		<li>
 			<input class="edge-label-field" type="text" placeholder="Label" (keydown)="changeLabel($event)" [(ngModel)]="editedEdgeLabel"/>
@@ -47,21 +88,7 @@
 				</svg>
 			</div>
 		</li>
-
-		<!--<li (mousedown)="changeDashing(1,$event)">
-			<svg width="100%" height="50" >
-				<line stroke-dasharray="0" [style.stroke]="'#000'" x1="10%" y1="25" x2="90%" y2="25"></line>
-			</svg>
-		</li>
-		<li (mousedown)="changeDashing(2,$event)">
-			<svg width="100%" height="50" >
-				<line stroke-dasharray="7" [style.stroke]="'#000'" x1="10%" y1="25" x2="90%" y2="25"></line>
-			</svg>
-		</li>
-		<li (mousedown)="changeDashing(3,$event)">
-			<svg width="100%" height="50" >
-				<line stroke-dasharray="3 7" [style.stroke]="'#000'" x1="10%" y1="25" x2="90%" y2="25"></line>
-			</svg>
-		</li>-->
 	</ul>
 </div>
+
+

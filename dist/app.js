@@ -12043,6 +12043,8 @@ webpackJsonp([0],{
 	var focus_directive_1 = __webpack_require__(155);
 	var my_rect_directive_1 = __webpack_require__(156);
 	var my_circle_directive_1 = __webpack_require__(157);
+	var edge_endpoint_image_pipe_1 = __webpack_require__(732);
+	var edge_endpoint_name_pipe_1 = __webpack_require__(731);
 	var access_symbol_pipe_1 = __webpack_require__(158);
 	var node_background_pipe_1 = __webpack_require__(159);
 	var WorkspaceModule = (function () {
@@ -12059,6 +12061,8 @@ webpackJsonp([0],{
 	                focus_directive_1.FocusDirective,
 	                my_rect_directive_1.MyRectDirective,
 	                my_circle_directive_1.MyCircleDirective,
+	                edge_endpoint_image_pipe_1.EdgeEndpointImage,
+	                edge_endpoint_name_pipe_1.EdgeEndpointName,
 	                access_symbol_pipe_1.AccessSymbol,
 	                node_background_pipe_1.NodeBackground,
 	                workspace_component_1.WorkspaceComponent,
@@ -13663,12 +13667,13 @@ webpackJsonp([0],{
 	var core_2 = __webpack_require__(3);
 	var geometry_1 = __webpack_require__(72);
 	var worksheet_1 = __webpack_require__(71);
+	var worksheet_2 = __webpack_require__(71);
 	var workspace_1 = __webpack_require__(100);
 	var remove_1 = __webpack_require__(113);
 	var change_edge_style_1 = __webpack_require__(152);
 	var change_edge_label_1 = __webpack_require__(729);
 	var WIDTH = 200;
-	var HEIGHT = 220;
+	var HEIGHT = 150;
 	var EdgeStyleComponent = (function () {
 	    function EdgeStyleComponent() {
 	        this.follow = new geometry_1.Point(0, 0);
@@ -13712,6 +13717,53 @@ webpackJsonp([0],{
 	    };
 	    EdgeStyleComponent.prototype.afterMenuOpens = function (event) {
 	        this.editedEdgeLabel = this.edge.label;
+	    };
+	    EdgeStyleComponent.prototype.getNextEndpointAfter = function (endpointStyle) {
+	        if (endpointStyle + 1 <= worksheet_2.EndpointStyle.FilledDiamond) {
+	            return endpointStyle + 1;
+	        }
+	        else {
+	            return worksheet_2.EndpointStyle.None;
+	        }
+	    };
+	    EdgeStyleComponent.prototype.toggleFromEndpoint = function (event) {
+	        var nextEndpoint = this.getNextEndpointAfter(this.edge.style.fromEndpoint);
+	        var newStyle = this.edge.style.clone();
+	        newStyle.fromEndpoint = nextEndpoint;
+	        this.workspace.commit(new change_edge_style_1.ChangeEdgeStyleCommand(this.edge, newStyle), true);
+	    };
+	    EdgeStyleComponent.prototype.toggleToEndpoint = function (event) {
+	        var nextEndpoint = this.getNextEndpointAfter(this.edge.style.toEndpoint);
+	        var newStyle = this.edge.style.clone();
+	        newStyle.toEndpoint = nextEndpoint;
+	        this.workspace.commit(new change_edge_style_1.ChangeEdgeStyleCommand(this.edge, newStyle), true);
+	    };
+	    EdgeStyleComponent.prototype.fromEndpointOptionShouldComeBeforeTo = function () {
+	        var from = this.edge.fromPoint.pointOnGeometry();
+	        var to = this.edge.toPoint.pointOnGeometry();
+	        if (from.x == to.x) {
+	            return from.y > to.y; //y goes down
+	        }
+	        else {
+	            return from.x < to.x;
+	        }
+	    };
+	    EdgeStyleComponent.prototype.edgeEndpointImage = function (value) {
+	        var pathPrefix = '../assets/edge-endpoints/';
+	        switch (value) {
+	            case worksheet_2.EndpointStyle.None:
+	                return pathPrefix + "circle-stop.png";
+	            case worksheet_2.EndpointStyle.EmptyArrow:
+	                return pathPrefix + "empty-arrow.png";
+	            case worksheet_2.EndpointStyle.FilledArrow:
+	                return pathPrefix + "filled-arrow.png";
+	            case worksheet_2.EndpointStyle.EmptyDiamond:
+	                return pathPrefix + "empty-diamond.png";
+	            case worksheet_2.EndpointStyle.FilledDiamond:
+	                return pathPrefix + "filled-diamond.png";
+	            default:
+	                return pathPrefix + "circle-stop.png";
+	        }
 	    };
 	    __decorate([
 	        core_1.Input(), 
@@ -13789,9 +13841,9 @@ webpackJsonp([0],{
 /***/ },
 
 /***/ 153:
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<ng-container *ngIf=\"edge!=null\">\n\n\t<div class=\"link-circle\" \n\t\t(mousedown)=\"openStyleOptions($event)\"\n\t\t[style.left.px]=\"follow.x\"\n\t\t[style.top.px]=\"follow.y\"\n\t\t[style.width.px]=\"10\"\n\t\t[style.height.px]=\"10\">\n\t</div>\n</ng-container>\n\n<div \n\tclass=\"drop-shadowed-pop-up\"\n\t(mousedown)=\"preventClosingOfOptions($event)\"\n\t[style.width.px]=\"200\"\n\t[style.height.px]=\"250\"\n\t[style.left.px]=\"follow.x\"\n\t[style.top.px]=\"follow.y\"\n\t[@styleOptionsOpen]=\"workspace.edgeStyleOptionsIsOpen?'open':'closed'\" \n\t(@styleOptionsOpen.done)=\"afterMenuOpens($event)\"\n\t>\n\t<ul id=\"edge-style-list\">\n\n\t\t<li>\n\t\t\t<button class=\"edge-style-row-one-of-three\">Start</button>\n\t\t\t<button class=\"edge-style-row-one-of-three remove-edge-button\" (mousedown)=\"removeEdge($event)\">Remove</button>\n\t\t\t<button class=\"edge-style-row-one-of-three\">End</button>\n\t\t</li>\n\t\t<li>\n\t\t\t<input class=\"edge-label-field\" type=\"text\" placeholder=\"Label\" (keydown)=\"changeLabel($event)\" [(ngModel)]=\"editedEdgeLabel\"/>\n\t\t</li>\n\n\t\t<li>\n\t\t\t<div class=\"edge-style-row-one-of-three edge-stroke-button\" (mousedown)=\"changeDashing(1,$event)\">\n\t\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t\t<line stroke-dasharray=\"0\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t\t</svg>\n\t\t\t</div>\n\t\t\t<div class=\"edge-style-row-one-of-three edge-stroke-button\" (mousedown)=\"changeDashing(2,$event)\">\n\t\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t\t<line stroke-dasharray=\"7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t\t</svg>\n\t\t\t</div>\n\t\t\t<div class=\"edge-style-row-one-of-three edge-stroke-button\" (mousedown)=\"changeDashing(3,$event)\">\n\t\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t\t<line stroke-dasharray=\"3 7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t\t</svg>\n\t\t\t</div>\n\t\t</li>\n\n\t\t<!--<li (mousedown)=\"changeDashing(1,$event)\">\n\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t<line stroke-dasharray=\"0\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t</svg>\n\t\t</li>\n\t\t<li (mousedown)=\"changeDashing(2,$event)\">\n\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t<line stroke-dasharray=\"7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t</svg>\n\t\t</li>\n\t\t<li (mousedown)=\"changeDashing(3,$event)\">\n\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t<line stroke-dasharray=\"3 7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t</svg>\n\t\t</li>-->\n\t</ul>\n</div>";
+	module.exports = "<ng-container *ngIf=\"edge!=null\">\n\n\t<div class=\"link-circle\" \n\t\t(mousedown)=\"openStyleOptions($event)\"\n\t\t[style.left.px]=\"follow.x\"\n\t\t[style.top.px]=\"follow.y\"\n\t\t[style.width.px]=\"10\"\n\t\t[style.height.px]=\"10\">\n\t</div>\n</ng-container>\n\n<div \n\tclass=\"drop-shadowed-pop-up\"\n\t(mousedown)=\"preventClosingOfOptions($event)\"\n\t[style.width.px]=\"200\"\n\t[style.height.px]=\"250\"\n\t[style.left.px]=\"follow.x\"\n\t[style.top.px]=\"follow.y\"\n\t[@styleOptionsOpen]=\"workspace.edgeStyleOptionsIsOpen?'open':'closed'\" \n\t(@styleOptionsOpen.done)=\"afterMenuOpens($event)\"\n\t>\n\t<ul id=\"edge-style-list\">\n\n\t\t<li>\n\t\t\t<ng-container *ngIf=\"fromEndpointOptionShouldComeBeforeTo()\">\n\t\t\t\t<button class=\"edge-style-row-one-of-three\" (mousedown)=\"toggleFromEndpoint($event)\">\n\t\t\t\t\t<ng-container [ngSwitch]=\"edge.style.fromEndpoint\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(733) + "\" alt=\"None\"*ngSwitchCase=\"1\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(725) + "\" alt=\"Empty Arrow\"*ngSwitchCase=\"2\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(726) + "\" alt=\"Filled Arrow\" *ngSwitchCase=\"3\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(727) + "\" alt=\"Empty Diamond\" *ngSwitchCase=\"4\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(728) + "\" alt=\"Filled Diamond\" *ngSwitchCase=\"5\">\n\t\t\t\t\t</ng-container>\n\t\t\t\t</button>\n\t\t\t\t<button class=\"edge-style-row-one-of-three remove-edge-button\" (mousedown)=\"removeEdge($event)\">Remove</button>\n\t\t\t\t<button class=\"edge-style-row-one-of-three\" (mousedown)=\"toggleToEndpoint($event)\">\n\t\t\t\t\t<ng-container [ngSwitch]=\"edge.style.toEndpoint\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(733) + "\" alt=\"None\"*ngSwitchCase=\"1\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(725) + "\" alt=\"Empty Arrow\"*ngSwitchCase=\"2\" class=\"flip-horizontally\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(726) + "\" alt=\"Filled Arrow\" *ngSwitchCase=\"3\" class=\"flip-horizontally\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(727) + "\" alt=\"Empty Diamond\" *ngSwitchCase=\"4\" class=\"flip-horizontally\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(728) + "\" alt=\"Filled Diamond\" *ngSwitchCase=\"5\" class=\"flip-horizontally\">\n\t\t\t\t\t</ng-container>\n\t\t\t\t</button>\n\t\t\t</ng-container>\n\n\t\t\t<ng-container *ngIf=\"!fromEndpointOptionShouldComeBeforeTo()\">\n\t\t\t\t<button class=\"edge-style-row-one-of-three\" (mousedown)=\"toggleToEndpoint($event)\">\n\t\t\t\t\t<ng-container [ngSwitch]=\"edge.style.toEndpoint\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(733) + "\" alt=\"None\"*ngSwitchCase=\"1\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(725) + "\" alt=\"Empty Arrow\"*ngSwitchCase=\"2\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(726) + "\" alt=\"Filled Arrow\" *ngSwitchCase=\"3\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(727) + "\" alt=\"Empty Diamond\" *ngSwitchCase=\"4\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(728) + "\" alt=\"Filled Diamond\" *ngSwitchCase=\"5\">\n\t\t\t\t\t</ng-container>\n\t\t\t\t</button>\n\t\t\t\t<button class=\"edge-style-row-one-of-three remove-edge-button\" (mousedown)=\"removeEdge($event)\">Remove</button>\n\t\t\t\t<button class=\"edge-style-row-one-of-three\" (mousedown)=\"toggleFromEndpoint($event)\">\n\t\t\t\t\t<ng-container [ngSwitch]=\"edge.style.fromEndpoint\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(733) + "\" alt=\"None\"*ngSwitchCase=\"1\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(725) + "\" alt=\"Empty Arrow\"*ngSwitchCase=\"2\" class=\"flip-horizontally\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(726) + "\" alt=\"Filled Arrow\" *ngSwitchCase=\"3\" class=\"flip-horizontally\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(727) + "\" alt=\"Empty Diamond\" *ngSwitchCase=\"4\" class=\"flip-horizontally\">\n\t\t\t\t\t\t<img src=\"" + __webpack_require__(728) + "\" alt=\"Filled Diamond\" *ngSwitchCase=\"5\" class=\"flip-horizontally\">\n\t\t\t\t\t</ng-container>\n\t\t\t\t</button>\n\t\t\t</ng-container>\n\n\t\t</li>\n\t\t<li>\n\t\t\t<input class=\"edge-label-field\" type=\"text\" placeholder=\"Label\" (keydown)=\"changeLabel($event)\" [(ngModel)]=\"editedEdgeLabel\"/>\n\t\t</li>\n\n\t\t<li>\n\t\t\t<div class=\"edge-style-row-one-of-three edge-stroke-button\" (mousedown)=\"changeDashing(1,$event)\">\n\t\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t\t<line stroke-dasharray=\"0\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t\t</svg>\n\t\t\t</div>\n\t\t\t<div class=\"edge-style-row-one-of-three edge-stroke-button\" (mousedown)=\"changeDashing(2,$event)\">\n\t\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t\t<line stroke-dasharray=\"7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t\t</svg>\n\t\t\t</div>\n\t\t\t<div class=\"edge-style-row-one-of-three edge-stroke-button\" (mousedown)=\"changeDashing(3,$event)\">\n\t\t\t\t<svg width=\"100%\" height=\"50\" >\n\t\t\t\t\t<line stroke-dasharray=\"3 7\" [style.stroke]=\"'#000'\" x1=\"10%\" y1=\"25\" x2=\"90%\" y2=\"25\"></line>\n\t\t\t\t</svg>\n\t\t\t</div>\n\t\t</li>\n\t</ul>\n</div>\n\n\n";
 
 /***/ },
 
@@ -14171,7 +14223,7 @@ webpackJsonp([0],{
 	
 	
 	// module
-	exports.push([module.id, "body {\n  font-family: 'Source Sans Pro', sans-serif;\n  margin: 0px; }\n\n.generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.3);\n  position: absolute;\n  z-index: 11; }\n\n#creation-drawer-list {\n  list-style-type: none; }\n\n#creation-drawer-list li {\n  width: 100%;\n  height: 50px; }\n\n#edge-style-list {\n  list-style-type: none;\n  padding: 0px;\n  margin: 0px; }\n\n#edge-style-list li {\n  height: 50px;\n  text-align: center; }\n\n#remove-list-item {\n  background: #E54F4F;\n  color: #FFF;\n  text-align: center;\n  padding-top: 15px;\n  height: 30px; }\n\n.edge-style-row-one-of-three {\n  width: 32%;\n  height: 100%;\n  padding: 0px;\n  border: 0px;\n  display: inline-block; }\n\n.edge-stroke-button {\n  box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  -webkit-box-sizing: border-box;\n  border: 1px solid black;\n  width: 31%; }\n\n.edge-stroke-button:hover {\n  background: lightblue; }\n\n.remove-edge-button {\n  background: #E54F4F;\n  color: white;\n  text-align: center; }\n\n.edge-label-field {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  border: 0px;\n  padding: 0px;\n  margin: 0px; }\n\n.edge-label-field:focus {\n  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);\n  outline: none; }\n\n#remove-list-item:hover {\n  background: #930101; }\n\n#creation-drawer-list li {\n  display: inline;\n  padding-right: 30px; }\n\n#multiple-selection-container {\n  border: 1px solid blue;\n  position: absolute;\n  z-index: 11;\n  pointer-events: none; }\n\n#back-to-dashboard {\n  position: absolute;\n  top: 20px;\n  left: 20px;\n  color: gray; }\n\n.node-content-input {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  font-size: 1.3em; }\n\n.selected {\n  border-color: #2BA3FC;\n  color: #2BA3FC; }\n\n.medium-bubble {\n  border-radius: 50%;\n  position: absolute;\n  width: 15px;\n  height: 15px;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%);\n  z-index: 100;\n  cursor: pointer; }\n\n.remove-operation {\n  background: red; }\n\n.edit-operation {\n  background: cornflowerblue; }\n\n.toggle-outline-operation {\n  background: white;\n  border: 1px dashed black; }\n\n.toggle-shape-operation {\n  background: lightpink; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  position: relative;\n  text-align: center;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%); }\n\n.edge-endpoint {\n  position: absolute;\n  height: auto;\n  z-index: 3; }\n\n.edge-text {\n  position: absolute;\n  display: block;\n  z-index: 4;\n  background: white;\n  font-size: 0.8em;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%); }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  text-align: center; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353;\n  z-index: 2; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n\n.form-field {\n  background: #F8F8F8;\n  border: none;\n  height: 40px;\n  padding-left: 25px;\n  min-width: 200px; }\n\n.form-field:focus {\n  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);\n  outline: none; }\n\n.button {\n  color: white;\n  border-radius: 30px;\n  cursor: pointer;\n  text-decoration: none;\n  height: 20px;\n  padding: 10px;\n  font-size: 1em;\n  display: inline-block;\n  text-align: center;\n  min-width: 70px; }\n\n.primary {\n  background-image: linear-gradient(19deg, #34A0AA 0%, #1879EF 100%); }\n\n.primary-complement {\n  background-image: linear-gradient(36deg, #9D40B3 0%, #DA8BC3 100%); }\n\n.full-width-center {\n  text-align: center;\n  width: 100%; }\n\n.no-list-style {\n  list-style: none; }\n\nul.centered-list {\n  text-align: center;\n  list-style: none;\n  padding: 0px; }\n\nul.centered-list li {\n  margin: 20px; }\n\nul.horizontal-list li {\n  display: inline-block; }\n\n.big-padding-bottom {\n  padding-bottom: 40px; }\n\n.big-padding-top {\n  padding-top: 40px; }\n\nheader {\n  width: 100%;\n  background: #FFFFFF;\n  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);\n  text-align: center;\n  height: 80px;\n  line-height: 80px;\n  margin-bottom: 70px; }\n\nheader h1 {\n  margin: 0px;\n  font-size: 30px;\n  color: #6F6F6F;\n  font-weight: lighter;\n  display: inline-block; }\n\n.header-logo {\n  float: left;\n  width: auto;\n  height: 70%;\n  padding-left: 20px;\n  padding-top: 10px; }\n\nul.header-links-container {\n  float: right;\n  margin: 0px 20px 0px 0px; }\n\nul.header-links-container li {\n  padding-right: 10px; }\n\n.header-link {\n  text-decoration: none;\n  color: #D98BC3;\n  font-weight: bold;\n  cursor: pointer; }\n\n.header-link:hover {\n  color: #A576DA; }\n\nul.horizontal-list.spaced-out li {\n  padding-right: 10px; }\n\n.dashboard-actions {\n  cursor: pointer; }\n\n.float-right {\n  float: right; }\n\n.worksheet-title {\n  color: #D98BC3;\n  margin-bottom: 5px;\n  margin-top: 5px;\n  cursor: pointer; }\n\n.worksheet-title:hover {\n  color: #A576DA; }\n\n.worksheet-description {\n  color: #2B93C1;\n  font-weight: 300;\n  margin-top: 0px;\n  margin-bottom: 5px; }\n\n.worksheet-info {\n  padding-left: 30px;\n  display: inline-block; }\n\n.worksheet-row {\n  border-bottom: 1px solid black;\n  text-align: left;\n  height: 100px;\n  overflow-y: clip; }\n\n.gaps-on-sides {\n  margin-left: 40px;\n  margin-right: 40px; }\n\n.no-margin {\n  margin: 0px; }\n\nul.centered-list li.no-margin {\n  margin: 0px; }\n\n.dashboard-options {\n  color: #A576DA;\n  text-align: left;\n  height: 60px;\n  border-bottom: 1px solid black;\n  padding-left: 30px; }\n\n.wide {\n  width: 40%; }\n\n.new-worksheet {\n  padding-right: 40px;\n  float: right;\n  padding-right: 40px;\n  cursor: pointer; }\n\n.new-worksheet img {\n  padding-right: 20px;\n  position: relative;\n  top: 10px; }\n\n.new-worksheet span {\n  font-size: 1.3em;\n  position: relative;\n  top: 10px; }\n", ""]);
+	exports.push([module.id, "body {\n  font-family: 'Source Sans Pro', sans-serif;\n  margin: 0px; }\n\n.generic-block {\n  position: absolute;\n  overflow: scroll;\n  z-index: 1; }\n\n.drop-shadowed-pop-up {\n  position: absolute;\n  overflow: scroll;\n  z-index: 10;\n  background: #FFFFFF;\n  box-shadow: 0 1px 4px 0 rgba(0, 0, 0, 0.5); }\n\n#selection-box {\n  border: 1px solid blue;\n  background: rgba(50, 122, 237, 0.3);\n  position: absolute;\n  z-index: 11; }\n\n#creation-drawer-list {\n  list-style-type: none; }\n\n#creation-drawer-list li {\n  width: 100%;\n  height: 50px; }\n\n#edge-style-list {\n  list-style-type: none;\n  padding: 0px;\n  margin: 0px; }\n\n#edge-style-list li {\n  height: 50px;\n  text-align: center; }\n\n#remove-list-item {\n  background: #E54F4F;\n  color: #FFF;\n  text-align: center;\n  padding-top: 15px;\n  height: 30px; }\n\n.edge-style-row-one-of-three {\n  width: 32%;\n  height: 100%;\n  padding: 0px;\n  border: 0px;\n  display: inline-block; }\n\n.edge-stroke-button {\n  box-sizing: border-box;\n  -moz-box-sizing: border-box;\n  -webkit-box-sizing: border-box;\n  border: 1px solid black;\n  width: 31%; }\n\n.edge-stroke-button:hover {\n  background: lightblue; }\n\n.remove-edge-button {\n  background: #E54F4F;\n  color: white;\n  text-align: center; }\n\n.edge-label-field {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  border: 0px;\n  padding: 0px;\n  margin: 0px; }\n\n.edge-label-field:focus {\n  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);\n  outline: none; }\n\n#remove-list-item:hover {\n  background: #930101; }\n\n#creation-drawer-list li {\n  display: inline;\n  padding-right: 30px; }\n\n#multiple-selection-container {\n  border: 1px solid blue;\n  position: absolute;\n  z-index: 11;\n  pointer-events: none; }\n\n#back-to-dashboard {\n  position: absolute;\n  top: 20px;\n  left: 20px;\n  color: gray; }\n\n.node-content-input {\n  width: 100%;\n  height: 100%;\n  text-align: center;\n  font-size: 1.3em; }\n\n.selected {\n  border-color: #2BA3FC;\n  color: #2BA3FC; }\n\n.medium-bubble {\n  border-radius: 50%;\n  position: absolute;\n  width: 15px;\n  height: 15px;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%);\n  z-index: 100;\n  cursor: pointer; }\n\n.remove-operation {\n  background: red; }\n\n.edit-operation {\n  background: cornflowerblue; }\n\n.toggle-outline-operation {\n  background: white;\n  border: 1px dashed black; }\n\n.toggle-shape-operation {\n  background: lightpink; }\n\n.node-background {\n  z-index: -1;\n  position: absolute;\n  top: 0px;\n  left: 0px; }\n\n.node-content {\n  position: relative;\n  text-align: center;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%); }\n\n.edge-endpoint {\n  position: absolute;\n  height: auto;\n  z-index: 3; }\n\n.edge-text {\n  position: absolute;\n  display: block;\n  z-index: 4;\n  background: white;\n  font-size: 0.8em;\n  -webkit-transform: translate(-50%, -50%);\n  transform: translate(-50%, -50%); }\n\n.selected-block {\n  border-color: #2BA3FC; }\n\n.block-cell {\n  padding: 4px;\n  margin: 0px; }\n\n.header-block-cell {\n  line-height: 34px;\n  text-align: center;\n  margin-bottom: 4px; }\n\n.header-decorater {\n  line-height: 15px;\n  margin-top: 3px; }\n\n.content-block-cell {\n  line-height: 20px;\n  padding-left: 8px; }\n\n.top-border-solid {\n  border-top: 2px solid black; }\n\n.bottom-border-solid {\n  border-bottom: 2px solid black; }\n\n.solid-horizontal-line {\n  width: 100%;\n  background: black;\n  height: 2px; }\n\n.mini-top-bottom-margin {\n  margin-top: 4px;\n  margin-bottom: 4px; }\n\n.bogus-container {\n  margin: 0px;\n  padding: 0px; }\n\n.italic {\n  font-style: italic; }\n\n.bold {\n  font-weight: bold; }\n\n.center-align {\n  text-align: center; }\n\n.handle-pick {\n  position: absolute;\n  border: none;\n  background: #2BA3FC; }\n\nh1 {\n  color: black;\n  font-family: Arial, Helvetica, sans-serif;\n  font-size: 250%; }\n\n.center-anchored {\n  position: absolute;\n  transform-origin: center; }\n\n.line-segment {\n  text-align: center;\n  position: absolute;\n  height: 1px;\n  background: black;\n  z-index: -1; }\n\n#starter-tip {\n  color: grey;\n  position: absolute;\n  top: 50%;\n  left: 50%;\n  transform: translate(-50%, -50%);\n  text-align: center; }\n\n.link-circle {\n  position: absolute;\n  border-radius: 50%;\n  transform: translate(-50%, -50%);\n  background: #344353;\n  z-index: 2; }\n\n.debug {\n  position: absolute;\n  width: 20px;\n  height: 20px;\n  background: red;\n  border: 1px solid black;\n  transform: translate(-50%, -50%); }\n\n.form-field {\n  background: #F8F8F8;\n  border: none;\n  height: 40px;\n  padding-left: 25px;\n  min-width: 200px; }\n\n.form-field:focus {\n  box-shadow: 0 0 3px 0 rgba(0, 0, 0, 0.5);\n  outline: none; }\n\n.button {\n  color: white;\n  border-radius: 30px;\n  cursor: pointer;\n  text-decoration: none;\n  height: 20px;\n  padding: 10px;\n  font-size: 1em;\n  display: inline-block;\n  text-align: center;\n  min-width: 70px; }\n\n.primary {\n  background-image: linear-gradient(19deg, #34A0AA 0%, #1879EF 100%); }\n\n.primary-complement {\n  background-image: linear-gradient(36deg, #9D40B3 0%, #DA8BC3 100%); }\n\n.full-width-center {\n  text-align: center;\n  width: 100%; }\n\n.no-list-style {\n  list-style: none; }\n\nul.centered-list {\n  text-align: center;\n  list-style: none;\n  padding: 0px; }\n\nul.centered-list li {\n  margin: 20px; }\n\nul.horizontal-list li {\n  display: inline-block; }\n\n.big-padding-bottom {\n  padding-bottom: 40px; }\n\n.big-padding-top {\n  padding-top: 40px; }\n\nheader {\n  width: 100%;\n  background: #FFFFFF;\n  box-shadow: 0 2px 3px 0 rgba(0, 0, 0, 0.5);\n  text-align: center;\n  height: 80px;\n  line-height: 80px;\n  margin-bottom: 70px; }\n\nheader h1 {\n  margin: 0px;\n  font-size: 30px;\n  color: #6F6F6F;\n  font-weight: lighter;\n  display: inline-block; }\n\n.header-logo {\n  float: left;\n  width: auto;\n  height: 70%;\n  padding-left: 20px;\n  padding-top: 10px; }\n\nul.header-links-container {\n  float: right;\n  margin: 0px 20px 0px 0px; }\n\nul.header-links-container li {\n  padding-right: 10px; }\n\n.header-link {\n  text-decoration: none;\n  color: #D98BC3;\n  font-weight: bold;\n  cursor: pointer; }\n\n.header-link:hover {\n  color: #A576DA; }\n\nul.horizontal-list.spaced-out li {\n  padding-right: 10px; }\n\n.dashboard-actions {\n  cursor: pointer; }\n\n.float-right {\n  float: right; }\n\n.worksheet-title {\n  color: #D98BC3;\n  margin-bottom: 5px;\n  margin-top: 5px;\n  cursor: pointer; }\n\n.worksheet-title:hover {\n  color: #A576DA; }\n\n.worksheet-description {\n  color: #2B93C1;\n  font-weight: 300;\n  margin-top: 0px;\n  margin-bottom: 5px; }\n\n.worksheet-info {\n  padding-left: 30px;\n  display: inline-block; }\n\n.worksheet-row {\n  border-bottom: 1px solid black;\n  text-align: left;\n  height: 100px;\n  overflow-y: clip; }\n\n.gaps-on-sides {\n  margin-left: 40px;\n  margin-right: 40px; }\n\n.no-margin {\n  margin: 0px; }\n\nul.centered-list li.no-margin {\n  margin: 0px; }\n\n.dashboard-options {\n  color: #A576DA;\n  text-align: left;\n  height: 60px;\n  border-bottom: 1px solid black;\n  padding-left: 30px; }\n\n.wide {\n  width: 40%; }\n\n.new-worksheet {\n  padding-right: 40px;\n  float: right;\n  padding-right: 40px;\n  cursor: pointer; }\n\n.new-worksheet img {\n  padding-right: 20px;\n  position: relative;\n  top: 10px; }\n\n.new-worksheet span {\n  font-size: 1.3em;\n  position: relative;\n  top: 10px; }\n\n.flip-horizontally {\n  -moz-transform: rotate(180deg);\n  -o-transform: rotate(180deg);\n  -webkit-transform: rotate(180deg);\n  transform: rotate(180deg); }\n", ""]);
 	
 	// exports
 
@@ -14699,6 +14751,116 @@ webpackJsonp([0],{
 	}(command_1.Command));
 	exports.ChangeEdgeLabelCommand = ChangeEdgeLabelCommand;
 
+
+/***/ },
+
+/***/ 731:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var worksheet_1 = __webpack_require__(71);
+	/*
+	 * Gives the name for the specified edge endpoint.Useful for alt text
+	 *
+	 * Usage:
+	 *   value | edgeEndpointName
+	*/
+	var EdgeEndpointName = (function () {
+	    function EdgeEndpointName() {
+	    }
+	    EdgeEndpointName.prototype.transform = function (value) {
+	        switch (value) {
+	            case worksheet_1.EndpointStyle.None:
+	                return "None";
+	            case worksheet_1.EndpointStyle.EmptyArrow:
+	                return "Empty Arrow";
+	            case worksheet_1.EndpointStyle.FilledArrow:
+	                return "Filled Arrow";
+	            case worksheet_1.EndpointStyle.EmptyDiamond:
+	                return "Empty Diamond";
+	            case worksheet_1.EndpointStyle.FilledDiamond:
+	                return "Filled Diamond";
+	            default:
+	                return "None";
+	        }
+	    };
+	    EdgeEndpointName = __decorate([
+	        core_1.Pipe({ name: 'edgeEndpointName' }), 
+	        __metadata('design:paramtypes', [])
+	    ], EdgeEndpointName);
+	    return EdgeEndpointName;
+	}());
+	exports.EdgeEndpointName = EdgeEndpointName;
+
+
+/***/ },
+
+/***/ 732:
+/***/ function(module, exports, __webpack_require__) {
+
+	"use strict";
+	var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+	    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+	    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+	    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+	    return c > 3 && r && Object.defineProperty(target, key, r), r;
+	};
+	var __metadata = (this && this.__metadata) || function (k, v) {
+	    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+	};
+	var core_1 = __webpack_require__(3);
+	var worksheet_1 = __webpack_require__(71);
+	/*
+	 * Gives the filename(with the complete path) for the specified edge endpoint.
+	 * @deprecated Will not work inside img src attribute because
+	 * webpack could'nt understand the dependency on that image
+	 * Usage:
+	 *   value | edgeEndpointImage:'../assets/edge-endpoints/'
+	*/
+	var EdgeEndpointImage = (function () {
+	    function EdgeEndpointImage() {
+	    }
+	    EdgeEndpointImage.prototype.transform = function (value, pathPrefix) {
+	        switch (value) {
+	            case worksheet_1.EndpointStyle.None:
+	                return pathPrefix + "circle-stop.png";
+	            case worksheet_1.EndpointStyle.EmptyArrow:
+	                return pathPrefix + "empty-arrow.png";
+	            case worksheet_1.EndpointStyle.FilledArrow:
+	                return pathPrefix + "filled-arrow.png";
+	            case worksheet_1.EndpointStyle.EmptyDiamond:
+	                return pathPrefix + "empty-diamond.png";
+	            case worksheet_1.EndpointStyle.FilledDiamond:
+	                return pathPrefix + "filled-diamond.png";
+	            default:
+	                return pathPrefix + "circle-stop.png";
+	        }
+	    };
+	    EdgeEndpointImage = __decorate([
+	        core_1.Pipe({ name: 'edgeEndpointImage' }), 
+	        __metadata('design:paramtypes', [])
+	    ], EdgeEndpointImage);
+	    return EdgeEndpointImage;
+	}());
+	exports.EdgeEndpointImage = EdgeEndpointImage;
+
+
+/***/ },
+
+/***/ 733:
+/***/ function(module, exports, __webpack_require__) {
+
+	module.exports = __webpack_require__.p + "assets/circle-stop.1707394c34f50952941abe2759d60d5f.png";
 
 /***/ }
 

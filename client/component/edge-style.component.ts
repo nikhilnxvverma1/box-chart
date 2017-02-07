@@ -10,7 +10,7 @@ import { ChangeEdgeStyleCommand } from '../editor/command/change-edge-style';
 import { ChangeEdgeLabelCommand } from '../editor/command/change-edge-label';
 
 const WIDTH=200;
-const HEIGHT=220;
+const HEIGHT=150;
 
 
 @Component({
@@ -87,5 +87,56 @@ export class EdgeStyleComponent implements OnChanges{
 
 	afterMenuOpens(event:AnimationTransitionEvent){
 		this.editedEdgeLabel=this.edge.label;
+	}
+
+	private getNextEndpointAfter(endpointStyle:EndpointStyle):EndpointStyle{
+		if(endpointStyle+1<=EndpointStyle.FilledDiamond){
+			return endpointStyle+1;
+		}else{
+			return EndpointStyle.None;
+		}
+	}
+
+	toggleFromEndpoint(event:MouseEvent){
+		let nextEndpoint=this.getNextEndpointAfter(this.edge.style.fromEndpoint);
+		let newStyle=this.edge.style.clone();
+		newStyle.fromEndpoint=nextEndpoint;
+		this.workspace.commit(new ChangeEdgeStyleCommand(this.edge,newStyle),true);
+	}
+
+	toggleToEndpoint(event:MouseEvent){
+		let nextEndpoint=this.getNextEndpointAfter(this.edge.style.toEndpoint);
+		let newStyle=this.edge.style.clone();
+		newStyle.toEndpoint=nextEndpoint;
+		this.workspace.commit(new ChangeEdgeStyleCommand(this.edge,newStyle),true);
+	}
+
+	fromEndpointOptionShouldComeBeforeTo():boolean{
+		let from=this.edge.fromPoint.pointOnGeometry();
+		let to=this.edge.toPoint.pointOnGeometry();
+		if(from.x==to.x){
+			return from.y>to.y;//y goes down
+		}else{
+			return from.x<to.x;
+		}
+	}
+
+	edgeEndpointImage(value:EndpointStyle){
+		let pathPrefix='../assets/edge-endpoints/';
+		switch(value){
+			case EndpointStyle.None:
+				return pathPrefix+"circle-stop.png";
+			case EndpointStyle.EmptyArrow:
+				return pathPrefix+"empty-arrow.png";
+			case EndpointStyle.FilledArrow:
+				return pathPrefix+"filled-arrow.png";
+			case EndpointStyle.EmptyDiamond:
+				return pathPrefix+"empty-diamond.png";
+			case EndpointStyle.FilledDiamond:
+				return pathPrefix+"filled-diamond.png";
+			
+			default:
+				return pathPrefix+"circle-stop.png";
+		}
 	}
 }
