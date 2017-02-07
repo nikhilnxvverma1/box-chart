@@ -14,3 +14,5 @@ server/transpiled
 server/*.js
 .vscode
 dist
+#allow icon image
+!dist/images/icon-32.png

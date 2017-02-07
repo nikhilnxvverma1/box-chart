@@ -184,6 +184,7 @@ body{
 	text-align: center;
 	-webkit-transform: translate(-50%, -50%);
 	transform: translate(-50%, -50%);
+	font-size:0.8em;
 }
 
 .edge-endpoint{
@@ -430,10 +431,6 @@ ul.horizontal-list.spaced-out li{
 	padding-right:10px;
 }
 
-.dashboard-actions{
-	cursor:pointer;
-}
-
 .float-right{
 	float:right;
 }
@@ -493,16 +490,20 @@ ul.centered-list li.no-margin{
 	width:40%;
 }
 
-.new-worksheet{
+.dashboard-actions{
 	padding-right: 40px;
     float: right;
-    margin-right: 40px;
     cursor: pointer;
     padding: 10px 7px 5px 10px;
+	cursor: pointer;
 }
 
-.new-worksheet:hover{
+.dashboard-actions:hover{
 	box-shadow: 0 1px 4px 0 rgba(0,0,0,0.50);
+}
+
+.new-worksheet{
+	margin-right: 30px;
 }
 
 .new-worksheet img{
@@ -524,4 +525,21 @@ ul.centered-list li.no-margin{
 	display: inline;
 	color:#6F6F6F;
 	font-size:1.5em;
+}
+
+.worksheet-row.editable{
+	height:auto;
+}
+
+.dashboard-field{
+	margin-top:10px;
+	display: block;
+}
+
+textarea.dashboard-field{
+	height:100px;
+	width:330px;
+	max-width:330px;
+	margin-bottom: 10px;
+	padding-top:10px;
 }

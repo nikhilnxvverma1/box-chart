@@ -13,6 +13,10 @@ export class DashboardComponent implements OnInit {
 
 	private searchTerm:string;
 	private worksheetList:Worksheet[]=[];
+	private editableWorksheet:Worksheet;
+	private newEntry:boolean;
+	private editTitle:string;
+	private editDescription:string;
 
 	constructor(
 		private dashboardService:DashboardService,
@@ -44,13 +48,22 @@ export class DashboardComponent implements OnInit {
 		this.worksheetList.push(third);
 	}
 	
+	private emptyString(test:string):boolean{
+		return test==null||test.trim()=='';
+	}
+
 	private createNewWorksheet(){
-		let title=Math.random().toString(36).slice(2);
-		let description="made from frontend";
+		if(this.emptyString(this.editTitle)){
+			return;
+		}
+		let title=this.editTitle;
+		let description=this.editDescription;
 		this.dashboardService.createWorksheet(title,description).subscribe((worksheet:Worksheet)=>{
-			this.worksheetList.push(worksheet);
+			this.worksheetList.unshift(worksheet);
+			this.endEditing();
 		},(error:Error)=>{
 			console.error("Worksheet retrieval: "+error.message);//TODO show some friendly message to user
+			this.endEditing();
 		})
 	}
 
@@ -85,5 +98,41 @@ export class DashboardComponent implements OnInit {
 		};
 		// Navigate to the worksheet page with extras
     	this.router.navigate(['worksheet'], navigationExtras);
+	}
+
+	editWorksheet(worksheet?:Worksheet){
+		if(worksheet==null){
+			this.newEntry=true;
+			this.editTitle='';
+			this.editDescription='';
+		}else{
+			this.editableWorksheet=worksheet;
+			this.editTitle=worksheet.title;
+			this.editDescription=worksheet.description;
+		}
+	}
+
+	commitModifying(worksheet:Worksheet){
+		//save this worksheet with the backend
+		if(this.emptyString(this.editTitle)){
+			return;
+		}
+		let title=this.editTitle;
+		let description=this.editDescription;
+		this.dashboardService.modifyWorksheetInfo(worksheet,title,description).subscribe((savedWorksheet:Worksheet)=>{
+			worksheet.title=this.editTitle;
+			worksheet.description=this.editDescription;
+			this.endEditing();
+		},(error:Error)=>{
+			console.error("Problems while modifying worksheet: "+error.message);//TODO show some friendly message to user
+			this.endEditing();
+		})
+	}
+
+	endEditing(worksheet?:Worksheet){
+		this.editableWorksheet=null;
+		this.newEntry=false;
+		this.editTitle='';
+		this.editDescription='';
 	}
 }

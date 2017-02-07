@@ -12,7 +12,7 @@ export class WorksheetBackend{
 	/** Gets all the worksheet for a particular user in an array */
 	getWorksheetsForUser(user:any):Promise<any[]>{
 		return this.db.query('select from Worksheet where @rid in '+
-		'(select worksheetList from User where @rid=:userRid)',{
+		'(select worksheetList from User where @rid=:userRid) order by modificationDate desc',{
 			params:{
 				userRid:user['@rid']
 			}
@@ -122,6 +122,46 @@ export class WorksheetBackend{
 		return this.db.query('update '+worksheetRid+' set diagramModel = :diagramModel,modificationDate=sysdate() return count',{
 			 params:{
 				 diagramModel:diagramModel
+				}
+			}).all().
+		then((updatedRecordsCount:any[])=>{
+			//we only check for the one record that belongs to the logged in user
+			if(updatedRecordsCount[0]==1){
+				return { access:Access.Granted, success:true };
+			}else{
+				return { access:Access.Granted, success:false };
+			}
+		});
+	}
+
+	/** Updates the worksheet info for a worksheet if the current logged in user is authorized */
+	updateWorksheetInfoForUserIfAuthorized(user:any,worksheetRid:string,title:string,description:string):Promise<any>{
+		return this.getWorksheetsForUser(user).
+			then((worksheetList:any[])=>{
+				//check if requested worksheet rid is in that list
+				let foundWorksheet:any=null;
+				for(let worksheet of worksheetList){
+					if(worksheet['@rid'].toString()==worksheetRid){
+						foundWorksheet=worksheet;
+						break;
+					}
+				}
+
+				//if worksheet is found , update it
+				if(foundWorksheet!=null){
+					return this.updateWorksheetInfoForWorksheet(worksheetRid,title,description);
+				}else{//else return access denied by returning false (403 is sent also by the calling code.
+					return { access:Access.Denied };
+				}
+			});
+	}
+
+	/** Updates the worksheet info for a worksheet NO authorization check*/
+	private updateWorksheetInfoForWorksheet(worksheetRid:string,title:string,description:string):Promise<any>{
+		return this.db.query('update '+worksheetRid+' set title = :title, description=:description ,modificationDate=sysdate() return count',{
+			 params:{
+				 title:title,
+				 description:description
 				}
 			}).all().
 		then((updatedRecordsCount:any[])=>{

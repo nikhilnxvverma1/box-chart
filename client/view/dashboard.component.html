@@ -14,18 +14,40 @@
 		<div class="dashboard-options">
 			<span class="dashboard-table-heading">Diagrams:</span>
 			<!--<input class="form-field wide" placeholder="Search" [(ngModel)]="searchTerm"/>-->
-			<div (click)="createNewWorksheet()" class="new-worksheet"><img src="../assets/plus.png" alt="New"><span>New</span></div>
+			<div (click)="editWorksheet()" class="new-worksheet dashboard-actions"><img src="../assets/plus.png" alt="Add"><span>New</span></div>
+		</div>
+	</li>
+	<li *ngIf="newEntry" class="no-margin">
+		<div class="worksheet-row editable">
+			<div class="worksheet-info">
+				<input class="form-field dashboard-field" placeholder="Title" [(ngModel)]="editTitle"/>
+				<textarea class="form-field dashboard-field" placeholder="Description" [(ngModel)]="editDescription"></textarea>
+			</div>
+			<ul class="horizontal-list float-right">
+				<li><a class="dashboard-actions" (click)="createNewWorksheet()"><img src="../assets/commit.png" alt="Commit"></a></li>
+				<li><a class="dashboard-actions" (click)="endEditing()"><img src="../assets/cancel.png" alt="Cancel"></a></li>
+			</ul>
 		</div>
 	</li>
 	<li class="no-margin" *ngFor="let worksheet of worksheetList">
-		<div class="worksheet-row">
+		<div *ngIf="editableWorksheet==worksheet" class="worksheet-row editable">
+			<div class="worksheet-info">
+				<input class="form-field dashboard-field" placeholder="Title" [(ngModel)]="editTitle"/>
+				<textarea class="form-field dashboard-field" placeholder="Description" [(ngModel)]="editDescription"></textarea>
+			</div>
+			<ul class="horizontal-list float-right">
+				<li><a class="dashboard-actions" (click)="commitModifying(worksheet)"><img src="../assets/commit.png" alt="Commit"></a></li>
+				<li><a class="dashboard-actions" (click)="endEditing()"><img src="../assets/cancel.png" alt="Cancel"></a></li>
+			</ul>
+		</div>
+		<div *ngIf="editableWorksheet!=worksheet" class="worksheet-row">
 			<div class="worksheet-info">
 				<h3 [routerLink]="'worksheet/'+worksheet.rid" class="worksheet-title">{{worksheet.title}}</h3>
 				<h3 class="worksheet-description">{{worksheet.description}}</h3>
 			</div>
 
-			<ul class="horizontal-list spaced-out float-right">
-				<li><a class="dashboard-actions" (click)="edit"><img src="../assets/edit-icon.png" alt="Edit"></a></li>
+			<ul class="horizontal-list float-right">
+				<li><a class="dashboard-actions" (click)="editWorksheet(worksheet)"><img src="../assets/edit-icon.png" alt="Edit"></a></li>
 				<li><a class="dashboard-actions" (click)="removeWorksheet(worksheet)"><img src="../assets/trash-icon.png" alt="Delete"></a></li>
 			</ul>
 		</div>

@@ -11,6 +11,7 @@ export class DashboardService{
 	private static readonly DASHBOARD_URL="api/dashboard";
 	private static readonly CREATE_WORKSHEET_URL="api/create-worksheet";
 	private static readonly REMOVE_WORKSHEET_URL="api/remove-worksheet";
+	private static readonly MODIFY_WORKSHEET_URL="api/modify-worksheet-info";
 
 	constructor(private http:Http){}
 
@@ -66,5 +67,17 @@ export class DashboardService{
 			body:body
 		});
 		return this.http.delete(DashboardService.REMOVE_WORKSHEET_URL,options).map((res:Response)=>{return (res.json())});
+	}
+
+	/** Creates a worksheet for the logged in user. */
+	modifyWorksheetInfo(worksheet:Worksheet,title:string,description:string):Observable<Worksheet>{
+		let body={
+			"worksheetRid":worksheet.rid,
+			"title":title,
+			"description":description
+		}
+		let headers = new Headers({ 'Content-Type': 'application/json' });
+		let options=new RequestOptions({headers:headers});
+		return this.http.put(DashboardService.MODIFY_WORKSHEET_URL,body,options).map((res:Response)=>{return this.worksheetFromJson(res.json())});
 	}
 }

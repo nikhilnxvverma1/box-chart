@@ -215,6 +215,33 @@ export class ServerApp {
 				})
 			}
 		});
+
+		//update the diagram model for a given worksheet (if authorized)
+		this.app.put('/api/modify-worksheet-info', (req:express.Request, res:express.Response) => {
+			winston.debug("updating worksheet info for worksheet");
+			//get user in session
+			let loggedInUser=(<any>req).session.user;
+			if(!loggedInUser){
+				jsonHeader(res).status(401).send(JSON.stringify(false));
+			}else{
+				//get the url params for the worksheet and get it for the logged in user
+				let worksheetRid=(<any>req).body.worksheetRid;
+				let title=(<any>req).body.title;
+				let description=(<any>req).body.description;
+				this.worksheetBackend.updateWorksheetInfoForUserIfAuthorized(loggedInUser,worksheetRid,title,description).
+				then((accessResult:any)=>{
+					if(accessResult.access==Access.Granted){
+						jsonHeader(res).status(200).send(JSON.stringify(accessResult.success));
+					}else if(accessResult.access=Access.Denied){
+						jsonHeader(res).status(403).send(JSON.stringify(false));
+					}else{
+						jsonHeader(res).status(500).send('Access to worksheet unrecognized');
+					}
+				}).catch((error:Error)=>{
+					jsonHeader(res).status(500).send('Something went wrong while finding worksheet');
+				})
+			}
+		});
 	}
 
     public startServer() {//this method is called after setRoutes()
