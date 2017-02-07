@@ -102,6 +102,7 @@ export class EdgeStyleComponent implements OnChanges{
 		let newStyle=this.edge.style.clone();
 		newStyle.fromEndpoint=nextEndpoint;
 		this.workspace.commit(new ChangeEdgeStyleCommand(this.edge,newStyle),true);
+		this.workspace.fromEndpointPreference=nextEndpoint;
 	}
 
 	toggleToEndpoint(event:MouseEvent){
@@ -109,6 +110,7 @@ export class EdgeStyleComponent implements OnChanges{
 		let newStyle=this.edge.style.clone();
 		newStyle.toEndpoint=nextEndpoint;
 		this.workspace.commit(new ChangeEdgeStyleCommand(this.edge,newStyle),true);
+		this.workspace.toEndpointPreference=nextEndpoint;
 	}
 
 	fromEndpointOptionShouldComeBeforeTo():boolean{

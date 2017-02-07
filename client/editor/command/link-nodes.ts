@@ -72,6 +72,10 @@ export class LinkNodesCommand extends Command implements PressDragReleaseProcess
 		//make the connection and push to edge list
 		this.prepared.to=endpoint;
 		endpoint.incomingEdges.push(this.prepared);
+
+		//change the style of the prepared edge's endpoint to whatever is the current preference
+		this.prepared.style.fromEndpoint=this.workspace.fromEndpointPreference;
+		this.prepared.style.toEndpoint=this.workspace.toEndpointPreference;
 		
 		this.prepared.from.outgoingEdges.push(this.prepared);
 		diagramModel.edgeList.push(this.prepared);

@@ -6,7 +6,7 @@ import './global.scss';
 declare let window:any;
 declare let Office:any;
 
-Office.initialize = function () {
-	platformBrowserDynamic().bootstrapModule(AppModule);
-};
-// platformBrowserDynamic().bootstrapModule(AppModule);
+// Office.initialize = function () {
+// 	platformBrowserDynamic().bootstrapModule(AppModule);
+// };
+platformBrowserDynamic().bootstrapModule(AppModule);

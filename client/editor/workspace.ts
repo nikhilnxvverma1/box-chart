@@ -1,5 +1,5 @@
 import { Command } from './command/command';
-import { Worksheet,DiagramModel,DiagramNode,DiagramEdge } from '../model/worksheet';
+import { Worksheet,DiagramModel,DiagramNode,DiagramEdge,EndpointStyle } from '../model/worksheet';
 import { Point } from '../model/geometry';
 
 /** Current configuration of the workspace on account of user actions so far. */
@@ -13,6 +13,8 @@ export class Workspace{
 	edgeStyleOptionsIsOpen=false;
 	contentEditingIsOpen=false;
 	currentlyPanning=false;
+	fromEndpointPreference=EndpointStyle.None;
+	toEndpointPreference=EndpointStyle.None;
 	private _cursorPosition:Point=new Point(0,0);
 	postOperationListener:PostOperationNotification;
 

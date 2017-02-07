@@ -6,10 +6,10 @@ webpackJsonp([0],[
 	var platform_browser_dynamic_1 = __webpack_require__(1);
 	var app_module_1 = __webpack_require__(23);
 	__webpack_require__(172);
-	Office.initialize = function () {
-	    platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
-	};
-	// platformBrowserDynamic().bootstrapModule(AppModule);
+	// Office.initialize = function () {
+	// 	platformBrowserDynamic().bootstrapModule(AppModule);
+	// };
+	platform_browser_dynamic_1.platformBrowserDynamic().bootstrapModule(app_module_1.AppModule);
 
 
 /***/ },
@@ -6237,7 +6237,7 @@ webpackJsonp([0],[
 /* 69 */
 /***/ function(module, exports, __webpack_require__) {
 
-	module.exports = "<header>\n\t<a routerLink=\"/\"><img src=\"" + __webpack_require__(64) + "\" alt=\"Logo\" class=\"header-logo\"></a>\n\t<h1>Create and account</h1>\n</header>\n\n\n<ul class=\"centered-list\">\n\t<li><input type=\"text\" placeholder=\"First Name\" [(ngModel)]=\"user.firstName\" class=\"form-field\"/></li>\n\t<li><input type=\"text\" placeholder=\"Last Name\" [(ngModel)]=\"user.lastName\" class=\"form-field\"/></li>\n\t<li><input type=\"text\" placeholder=\"Email\" [(ngModel)]=\"user.email\" class=\"form-field\"/></li>\n\t<li><input type=\"password\" placeholder=\"Password\" [(ngModel)]=\"user.password\" class=\"form-field\"/></li>\n\t<li><input type=\"password\" placeholder=\"Confirm Password\" [(ngModel)]=\"confirmPassword\" class=\"form-field\"/></li>\n</ul>\n\n<ul class=\"centered-list horizontal-list no-list-style\">\n\t<li>\n\t\t<a tabindex=\"4\" class=\"button primary\" (click)=\"createUserAccount()\">Sign Up</a>\n\t</li>\n</ul>";
+	module.exports = "<header>\n\t<a routerLink=\"/\"><img src=\"" + __webpack_require__(64) + "\" alt=\"Logo\" class=\"header-logo\"></a>\n\t<h1>Create and account</h1>\n</header>\n\n\n<ul class=\"centered-list\">\n\t<li><input type=\"text\" placeholder=\"First Name\" [(ngModel)]=\"user.firstName\" class=\"form-field\"/></li>\n\t<li><input type=\"text\" placeholder=\"Last Name\" [(ngModel)]=\"user.lastName\" class=\"form-field\"/></li>\n\t<li><input type=\"text\" placeholder=\"Email\" [(ngModel)]=\"user.email\" class=\"form-field\"/></li>\n\t<li><input type=\"password\" placeholder=\"Password (minimum 8 charecters)\" [(ngModel)]=\"user.password\" class=\"form-field\"/></li>\n\t<li><input type=\"password\" placeholder=\"Confirm Password\" [(ngModel)]=\"confirmPassword\" class=\"form-field\"/></li>\n</ul>\n\n<ul class=\"centered-list horizontal-list no-list-style\">\n\t<li>\n\t\t<a tabindex=\"4\" class=\"button primary\" (click)=\"createUserAccount()\">Sign Up</a>\n\t</li>\n</ul>";
 
 /***/ },
 /* 70 */
@@ -10124,6 +10124,8 @@ webpackJsonp([0],[
 	        this.edgeStyleOptionsIsOpen = false;
 	        this.contentEditingIsOpen = false;
 	        this.currentlyPanning = false;
+	        this.fromEndpointPreference = worksheet_1.EndpointStyle.None;
+	        this.toEndpointPreference = worksheet_1.EndpointStyle.None;
 	        this._cursorPosition = new geometry_1.Point(0, 0);
 	        this._worksheet = worksheet;
 	    }
@@ -13780,6 +13782,9 @@ webpackJsonp([0],[
 	        //make the connection and push to edge list
 	        this.prepared.to = endpoint;
 	        endpoint.incomingEdges.push(this.prepared);
+	        //change the style of the prepared edge's endpoint to whatever is the current preference
+	        this.prepared.style.fromEndpoint = this.workspace.fromEndpointPreference;
+	        this.prepared.style.toEndpoint = this.workspace.toEndpointPreference;
 	        this.prepared.from.outgoingEdges.push(this.prepared);
 	        diagramModel.edgeList.push(this.prepared);
 	        //the endpoint's tracking point now will gravitate Towards the 'from' node's tracking point
@@ -13933,12 +13938,14 @@ webpackJsonp([0],[
 	        var newStyle = this.edge.style.clone();
 	        newStyle.fromEndpoint = nextEndpoint;
 	        this.workspace.commit(new change_edge_style_1.ChangeEdgeStyleCommand(this.edge, newStyle), true);
+	        this.workspace.fromEndpointPreference = nextEndpoint;
 	    };
 	    EdgeStyleComponent.prototype.toggleToEndpoint = function (event) {
 	        var nextEndpoint = this.getNextEndpointAfter(this.edge.style.toEndpoint);
 	        var newStyle = this.edge.style.clone();
 	        newStyle.toEndpoint = nextEndpoint;
 	        this.workspace.commit(new change_edge_style_1.ChangeEdgeStyleCommand(this.edge, newStyle), true);
+	        this.workspace.toEndpointPreference = nextEndpoint;
 	    };
 	    EdgeStyleComponent.prototype.fromEndpointOptionShouldComeBeforeTo = function () {
 	        var from = this.edge.fromPoint.pointOnGeometry();
