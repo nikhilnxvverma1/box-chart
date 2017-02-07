@@ -12,7 +12,8 @@
 <ul class="centered-list gaps-on-sides" >
 	<li class="no-margin">
 		<div class="dashboard-options">
-			<input class="form-field wide" placeholder="Search" [(ngModel)]="searchTerm"/>
+			<span class="dashboard-table-heading">Diagrams:</span>
+			<!--<input class="form-field wide" placeholder="Search" [(ngModel)]="searchTerm"/>-->
 			<div (click)="createNewWorksheet()" class="new-worksheet"><img src="../assets/plus.png" alt="New"><span>New</span></div>
 		</div>
 	</li>
@@ -30,14 +31,3 @@
 		</div>
 	</li>
 </ul>
-
-	<!--<a (click)="gotoWorksheet(worksheet)"><span>{{worksheet.title}}({{worksheet.rid}})</span></a> : -->
-<!--<div class="worksheet-tag" *ngFor="let worksheet of worksheetList">
-	<a [routerLink]="'worksheet/'+worksheet.rid"><span>{{worksheet.title}}({{worksheet.rid}})</span></a> : 
-	<span>{{worksheet.description}}</span> 
-	<a style="background: red;color: white" (click)="removeWorksheet(worksheet)">Remove</a>
-</div>-->
-
-<!--<div class="worksheet-tag">
-	<a style="background: green;color: white" (click)="createNewWorksheet()">Create new worksheet</a>
-</div>-->

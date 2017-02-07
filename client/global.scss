@@ -494,22 +494,23 @@ ul.centered-list li.no-margin{
 }
 
 .new-worksheet{
-	padding-right:40px;
-	float:right;
-	padding-right:40px;
-	cursor: pointer;
+	padding-right: 40px;
+    float: right;
+    margin-right: 40px;
+    cursor: pointer;
+    padding: 10px 7px 5px 10px;
+}
+
+.new-worksheet:hover{
+	box-shadow: 0 1px 4px 0 rgba(0,0,0,0.50);
 }
 
 .new-worksheet img{
 	padding-right:20px;
-	position: relative;
-	top:10px;
 }
 
 .new-worksheet span{
 	font-size:1.3em;
-	position: relative;
-	top:10px;
 }
 
 .flip-horizontally{
@@ -517,4 +518,10 @@ ul.centered-list li.no-margin{
 	-o-transform: rotate(180deg);
 	-webkit-transform: rotate(180deg);
 	transform: rotate(180deg);
+}
+
+.dashboard-table-heading{
+	display: inline;
+	color:#6F6F6F;
+	font-size:1.5em;
 }
