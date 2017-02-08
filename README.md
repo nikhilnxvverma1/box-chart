@@ -1,7 +1,7 @@
 # Type Diagram
 Type Diagram (a.k.a _Box Chart_) is a digaramming tool provided as an Office Add-in. Here's the [Youtube trailer](https://www.youtube.com/watch?v=VBiDAGlPD0k)
 
- ## An Office add in
+## An Office add in
 Type diagram is both intuitive and fast. Like really fast. Like "create binary tree in mere seconds fast".  Type Diagram was built with the understanding that using existing diagramming solutions takes just too long. 
 
 By design, you get to choose one of two shapes that you create from: Rectangle or Circle (more shapes coming soon). Think of these shapes as nodes in your graph. Which means they can be connected via edges. You can write on your nodes and edges but what really makes this super flexibly is that all nodes and edges are mutable, meaning you can change any property of a node while still retaining its content and connections. You can change a node's shape, outline and content. 
