@@ -30,9 +30,9 @@ I will be launching this Add-in soon. If you are interested, please star this pr
 
 1. Make sure you have node installed (check with node -v)
 2. __npm install__
-3. __npm start__ (or alternatively, if gulp is installed globally : _gulp run:server_ and _gulp run:client_ in 2 separate terminal windows)
+3. __npm start__ (or alternatively, if gulp is installed globally : _gulp start:server_ and _gulp start:client_ in 2 separate terminal windows)
 4. The very first run may lead to some errors (because of fresh typescript transpiling).
- Thats okay, running second time onwards will work fine.
+ Thats okay, running second time onwards should work just fine.
 
 ## [Vote for me](https://devpost.com/software/type-diagram)
 
