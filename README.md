@@ -29,10 +29,16 @@ I will be launching this Add-in soon. If you are interested, please star this pr
 ### Instructions for running
 
 1. Make sure you have node installed (check with node -v)
+2. Install [OrientDB community edition](http://orientdb.com/download/) and follow the step to run the server with default configurations.
 2. __npm install__
 3. __npm start__ (or alternatively, if gulp is installed globally : _gulp start:server_ and _gulp start:client_ in 2 separate terminal windows)
 4. The very first run may lead to some errors (because of fresh typescript transpiling).
  Thats okay, running second time onwards should work just fine.
+5. Since the app runs on https, you will have to create a root certificate for your OS and place both the private key and the certificate key under **server/dev-purposes-certs**. 
+6. The private key must be named rootCA.key and the certificate key must be named rootCA.pem
+6. Go to https://localhost:3000
+7. To make this work inside Powerpoint (or Word), you will have to [sideload this add-in](https://dev.office.com/docs/add-ins/testing/sideload-an-office-add-in-on-ipad-and-mac) by placing the _[manifest](resource-development/type-diagram.xml)_ file under the following location.
+`/Users/<username>/Library/Containers/com.microsoft.Powerpoint/Data/documents/wef` 
 
 ## [Vote for me](https://devpost.com/software/type-diagram)
 
